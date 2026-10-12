@@ -261,8 +261,12 @@
 {% assign email_signup_fields_style = email_signup_fields_style | strip %}
 
 {% liquid
+  assign newsletter_desktop_icon = button_icon
+  if block.settings.icon_only_on_mobile
+    assign newsletter_desktop_icon = blank
+  endif
   assign email_signup_submit_class = 'email-signup-block__submit'
-  if block.settings.icon_only_on_mobile and button_icon_only == false
+  if block.settings.icon_only_on_mobile
     assign email_signup_submit_class = email_signup_submit_class | append: ' email-signup-block__submit--desktop-label'
   endif
 %}
@@ -274,7 +278,7 @@
     label: button_label,
     type: 'submit',
     variant: button_style,
-    icon: button_icon,
+    icon: newsletter_desktop_icon,
     icon_position: button_icon_position,
     icon_size: button_icon_size,
     icon_width: button_icon_width,
@@ -283,7 +287,7 @@
   %}
 {% endcapture %}
 {% assign email_signup_button = email_signup_button | strip %}
-{% if block.settings.icon_only_on_mobile and button_icon_only == false %}
+{% if block.settings.icon_only_on_mobile %}
   {% capture email_signup_button_mobile %}{% render 'theme-button', label: button_label, type: 'submit', variant: button_style, icon: button_icon, icon_size: button_icon_size, icon_width: button_icon_width, icon_only: true, class: 'email-signup-block__submit email-signup-block__submit--mobile-icon' %}{% endcapture %}
 {% endif %}
 
