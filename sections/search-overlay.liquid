@@ -111,6 +111,7 @@
     compactToggle: null,
     compactMotionObserver: null,
     compactToggleControls: null,
+    compactToggleKeyHandler: null,
   };
 
   const getOverlay = (root = document) => {
@@ -190,6 +191,14 @@
         state.compactToggleControls = toggle.getAttribute('aria-controls');
         if (!toggle.id) toggle.id = `${overlay.id}-menu-toggle`;
         overlay.dataset.externalCloseId = toggle.id;
+        state.compactToggleKeyHandler = event => {
+          if (event.key !== 'Tab' || !state.presentation?.isOpen()) return;
+          const controls = [...overlay.querySelectorAll('button, a[href], input, [tabindex]')]
+            .filter(element => !element.disabled && element.tabIndex >= 0 && element.getClientRects().length);
+          event.preventDefault();
+          (event.shiftKey ? controls.at(-1) : controls[0])?.focus();
+        };
+        toggle.addEventListener('keydown', state.compactToggleKeyHandler);
       }
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
@@ -226,6 +235,8 @@
       state.compactMotionObserver?.disconnect();
       state.compactMotionObserver = null;
       state.compactToggle.classList.remove('is-expanded');
+      state.compactToggle.removeEventListener('keydown', state.compactToggleKeyHandler);
+      state.compactToggleKeyHandler = null;
       delete state.overlay.dataset.externalCloseId;
       state.compactToggle.setAttribute('aria-controls', state.compactToggleControls);
       state.compactToggle.setAttribute('aria-label', 'Open menu');
