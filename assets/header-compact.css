@@ -225,7 +225,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
   transform: none;
 }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__container { padding: 16px 28px 24px; }
-.search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__form { width: 100%; font-size: var(--font-body-md); --input-background-color-override: var(--background-component-color); --input-background-color: var(--background-component-color); --input-background: var(--input-background-color); --input-text-color: var(--heading-color); }
+.search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__form { width: 100%; background: transparent; font-size: var(--font-body-md); --input-background-color-override: var(--background-component-color); --input-background-color: var(--background-component-color); --input-background: var(--input-background-color); --input-text-color: var(--heading-color); }
 .search-overlay.search-overlay--compact[data-search-overlay] > .search-overlay__close {
   position: fixed;
   inset: var(--compact-search-close-top, 18px) max(18px, calc((100% - 900px) / 2 + 6px)) auto auto;
