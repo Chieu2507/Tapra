@@ -10,8 +10,10 @@
       const drawer = root.querySelector('[data-header-mobile-drawer]');
       if (!drawer) return;
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
+      drawer.querySelectorAll('.header__mobile-drawer-list > li').forEach((item, index) => item.style.setProperty('--compact-item-index', index));
       let columnsVisible = window.innerWidth >= 768;
       const measure = () => {
+        if (!root.classList.contains('header-top--menu-open')) return;
         const showColumns = window.innerWidth >= 768;
         if (showColumns !== columnsVisible) {
           drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => {
@@ -20,11 +22,14 @@
           });
           columnsVisible = showColumns;
         }
-        if (window.innerWidth < 768) return;
         const active = drawer.querySelector('[data-mobile-drawer-details][open] > .header__mobile-drawer-submenu');
-        active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
-        const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
-        root.style.setProperty('--compact-menu-height', `${height}px`);
+        if (showColumns) {
+          active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
+          const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
+          root.style.setProperty('--compact-menu-height', `${height}px`);
+        }
+        const surface = drawer.querySelector('.header__mobile-drawer-surface');
+        if (surface) root.style.setProperty('--compact-shell-height', `${root.querySelector('.header__row').offsetHeight + surface.offsetHeight + 2}px`);
       };
       const choose = summary => {
         if (!root.classList.contains('header-top--menu-open') || window.innerWidth < 768) return;
@@ -36,6 +41,7 @@
         summary.addEventListener('focus', () => choose(summary), options);
       });
       drawer.addEventListener('toggle', measure, { ...options, capture: true });
+      drawer.addEventListener('click', () => requestAnimationFrame(measure), options);
       drawer.addEventListener('click', event => {
         if (window.innerWidth < 768 || !event.target.closest('[data-mobile-drawer-submenu-details] > summary')) return;
         if (event.target.closest('a')) return;
@@ -58,6 +64,7 @@
       window.addEventListener('resize', measure, options);
       const observer = new ResizeObserver(measure);
       drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => observer.observe(panel));
+      observer.observe(drawer.querySelector('.header__mobile-drawer-surface'));
       instances.set(root, { controller, observer });
     });
   };
