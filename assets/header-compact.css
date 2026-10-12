@@ -1,5 +1,5 @@
 /* Compact composes the existing header blocks and overlay menu. */
-.shopify-section.section-header:has(.header-top.header-top--compact) {
+.shopify-section.section-header:has(.header-top.header-top--compact[data-header-root][data-header-style='compact']) {
   position: fixed;
   inset: calc(16px + env(safe-area-inset-top, 0px)) 12px auto;
   z-index: var(--z-drawer, 200);
@@ -102,3 +102,10 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 }
 
 .header-top.header-top--compact .header__mobile-drawer-footer { display: none; }
+
+@media (scripting: none) {
+  .header-top.header-top--compact { width: min(900px, 100%); }
+  .header-top.header-top--compact .header__blocks { display: block; }
+  .header-top.header-top--compact .header-menu { display: block !important; }
+  .header-top.header-top--compact .header-menu-toggle { display: none; }
+}

@@ -40,7 +40,7 @@
   if section.settings.header_style == 'compact'
     assign header_transparent_scheme = header_scheme
   endif
-  if header_overlay_enabled
+  if header_overlay_enabled and section.settings.header_style != 'compact'
     assign header_top_class = header_top_class | append: ' header-top--transparent-scheme section-color-scope ' | append: header_transparent_scheme
   endif
 
@@ -92,7 +92,7 @@
   data-header-scheme="{{ header_scheme }}"
   data-sticky-type="{{ header_sticky_type }}"
   {% if header_overlay_enabled %}data-header-overlap-first-section{% endif %}
-  {% if header_overlay_enabled %}data-header-overlay{% endif %}
+  {% if header_overlay_enabled and section.settings.header_style != 'compact' %}data-header-overlay{% endif %}
   data-header-transparent-scheme="{{ header_transparent_scheme }}"
   {% if header_top_style != blank %}style="{{ header_top_style }}"{% endif %}
   {{ block.shopify_attributes }}
