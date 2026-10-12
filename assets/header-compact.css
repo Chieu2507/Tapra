@@ -168,3 +168,43 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 @media (max-width: 1149.98px) {
   .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner { grid-template-columns: minmax(0, 80px) minmax(0, 1fr); gap: 10px; }
 }
+
+/* Search shares the expanded Compact shell and the existing predictive UI. */
+body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact {
+  width: min(900px, 100%);
+  border-radius: var(--radius-24) var(--radius-24) 0 0;
+  border-bottom-color: transparent;
+  background: var(--background-color);
+  transition: none;
+  box-shadow: none;
+}
+body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header-menu-toggle { visibility: hidden; }
+.search-overlay.search-overlay--compact .search-overlay__panel {
+  inset: var(--search-overlay-top) 12px auto;
+  width: min(900px, calc(100% - 24px));
+  margin-inline: auto;
+  max-height: calc(100dvh - var(--search-overlay-top) - 16px);
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-24) var(--radius-24);
+  background: var(--background-color);
+  --overlay-rest-transform: none;
+  transform: none;
+}
+.search-overlay.search-overlay--compact .search-overlay__container { padding: 16px 28px 24px; }
+.search-overlay.search-overlay--compact .search-overlay__form { width: 100%; font-size: var(--font-body-md); }
+.search-overlay.search-overlay--compact > .search-overlay__close {
+  position: fixed;
+  inset: var(--compact-search-close-top, 18px) max(18px, calc((100% - 900px) / 2 + 6px)) auto auto;
+  width: 44px;
+  height: 44px;
+  transform: none;
+  z-index: calc(var(--z-modal, 1000) + 2);
+  color: var(--heading-color);
+}
+.search-overlay.search-overlay--compact .search-overlay__results { gap: 20px; padding-bottom: 0; }
+.search-overlay.search-overlay--compact .search-overlay__tabs { gap: 16px; flex-wrap: wrap; }
+@media (max-width: 767.98px) {
+  .search-overlay.search-overlay--compact .search-overlay__container { padding: 12px 16px 20px; }
+}
