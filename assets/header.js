@@ -218,7 +218,7 @@
       if (retainMenuContent &&
           details.matches('[data-mobile-drawer-details], [data-mobile-drawer-submenu-details]')) return;
       if (details.classList.contains('header-localization__details')) {
-        if ((details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport()) || window.innerWidth <= 767 || getLocalizationDialog(details)?.dataset.state !== 'closed') closeLocalizationSheet(details);
+        if (!isCompactLocalization(details) && ((details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport()) || window.innerWidth <= 767 || getLocalizationDialog(details)?.dataset.state !== 'closed')) closeLocalizationSheet(details);
         else closeHeaderDetails(details);
         return;
       }
