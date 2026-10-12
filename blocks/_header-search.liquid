@@ -68,17 +68,6 @@
       </span>
     </button>
   </form>
-  {% if block.settings.show_category_selector %}
-    {% capture category_content %}
-      <div class="header-localization__language-list" data-category-form="HeaderSearchForm-{{ section.id }}-{{ block.id }}">
-        <button type="button" class="header-localization__language-option is-selected" data-header-category-value="" aria-pressed="true">{{ block.settings.category_label | escape }}</button>
-        {% for link in block.settings.category_menu.links %}<button type="button" class="header-localization__language-option" data-header-category-value="{{ link.title | escape }}" aria-pressed="false">{{ link.title | escape }}</button>{% endfor %}
-      </div>
-    {% endcapture %}
-    {% assign category_id = 'HeaderCategory-' | append: section.id | append: '-' | append: block.id %}
-    {% capture category_attributes %}data-header-category-dialog data-owner-section="{{ section.id }}"{% endcapture %}
-    {% render 'component-overlay', id: category_id, label: block.settings.category_label, title: block.settings.category_label, content: category_content, append_to_body: true, desktop_layout: 'popup', mobile_layout: 'bottom_sheet', attributes: category_attributes, body_class: 'header-localization__overlay-body', width: 400 %}
-  {% endif %}
   <button
     class="header-search header-search--mobile-icon header-action--type-icon"
     type="button"
@@ -91,6 +80,17 @@
       {% render 'header-icon', icon: 'magnifying-glass' %}
     </span>
   </button>
+  {% if block.settings.show_category_selector %}
+    {% capture category_content %}
+      <div class="header-localization__language-list" data-category-form="HeaderSearchForm-{{ section.id }}-{{ block.id }}">
+        <button type="button" class="header-localization__language-option is-selected" data-header-category-value="" aria-pressed="true">{{ block.settings.category_label | escape }}</button>
+        {% for link in block.settings.category_menu.links %}<button type="button" class="header-localization__language-option" data-header-category-value="{{ link.title | escape }}" aria-pressed="false">{{ link.title | escape }}</button>{% endfor %}
+      </div>
+    {% endcapture %}
+    {% assign category_id = 'HeaderCategory-' | append: section.id | append: '-' | append: block.id %}
+    {% capture category_attributes %}data-header-category-dialog data-owner-section="{{ section.id }}"{% endcapture %}
+    {% render 'component-overlay', id: category_id, label: block.settings.category_label, title: block.settings.category_label, content: category_content, append_to_body: true, desktop_layout: 'popup', mobile_layout: 'bottom_sheet', attributes: category_attributes, body_class: 'header-localization__overlay-body', width: 400 %}
+  {% endif %}
 {% else %}
   <button
     class="{{ search_class }}"
@@ -239,7 +239,7 @@
   }
 
   .header-search--fill { width: 100%; }
-  .header-search__category { min-height: 24px; padding: 0 20px 0 0; line-height: inherit; text-align: start; border: 0; background: transparent; color: inherit; position: relative; flex: 0 0 auto; padding-inline-end: 20px; font-weight: var(--font-accent-weight); }
+  .header-search .header-search__category { min-height: 24px; padding: 0 20px 0 0; line-height: inherit; text-align: start; border: 0; background: transparent; color: inherit; position: relative; flex: 0 0 auto; padding-inline-end: 20px; font-weight: var(--font-accent-weight); }
   .header-search__category-label { display: block; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .header-search__category-label--mobile { display: none; }
   @media (max-width: 767.98px) { .header-search__category-label--desktop { display: none; } .header-search__category-label--mobile { display: block; } }
