@@ -6,7 +6,7 @@
 
   if section.settings.header_style == 'compact'
     assign search_type = block.settings.compact_type | default: 'text'
-    unless search_type == 'text' or search_type == 'icon_with_text'
+    unless search_type == 'icon' or search_type == 'text' or search_type == 'icon_with_text'
       assign search_type = 'text'
     endunless
   endif
@@ -275,6 +275,7 @@
       "label": "t:labels.compact_search_type",
       "info": "t:info.compact_search_type",
       "options": [
+        { "value": "icon", "label": "t:options.compact_search_type.icon" },
         { "value": "text", "label": "t:options.compact_search_type.text" },
         { "value": "icon_with_text", "label": "t:options.compact_search_type.icon_with_text" }
       ],

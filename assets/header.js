@@ -472,13 +472,13 @@
       utilities.className = 'header-compact__utilities';
       items.forEach(item => {
         if (item.matches('.header-logo')) leftColumn.append(item);
-        else if (item.matches('.header-search, .header-cart')) rightColumn.append(item);
+        else if (item.matches('.header-search, .header-account, .header-cart')) rightColumn.append(item);
         else if (item.matches('.header-menu-toggle')) rightColumn.append(item);
         else if (item === drawer) headerTop.append(item);
         else if (item.matches('.header-menu')) centerColumn.append(item);
         else utilities.append(item);
       });
-      const actionOrder = item => item.matches('.header-search') ? 0 : item.matches('.header-cart') ? 1 : 2;
+      const actionOrder = item => item.matches('.header-search') ? 0 : item.matches('.header-account') ? 1 : item.matches('.header-cart') ? 2 : 3;
       rightColumn.append(...Array.from(rightColumn.children).sort((a, b) => actionOrder(a) - actionOrder(b)));
       drawer?.querySelector('.header__mobile-drawer-scroll')?.append(utilities);
       headerTop.dataset.layoutReady = 'true';

@@ -245,7 +245,7 @@
                 "font": "accent",
                 "font_size": "md",
                 "letter_spacing": "relaxed",
-                "compact_type": "icon_with_text"
+                "compact_type": "icon"
               },
               "blocks": {}
             },

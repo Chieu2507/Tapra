@@ -786,7 +786,7 @@
     "use_nested_hotspots": "Use multiple hotspots"
   },
   "options": {
-    "compact_search_type": { "text": "Text", "icon_with_text": "Text with icon" },
+    "compact_search_type": { "icon": "Icon", "text": "Text", "icon_with_text": "Text with icon" },
     "header_style": { "classic": "Classic", "compact": "Compact" },
     "overlay_style": {
       "solid": "Solid",
