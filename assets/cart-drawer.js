@@ -837,7 +837,7 @@
     const opener = state.editorSelected ? null : (state.opener || document.activeElement);
     drawer.classList.remove('is-closing');
     drawer.classList.add('is-open');
-    state.overlay?.open({ opener, focus: !state.editorSelected, restoreFocus: !state.editorSelected });
+    state.overlay?.open({ opener, focus: !state.editorSelected, restoreFocus: !state.editorSelected, defer: true });
     document.dispatchEvent(new CustomEvent('cart-drawer:open', { detail: { drawer } }));
     if (refreshCart) refresh().catch(() => {});
   };

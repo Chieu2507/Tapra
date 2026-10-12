@@ -13,6 +13,24 @@
     display: none;
   }
 
+  /* Compact handoff: backdrop and outgoing menu fade first, then the drawer
+     travels with the same timing as the header shell. */
+  body:has(.header-top--compact) .cart-drawer {
+    --overlay-motion-duration: 600ms;
+    --overlay-motion-ease: cubic-bezier(.76, 0, .24, 1);
+    --overlay-exit-duration: 600ms;
+    --overlay-enter-delay: 200ms;
+    --overlay-backdrop-duration: 200ms;
+    --overlay-backdrop-ease: ease;
+  }
+  body:has(.header-top--compact) .cart-drawer .cart-drawer__panel {
+    opacity: 1;
+    transition-property: transform;
+  }
+  body:has(.header-top--compact) .cart-drawer[data-state='closing'] .cart-drawer__backdrop {
+    transition-delay: 400ms;
+  }
+
   .cart-drawer__shipping-progress[hidden],
   .cart-drawer__promotion[hidden],
   .cart-drawer__items[hidden],
