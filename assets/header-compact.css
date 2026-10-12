@@ -176,7 +176,9 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__column--right > .header-search { max-width: min(120px, 30vw); }
 .header-top.header-top--compact .header-search .header-action__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .header-top.header-top--compact .header__column--right > .header-search--type-icon { width: 44px; min-width: 44px; margin-inline-end: 0; justify-content: center; }
-.header-top.header-top--compact .header__column--right > .header-account { display: inline-flex; width: 44px; min-width: 44px; min-height: 44px; justify-content: center; }
+.header-top.header-top--compact .header__column--right > .header-account { display: inline-flex; flex: 0 0 44px; align-self: center; width: 44px; height: 44px; min-width: 44px; min-height: 44px; justify-content: center; }
+.header-top.header-top--compact .header-account__avatar { min-height: 44px; height: 44px; }
+.header-top.header-top--compact shopify-account.header-account::part(signed-out-avatar) { box-sizing: border-box; width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: var(--radius-pill); }
 
 /* Utility controls deliberately use a quiet surface instead of a filled CTA. */
 .header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle) { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
