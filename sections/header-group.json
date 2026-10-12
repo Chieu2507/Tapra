@@ -55,7 +55,8 @@
         "padding_bottom": 10,
         "padding_left": 0,
         "text_style": "body"
-      }
+      },
+      "disabled": true
     },
     "header": {
       "type": "header",
