@@ -95,6 +95,8 @@
     return id ? document.getElementById(id) : null;
   };
 
+  const isCompactLocalization = (details) => Boolean(details?.closest('.header-top--compact') && details.closest('[data-header-mobile-drawer]'));
+
   const closeLocalizationDialogs = (header, activeDetails = null) => {
     header.querySelectorAll('.header-localization__details').forEach((details) => {
       if (details === activeDetails) return;
@@ -188,7 +190,7 @@
       scheduleUpdate();
     };
 
-    if (isMobileMenuViewport() || reducedMotion.matches) {
+    if ((isMobileMenuViewport() && !isCompactLocalization(details)) || reducedMotion.matches) {
       finish();
       return;
     }
@@ -601,6 +603,7 @@
     };
 
     header.querySelectorAll('details:not([data-mobile-drawer-details]):not([data-mobile-drawer-submenu-details])').forEach((details) => {
+      if (isCompactLocalization(details)) return;
       const trigger = details.dataset.headerSubmenuTrigger || 'click';
       const summary = details.querySelector(':scope > summary');
 
@@ -907,6 +910,35 @@
       localizationSheetDetails.add(details);
 
       const summary = details.querySelector(':scope > .header-localization__summary');
+      if (isCompactLocalization(details)) {
+        const panel = details.querySelector(':scope > .header-localization__panel');
+        if (!summary || !panel) return;
+        panel.id = `${details.dataset.localizationDialogId}-popover`;
+        summary.setAttribute('aria-controls', panel.id);
+        summary.addEventListener('click', (event) => {
+          event.preventDefault();
+          if (details.open && !details.classList.contains('is-submenu-closing')) closeHeaderDetails(details);
+          else {
+            closeHeaderSurfaces(header, { details, menu: true });
+            clearSubmenuClose(details);
+            details.open = true;
+            positionHeaderLocalization(details, panel);
+            scheduleUpdate();
+          }
+        });
+        details.addEventListener('toggle', () => summary.setAttribute('aria-expanded', String(details.open)));
+        details.addEventListener('keydown', (event) => {
+          if (event.key !== 'Escape' || !details.open) return;
+          event.preventDefault();
+          event.stopPropagation();
+          closeHeaderDetails(details);
+          summary.focus({ preventScroll: true });
+        });
+        document.addEventListener('pointerdown', (event) => {
+          if (details.open && !details.contains(event.target)) closeHeaderDetails(details);
+        });
+        return;
+      }
       summary?.addEventListener('click', (event) => {
         if (window.innerWidth > 767 && !(details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport())) return;
         event.preventDefault();
