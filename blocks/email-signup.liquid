@@ -260,7 +260,12 @@
 {% endcapture %}
 {% assign email_signup_fields_style = email_signup_fields_style | strip %}
 
-{% assign email_signup_submit_class = 'email-signup-block__submit' %}
+{% liquid
+  assign email_signup_submit_class = 'email-signup-block__submit'
+  if block.settings.icon_only_on_mobile and button_icon_only == false
+    assign email_signup_submit_class = email_signup_submit_class | append: ' email-signup-block__submit--desktop-label'
+  endif
+%}
 {% if button_icon_only %}
   {% assign email_signup_submit_class = email_signup_submit_class | append: ' email-signup-block__submit--icon-only' %}
 {% endif %}
@@ -278,6 +283,9 @@
   %}
 {% endcapture %}
 {% assign email_signup_button = email_signup_button | strip %}
+{% if block.settings.icon_only_on_mobile and button_icon_only == false %}
+  {% capture email_signup_button_mobile %}{% render 'theme-button', label: button_label, type: 'submit', variant: button_style, icon: button_icon, icon_size: button_icon_size, icon_width: button_icon_width, icon_only: true, class: 'email-signup-block__submit email-signup-block__submit--mobile-icon' %}{% endcapture %}
+{% endif %}
 
 <div
   class="{{ email_signup_class }}"
@@ -373,14 +381,14 @@
             >
             {% if form_layout == 'input_with_button' %}
               <div class="email-signup-block__button">
-                {{ email_signup_button }}
+                {{ email_signup_button }}{{ email_signup_button_mobile }}
               </div>
             </div>{% endif %}
         </div>
 
         {% unless form_layout == 'input_with_button' %}
           <div class="email-signup-block__button">
-            {{ email_signup_button }}
+            {{ email_signup_button }}{{ email_signup_button_mobile }}
           </div>
         {% endunless %}
       </div>
@@ -545,6 +553,12 @@
 
   @media (max-width: 767.98px) {
     .email-signup-block__button > .email-signup-block__submit--icon-only.btn { width: var(--email-signup-field-height-mobile); }
+  }
+
+  .email-signup-block__button > .email-signup-block__submit--mobile-icon { display: none; }
+  @media (max-width: 767.98px) {
+    .email-signup-block__button > .email-signup-block__submit--desktop-label { display: none; }
+    .email-signup-block__button > .email-signup-block__submit--mobile-icon { display: inline-flex; width: var(--email-signup-field-height-mobile); min-width: var(--email-signup-field-height-mobile); padding: 0; }
   }
 
   .email-signup-block__submit {
@@ -925,6 +939,7 @@
       "label": "t:labels.show_icon",
       "default": false
     },
+    { "type": "checkbox", "id": "icon_only_on_mobile", "label": "Show icon only on mobile", "default": false, "visible_if": "{{ block.settings.show_icon and block.settings.button_icon_only == false }}" },
     {
       "type": "checkbox",
       "id": "button_icon_only",
