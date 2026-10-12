@@ -472,7 +472,8 @@
       utilities.className = 'header-compact__utilities';
       items.forEach(item => {
         if (item.matches('.header-logo')) leftColumn.append(item);
-        else if (item.matches('.header-cart, .header-menu-toggle')) rightColumn.append(item);
+        else if (item.matches('.header-cart')) rightColumn.prepend(item);
+        else if (item.matches('.header-menu-toggle')) rightColumn.append(item);
         else if (item === drawer) headerTop.append(item);
         else if (item.matches('.header-menu')) centerColumn.append(item);
         else utilities.append(item);

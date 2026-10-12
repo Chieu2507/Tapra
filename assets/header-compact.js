@@ -37,7 +37,7 @@
       }, options);
       document.addEventListener('shopify:block:select', event => {
         if (!root.contains(event.target) || event.target.closest('.header-logo, .header-cart, .header-menu-toggle')) return;
-        root.querySelector('.header-menu-toggle')?.click();
+        if (!root.classList.contains('header-top--menu-open')) root.querySelector('.header-menu-toggle')?.click();
       }, options);
       window.addEventListener('resize', measure, options);
       const observer = new ResizeObserver(measure);
