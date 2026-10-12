@@ -25,4 +25,4 @@
     endcase
   endif
 %}
-{% if artwork != blank %}<img class="{{ class }}" src="{{ artwork | asset_url }}" width="24" height="24" alt="" aria-hidden="true">{% else %}{% render 'icon', icon: icon, bare: true, class: class %}{% endif %}
+{% if artwork != blank %}<img class="{{ class }}" src="{{ artwork | asset_url }}" width="24" height="24" alt="" aria-hidden="true">{% elsif icon == 'location' %}<span class="{{ class }}" style="display: block; width: 100%; height: 100%; background: currentColor; mask: url('{{ 'header-outline-location.webp' | asset_url }}') center / contain no-repeat;" aria-hidden="true"></span>{% else %}{% assign fallback_icon = icon %}{% if icon == 'category-chevron' %}{% assign fallback_icon = 'chevron-down' %}{% endif %}{% render 'icon', icon: fallback_icon, bare: true, class: class %}{% endif %}
