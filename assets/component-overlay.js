@@ -264,7 +264,10 @@
         if (externalClose?.getClientRects().length) controls.push(externalClose);
         const first = controls[0];
         const last = controls[controls.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
+        if (externalClose && !event.shiftKey && document.activeElement === controls.at(-2)) {
+          event.preventDefault();
+          externalClose.focus({ preventScroll: true });
+        } else if (event.shiftKey && document.activeElement === first) {
           event.preventDefault();
           last?.focus({ preventScroll: true });
         } else if (!event.shiftKey && document.activeElement === last) {
