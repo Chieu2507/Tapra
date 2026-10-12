@@ -766,7 +766,7 @@
 
     const clearActiveSubmenu = () => {
       drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach((details) => {
-        details.classList.remove('is-mobile-submenu-active');
+        details.classList.remove('is-mobile-submenu-active', 'is-mobile-submenu-closing');
         details.removeAttribute('open');
       });
       drawer.querySelectorAll('.header__mobile-drawer-item.is-mobile-submenu-active').forEach((item) => {
@@ -778,6 +778,7 @@
     let submenuResetTimer;
     const resetSubmenu = (animate = true) => {
       window.clearTimeout(submenuResetTimer);
+      drawer.classList.remove('header__mobile-drawer--submenu-closing');
       drawer.classList.remove('header__mobile-drawer--submenu-active');
       const resetBack = () => {
         drawer.querySelectorAll('[data-header-menu-back]').forEach((back) => { back.hidden = true; });
@@ -786,8 +787,18 @@
         });
       };
       const deferBack = animate && container.classList.contains('header-top--compact') && window.innerWidth < 768;
+      if (deferBack) {
+        drawer.classList.add('header__mobile-drawer--submenu-closing');
+        drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach((details) => {
+          details.classList.remove('is-mobile-submenu-active', 'is-mobile-submenu-closing');
+        });
+      }
       if (!deferBack) resetBack();
-      if (animate) submenuResetTimer = window.setTimeout(() => { resetBack(); clearActiveSubmenu(); }, 320);
+      if (animate) submenuResetTimer = window.setTimeout(() => {
+        clearActiveSubmenu();
+        resetBack();
+        drawer.classList.remove('header__mobile-drawer--submenu-closing');
+      }, 320);
       else clearActiveSubmenu();
     };
 
@@ -800,8 +811,12 @@
 
       activeNestedDetails.classList.remove('is-mobile-submenu-active');
       if (container.classList.contains('header-top--compact') && window.innerWidth < 768) {
+        activeNestedDetails.classList.add('is-mobile-submenu-closing');
         window.setTimeout(() => {
-          if (!activeNestedDetails.classList.contains('is-mobile-submenu-active')) activeNestedDetails.removeAttribute('open');
+          if (!activeNestedDetails.classList.contains('is-mobile-submenu-active')) {
+            activeNestedDetails.removeAttribute('open');
+            activeNestedDetails.classList.remove('is-mobile-submenu-closing');
+          }
         }, 320);
       } else activeNestedDetails.removeAttribute('open');
       const rootSummary = activeNestedDetails.closest('[data-mobile-drawer-details]')?.querySelector(':scope > summary');
@@ -871,6 +886,7 @@
 
         details.open = true;
         window.requestAnimationFrame(() => {
+          details.classList.remove('is-mobile-submenu-closing');
           details.classList.add('is-mobile-submenu-active');
           setBackLabel(summary.querySelector('span')?.textContent?.trim());
         });
