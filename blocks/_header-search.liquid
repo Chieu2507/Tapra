@@ -5,6 +5,7 @@
   endunless
 
   assign search_label = block.settings.label | default: 'Search'
+  assign search_placeholder = block.settings.placeholder | default: search_label
 
   assign search_font = block.settings.font | default: 'accent'
   unless search_font == 'body' or search_font == 'heading' or search_font == 'accent'
@@ -30,25 +31,40 @@
 
 {% if search_type == 'search_bar' %}
   <form
-    class="{{ search_class }}"
+    class="{{ search_class }}{% if block.settings.width == 'fill' %} header-search--fill{% endif %}{% if block.settings.mobile_display == 'search_bar' %} header-search--persistent{% endif %}"
+    data-mobile-category-label="{{ block.settings.category_label_mobile | default: 'All' | escape }}"
+    data-desktop-category-label="{{ block.settings.category_label | default: 'All Categories' | escape }}"
     action="{{ routes.search_url }}"
     method="get"
     role="search"
+    data-header-search-form
     {{ block.shopify_attributes }}
   >
     <label class="visually-hidden" for="HeaderSearch-{{ section.id }}-{{ block.id }}">{{ search_label | escape }}</label>
+    {% if block.settings.show_category_selector %}
+      <label class="visually-hidden" for="HeaderCategory-{{ section.id }}-{{ block.id }}">{{ block.settings.category_label | escape }}</label>
+      <span class="header-search__category">
+        <select id="HeaderCategory-{{ section.id }}-{{ block.id }}" data-header-search-category aria-label="{{ block.settings.category_label | escape }}">
+          <option value="">{{ block.settings.category_label | default: 'All Categories' | escape }}</option>
+          {% for link in block.settings.category_menu.links %}<option value="{{ link.title | escape }}">{{ link.title | escape }}</option>{% endfor %}
+        </select>
+        <span class="header-search__category-chevron" aria-hidden="true">{% render 'icon', icon: 'chevron-down', bare: true %}</span>
+      </span>
+      <span class="header-search__divider" aria-hidden="true"></span>
+    {% endif %}
+    <input type="hidden" data-header-search-query>
     <input
       id="HeaderSearch-{{ section.id }}-{{ block.id }}"
       class="header-search__input form__control form__control--input"
       type="search"
       name="q"
       value="{{ search.terms | escape }}"
-      placeholder="{{ search_label | escape }}"
+      placeholder="{{ search_placeholder | escape }}"
       autocomplete="off"
     >
     <button class="btn btn--unstyled header-search__submit" type="submit" aria-label="{{ search_label | escape }}">
       <span class="icon" aria-hidden="true">
-        {% render 'icon', icon: 'magnifying-glass', bare: true %}
+        {% render 'header-icon', icon: 'magnifying-glass' %}
       </span>
     </button>
   </form>
@@ -61,7 +77,7 @@
     data-search-overlay-open
   >
     <span class="icon" aria-hidden="true">
-      {% render 'icon', icon: 'magnifying-glass', bare: true %}
+      {% render 'header-icon', icon: 'magnifying-glass' %}
     </span>
   </button>
 {% else %}
@@ -75,7 +91,7 @@
     {{ block.shopify_attributes }}
   >
     <span class="icon" aria-hidden="true">
-      {% render 'icon', icon: 'magnifying-glass', bare: true %}
+      {% render 'header-icon', icon: 'magnifying-glass' %}
     </span>
     {% unless search_type == 'icon' %}<span class="header-action__label {{ search_typography_class }}">{{ search_label | escape }}</span>{% endunless %}
   </button>
@@ -210,6 +226,16 @@
       min-width: var(--button-height-mobile);
     }
   }
+
+  .header-search--fill { width: 100%; }
+  .header-search__category { position: relative; flex: 0 0 auto; }
+  .header-search__category select { appearance: none; border: 0; border-radius: 0; background: transparent; color: inherit; font: inherit; font-weight: var(--font-accent-weight); padding: 0 20px 0 0; max-width: 170px; cursor: pointer; }
+  .header-search__category-chevron { position: absolute; right: 0; top: 50%; transform: translateY(-50%); pointer-events: none; width: 16px; height: 16px; }
+  .header-search__category-chevron svg { display: block; width: 16px; height: 16px; }
+  .header-search__divider { height: 24px; width: 1px; flex: 0 0 auto; background: var(--border-color); }
+  .header-search .icon img { display: block; width: 100%; height: 100%; }
+  .header-top .header-search--persistent { display: flex; }
+  .header-top .header-search--persistent + .header-search--mobile-icon { display: none; }
 {% endstylesheet %}
 
 {% schema %}
@@ -226,10 +252,22 @@
       "id": "type",
       "label": "Desktop type",
       "options": [
-        { "value": "icon", "label": "Icon" },
-        { "value": "text", "label": "Text" },
-        { "value": "icon_with_text", "label": "Icon with text" },
-        { "value": "search_bar", "label": "Search bar" }
+        {
+          "value": "icon",
+          "label": "Icon"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "icon_with_text",
+          "label": "Icon with text"
+        },
+        {
+          "value": "search_bar",
+          "label": "Search bar"
+        }
       ],
       "default": "search_bar"
     },
@@ -248,9 +286,18 @@
       "id": "font",
       "label": "Font",
       "options": [
-        { "value": "body", "label": "Body" },
-        { "value": "heading", "label": "Heading" },
-        { "value": "accent", "label": "Accent" }
+        {
+          "value": "body",
+          "label": "Body"
+        },
+        {
+          "value": "heading",
+          "label": "Heading"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
       ],
       "default": "accent"
     },
@@ -259,11 +306,26 @@
       "id": "font_size",
       "label": "Font size",
       "options": [
-        { "value": "sm", "label": "Small" },
-        { "value": "md", "label": "Medium" },
-        { "value": "lg", "label": "Large" },
-        { "value": "xl", "label": "Extra large" },
-        { "value": "xxl", "label": "Double extra large" }
+        {
+          "value": "sm",
+          "label": "Small"
+        },
+        {
+          "value": "md",
+          "label": "Medium"
+        },
+        {
+          "value": "lg",
+          "label": "Large"
+        },
+        {
+          "value": "xl",
+          "label": "Extra large"
+        },
+        {
+          "value": "xxl",
+          "label": "Double extra large"
+        }
       ],
       "default": "md"
     },
@@ -272,11 +334,86 @@
       "id": "letter_spacing",
       "label": "t:labels.letter_spacing",
       "options": [
-        { "value": "tight", "label": "t:options.letter_spacing.tight" },
-        { "value": "normal", "label": "t:options.letter_spacing.normal" },
-        { "value": "relaxed", "label": "t:options.letter_spacing.relaxed" }
+        {
+          "value": "tight",
+          "label": "t:options.letter_spacing.tight"
+        },
+        {
+          "value": "normal",
+          "label": "t:options.letter_spacing.normal"
+        },
+        {
+          "value": "relaxed",
+          "label": "t:options.letter_spacing.relaxed"
+        }
       ],
       "default": "relaxed"
+    },
+    {
+      "type": "header",
+      "content": "Search bar"
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Placeholder",
+      "default": "What are you looking for?"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:labels.width",
+      "options": [
+        {
+          "value": "fit",
+          "label": "Fit"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        }
+      ],
+      "default": "fit"
+    },
+    {
+      "type": "select",
+      "id": "mobile_display",
+      "label": "Mobile display",
+      "options": [
+        {
+          "value": "icon",
+          "label": "Icon"
+        },
+        {
+          "value": "search_bar",
+          "label": "Search bar"
+        }
+      ],
+      "default": "icon"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_selector",
+      "label": "Show category selector",
+      "default": false
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "Category menu",
+      "info": "Menu item titles must match Shopify Product type values. Links are not used as search filters."
+    },
+    {
+      "type": "text",
+      "id": "category_label",
+      "label": "Category label",
+      "default": "All Categories"
+    },
+    {
+      "type": "text",
+      "id": "category_label_mobile",
+      "label": "Mobile category label",
+      "default": "All"
     }
   ],
   "presets": [

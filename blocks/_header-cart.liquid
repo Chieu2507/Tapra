@@ -34,7 +34,7 @@
   {{ block.shopify_attributes }}
 >
   <span class="icon{% if cart_type == 'text' %} header-cart__mobile-icon{% endif %}" aria-hidden="true">
-    {% render 'icon', icon: 'shopping-bag', bare: true %}
+    {% render 'header-icon', icon: 'shopping-bag' %}
     {% if cart_type == 'icon' %}<span class="header-cart__count" data-cart-count aria-label="{{ cart.item_count }}"{% if cart.item_count == 0 %} hidden{% endif %}>{% if cart.item_count > 99 %}99+{% else %}{{ cart.item_count }}{% endif %}</span>{% elsif cart_type == 'icon_with_text' or cart_type == 'text' %}<span class="header-cart__count header-cart__count--mobile-icon" data-cart-count aria-label="{{ cart.item_count }}"{% if cart.item_count == 0 %} hidden{% endif %}>{% if cart.item_count > 99 %}99+{% else %}{{ cart.item_count }}{% endif %}</span>{% endif %}
   </span>
   {% unless cart_type == 'icon' %}

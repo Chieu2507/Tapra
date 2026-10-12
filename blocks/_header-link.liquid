@@ -1,0 +1,29 @@
+{% doc %}An editable header utility URL. The owning header controls action size and spacing.{% enddoc %}
+{% if block.settings.link != blank or request.design_mode %}
+<a class="header-link header-action--type-icon" href="{{ block.settings.link | default: routes.root_url }}" aria-label="{{ block.settings.label | escape }}" {% if block.settings.open_in_new_tab %}target="_blank" rel="noopener"{% endif %} {{ block.shopify_attributes }}><span class="icon" aria-hidden="true">{% render 'header-icon', icon: 'location' %}</span></a>
+{% endif %}
+{% schema %}
+{
+  "name": "Location link",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "t:labels.label",
+      "default": "Find a store"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "t:labels.link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

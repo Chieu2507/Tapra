@@ -1104,3 +1104,26 @@
   initializeHeaders();
   initializeFooterLocalizations();
 })();
+
+(() => {
+  const updateCategoryLabels = () => document.querySelectorAll('[data-header-search-form]').forEach(form => {
+    const option = form.querySelector('[data-header-search-category] option[value=""]');
+    if (option) option.textContent = window.matchMedia('(max-width: 767.98px)').matches ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
+  });
+  document.addEventListener('submit', event => {
+    const form = event.target.closest?.('[data-header-search-form]');
+    if (!form) return;
+    const category = form.querySelector('[data-header-search-category]')?.value;
+    const input = form.querySelector('input[type="search"]');
+    const query = form.querySelector('[data-header-search-query]');
+    if (!input || !query) return;
+    const escape = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    query.value = category ? `${input.value.trim()} product_type:"${escape(category)}"`.trim() : input.value;
+    query.name = 'q';
+    input.removeAttribute('name');
+    if (category) { let type = form.querySelector('input[name="type"]'); if (!type) { type = document.createElement('input'); type.type='hidden'; type.name='type'; form.append(type); } type.value='product'; }
+  });
+  window.addEventListener('resize', updateCategoryLabels, { passive: true });
+  document.addEventListener('shopify:section:load', updateCategoryLabels);
+  updateCategoryLabels();
+})();

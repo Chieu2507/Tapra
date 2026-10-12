@@ -1,4 +1,4 @@
-{% content_for "block", type: "_header-top", id: "header-top" %}
+{% if section.settings.layout == 'two_rows' %}{% content_for 'block', type: '_header-two-row', id: 'header-two-row' %}{% else %}{% content_for 'block', type: '_header-top', id: 'header-top' %}{% endif %}
 
 {% stylesheet %}
   .header--overlap-first-section {
@@ -73,8 +73,16 @@
 {
   "name": "t:general.header",
   "class": "section-header header section-color-scope",
-  "enabled_on": { "groups": ["header"] },
-  "blocks": [{ "type": "_header-top" }],
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "_header-top"
+    }
+  ],
   "settings": [
     {
       "type": "header",
@@ -82,11 +90,59 @@
     },
     {
       "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "single_row",
+          "label": "Single row"
+        },
+        {
+          "value": "two_rows",
+          "label": "Two rows"
+        }
+      ],
+      "default": "single_row"
+    },
+    {
+      "type": "select",
+      "id": "icon_style",
+      "label": "Icon style",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Mobile icon size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "select",
       "id": "section_width",
       "label": "t:labels.section_width",
       "options": [
-        { "value": "page_width", "label": "t:options.section_width.page_width" },
-        { "value": "full_width", "label": "t:options.section_width.full_width" }
+        {
+          "value": "page_width",
+          "label": "t:options.section_width.page_width"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.section_width.full_width"
+        }
       ],
       "default": "page_width"
     },
@@ -109,11 +165,26 @@
       "id": "sticky_type",
       "label": "t:labels.type",
       "options": [
-        { "value": "always", "label": "t:options.sticky_type.always" },
-        { "value": "scroll_up", "label": "t:options.sticky_type.scroll_up" },
-        { "value": "top_header_only", "label": "t:options.sticky_type.top_header_only" },
-        { "value": "bottom_header_only", "label": "t:options.sticky_type.bottom_header_only" },
-        { "value": "none", "label": "t:options.sticky_type.none" }
+        {
+          "value": "always",
+          "label": "t:options.sticky_type.always"
+        },
+        {
+          "value": "scroll_up",
+          "label": "t:options.sticky_type.scroll_up"
+        },
+        {
+          "value": "top_header_only",
+          "label": "t:options.sticky_type.top_header_only"
+        },
+        {
+          "value": "bottom_header_only",
+          "label": "t:options.sticky_type.bottom_header_only"
+        },
+        {
+          "value": "none",
+          "label": "t:options.sticky_type.none"
+        }
       ],
       "default": "none"
     },
@@ -168,7 +239,6 @@
             "padding_top_mobile": 12,
             "padding_bottom_mobile": 12
           },
-
           "blocks": [
             {
               "type": "_header-menu",
@@ -195,15 +265,23 @@
                     "max_width": 850
                   },
                   "blocks": [
-                    { "type": "_mega-menu-banner", "settings": {} },
-                    { "type": "_mega-menu-banner", "settings": {} }
+                    {
+                      "type": "_mega-menu-banner",
+                      "settings": {}
+                    },
+                    {
+                      "type": "_mega-menu-banner",
+                      "settings": {}
+                    }
                   ]
                 }
               ]
             },
             {
               "type": "_header-logo",
-              "settings": { "position": "center" }
+              "settings": {
+                "position": "center"
+              }
             },
             {
               "type": "_header-menu-toggle"

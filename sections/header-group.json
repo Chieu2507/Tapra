@@ -33,14 +33,14 @@
           "type": "menu",
           "static": true,
           "settings": {
-            "menu": "",
-            "heading": "Support",
             "show_heading": false,
-            "collapse_menu_on_mobile": false,
             "direction": "horizontal",
             "link_weight": "400",
-            "menu_size": "xs",
-            "menu_gap": 24
+            "menu": "",
+            "heading": "Support",
+            "collapse_menu_on_mobile": false,
+            "menu_gap": 24,
+            "menu_size": "xs"
           },
           "blocks": {
             "support-0": {
@@ -88,14 +88,15 @@
     "header": {
       "type": "header",
       "blocks": {
-        "header-top": {
-          "type": "_header-top",
+        "header-two-row": {
+          "type": "_header-two-row",
           "static": true,
           "settings": {
-            "bottom_separator": "line",
-            "gap": 16,
-            "padding_top": 16,
-            "padding_bottom": 16,
+            "gap": 40,
+            "actions_gap": 8,
+            "row_gap": 24,
+            "padding_top": 24,
+            "padding_bottom": 24,
             "customize_mobile_padding": true,
             "padding_top_mobile": 12,
             "padding_bottom_mobile": 12
@@ -103,13 +104,14 @@
           "blocks": {
             "header-menu": {
               "type": "_header-menu",
+              "static": true,
               "settings": {
-                "menu": "wofyn-main-menu",
+                "menu": "torvex-main-menu",
                 "gap": 32,
                 "show_dropdown_icon": true,
                 "dropdown_trigger": "hover",
                 "font": "accent",
-                "font_size": "md",
+                "font_size": "sm",
                 "letter_spacing": "normal",
                 "text_case": "original",
                 "text_color": "",
@@ -117,123 +119,11 @@
                 "submenu_font_size": "md",
                 "submenu_text_case": "original",
                 "submenu_text_color": ""
-              },
-              "blocks": {
-                "mega-menu-banners": {
-                  "type": "_mega-menu-banners",
-                  "settings": {
-                    "menu_item": "Collections",
-                    "highlight_menu_item": false,
-                    "highlight_color": "#000000",
-                    "banner_width": 40,
-                    "gap": 12,
-                    "layout": "horizontal",
-                    "submenu_columns": "4",
-                    "limit_width": true,
-                    "max_width": 850,
-                    "collections": [
-                      "walks-wofyn",
-                      "bowls-wofyn",
-                      "beds-wofyn",
-                      "toys-wofyn",
-                      "foods-wofyn"
-                    ],
-                    "font": "accent",
-                    "font_size": "xl",
-                    "letter_spacing": "normal"
-                  },
-                  "blocks": {
-                    "mega-menu-banner-1": {
-                      "type": "_mega-menu-banner",
-                      "settings": {
-                        "link": "",
-                        "open_new_tab": false,
-                        "layout": "content_on_image",
-                        "limit_width": false,
-                        "max_width": 700,
-                        "overlay": false,
-                        "overlay_color": "#00000073",
-                        "subheading": "",
-                        "heading": "Curate Your Set",
-                        "text": "<p>Choose your favorites and save up to 20%.</p>",
-                        "alignment": "left",
-                        "content_position": "bottom",
-                        "heading_size": "lg",
-                        "custom_heading_size": 24,
-                        "text_size": "md",
-                        "label": "",
-                        "button_style": "primary",
-                        "show_icon": false,
-                        "icon": "arrow_right",
-                        "icon_position": "right",
-                        "full_width": false,
-                        "content_gap": 10,
-                        "button_spacing": 30,
-                        "color_scheme": "",
-                        "padding_top": 40,
-                        "padding_bottom": 40,
-                        "padding_left": 40,
-                        "padding_right": 40,
-                        "customize_mobile_padding": false,
-                        "padding_top_mobile": 40,
-                        "padding_bottom_mobile": 40,
-                        "padding_left_mobile": 40,
-                        "padding_right_mobile": 40
-                      },
-                      "blocks": {}
-                    },
-                    "mega-menu-banner-2": {
-                      "type": "_mega-menu-banner",
-                      "settings": {
-                        "link": "",
-                        "open_new_tab": false,
-                        "layout": "content_on_image",
-                        "limit_width": false,
-                        "max_width": 700,
-                        "overlay": false,
-                        "overlay_color": "#00000073",
-                        "subheading": "",
-                        "heading": "Curate Your Set",
-                        "text": "<p>Choose your favorites and save up to 20%.</p>",
-                        "alignment": "left",
-                        "content_position": "bottom",
-                        "heading_size": "lg",
-                        "custom_heading_size": 24,
-                        "text_size": "md",
-                        "label": "",
-                        "button_style": "primary",
-                        "show_icon": false,
-                        "icon": "arrow_right",
-                        "icon_position": "right",
-                        "full_width": false,
-                        "content_gap": 10,
-                        "button_spacing": 30,
-                        "color_scheme": "",
-                        "padding_top": 40,
-                        "padding_bottom": 40,
-                        "padding_left": 40,
-                        "padding_right": 40,
-                        "customize_mobile_padding": false,
-                        "padding_top_mobile": 40,
-                        "padding_bottom_mobile": 40,
-                        "padding_left_mobile": 40,
-                        "padding_right_mobile": 40
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "mega-menu-banner-1",
-                    "mega-menu-banner-2"
-                  ]
-                }
-              },
-              "block_order": [
-                "mega-menu-banners"
-              ]
+              }
             },
             "header-logo": {
               "type": "_header-logo",
+              "static": true,
               "settings": {
                 "position": "left"
               },
@@ -241,6 +131,7 @@
             },
             "header-menu-toggle": {
               "type": "_header-menu-toggle",
+              "static": true,
               "settings": {
                 "position": "left"
               },
@@ -248,39 +139,39 @@
             },
             "header-localization": {
               "type": "_header-localization",
+              "static": true,
               "settings": {
                 "dropdown_trigger": "click",
                 "show_country_selector": true,
                 "show_country_name": false,
-                "show_country_flag": true,
-                "show_language_selector": false,
-                "font_size": "md"
-              },
-              "blocks": {}
-            },
-            "header-divider": {
-              "type": "_header-divider",
-              "settings": {
-                "full_height": false,
-                "height": 12,
-                "color_type": "inherit",
-                "border_color": "#dbd9d9"
+                "show_country_flag": false,
+                "show_language_selector": true,
+                "font_size": "sm"
               },
               "blocks": {}
             },
             "header-search": {
               "type": "_header-search",
+              "static": true,
               "settings": {
-                "type": "icon",
+                "type": "search_bar",
                 "label": "Search",
-                "font": "accent",
-                "font_size": "md",
-                "letter_spacing": "relaxed"
+                "font": "body",
+                "font_size": "sm",
+                "letter_spacing": "normal",
+                "placeholder": "What are you looking for?",
+                "width": "fill",
+                "mobile_display": "search_bar",
+                "show_category_selector": true,
+                "category_menu": "torvex-main-menu",
+                "category_label": "All Categories",
+                "category_label_mobile": "All"
               },
               "blocks": {}
             },
             "header-account": {
               "type": "_header-account",
+              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Account",
@@ -292,31 +183,31 @@
             },
             "header-cart": {
               "type": "_header-cart",
+              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Cart",
                 "badge_type": "primary"
               },
               "blocks": {}
+            },
+            "header-location": {
+              "type": "_header-link",
+              "static": true,
+              "settings": {
+                "label": "Find a store",
+                "link": "/pages/contact",
+                "open_in_new_tab": false
+              }
             }
-          },
-          "block_order": [
-            "header-menu",
-            "header-menu-toggle",
-            "header-logo",
-            "header-localization",
-            "header-divider",
-            "header-search",
-            "header-account",
-            "header-cart"
-          ]
+          }
         }
       },
       "settings": {
         "section_width": "page_width",
-        "icon_size": 20,
+        "icon_size": 24,
         "sticky_type": "scroll_up",
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-3",
         "header_overlay": false,
         "transparent_color_scheme": "scheme-3"
       }

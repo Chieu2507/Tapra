@@ -111,7 +111,7 @@
                   <summary class="header-menu__summary link-underline-trigger" aria-haspopup="true">
                     <span class="header-menu__top-link-label link-underline">{{ link.title | escape }}</span>
                     {% if block.settings.show_dropdown_icon %}
-                      {% render 'icon', icon: 'chevron-down', class: 'header-menu__dropdown-icon' %}
+                      {% render 'header-icon', icon: 'chevron-down', class: 'header-menu__dropdown-icon' %}
                     {% endif %}
                   </summary>
                   <ul class="header-menu__submenu {{ submenu_typography_class }}" role="list">

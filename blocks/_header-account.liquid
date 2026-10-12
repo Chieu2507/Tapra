@@ -32,7 +32,7 @@
   <shopify-account class="{{ account_class }}" menu="customer-account-main-menu" {{ block.shopify_attributes }}>
     <span slot="signed-out-avatar" class="header-account__avatar" aria-label="{{ account_label | escape }}">
       {% unless account_type == 'text' %}<span class="icon" aria-hidden="true">
-        {% render 'icon', icon: 'user', bare: true %}
+        {% render 'header-icon', icon: 'user' %}
       </span>{% endunless %}
       {% unless account_type == 'icon' %}<span class="header-action__label {{ account_typography_class }}">{{ account_label | escape }}</span>{% endunless %}
       <span class="header-account__mobile-label">{{ 'customers.login.submit' | t }}</span>
@@ -42,7 +42,7 @@
     <a class="{{ account_class }}" href="{{ routes.account_login_url }}" aria-label="{{ account_label | escape }}" data-deferred-account {{ block.shopify_attributes }}>
     <span slot="signed-out-avatar" class="header-account__avatar" aria-label="{{ account_label | escape }}">
       {% unless account_type == 'text' %}<span class="icon" aria-hidden="true">
-        {% render 'icon', icon: 'user', bare: true %}
+        {% render 'header-icon', icon: 'user' %}
       </span>{% endunless %}
       {% unless account_type == 'icon' %}<span class="header-action__label {{ account_typography_class }}">{{ account_label | escape }}</span>{% endunless %}
       <span class="header-account__mobile-label">{{ 'customers.login.submit' | t }}</span>
@@ -51,7 +51,7 @@
   <shopify-account class="{{ account_class }}" menu="customer-account-main-menu" >
     <span slot="signed-out-avatar" class="header-account__avatar" aria-label="{{ account_label | escape }}">
       {% unless account_type == 'text' %}<span class="icon" aria-hidden="true">
-        {% render 'icon', icon: 'user', bare: true %}
+        {% render 'header-icon', icon: 'user' %}
       </span>{% endunless %}
       {% unless account_type == 'icon' %}<span class="header-action__label {{ account_typography_class }}">{{ account_label | escape }}</span>{% endunless %}
       <span class="header-account__mobile-label">{{ 'customers.login.submit' | t }}</span>
@@ -63,7 +63,7 @@
 {% else %}
   <a class="{{ account_class }}" href="{{ routes.account_login_url }}" aria-label="{{ account_label | escape }}" {{ block.shopify_attributes }}>
     {% unless account_type == 'text' %}<span class="icon" aria-hidden="true">
-      {% render 'icon', icon: 'user', bare: true %}
+      {% render 'header-icon', icon: 'user' %}
     </span>{% endunless %}
     {% unless account_type == 'icon' %}<span class="header-action__label {{ account_typography_class }}">{{ account_label | escape }}</span>{% endunless %}
     <span class="header-account__mobile-label">{{ 'customers.login.submit' | t }}</span>
