@@ -147,6 +147,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-mega-menu__banner-content { grid-area: auto; padding: 0; justify-content: center; align-items: flex-start; text-align: start; }
 .header-top.header-top--compact .header-mega-menu__banner-title,
 .header-top.header-top--compact .header-mega-menu__banner-text { margin: 0; }
+.header-top.header-top--compact .header-mega-menu__banner-title { font-size: var(--font-body-md); line-height: 1.3; }
+.header-top.header-top--compact .header-mega-menu__banner-text { font-size: var(--font-body-sm); }
 .header-top.header-top--compact .header-mega-menu__banner-subheading { font-size: var(--font-body-xs); text-transform: uppercase; letter-spacing: .08em; }
 .header-top.header-top--compact .header-mega-menu__banner-button { min-height: 0; }
 @media (min-width: 768px) {
