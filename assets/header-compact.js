@@ -10,9 +10,19 @@
       const drawer = root.querySelector('[data-header-mobile-drawer]');
       if (!drawer) return;
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
+      let columnsVisible = window.innerWidth >= 768;
       const measure = () => {
+        const showColumns = window.innerWidth >= 768;
+        if (showColumns !== columnsVisible) {
+          drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => {
+            details.open = false;
+            details.classList.remove('is-mobile-submenu-active');
+          });
+          columnsVisible = showColumns;
+        }
         if (window.innerWidth < 768) return;
         const active = drawer.querySelector('[data-mobile-drawer-details][open] > .header__mobile-drawer-submenu');
+        active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
         const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
         root.style.setProperty('--compact-menu-height', `${height}px`);
       };
@@ -26,6 +36,11 @@
         summary.addEventListener('focus', () => choose(summary), options);
       });
       drawer.addEventListener('toggle', measure, { ...options, capture: true });
+      drawer.addEventListener('click', event => {
+        if (window.innerWidth < 768 || !event.target.closest('[data-mobile-drawer-submenu-details] > summary')) return;
+        event.preventDefault();
+        event.stopPropagation();
+      }, { ...options, capture: true });
       drawer.addEventListener('open', () => {
         if (window.innerWidth >= 768 && summaries[0]) choose(summaries[0]);
         measure();
