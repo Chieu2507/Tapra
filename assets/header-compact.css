@@ -113,6 +113,13 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-submenu-details:not([open]) > .header__mobile-drawer-tertiary-panel { display: none; }
 .header-top.header-top--compact .header-compact__utilities { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border-color); }
 .header-top.header-top--compact .header-compact__utilities .header-divider { display: none; }
+.header-top.header-top--compact .header-compact__utilities > .header__mobile-drawer-account { display: none; }
+@media (max-width: 767.98px) {
+  .header-top.header-top--compact[data-header-root] .header__column--right > .header-account { display: none; }
+  .header-top.header-top--compact .header-compact__utilities { justify-content: center; }
+  .header-top.header-top--compact .header-compact__utilities > .header__mobile-drawer-account { display: flex; flex-basis: 100%; width: 100%; justify-content: center; }
+  .header-top.header-top--compact .header-compact__utilities > shopify-account.header__mobile-drawer-account { display: block; }
+}
 @media (min-width: 768px) {
   .header-top.header-top--compact .header__mobile-drawer-list { position: relative; min-height: var(--compact-menu-height, 280px); }
   .header-top.header-top--compact .header__mobile-drawer-item { width: 210px; max-width: 40%; }
