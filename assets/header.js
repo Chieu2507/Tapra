@@ -1121,9 +1121,10 @@
   const updateCategoryLabels = () => document.querySelectorAll('[data-header-search-form]').forEach(form => {
     const option = form.querySelector('[data-header-search-category] option[value=""]');
     if (option) option.textContent = window.matchMedia('(max-width: 767.98px)').matches ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
-    const label = form.querySelector('.header-search__category-label');
     const category = form.querySelector('[data-header-search-category]');
-    if (label && category) label.textContent = category.selectedOptions[0]?.textContent || '';
+    form.querySelectorAll('.header-search__category-label').forEach(label => {
+      label.textContent = category?.value ? category.selectedOptions[0]?.textContent || '' : label.classList.contains('header-search__category-label--mobile') ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
+    });
   });
   document.addEventListener('submit', event => {
     const form = event.target.closest?.('[data-header-search-form]');
