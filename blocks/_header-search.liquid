@@ -4,6 +4,13 @@
     assign search_type = 'text'
   endunless
 
+  if section.settings.header_style == 'compact'
+    assign search_type = block.settings.compact_type | default: 'text'
+    unless search_type == 'text' or search_type == 'icon_with_text'
+      assign search_type = 'text'
+    endunless
+  endif
+
   assign search_label = block.settings.label | default: 'Search'
   assign search_placeholder = block.settings.placeholder | default: search_label
   assign search_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | default: blank | handleize
@@ -261,6 +268,17 @@
     {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "compact_type",
+      "label": "t:labels.compact_search_type",
+      "info": "t:info.compact_search_type",
+      "options": [
+        { "value": "text", "label": "t:options.compact_search_type.text" },
+        { "value": "icon_with_text", "label": "t:options.compact_search_type.icon_with_text" }
+      ],
+      "default": "text"
     },
     {
       "type": "select",

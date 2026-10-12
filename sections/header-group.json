@@ -248,7 +248,8 @@
                 "label": "Search",
                 "font": "accent",
                 "font_size": "md",
-                "letter_spacing": "relaxed"
+                "letter_spacing": "relaxed",
+                "compact_type": "icon_with_text"
               },
               "blocks": {}
             },

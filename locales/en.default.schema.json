@@ -249,6 +249,7 @@
     "hotspot_image": "Hotspot image"
   },
   "labels": {
+    "compact_search_type": "Compact type",
     "header_style": "Header style",
     "hide_view_all_on_mobile": "Hide View all on mobile",
     "product_card_alignment": "Product card alignment",
@@ -785,6 +786,7 @@
     "use_nested_hotspots": "Use multiple hotspots"
   },
   "options": {
+    "compact_search_type": { "text": "Text", "icon_with_text": "Text with icon" },
     "header_style": { "classic": "Classic", "compact": "Compact" },
     "overlay_style": {
       "solid": "Solid",
@@ -1528,6 +1530,7 @@
     }
   },
   "info": {
+    "compact_search_type": "Used when Header style is Compact. Desktop type applies to Classic headers.",
     "media_offset_theme_settings": "Use the media inset from Theme settings → Product cards. Turn off to remove the media inset in this section.",
     "blog_meta_badge_placement": "Badge on image places a direct Meta child at the selected corner of a stacked Blog card. Nested Meta and horizontal cards keep badges in the content.",
     "collection_filter_search_discovery": "Customize filters with the [Search & Discovery app](https://admin.shopify.com/store/spinel-theme/apps/search-and-discovery).",
