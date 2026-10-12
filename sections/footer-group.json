@@ -526,51 +526,37 @@
               }
             },
             "policies": {
-              "type": "group",
+              "type": "menu",
               "settings": {
+                "menu": "",
+                "heading": "",
+                "collapse_menu_on_mobile": false,
                 "direction": "horizontal",
-                "width": "fit",
-                "width_mobile": "fill",
-                "height": "fit",
-                "alignment": "left",
-                "horizontal_alignment": "left",
-                "position_horizontal": "center",
-                "customize_mobile_alignment": false,
-                "alignment_mobile": "left",
-                "gap_desktop": 24,
-                "gap_mobile": 24,
-                "appearance_type": "inherit",
-                "show_overlay": false
+                "link_weight": "500",
+                "menu_size": "sm",
+                "menu_gap": 24,
+                "menu_color": "#ffffff"
               },
               "blocks": {
                 "policy-0": {
-                  "type": "button",
+                  "type": "_menu-link",
                   "settings": {
-                    "button_label": "Privacy Policy",
-                    "button_link": "/policies/privacy-policy",
-                    "button_style": "tertiary",
-                    "show_icon": false,
-                    "width": "fit"
+                    "label": "Privacy Policy",
+                    "link": "/policies/privacy-policy"
                   }
                 },
                 "policy-1": {
-                  "type": "button",
+                  "type": "_menu-link",
                   "settings": {
-                    "button_label": "Terms of Service",
-                    "button_link": "/policies/terms-of-service",
-                    "button_style": "tertiary",
-                    "show_icon": false,
-                    "width": "fit"
+                    "label": "Terms of Service",
+                    "link": "/policies/terms-of-service"
                   }
                 },
                 "policy-2": {
-                  "type": "button",
+                  "type": "_menu-link",
                   "settings": {
-                    "button_label": "Cookies Settings",
-                    "button_link": "/policies/privacy-policy#cookies",
-                    "button_style": "tertiary",
-                    "show_icon": false,
-                    "width": "fit"
+                    "label": "Cookies Settings",
+                    "link": "/policies/privacy-policy#cookies"
                   }
                 }
               },
@@ -609,4 +595,3 @@
     "footer-bottom"
   ]
 }
-
