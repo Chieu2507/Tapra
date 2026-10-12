@@ -1,0 +1,55 @@
+{% doc %}
+  Bottom header row. Merchant-managed Menu and Localization children inherit
+  the section scheme. Menu overflow advances by the configured item count.
+{% enddoc %}
+{% liquid
+  assign container_width = 'page-width'
+  if section.settings.section_width == 'full_width'
+    assign container_width = 'full-width'
+  endif
+%}
+<div class="header-bottom header-bottom--separator-{{ block.settings.separator }}" data-header-region="bottom" data-header-bottom data-menu-scroll-step="{{ block.settings.menu_scroll_step | default: '1' }}" style="--header-bottom-gap: {{ block.settings.gap }}px; --header-bottom-top: {{ block.settings.padding_top }}px; --header-bottom-bottom: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
+  <div class="container {{ container_width }} header-bottom__content">{% content_for 'blocks' %}</div>
+</div>
+{% stylesheet %}
+  .header-bottom { padding-block: var(--header-bottom-top,12px) var(--header-bottom-bottom,24px); }
+  .header-bottom--separator-line { border-bottom: 1px solid var(--border-color); }
+  .header-bottom--separator-shadow { box-shadow: 0 4px 8px color-mix(in srgb,var(--shadow-color) 12%,transparent); }
+  .header-bottom__content { display: flex; align-items: center; gap: var(--header-bottom-gap,32px); min-width: 0; }
+  .header-bottom__content > .header-menu { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; overflow: visible; gap: 12px; }
+  .header-bottom .header-menu__viewport { flex: 1 1 auto; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .header-bottom .header-menu__viewport::-webkit-scrollbar { display: none; }
+  .header-bottom .header-menu__list { flex-wrap: nowrap; width: max-content; }
+  .header-bottom .header-menu__item { flex: 0 0 auto; }
+  .header-bottom .header-menu__summary,.header-bottom .header-menu__link { min-height: 25px; padding-block: 2px; }
+  .header-bottom .header-localization { flex: 0 0 auto; gap: 20px; margin-inline-start: auto; }
+  .header-bottom .header-localization__details--language { order: -1; }
+  .header-bottom .header-localization__summary { min-height: 25px; padding-block: 2px; }
+  .header-bottom .header-localization__icon,.header-bottom .header-menu__dropdown-icon { width: 16px; height: 16px; }
+  .header-menu__navigation { display: flex; flex: 0 0 auto; gap: 4px; }
+  .header-menu__navigation[hidden] { display: none; }
+  .header-menu__navigation button { display: inline-flex; align-items: center; justify-content: center; width: 28px; min-height: 28px; padding: 0; color: inherit; }
+  .header-menu__navigation button:disabled { opacity: .35; cursor: default; }
+  .header-menu__navigation .icon { width: 16px; height: 16px; }
+  .header-bottom .header-menu__details > .header-menu__submenu { position: fixed; inset: auto; top: var(--header-popup-top); left: var(--header-popup-left); max-width: calc(100vw - 16px); max-height: var(--header-popup-height,70vh); overflow: auto; }
+  @media (max-width: 991.98px) {
+    .header-bottom { padding: 0; border: 0; box-shadow: none; }
+    .header-bottom__content > .header-menu,.header-bottom__content > .header-localization { display: none; }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Bottom",
+  "blocks": [{"type":"_header-menu"},{"type":"_header-localization"}],
+  "settings": [
+    {"type":"header","content":"Layout"},
+    {"type":"range","id":"gap","label":"Gap","min":0,"max":80,"step":1,"unit":"px","default":20},
+    {"type":"select","id":"menu_scroll_step","label":"Menu items per scroll","options":[{"value":"1","label":"1 item"},{"value":"2","label":"2 items"},{"value":"3","label":"3 items"}],"default":"1"},
+    {"type":"select","id":"separator","label":"Bottom separator","options":[{"value":"none","label":"None"},{"value":"line","label":"Line"},{"value":"shadow","label":"Shadow"}],"default":"none"},
+    {"type":"header","content":"t:general.padding"},
+    {"type":"range","id":"padding_top","label":"t:labels.top_padding","min":0,"max":100,"step":1,"unit":"px","default":12},
+    {"type":"range","id":"padding_bottom","label":"t:labels.bottom_padding","min":0,"max":100,"step":1,"unit":"px","default":12}
+  ],
+  "presets": [{"name":"Bottom","blocks":[{"type":"_header-menu"},{"type":"_header-localization"}]}]
+}
+{% endschema %}

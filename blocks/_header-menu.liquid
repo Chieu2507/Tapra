@@ -103,7 +103,7 @@
       data-header-mega-menu-backdrop
     ></button>
     {% if has_header_menu %}
-      <ul class="header-menu__list" role="list">
+      <div class="header-menu__viewport" data-header-menu-viewport><ul class="header-menu__list" role="list">
           {% for link in header_menu.links %}
             <li class="header-menu__item{% if link.links != blank %} header-menu__item--has-children{% endif %}" data-menu-title="{{ link.title | handleize }}">
               {% if link.links != blank %}
@@ -139,6 +139,11 @@
             </li>
           {% endfor %}
       </ul>
+      </div>
+      <div class="header-menu__navigation" data-header-menu-navigation hidden>
+        <button class="btn btn--unstyled" type="button" data-header-menu-prev aria-label="{{ 'general.slider.previous_slide' | t }}">{% render 'icon', icon: 'chevron-left', class: 'icon' %}</button>
+        <button class="btn btn--unstyled" type="button" data-header-menu-next aria-label="{{ 'general.slider.next_slide' | t }}">{% render 'icon', icon: 'chevron-right', class: 'icon' %}</button>
+      </div>
       <div class="header-menu__mega-config" aria-hidden="true">{% content_for 'blocks' %}</div>
     {% else %}
       <span class="header-menu__placeholder">{{ 'accessibility.menu' | t }}</span>

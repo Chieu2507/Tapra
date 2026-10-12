@@ -339,6 +339,15 @@
 
     submenuRects.forEach(({ details, rect }) => {
       details.style.setProperty('--header-submenu-offset', `${Math.max(0, headerRect.bottom - rect.bottom)}px`);
+      const panel = details.querySelector(':scope > .header-localization__panel, :scope > .header-menu__submenu');
+      if (panel) {
+        const width = Math.min(panel.offsetWidth || 250, window.innerWidth - 16);
+        const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+        details.style.setProperty('--header-popup-shift', `${left - rect.left}px`);
+        details.style.setProperty('--header-popup-left', `${left}px`);
+        details.style.setProperty('--header-popup-top', `${Math.min(headerRect.bottom, window.innerHeight - 80)}px`);
+        details.style.setProperty('--header-popup-height', `${Math.max(64, window.innerHeight - Math.min(headerRect.bottom, window.innerHeight - 80) - 8)}px`);
+      }
     });
 
     megaMenuRects.forEach(({ details, rect }) => {
