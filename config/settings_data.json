@@ -210,17 +210,17 @@
           "button_primary_background": "#0A1530",
           "button_primary_text": "#FFFFFF",
           "button_primary_border": "#0A1530",
-          "button_primary_hover_background": "#0A1530",
+          "button_primary_hover_background": "#2A5FD6",
           "button_primary_hover_text": "#FFFFFF",
-          "button_primary_hover_border": "#0A1530",
+          "button_primary_hover_border": "#2A5FD6",
           "button_secondary_background": "#BFE3FF",
           "button_secondary_text": "#0A1530",
           "button_secondary_border": "#BFE3FF",
-          "button_secondary_hover_background": "#BFE3FF",
-          "button_secondary_hover_text": "#0A1530",
-          "button_secondary_hover_border": "#BFE3FF",
+          "button_secondary_hover_background": "#0A1530",
+          "button_secondary_hover_text": "#FFFFFF",
+          "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "#0A1530"
+          "button_tertiary_hover_text": "#2A5FD6"
         }
       },
       "scheme-2": {
@@ -239,17 +239,17 @@
           "button_primary_background": "#0A1530",
           "button_primary_text": "#FFFFFF",
           "button_primary_border": "#0A1530",
-          "button_primary_hover_background": "#0A1530",
+          "button_primary_hover_background": "#2A5FD6",
           "button_primary_hover_text": "#FFFFFF",
-          "button_primary_hover_border": "#0A1530",
+          "button_primary_hover_border": "#2A5FD6",
           "button_secondary_background": "#BFE3FF",
           "button_secondary_text": "#0A1530",
           "button_secondary_border": "#BFE3FF",
-          "button_secondary_hover_background": "#BFE3FF",
-          "button_secondary_hover_text": "#0A1530",
-          "button_secondary_hover_border": "#BFE3FF",
+          "button_secondary_hover_background": "#0A1530",
+          "button_secondary_hover_text": "#FFFFFF",
+          "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "#0A1530"
+          "button_tertiary_hover_text": "#2A5FD6"
         }
       },
       "scheme-3": {
@@ -268,17 +268,17 @@
           "button_primary_background": "#FFFFFF",
           "button_primary_text": "#0A1530",
           "button_primary_border": "#FFFFFF",
-          "button_primary_hover_background": "#FFFFFF",
+          "button_primary_hover_background": "#BFE3FF",
           "button_primary_hover_text": "#0A1530",
-          "button_primary_hover_border": "#FFFFFF",
+          "button_primary_hover_border": "#BFE3FF",
           "button_secondary_background": "#BFE3FF",
           "button_secondary_text": "#0A1530",
           "button_secondary_border": "#BFE3FF",
-          "button_secondary_hover_background": "#BFE3FF",
+          "button_secondary_hover_background": "#FFFFFF",
           "button_secondary_hover_text": "#0A1530",
-          "button_secondary_hover_border": "#BFE3FF",
+          "button_secondary_hover_border": "#FFFFFF",
           "button_tertiary_text": "#BFE3FF",
-          "button_tertiary_hover_text": "#BFE3FF"
+          "button_tertiary_hover_text": "#FFFFFF"
         }
       },
       "scheme-4": {
@@ -297,17 +297,17 @@
           "button_primary_background": "#0A1530",
           "button_primary_text": "#FFFFFF",
           "button_primary_border": "#0A1530",
-          "button_primary_hover_background": "#0A1530",
+          "button_primary_hover_background": "#2A5FD6",
           "button_primary_hover_text": "#FFFFFF",
-          "button_primary_hover_border": "#0A1530",
+          "button_primary_hover_border": "#2A5FD6",
           "button_secondary_background": "#FFFFFF",
           "button_secondary_text": "#0A1530",
           "button_secondary_border": "#FFFFFF",
-          "button_secondary_hover_background": "#FFFFFF",
-          "button_secondary_hover_text": "#0A1530",
-          "button_secondary_hover_border": "#FFFFFF",
+          "button_secondary_hover_background": "#0A1530",
+          "button_secondary_hover_text": "#FFFFFF",
+          "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "#0A1530"
+          "button_tertiary_hover_text": "#2A5FD6"
         }
       }
     },
