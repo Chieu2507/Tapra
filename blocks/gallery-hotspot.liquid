@@ -45,6 +45,22 @@
       </div>
     </div>
   </article>
+{% stylesheet %}
+  /* Size the image element to the covered surface, not just the clipped box.
+   * Native lazy-image sizes="auto" then requests enough pixels for portrait
+   * crops of landscape images instead of enlarging a small source. */
+  .hotspot-gallery-item .background-media__image > img,
+  .hotspot-gallery-item .background-media__image > picture > img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: auto;
+    min-width: 100%;
+    max-width: none;
+    height: 100%;
+    transform: translateX(-50%);
+  }
+{% endstylesheet %}
 {% schema %}
 {
   "name": "t:general.hotspot_image",

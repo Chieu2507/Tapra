@@ -575,6 +575,17 @@
       "default": "slide-bottom"
     },
     {
+      "type": "range",
+      "id": "animation_delay",
+      "label": "Delay",
+      "min": 0,
+      "max": 1000,
+      "step": 50,
+      "unit": "ms",
+      "default": 0,
+      "visible_if": "{{ block.settings.animation_type != 'none' }}"
+    },
+    {
       "type": "header",
       "content": "t:general.padding"
     },

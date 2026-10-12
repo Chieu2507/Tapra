@@ -8,7 +8,7 @@
   const enabled = () => document.body.dataset.blockAnimations !== 'false' && !reduced.matches;
   const selector = '[data-block-animation], [data-component-reveal]';
   const cardSelector = 'article.testimonial-item, .product-card, .promo-card, .collection-card, .collection-card-kernel, .blog-card, .blog-first-card, article.image-card, .collection-thumbnail__link, .icon-text-cards__content > .group, .icon-text-cards__viewport > .swiper-wrapper > .swiper-slide > .group';
-  const listSelector = '[data-product-list-mobile-promos], [data-product-carousel], .product-collection-grid, .collection-card-list__grid, .product-list__grid, [data-product-list], .image-cards-section__grid, .blog-grid, .collection-thumbnails__grid, .collection-thumbnails__carousel, .testimonial-carousel, .testimonials-cards__carousel, .icon-text-cards__content, .icon-text-cards__viewport > .swiper-wrapper';
+  const listSelector = '[data-product-list-mobile-promos], [data-product-carousel], .product-collection-grid, .collection-card-list__grid, .product-list__grid, [data-product-list], .image-cards-section__grid, [data-blog-list], .blog-grid, .collection-thumbnails__grid, .collection-thumbnails__carousel, .testimonial-carousel, .testimonials-cards__carousel, .icon-text-cards__content, .icon-text-cards__viewport > .swiper-wrapper';
   const scopeSelector = '[role="tabpanel"], .slideshow__swiper .swiper-slide';
   const active = element => {
     if (!element.isConnected || !element.getClientRects().length) return false;
@@ -29,21 +29,26 @@
     state.played = true;
     element.classList.remove('reveal-pending');
     if (!enabled()) return;
-    const delay = Math.min(1500, Math.max(150, Number(element.dataset.animationDelay) || 0));
+    const delay = Math.min(1500, Math.max(0, (Number(element.dataset.animationDelay) || 0) + (Number(element.dataset.animationStagger) || 0)));
     const tokens = getComputedStyle(element);
-    const duration = Math.max(650, parseFloat(tokens.getPropertyValue('--motion-duration-slow')) || 600);
+    const duration = Math.max(700, parseFloat(tokens.getPropertyValue('--motion-duration-slow')) || 700);
     const options = {duration, delay, easing:tokens.getPropertyValue('--motion-ease-standard').trim() || 'cubic-bezier(.22,1,.36,1)', fill:'backwards'};
     const type = element.dataset.blockAnimation || 'slide-bottom';
-    const from = {opacity:0};
+    const from = {opacity:element.dataset.animationPreserveOpacity === 'true' ? 1 : 0};
     if (type === 'scale') from.transform = 'scale(.94)';
-    if (type === 'slide-left') from.transform = 'translateX(-24px)';
-    if (type === 'slide-right') from.transform = 'translateX(24px)';
-    if (type === 'slide-bottom') from.transform = 'translateY(24px)';
+    if (type === 'slide-left') from.transform = 'translateX(-32px)';
+    if (type === 'slide-right') from.transform = 'translateX(32px)';
+    if (type === 'slide-bottom') from.transform = 'translateY(32px)';
     if (type === 'rotate-words') {
       element.querySelectorAll('.reveal-word').forEach((word, index) => {
         state.animations.push(word.animate([{opacity:0,transform:'translateY(.7em) rotateX(45deg)'},{opacity:1,transform:'none'}], {...options,delay:delay + index * 35}));
       });
-    } else state.animations.push(element.animate([from,{opacity:1,transform:'none'}],options));
+    } else {
+      // Opacity-only cards must not write a transform onto a Swiper-owned slide.
+      const to = {opacity:1};
+      if (from.transform) to.transform = 'none';
+      state.animations.push(element.animate([from,to],options));
+    }
     // No forwards fill: release the opacity/transform layer, especially for backdrop blur.
     state.animations.forEach(animation => animation.finished.then(() => animation.cancel()).catch(() => {}));
   };
@@ -100,10 +105,19 @@
         const siblings = [...list.querySelectorAll(cardSelector)].filter(e => e.closest(listSelector) === list);
         // Stagger within the visible row; later rows must not inherit a long list-wide wait.
         // Measure the layout item so an in-flight card transform cannot change its row.
-        const rowTop = element => (element.closest('.product-collection-grid__item') || element).getBoundingClientRect().top;
+        const rowTop = element => (element.closest('.product-collection-grid__item') || element.closest('.blog-list__item, .swiper-slide') || element).getBoundingClientRect().top;
         const top = rowTop(card);
         const row = siblings.filter(sibling => Math.abs(rowTop(sibling) - top) < 8);
-        card.dataset.animationDelay = String(Math.min(600, 180 + Math.max(0, row.indexOf(card)) * 140));
+        // Section headings lead the cards. Explicit merchant delay is an offset,
+        // not overwritten by row staggering; later rows start their own beat.
+        const section = card.closest('.shopify-section');
+        const intro = section ? [...section.querySelectorAll(selector)].filter(element =>
+          element.dataset.blockAnimation !== 'none' && !element.closest(cardSelector) &&
+          active(element) && (element.compareDocumentPosition(card) & 4)
+        ) : [];
+        const introDelay = Math.max(0, ...intro.map(element => Number(element.dataset.animationDelay) || 0));
+        card.dataset.animationStagger = card.dataset.animationPreserveOpacity === 'true' ? '0' :
+          String(Math.min(900, introDelay + 150 + Math.max(0, row.indexOf(card)) * 75));
       }
     });
     // Resource actions and forms share the entrance order of their content blocks.
@@ -115,7 +129,7 @@
       const preceding = section ? [...section.querySelectorAll('[data-block-animation]:not([data-block-animation="none"])')].filter(other =>
         other !== element && !other.closest(cardSelector) && (other.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)
       ).length : 0;
-      element.dataset.animationDelay = String(Math.min(750, 150 + preceding * 150));
+      element.dataset.animationStagger = String(Math.min(750, 150 + preceding * 75));
     });
     if (root.matches?.(selector)) initialize(root);
     root.querySelectorAll?.(selector).forEach(initialize);
@@ -150,6 +164,12 @@
   scan();
   mutations.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','aria-hidden','inert','class','data-block-animation','data-animation-delay']});
   document.addEventListener('shopify:section:load',event => scan(event.target));
+  // Responsive row changes update future stagger without replaying visible cards.
+  let resizeFrame;
+  window.addEventListener?.('resize', () => {
+    cancelAnimationFrame(resizeFrame);
+    resizeFrame = requestAnimationFrame(() => scan());
+  });
   // Reconcile after all Item accessibility and visibility changes are complete.
   document.addEventListener('multiple-images-text:change',event => {
     scan(event.target);

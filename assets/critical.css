@@ -3515,6 +3515,7 @@ legend {
 /* The shared controller replaces load-time motion with viewport/active lifecycle. */
 body[data-block-animations] .motion-block {animation:none;}
 [data-block-animation].reveal-pending, [data-component-reveal].reveal-pending {opacity:0;}
+[data-animation-preserve-opacity='true'].reveal-pending {opacity:1;}
 .reveal-word {display:inline-block;transform-origin:50% 100%;}
 @media (prefers-reduced-motion:reduce) {
   .reveal-pending {opacity:1!important;}

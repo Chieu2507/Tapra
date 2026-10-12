@@ -1,0 +1,261 @@
+{
+  "store": "layouthub-template-v2.myshopify.com",
+  "branch": "Pawvera-template",
+  "developmentThemeId": "192069828907",
+  "date": "2026-10-12",
+  "products": [
+    {
+      "id": "gid://shopify/Product/15418402996523",
+      "title": "Grass-Fed Beef Dog Food",
+      "handle": "pawvera-grass-fed-beef-dog-food",
+      "status": "ACTIVE",
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67719800652075",
+            "price": "18.00",
+            "compareAtPrice": "22.00",
+            "inventoryQuantity": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "gid://shopify/Product/15418403422507",
+      "title": "Grain-Free Chicken Pate Wet Dog Food",
+      "handle": "pawvera-grain-free-chicken-pate-wet-dog-food",
+      "status": "ACTIVE",
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67719801078059",
+            "price": "4.00",
+            "compareAtPrice": "5.00",
+            "inventoryQuantity": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "gid://shopify/Product/15418428260651",
+      "title": "Cozy Bolster Dog Bed",
+      "handle": "pawvera-cozy-bolster-dog-bed",
+      "status": "ACTIVE",
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67720296005931",
+            "price": "89.00",
+            "compareAtPrice": "109.00",
+            "inventoryQuantity": 20
+          }
+        ]
+      }
+    },
+    {
+      "id": "gid://shopify/Product/15418429243691",
+      "title": "Gentle Grooming Brush",
+      "handle": "pawvera-gentle-grooming-brush",
+      "status": "ACTIVE",
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67720296988971",
+            "price": "19.00",
+            "compareAtPrice": "24.00",
+            "inventoryQuantity": 20
+          }
+        ]
+      }
+    }
+  ],
+  "collections": [
+    {
+      "id": "gid://shopify/Collection/535065198891",
+      "title": "Walks Pawvera",
+      "handle": "walks-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065231659",
+      "title": "Bowls Pawvera",
+      "handle": "bowls-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065297195",
+      "title": "Beds Pawvera",
+      "handle": "beds-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065329963",
+      "title": "Toys Pawvera",
+      "handle": "toys-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065362731",
+      "title": "Foods Pawvera",
+      "handle": "foods-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065395499",
+      "title": "Top Picks Pawvera",
+      "handle": "top-picks-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065428267",
+      "title": "Premium Dog Kibble Pawvera",
+      "handle": "premium-dog-kibble-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065461035",
+      "title": "Shop All Pawvera",
+      "handle": "all-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065493803",
+      "title": "Sale Pawvera",
+      "handle": "sale-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535065559339",
+      "title": "New Arrivals Pawvera",
+      "handle": "new-arrivals-pawvera"
+    },
+    {
+      "id": "gid://shopify/Collection/535068016939",
+      "title": "Grooming Pawvera",
+      "handle": "grooming-pawvera"
+    }
+  ],
+  "uploads": {
+    "beef-life": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-beef-life.webp?v=1791779872",
+      "fileId": "gid://shopify/MediaImage/46563843539243",
+      "filename": "pawvera-beef-life.webp",
+      "alt": "Grass-Fed Beef Dog Food — dog eating the corresponding food beside its package"
+    },
+    "beef-angle": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-beef-angle.webp?v=1791779889",
+      "fileId": "gid://shopify/MediaImage/46563846652203",
+      "filename": "pawvera-beef-angle.webp",
+      "alt": "Grass-Fed Beef Dog Food — front angled package view"
+    },
+    "beef-detail": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-beef-detail.webp?v=1791779906",
+      "fileId": "gid://shopify/MediaImage/46563855302955",
+      "filename": "pawvera-beef-detail.webp",
+      "alt": "Grass-Fed Beef Dog Food — close view of front package"
+    },
+    "pate-life": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-pate-life.webp?v=1791779923",
+      "fileId": "gid://shopify/MediaImage/46563862479147",
+      "filename": "pawvera-pate-life.webp",
+      "alt": "Grain-Free Chicken Pate Wet Dog Food — dog eating the corresponding food beside its package"
+    },
+    "pate-angle": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-pate-angle.webp?v=1791779936",
+      "fileId": "gid://shopify/MediaImage/46563863298347",
+      "filename": "pawvera-pate-angle.webp",
+      "alt": "Grain-Free Chicken Pate Wet Dog Food — front angled package view"
+    },
+    "pate-detail": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-pate-detail.webp?v=1791779951",
+      "fileId": "gid://shopify/MediaImage/46563865657643",
+      "filename": "pawvera-pate-detail.webp",
+      "alt": "Grain-Free Chicken Pate Wet Dog Food — close view of front package"
+    },
+    "bed-catalog": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-bed-catalog.webp?v=1791780233",
+      "fileId": "gid://shopify/MediaImage/46563939746091",
+      "filename": "pawvera-bed-catalog.webp",
+      "alt": "Cozy Bolster Dog Bed — catalog view"
+    },
+    "bed-life": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-bed-life.webp?v=1791780246",
+      "fileId": "gid://shopify/MediaImage/46563941515563",
+      "filename": "pawvera-bed-life.webp",
+      "alt": "Cozy Bolster Dog Bed — small dog resting in the round taupe bed"
+    },
+    "bed-angle": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-bed-angle.webp?v=1791780256",
+      "fileId": "gid://shopify/MediaImage/46563942138155",
+      "filename": "pawvera-bed-angle.webp",
+      "alt": "Cozy Bolster Dog Bed — angled front view"
+    },
+    "bed-detail": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-bed-detail.webp?v=1791780268",
+      "fileId": "gid://shopify/MediaImage/46563942826283",
+      "filename": "pawvera-bed-detail.webp",
+      "alt": "Cozy Bolster Dog Bed — detail of visible bolster texture"
+    },
+    "brush-catalog": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-brush-catalog.webp?v=1791780286",
+      "fileId": "gid://shopify/MediaImage/46563945611563",
+      "filename": "pawvera-brush-catalog.webp",
+      "alt": "Gentle Grooming Brush — catalog view"
+    },
+    "brush-life": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-brush-life.webp?v=1791780298",
+      "fileId": "gid://shopify/MediaImage/46563947610411",
+      "filename": "pawvera-brush-life.webp",
+      "alt": "Gentle Grooming Brush — owner gently brushing a dog's coat"
+    },
+    "brush-angle": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-brush-angle.webp?v=1791780310",
+      "fileId": "gid://shopify/MediaImage/46563950690603",
+      "filename": "pawvera-brush-angle.webp",
+      "alt": "Gentle Grooming Brush — angled front view"
+    },
+    "brush-detail": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-brush-detail.webp?v=1791780322",
+      "fileId": "gid://shopify/MediaImage/46563951018283",
+      "filename": "pawvera-brush-detail.webp",
+      "alt": "Gentle Grooming Brush — detail of visible brush pins and head"
+    },
+    "beef-catalog": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-beef-catalog.webp?v=1791779626",
+      "fileId": "gid://shopify/MediaImage/46563757392171",
+      "filename": "pawvera-beef-catalog.webp",
+      "alt": "Grass-Fed Beef Dog Food — pink Jinx bag — front catalog view"
+    },
+    "pate-catalog": {
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/pawvera-pate-catalog.webp?v=1791779640",
+      "fileId": "gid://shopify/MediaImage/46563758244139",
+      "filename": "pawvera-pate-catalog.webp",
+      "alt": "Grain-Free Chicken Pate Wet Dog Food — yellow Jinx can — front catalog view"
+    }
+  },
+  "approvedOldComparePrices": {
+    "wofyn-magic-link": "99.00",
+    "wofyn-chicken-ancient-grains-recipe": "17.00",
+    "wofyn-bowl": "59.00",
+    "wofyn-beef-training-treats": "8.00",
+    "wofyn-freeze-dried-chicken-topper": "13.00",
+    "wofyn-cage-free-chicken-dog-food": "22.00",
+    "wofyn-atlantic-salmon-dog-food": "22.00",
+    "wofyn-the-puffin-game": "99.00",
+    "wofyn-armadillo": "49.00",
+    "wofyn-chew-chain": "19.00",
+    "wofyn-hard-baked-sugrrrr-cookie": "13.00",
+    "wofyn-playful-plush": "19.00"
+  },
+  "oldProductsUpdated": [
+    "gid://shopify/Product/15415751344427",
+    "gid://shopify/Product/15415751639339",
+    "gid://shopify/Product/15415751934251",
+    "gid://shopify/Product/15415752687915",
+    "gid://shopify/Product/15415753015595",
+    "gid://shopify/Product/15415753343275",
+    "gid://shopify/Product/15415753539883",
+    "gid://shopify/Product/15415753867563",
+    "gid://shopify/Product/15415754555691",
+    "gid://shopify/Product/15415755014443",
+    "gid://shopify/Product/15415755571499",
+    "gid://shopify/Product/15415755964715"
+  ],
+  "notes": [
+    "Existing shared Wofyn products reused; compare-at updates affect those shared resources across templates.",
+    "Sale membership includes 12 existing products after explicit additional user approval. Bed/brush excluded after automatic review rejected broader Sale membership; created safely in topical, All and New collections.",
+    "Food reference can says chopped recipe rather than pate; retained exact Figma product title and documented mismatch in description.",
+    "No theme publishing or Git commit/push during this audit."
+  ]
+}

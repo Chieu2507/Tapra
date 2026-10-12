@@ -36,6 +36,7 @@ Hướng dẫn mới, cụ thể của người dùng được ưu tiên hơn fi
 | Thành phần | Yêu cầu |
 | --- | --- |
 | Ảnh | Tối thiểu 4 ảnh cho từng sản phẩm. Nếu design chỉ có 1 ảnh: ảnh 1 là ảnh sản phẩm, ảnh 2 là product life, ảnh 3 và 4 là các góc nhìn khác của cùng sản phẩm. Dùng ảnh gốc làm tham chiếu để render phần thiếu. |
+| Kích thước ảnh upload | Yêu cầu render ảnh sản phẩm **2K ở độ phân giải gốc tối đa công cụ hỗ trợ**, giữ tỷ lệ ảnh theo thiết kế. Upload nguyên kích thước file render trả về; không bắt buộc cạnh dài đúng 2000 px, không phóng lớn hoặc kéo giãn ảnh để đạt mốc này. |
 | Description | Có mô tả đầy đủ, phù hợp đúng sản phẩm. |
 | Giá | Có giá gốc và giá khuyến mãi. |
 | Tồn kho | Số lượng trung bình 20; không lấy mặc định 100 từ receipt cũ. |
@@ -76,6 +77,9 @@ Hướng dẫn mới, cụ thể của người dùng được ưu tiên hơn fi
 
 - Khi dùng trình tạo ảnh để tạo hoặc bổ sung ảnh sản phẩm (catalog, ảnh variant và product life), dùng **model `gpt-6.1-sol` với reasoning effort `low` (light)** cho agent thực hiện tác vụ, thay cấu hình Luna trước đây. Đây là cấu hình model của agent gọi công cụ tạo ảnh; không phải tham số model của công cụ tạo ảnh. Nếu môi trường không hỗ trợ cấu hình này, báo rõ giới hạn, không tự tuyên bố đã dùng đúng model.
 - Lấy ảnh đúng sản phẩm từ thiết kế/nguồn được cung cấp; upload vào Shopify Files/product media, không đưa ảnh nội dung vào theme `assets`.
+- Với ảnh catalog, ảnh variant, product life và các góc bổ sung, yêu cầu công cụ **render 2K ở độ phân giải gốc tối đa được hỗ trợ**, giữ tỷ lệ ảnh theo thiết kế. Không chủ động chọn mức render 1000/1024 px làm mặc định. Đây là yêu cầu gửi cho công cụ; kiểm tra kích thước pixel thực tế của file trả về để ghi nhận kết quả.
+- Upload nguyên kích thước file render trả về, không bắt buộc đạt chính xác 2000 px. Không phóng lớn, kéo giãn hoặc ép ảnh thành hình vuông để đạt một kích thước định sẵn. Ghi kích thước thực tế vào receipt/audit; nếu công cụ trả về ảnh thấp hơn 2K, ghi đúng kết quả, không báo ảnh đã đạt 2K chỉ dựa trên prompt.
+- Trước khi upload, chuyển ảnh sang **AVIF hoặc WebP**, giữ chất lượng, độ trong suốt và kích thước đã chuẩn bị. Ảnh đã ở một trong hai định dạng này không cần chuyển lại. Kiểm tra kích thước pixel của file cuối cùng được upload.
 - Mỗi sản phẩm phải có **tối thiểu 4 ảnh**. Sản phẩm dưới 4 ảnh phải được liệt kê rõ là chưa đạt, không dùng trung bình toàn bộ nhóm hoặc sản phẩm nhiều ảnh để che phần còn thiếu.
 - Nếu sản phẩm trong design chỉ có một ảnh, giữ ảnh đó làm **ảnh 1 — ảnh sản phẩm/catalog**; tạo **ảnh 2 — product life** có đối tượng đang sử dụng đúng sản phẩm theo quy tắc bên dưới; tạo **ảnh 3 và 4 — hai góc nhìn khác của chính sản phẩm**, chẳng hạn mặt sau, bên trái, bên phải hoặc góc nghiêng tùy cấu tạo và góc ảnh gốc. Chọn góc bổ sung có ích để người xem hiểu sản phẩm, không lặp ảnh hoặc chỉ đổi nền để tính đủ 4 ảnh.
 - Ảnh góc bổ sung phải nhất quán với ảnh gốc về hình dáng, màu, tỷ lệ và chi tiết nhận diện. Đối chiếu nguồn bổ sung khi có; không tự bịa chi tiết ở mặt khuất. Nếu không đủ căn cứ để dựng một góc, chọn góc khác có thể xác minh hoặc ghi rõ cần thêm ảnh tham chiếu.
@@ -179,7 +183,7 @@ Tạo hoặc bật nội dung trên Online Store không đồng nghĩa với pub
 
 Báo ngắn gọn số lượng đã tạo/cập nhật và các phần còn thiếu. Chỉ đánh dấu đạt khi đã xác minh:
 
-- **Product:** description, giá bán/giá gốc, tồn kho, summary, tag, option/variant đúng số lựa chọn thực tế (không tạo thêm cho sản phẩm chỉ có một phiên bản), Color/metafield và Size khi áp dụng, số ảnh và ảnh theo màu; ảnh product life có đối tượng sử dụng, hành động đúng và tương tác/tỷ lệ chân thực.
+- **Product:** description, giá bán/giá gốc, tồn kho, summary, tag, option/variant đúng số lựa chọn thực tế (không tạo thêm cho sản phẩm chỉ có một phiên bản), Color/metafield và Size khi áp dụng, số ảnh và ảnh theo màu; ảnh được yêu cầu render 2K ở độ phân giải gốc tối đa công cụ hỗ trợ, giữ tỷ lệ thiết kế và upload nguyên kích thước trả về đã ghi trong receipt/audit, định dạng AVIF/WebP; ảnh product life có đối tượng sử dụng, hành động đúng và tương tác/tỷ lệ chân thực.
 - **Collection:** hậu tố template, ảnh, membership đúng, khả dụng và resource/link trong editor.
 - **Blog post:** blog riêng đúng template, quan hệ article → blog, title, body, excerpt, ảnh, metadata, trạng thái/ngày đăng và link thật; picker và nút View all dẫn đúng blog khi có yêu cầu gắn vào editor.
 - **Preview:** dữ liệu hiển thị sau reload; desktop/mobile và tương tác liên quan đã kiểm tra.
@@ -188,6 +192,7 @@ Liệt kê rõ mục chưa có dữ liệu, chưa tạo, chưa gắn hoặc chư
 
 ## Nguồn quy tắc
 
+- Chat cập nhật **content-creation-workflow.md**, 12/10/2026: chỉ yêu cầu render ảnh sản phẩm 2K ở độ phân giải gốc tối đa công cụ hỗ trợ và upload nguyên kích thước trả về; không bắt buộc đúng 2000 px, không phóng lớn ảnh để đạt mốc đó.
 - Chat cập nhật **content-creation-workflow.md**, 07/10/2026: tối thiểu 4 ảnh cho từng sản phẩm, thay mốc trung bình 4 ảnh trước đây; khi design chỉ có 1 ảnh, thứ tự là ảnh sản phẩm → product life → hai góc nhìn khác phù hợp của cùng sản phẩm.
 - Chat cập nhật **content-creation-workflow.md**, 07/10/2026: mỗi template có blog riêng mang tên template; ví dụ blog Perky chứa mọi bài viết mới của template Perky.
 - Chat cập nhật **content-creation-workflow.md**, 07/10/2026: sản phẩm chỉ có một phiên bản không cần tạo thêm option/variant lựa chọn; cấu hình agent tạo ảnh chuyển từ `gpt-6-luna`/`max` sang `gpt-6.1-sol`/`low` (light).

@@ -61,12 +61,22 @@
     endif
   endif
 
+  if block.settings.show_language_selector_mobile == false and show_language_selector_desktop == false
+    assign has_language_selector = false
+  endif
+
   assign has_localization = false
   if has_country_selector or has_language_selector
     assign has_localization = true
   endif
 
   assign localization_class = 'localization-block header-localization header-localization--trigger-' | append: localization_trigger | append: ' body-text body-' | append: localization_font_size
+  if block.settings.show_language_selector_mobile == false
+    assign localization_class = localization_class | append: ' localization-block--hide-language-mobile'
+  endif
+  if block.settings.compact_controls
+    assign localization_class = localization_class | append: ' localization-block--compact'
+  endif
   unless show_language_selector_desktop
     assign localization_class = localization_class | append: ' header-localization--hide-language-desktop'
     if has_country_selector == false and has_language_selector
@@ -86,7 +96,7 @@
                 {{ localization.country | image_url: width: 24 | image_tag: class: 'header-localization__flag', alt: '' }}
               {% endif %}
               {% if show_country_name %}
-                <span>{{ localization.country.name }}</span>
+                <span>{{ localization.country.name }}{% if block.settings.show_currency_with_country %} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}){% endif %}</span>
               {% else %}
                 <span>{{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}</span>
               {% endif %}
@@ -152,6 +162,11 @@
 {% endif %}
 
 {% stylesheet %}
+  .localization-block--compact .header-localization__summary { min-height: 0; padding: 0; }
+  @media (max-width: 767.98px) {
+    .localization-block--hide-language-mobile .header-localization__details--language { display: none; }
+    .localization-block--compact .header-localization__summary { min-height: 0; padding: 0; }
+  }
   @keyframes header-surface-enter {
     from {
       opacity: 0;
@@ -408,6 +423,9 @@
   "name": "t:general.localization",
   "tag": null,
   "settings": [
+    {"type":"checkbox", "id":"compact_controls", "label":"Compact controls", "default":false},
+    {"type":"checkbox", "id":"show_language_selector_mobile", "label":"Show language selector on mobile", "default":true},
+    {"type": "checkbox", "id": "show_currency_with_country", "label": "Show currency with country name", "default": false, "visible_if": "{{ block.settings.show_country_name }}"},
     {
       "type": "header",
       "content": "t:general.layout"

@@ -434,7 +434,7 @@
     width: 100%;
     padding: 0.8rem;
     border: 1px solid rgb(0 0 0 / 10%);
-    border-radius: var(--radius-square, 0);
+    border-radius: var(--radius-rounded, 12px);
     background: var(--background-color, #fff);
     color: var(--body-color, #1d2835);
     box-shadow: 0 0.8rem 2.4rem rgb(0 0 0 / 18%);
@@ -536,6 +536,8 @@
   .product-callout__product-card-price {
     margin-top: 0.1rem;
     font-size: var(--font-body-xs);
+    text-align: start;
+    justify-content: flex-start;
   }
 
   .product-callout__product-card-action {

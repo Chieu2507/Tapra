@@ -224,7 +224,9 @@
   --email-signup-gap-mobile: {{ gap_mobile }}px;
   --email-signup-field-height-desktop: {{ field_height_desktop }}px;
   --email-signup-field-height-mobile: {{ field_height_mobile }}px;
-  {% if input_corner_radius == 'inherit' %}
+  {% if input_corner_radius == 'radius_8' %}
+    --email-signup-input-radius: var(--radius-8);
+  {% elsif input_corner_radius == 'inherit' %}
     --email-signup-input-radius: var(--input-radius);
   {% else %}
     --email-signup-input-radius: var(--radius-{{ input_corner_radius }});
@@ -257,6 +259,10 @@
 {% endcapture %}
 {% assign email_signup_fields_style = email_signup_fields_style | strip %}
 
+{% assign email_signup_submit_class = 'email-signup-block__submit' %}
+{% if button_icon_only %}
+  {% assign email_signup_submit_class = email_signup_submit_class | append: ' email-signup-block__submit--icon-only' %}
+{% endif %}
 {% capture email_signup_button %}
   {% render 'theme-button',
     label: button_label,
@@ -267,7 +273,7 @@
     icon_size: button_icon_size,
     icon_width: button_icon_width,
     icon_only: button_icon_only,
-    class: 'email-signup-block__submit'
+    class: email_signup_submit_class
   %}
 {% endcapture %}
 {% assign email_signup_button = email_signup_button | strip %}
@@ -525,6 +531,16 @@
   .email-signup-block--layout-vertical .email-signup-block__button > .btn {
     height: var(--email-signup-field-height-desktop, var(--input-height));
     min-height: var(--email-signup-field-height-desktop, var(--input-height));
+  }
+
+  .email-signup-block__button > .email-signup-block__submit--icon-only.btn {
+    width: var(--email-signup-field-height-desktop);
+    padding: 0;
+    border-radius: var(--email-signup-input-radius, var(--input-radius));
+  }
+
+  @media (max-width: 767.98px) {
+    .email-signup-block__button > .email-signup-block__submit--icon-only.btn { width: var(--email-signup-field-height-mobile); }
   }
 
   .email-signup-block__submit {
@@ -917,6 +933,7 @@
       "id": "icon",
       "label": "t:labels.icon",
       "options": [
+        {"value": "send", "label": "Send"},
         {
           "value": "arrow_right",
           "label": "Arrow right"
@@ -1021,7 +1038,7 @@
       "label": "t:labels.background_color"
     },
     {"type": "select", "id": "input_style", "label": "Input style", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "solid", "label": "Solid"}, {"value": "outline", "label": "Outline"}], "default": "inherit"},
-    {"type": "select", "id": "corner_radius", "label": "t:labels.corner_radius", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "square", "label": "t:options.radius_preset.square"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "pill", "label": "t:options.radius_preset.pill"}], "default": "inherit"},
+    {"type": "select", "id": "corner_radius", "label": "t:labels.corner_radius", "options": [{"value": "radius_8", "label": "8 px"}, {"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "square", "label": "t:options.radius_preset.square"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "pill", "label": "t:options.radius_preset.pill"}], "default": "inherit"},
     {
       "type": "header",
       "content": "t:general.padding"

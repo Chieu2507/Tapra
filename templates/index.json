@@ -127,11 +127,11 @@
           "static": true,
           "settings": {
             "collections": [
-              "walks-wofyn",
-              "bowls-wofyn",
-              "beds-wofyn",
-              "toys-wofyn",
-              "foods-wofyn"
+              "walks-pawvera",
+              "bowls-pawvera",
+              "beds-pawvera",
+              "toys-pawvera",
+              "foods-pawvera"
             ],
             "layout": "carousel",
             "columns_desktop": "5",
@@ -239,7 +239,7 @@
                         "product_count_placement": "below",
                         "uppercase_title": false,
                         "truncate_title": false,
-                        "omit_title_suffix": "Wofyn"
+                        "omit_title_suffix": "Pawvera"
                       },
                       "blocks": {}
                     }
@@ -1446,7 +1446,7 @@
                         "heading_size": "xl",
                         "html_tag": "h2",
                         "width": "fill",
-                        "animation_type": "none",
+                        "animation_type": "slide-bottom",
                         "animation_delay": 0,
                         "padding_bottom": 0,
                         "customize_mobile_padding": true,
@@ -1459,8 +1459,8 @@
                         "text": "<p>Treat your furry friends to something special - hurry, limited-time offers await!</p>",
                         "text_size": "sm",
                         "width": "fill",
-                        "animation_type": "none",
-                        "animation_delay": 0,
+                        "animation_type": "slide-bottom",
+                        "animation_delay": 100,
                         "padding_bottom": 0,
                         "customize_mobile_padding": true,
                         "padding_bottom_mobile": 0
@@ -1507,8 +1507,8 @@
                     "padding_bottom_mobile": 0,
                     "padding_left_mobile": 0,
                     "padding_right_mobile": 0,
-                    "animation_type": "none",
-                    "animation_delay": 0
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 200
                   },
                   "blocks": {}
                 },
@@ -1516,12 +1516,12 @@
                   "type": "button",
                   "settings": {
                     "button_label": "Shop The Sale",
-                    "button_link": "shopify://collections/sale-wofyn",
+                    "button_link": "shopify://collections/sale-pawvera",
                     "button_style": "primary",
                     "width": "fit",
                     "width_mobile": "fit",
-                    "animation_type": "none",
-                    "animation_delay": 0
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 300
                   }
                 }
               },
@@ -1575,7 +1575,7 @@
             "alignment": "center",
             "customize_mobile_alignment": false,
             "gap_desktop": 40,
-            "gap_mobile": 28
+            "gap_mobile": 32
           },
           "blocks": {
             "heading": {
@@ -1584,7 +1584,9 @@
                 "text": "<p>Real Pet Parents Say</p>",
                 "heading_size": "xl",
                 "html_tag": "h2",
-                "width": "fill"
+                "width": "fill",
+                "animation_type": "slide-bottom",
+                "animation_delay": 0
               }
             },
             "trust": {
@@ -1599,7 +1601,9 @@
                 "gap_desktop": 32,
                 "gap_mobile": 24,
                 "customize_mobile_alignment": true,
-                "alignment_mobile": "center"
+                "alignment_mobile": "center",
+                "animation_type": "slide-bottom",
+                "animation_delay": 100
               },
               "blocks": {
                 "reviews": {
@@ -1751,9 +1755,9 @@
               "settings": {
                 "direction": "vertical",
                 "position": "center",
-                "customize_mobile_alignment": false,
+                "customize_mobile_alignment": true,
                 "alignment": "left",
-                "alignment_mobile": "left",
+                "alignment_mobile": "center",
                 "gap_desktop": 32,
                 "gap_mobile": 24,
                 "width": "fill",
@@ -1766,9 +1770,9 @@
                   "settings": {
                     "direction": "vertical",
                     "position": "center",
-                    "customize_mobile_alignment": false,
+                    "customize_mobile_alignment": true,
                     "alignment": "left",
-                    "alignment_mobile": "left",
+                    "alignment_mobile": "center",
                     "gap_desktop": 16,
                     "gap_mobile": 16,
                     "width": "fill",
@@ -1936,9 +1940,9 @@
               "settings": {
                 "direction": "vertical",
                 "position": "center",
-                "customize_mobile_alignment": false,
+                "customize_mobile_alignment": true,
                 "alignment": "left",
-                "alignment_mobile": "left",
+                "alignment_mobile": "center",
                 "gap_desktop": 32,
                 "gap_mobile": 24,
                 "width": "fill",
@@ -1951,9 +1955,9 @@
                   "settings": {
                     "direction": "vertical",
                     "position": "center",
-                    "customize_mobile_alignment": false,
+                    "customize_mobile_alignment": true,
                     "alignment": "left",
-                    "alignment_mobile": "left",
+                    "alignment_mobile": "center",
                     "gap_desktop": 16,
                     "gap_mobile": 16,
                     "width": "fill",
@@ -2112,7 +2116,7 @@
         "gap_desktop": 28,
         "gap_mobile": 20,
         "header_gap": 48,
-        "header_gap_mobile": 36,
+        "header_gap_mobile": 40,
         "show_navigation": true,
         "show_pagination": true,
         "pagination_visibility": "mobile",
@@ -2124,8 +2128,8 @@
         "padding_top": 96,
         "padding_bottom": 96,
         "customize_mobile_padding": true,
-        "padding_top_mobile": 64,
-        "padding_bottom_mobile": 64,
+        "padding_top_mobile": 80,
+        "padding_bottom_mobile": 80,
         "header_max_width": 1152,
         "navigation_position": "bottom"
       }
@@ -2229,7 +2233,7 @@
               "type": "button",
               "settings": {
                 "button_label": "Shop Deals",
-                "button_link": "shopify://collections/sale-wofyn",
+                "button_link": "shopify://collections/sale-pawvera",
                 "button_open_in_new_tab": false,
                 "button_style": "primary",
                 "show_icon": false,
@@ -2355,7 +2359,7 @@
               "type": "button",
               "settings": {
                 "button_label": "Shop Deals",
-                "button_link": "shopify://collections/sale-wofyn",
+                "button_link": "shopify://collections/sale-pawvera",
                 "button_open_in_new_tab": false,
                 "button_style": "primary",
                 "show_icon": false,
@@ -2499,8 +2503,8 @@
                 "customize_mobile_size": false,
                 "width_mobile": "fit",
                 "max_width_mobile": 480,
-                "animation_type": "none",
-                "animation_delay": 150,
+                "animation_type": "slide-bottom",
+                "animation_delay": 0,
                 "padding_top": 0,
                 "padding_bottom": 0,
                 "padding_left": 0,
@@ -2548,7 +2552,7 @@
           "type": "collection-tab",
           "settings": {
             "label": "Best Seller",
-            "collection": "top-picks-wofyn"
+            "collection": "top-picks-pawvera"
           },
           "blocks": {
             "product-card": {
@@ -2567,7 +2571,7 @@
           "type": "collection-tab",
           "settings": {
             "label": "New",
-            "collection": ""
+            "collection": "new-arrivals-pawvera"
           },
           "blocks": {
             "product-card": {
@@ -2586,7 +2590,7 @@
           "type": "collection-tab",
           "settings": {
             "label": "Sale",
-            "collection": "sale-wofyn"
+            "collection": "sale-pawvera"
           },
           "blocks": {
             "product-card": {
@@ -2634,7 +2638,9 @@
                 "text": "<p>Latest Tips and Stories for Pet Lovers</p>",
                 "heading_size": "xl",
                 "html_tag": "h2",
-                "width": "fill"
+                "width": "fill",
+                "animation_type": "slide-bottom",
+                "animation_delay": 0
               }
             }
           },
@@ -2697,7 +2703,7 @@
                 "desktop_gap": 0,
                 "mobile_gap": 0,
                 "border_thickness": 0,
-                "corner_radius": "radius_16",
+                "corner_radius": "square",
                 "shadow": "none",
                 "color_type": "inherit",
                 "color_scheme": "scheme-1",
@@ -2877,7 +2883,9 @@
                 "gap_desktop": 20,
                 "gap_mobile": 20,
                 "width": "fill",
-                "show_overlay": false
+                "show_overlay": false,
+                "animation_type": "slide-bottom",
+                "animation_delay": 0
               },
               "blocks": {
                 "name": {
@@ -3015,7 +3023,9 @@
                 "gap_desktop": 20,
                 "gap_mobile": 20,
                 "width": "fill",
-                "show_overlay": false
+                "show_overlay": false,
+                "animation_type": "slide-bottom",
+                "animation_delay": 200
               },
               "blocks": {
                 "buy": {
@@ -3091,7 +3101,9 @@
                 "horizontal_alignment": "left",
                 "position_horizontal": "center",
                 "padding_top": 4,
-                "customize_mobile_alignment": true
+                "customize_mobile_alignment": true,
+                "animation_type": "fade",
+                "animation_delay": 300
               },
               "blocks": {
                 "label": {
@@ -3189,7 +3201,9 @@
             "show_overlay": false,
             "color_scheme": "scheme-1",
             "background_type": "image",
-            "image": "shopify://shop_images/pawvera-hero-left.webp"
+            "image": "shopify://shop_images/pawvera-hero-left.webp",
+            "animation_type": "slide-left",
+            "animation_delay": 0
           },
           "blocks": {}
         },
@@ -3218,7 +3232,9 @@
             "padding_top_mobile": 32,
             "padding_bottom_mobile": 32,
             "padding_left_mobile": 20,
-            "padding_right_mobile": 20
+            "padding_right_mobile": 20,
+            "animation_type": "none",
+            "animation_delay": 0
           },
           "blocks": {
             "header": {
@@ -3234,7 +3250,8 @@
                   "type": "eyebrow",
                   "settings": {
                     "text": "<p>NEW COLLECTION!</p>",
-                    "animation_type": "none"
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 100
                   }
                 },
                 "heading": {
@@ -3245,7 +3262,8 @@
                     "html_tag": "h1",
                     "width": "fill",
                     "width_mobile": "fill",
-                    "animation_type": "none"
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 200
                   }
                 }
               },
@@ -3258,12 +3276,13 @@
               "type": "button",
               "settings": {
                 "button_label": "Shop now",
-                "button_link": "shopify://collections/all",
+                "button_link": "shopify://collections/all-pawvera",
                 "button_style": "primary",
                 "show_icon": false,
                 "width": "fit",
                 "width_mobile": "fit",
-                "animation_type": "none"
+                "animation_type": "slide-bottom",
+                "animation_delay": 350
               }
             }
           },
@@ -3287,7 +3306,9 @@
             "show_overlay": false,
             "color_scheme": "scheme-1",
             "background_type": "image",
-            "image": "shopify://shop_images/pawvera-hero-right.webp"
+            "image": "shopify://shop_images/pawvera-hero-right.webp",
+            "animation_type": "slide-right",
+            "animation_delay": 100
           },
           "blocks": {}
         }
@@ -3341,8 +3362,8 @@
                 "customize_mobile_size": false,
                 "width_mobile": "fit",
                 "max_width_mobile": 480,
-                "animation_type": "none",
-                "animation_delay": 150,
+                "animation_type": "slide-bottom",
+                "animation_delay": 0,
                 "padding_top": 0,
                 "padding_bottom": 0,
                 "padding_left": 0,
@@ -3385,7 +3406,7 @@
           "type": "product-list",
           "static": true,
           "settings": {
-            "collection": "toys-wofyn",
+            "collection": "toys-pawvera",
             "max_products": 6,
             "layout_type": "carousel",
             "columns_desktop": "4",
@@ -4017,7 +4038,7 @@
             "padding_left": 40,
             "padding_right": 40,
             "image": "shopify://shop_images/wofyn-kibble-banner.png",
-            "link": "shopify://collections/premium-dog-kibble-wofyn"
+            "link": "shopify://collections/premium-dog-kibble-pawvera"
           },
           "blocks": {
             "header0": {
@@ -4033,7 +4054,7 @@
                   "type": "heading",
                   "settings": {
                     "text": "<p>Premium Dog Kibble</p>",
-                    "heading_size": "lg",
+                    "heading_size": "xl",
                     "html_tag": "h2",
                     "width": "fill"
                   },
@@ -4070,7 +4091,7 @@
             }
           },
           "settings": {
-            "collection": "premium-dog-kibble-wofyn",
+            "collection": "premium-dog-kibble-pawvera",
             "products_to_show": 6,
             "show_rating": true,
             "show_quick_add": true,
@@ -4147,7 +4168,9 @@
                     "text": "<p>Everyday Pet Essentials</p>",
                     "heading_size": "xl",
                     "html_tag": "h2",
-                    "width": "fill"
+                    "width": "fill",
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 0
                   }
                 },
                 "description": {
@@ -4155,7 +4178,9 @@
                   "settings": {
                     "text": "<p>Carefully designed essentials that bring comfort, style, and function to your pet’s everyday life.</p>",
                     "text_size": "sm",
-                    "width": "fill"
+                    "width": "fill",
+                    "animation_type": "slide-bottom",
+                    "animation_delay": 100
                   }
                 }
               },
@@ -4168,9 +4193,11 @@
               "type": "button",
               "settings": {
                 "button_label": "Shop Now",
-                "button_link": "shopify://collections/all-wofyn",
+                "button_link": "shopify://collections/all-pawvera",
                 "button_style": "primary",
-                "show_icon": false
+                "show_icon": false,
+                "animation_type": "slide-bottom",
+                "animation_delay": 200
               }
             }
           },
@@ -4242,7 +4269,7 @@
                 "bed": {
                   "type": "hotspot",
                   "settings": {
-                    "product": "",
+                    "product": "pawvera-cozy-bolster-dog-bed",
                     "horizontal_position": 16,
                     "vertical_position": 64,
                     "customize_mobile_position": true,
@@ -4253,7 +4280,7 @@
                 "brush": {
                   "type": "hotspot",
                   "settings": {
-                    "product": "",
+                    "product": "wofyn-magic-link",
                     "horizontal_position": 81,
                     "vertical_position": 91,
                     "customize_mobile_position": true,

@@ -235,10 +235,11 @@
 <article
   class="{{ image_card_class }}"
   {% if image_card_style != blank %}style="{{ image_card_style }}"{% endif %}
-  {% if section.settings.layout == 'three_columns' and section.index == 1 %}
-    data-block-animation="none"
-  {% elsif block.settings.animation_type != nil %}
-    data-block-animation="{{ block.settings.animation_type | escape }}"
+  {% if block.settings.animation_type != nil %}
+    {% render 'block-animation-attributes', settings: block.settings %}
+  {% endif %}
+  {% if section.settings.layout == 'three_columns' and section.index == 1 and image_card_media_type != 'none' %}
+    data-animation-preserve-opacity="true"
   {% endif %}
   {{ block.shopify_attributes }}
 >

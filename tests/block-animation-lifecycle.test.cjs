@@ -3,8 +3,9 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function fixture() {
+function fixture({delay = 150, type = 'slide-bottom', preserveOpacity = false} = {}) {
   let changed;
+  let motionChanged;
   const classes = new Set();
   const played = [];
   const slideClasses = new Set(['swiper-slide-active']);
@@ -12,7 +13,7 @@ function fixture() {
     isConnected: true, getClientRects: () => [{}], closest: s => s === '.slideshow__swiper .swiper-slide' ? slide : null };
   const viewport = { getBoundingClientRect: () => ({ top: 100, bottom: 920, left: 0, right: 1920 }) };
   const block = {
-    dataset: { blockAnimation: 'slide-bottom', animationDelay: '150' }, isConnected: true,
+    dataset: { blockAnimation: type, animationDelay: String(delay), animationPreserveOpacity: String(preserveOpacity) }, isConnected: true,
     parentElement: { closest: () => null }, querySelectorAll: () => [],
     classList: { add: c => classes.add(c), remove: c => classes.delete(c) },
     closest: s => s === '.slideshow' ? viewport : s === '.slideshow__swiper .swiper-slide' ? slide : null,
@@ -25,20 +26,42 @@ function fixture() {
   };
   const context = {
     window: {}, document, innerWidth: 1920, innerHeight: 450,
-    matchMedia: () => ({ matches: false, addEventListener() {} }),
+    matchMedia: () => ({ matches: false, addEventListener(event, callback) { motionChanged = callback; } }),
     getComputedStyle: () => ({ getPropertyValue: () => '' }),
     IntersectionObserver: class { observe() {} unobserve() {} },
     MutationObserver: class { constructor(fn) { changed = fn; } observe() {} },
   };
   vm.runInNewContext(fs.readFileSync('assets/block-animations.js', 'utf8'), context);
-  return { block, slide, played, classes, slideClasses, changed: records => changed(records) };
+  return { block, slide, played, classes, slideClasses, changed: records => changed(records), motionChanged: () => motionChanged() };
 }
+
+test('changing reduced-motion preference cancels entrances and leaves content visible', () => {
+  const h = fixture();
+  h.classes.add('reveal-pending');
+  h.motionChanged();
+  assert.equal(h.played[0].animation.cancelled, true);
+  assert.equal(h.classes.has('reveal-pending'), false);
+  assert.equal(h.played.length, 1);
+});
 
 test('all active slideshow contents reveal even below the editor viewport', () => {
   const h = fixture();
   assert.equal(h.played.length, 1);
   assert.equal(h.classes.has('reveal-pending'), false);
-  assert.equal(h.played[0].frames[0].transform, 'translateY(24px)');
+  assert.equal(h.played[0].frames[0].transform, 'translateY(32px)');
+});
+
+test('zero and 75ms delays remain distinct instead of collapsing to 150ms', () => {
+  assert.equal(fixture({delay:0}).played[0].options.delay, 0);
+  assert.equal(fixture({delay:75}).played[0].options.delay, 75);
+});
+
+test('hero media stays opaque while moving and fade never writes a slide transform', () => {
+  const hero = fixture({delay:0,type:'slide-left',preserveOpacity:true});
+  assert.equal(hero.played[0].frames[0].opacity, 1);
+  assert.equal(hero.played[0].frames[0].transform, 'translateX(-32px)');
+  const fade = fixture({type:'fade'});
+  assert.ok(fade.played[0].frames.every(frame => frame.transform === undefined));
 });
 
 test('changing an existing block animation cancels and replays without toggling section visibility', () => {

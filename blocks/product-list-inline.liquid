@@ -16,13 +16,13 @@
           {% content_for 'block', type: 'product-rating', id: 'rating', closest.product: inline_product %}
         {% endif %}
       {% endcapture %}
-      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 }}">
+      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 | plus: 150 }}">
         {% render 'product-card-inline', product: inline_product, rating_content: inline_rating, show_quick_add: block.settings.show_quick_add %}
       </div>
     {% endfor %}
   {% else %}
     {% for inline_index in (1..inline_limit) %}
-      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 }}">
+      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 | plus: 150 }}">
         {% render 'product-card-inline', placeholder_index: inline_index %}
       </div>
     {% endfor %}
