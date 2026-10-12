@@ -142,7 +142,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__column--right > .header-search { max-width: min(120px, 30vw); }
 .header-top.header-top--compact .header-search .header-action__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .header-top.header-top--compact .header__column--right > .header-search--type-icon { width: 44px; min-width: 44px; margin-inline-end: 0; justify-content: center; }
-.header-top.header-top--compact .header__column--right > .header-account { width: 44px; min-width: 44px; min-height: 44px; justify-content: center; }
+.header-top.header-top--compact .header__column--right > .header-account { display: inline-flex; width: 44px; min-width: 44px; min-height: 44px; justify-content: center; }
 
 /* Compact banners reuse the banner block as an inline media/content card. */
 .header-top.header-top--compact .header__mobile-drawer-submenu-details > summary > .header-compact__category-link { display: none; }
