@@ -208,6 +208,116 @@
               }
             }
           }
+        },
+        "header-top": {
+          "type": "_header-top",
+          "static": true,
+          "settings": {
+            "bottom_separator": "line",
+            "gap": 16,
+            "padding_top": 16,
+            "padding_bottom": 16,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 12,
+            "padding_bottom_mobile": 12
+          },
+          "blocks": {
+            "header-menu": {
+              "type": "_header-menu",
+              "settings": {
+                "menu": "torvex-main-menu",
+                "gap": 32,
+                "show_dropdown_icon": true,
+                "dropdown_trigger": "hover",
+                "font": "accent",
+                "font_size": "md",
+                "letter_spacing": "normal",
+                "text_case": "original",
+                "text_color": "",
+                "submenu_font": "body",
+                "submenu_font_size": "md",
+                "submenu_text_case": "original",
+                "submenu_text_color": ""
+              }
+            },
+            "header-logo": {
+              "type": "_header-logo",
+              "settings": {
+                "position": "left"
+              },
+              "blocks": {}
+            },
+            "header-menu-toggle": {
+              "type": "_header-menu-toggle",
+              "settings": {
+                "position": "left"
+              },
+              "blocks": {}
+            },
+            "header-localization": {
+              "type": "_header-localization",
+              "settings": {
+                "dropdown_trigger": "click",
+                "show_country_selector": true,
+                "show_country_name": false,
+                "show_country_flag": true,
+                "show_language_selector": false,
+                "font_size": "md"
+              },
+              "blocks": {}
+            },
+            "header-divider": {
+              "type": "_header-divider",
+              "settings": {
+                "full_height": false,
+                "height": 12,
+                "color_type": "inherit",
+                "border_color": "#dbd9d9"
+              },
+              "blocks": {}
+            },
+            "header-search": {
+              "type": "_header-search",
+              "settings": {
+                "type": "icon",
+                "label": "Search",
+                "font": "accent",
+                "font_size": "md",
+                "letter_spacing": "relaxed"
+              },
+              "blocks": {}
+            },
+            "header-account": {
+              "type": "_header-account",
+              "settings": {
+                "type": "icon",
+                "label": "Account",
+                "font": "accent",
+                "font_size": "md",
+                "letter_spacing": "normal"
+              },
+              "blocks": {}
+            },
+            "header-cart": {
+              "type": "_header-cart",
+              "settings": {
+                "type": "icon",
+                "label": "Cart",
+                "badge_type": "primary"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "header-menu",
+            "header-menu-toggle",
+            "header-logo",
+            "header-localization",
+            "header-divider",
+            "header-search",
+            "header-account",
+            "header-cart"
+          ]
         }
       },
       "settings": {
