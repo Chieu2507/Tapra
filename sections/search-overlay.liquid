@@ -183,10 +183,11 @@
     if (compact) {
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
-      overlay.style.setProperty('--compact-shell-left', `${rect.left}px`);
-      overlay.style.setProperty('--compact-shell-right', `${rect.right}px`);
-      overlay.style.setProperty('--compact-shell-top', `${rect.top}px`);
-      overlay.style.setProperty('--compact-shell-bottom', `${rect.bottom}px`);
+      const radius = Math.min(parseFloat(getComputedStyle(headerTop).borderTopLeftRadius) || 26, rect.width / 2, rect.height / 2);
+      const { left, right, top, bottom } = rect;
+      // The backdrop excludes the rounded shell, including its animated corners.
+      const hole = `M${left + radius} ${top}H${right - radius}A${radius} ${radius} 0 0 1 ${right} ${top + radius}V${bottom - radius}A${radius} ${radius} 0 0 1 ${right - radius} ${bottom}H${left + radius}A${radius} ${radius} 0 0 1 ${left} ${bottom - radius}V${top + radius}A${radius} ${radius} 0 0 1 ${left + radius} ${top}Z`;
+      overlay.style.setProperty('--compact-backdrop-clip', `path(evenodd, "M0 0H${innerWidth}V${innerHeight}H0Z ${hole}")`);
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
       const toggleRect = headerTop.querySelector('.header-menu-toggle')?.getBoundingClientRect();

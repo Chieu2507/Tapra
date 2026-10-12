@@ -224,7 +224,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__backdrop {
   inset: 0;
   pointer-events: auto;
-  clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--compact-shell-left) var(--compact-shell-top), var(--compact-shell-left) var(--compact-shell-bottom), var(--compact-shell-right) var(--compact-shell-bottom), var(--compact-shell-right) var(--compact-shell-top), var(--compact-shell-left) var(--compact-shell-top));
+  clip-path: var(--compact-backdrop-clip);
 }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel,
 .search-overlay.search-overlay--compact[data-search-overlay] > .search-overlay__close { pointer-events: auto; }
