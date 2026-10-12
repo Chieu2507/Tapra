@@ -4,7 +4,7 @@
   const headerResizeObservers = new Map();
   const submenuCloseTimers = new WeakMap();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const isMobileMenuViewport = () => window.matchMedia(document.querySelector('.header-top--two-rows') ? '(max-width: 1399.98px)' : '(max-width: 991.98px)').matches;
+  const isMobileMenuViewport = () => window.matchMedia('(max-width: 991.98px)').matches;
   const submenuTransitionBuffer = 16;
   const menuToggleButtons = new WeakSet();
   const megaMenuBackdropControls = new WeakSet();
