@@ -24,6 +24,7 @@
     --overlay-backdrop-ease: ease;
   }
   body:has(.header-top--compact) .cart-drawer .cart-drawer__panel {
+    --overlay-rest-transform: translateX(calc(100% + 32px));
     opacity: 1;
     transition-property: transform;
   }
