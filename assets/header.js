@@ -321,6 +321,23 @@
     return details.dataset.headerSubmenuTrigger === 'hover' && details.matches(':hover, :focus-within');
   });
 
+  const positionHeaderLocalization = (details, panel) => {
+    if (!details.open || !panel.getClientRects().length) return;
+    // Like hotspot popovers, constrain the measured panel to the viewport,
+    // rather than estimating its size from the trigger or a closed details.
+    const viewport = window.visualViewport;
+    const viewportLeft = viewport?.offsetLeft || 0;
+    const viewportWidth = Math.min(document.documentElement.clientWidth || window.innerWidth, viewport?.width || window.innerWidth);
+    const margin = Math.min(8, viewportWidth / 2);
+    panel.style.setProperty('--header-localization-max-width', `${Math.max(1, viewportWidth - margin * 2)}px`);
+    const panelRect = panel.getBoundingClientRect();
+    const parent = panel.offsetParent || details;
+    const parentRect = parent.getBoundingClientRect();
+    const left = Math.max(viewportLeft + margin, Math.min(details.getBoundingClientRect().left, viewportLeft + viewportWidth - margin - panelRect.width));
+    panel.style.left = `${left - parentRect.left - (parent.clientLeft || 0)}px`;
+    panel.style.right = 'auto';
+  };
+
   const synchronizeSubmenuOffsets = (header) => {
     const headerTop = header.querySelector('.header-top');
     if (!headerTop) return;
@@ -352,6 +369,7 @@
         details.style.setProperty('--header-popup-left', `${left - fixedOrigin.left}px`);
         details.style.setProperty('--header-popup-top', `${Math.min(headerRect.bottom, window.innerHeight - 80) - fixedOrigin.top}px`);
         details.style.setProperty('--header-popup-height', `${Math.max(64, window.innerHeight - Math.min(headerRect.bottom, window.innerHeight - 80) - 8)}px`);
+        if (panel.classList.contains('header-localization__panel')) positionHeaderLocalization(details, panel);
       }
     });
 
@@ -518,9 +536,11 @@
           ? synchronizeStickyType(header, headerState)
           : header.querySelector(HEADER_SELECTOR)?.dataset.stickyType || 'none';
         updateHeaderHeight(header, currentStickyType);
+        scheduleUpdate();
       });
       observer.observe(header);
       if (target !== header) observer.observe(target);
+      header.querySelectorAll('.header-localization__desktop-panel').forEach(panel => observer.observe(panel));
       headerResizeObservers.set(header, observer);
     }
 
@@ -1036,6 +1056,8 @@
   };
 
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
+  window.visualViewport?.addEventListener('resize', scheduleUpdate, { passive: true });
+  window.visualViewport?.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', () => {
     restoreMobileMegaMenus();
     scheduleUpdate();

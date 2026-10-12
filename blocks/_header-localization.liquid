@@ -240,9 +240,13 @@
     position: absolute;
     z-index: var(--z-drawer, 200);
     inset-block-start: calc(100% + var(--header-submenu-offset, var(--header-top-padding-bottom, 24px)));
-    inset-inline-start: var(--header-popup-shift,0px);
-    min-width: min(250px,calc(100vw - 16px));
-    max-width: calc(100vw - 16px);
+    inset-inline-start: auto;
+    inset-inline-end: auto;
+    left: auto;
+    right: 0;
+    width: 250px;
+    min-width: 0;
+    max-width: var(--header-localization-max-width,calc(100vw - 16px));
     max-height: var(--header-popup-height,70vh);
     overflow: auto;
     padding: 0.75rem;
@@ -341,8 +345,7 @@
 
   @media (max-width: 1149.98px) {
     .header-localization__panel {
-      inset-inline-start: var(--header-popup-shift,0px);
-      width: min(250px, calc(100vw - 16px));
+      width: min(250px, var(--header-localization-max-width,calc(100vw - 16px)));
       min-width: 0;
     }
   }
