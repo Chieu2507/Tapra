@@ -99,7 +99,13 @@
             "padding_bottom": 24,
             "customize_mobile_padding": true,
             "padding_top_mobile": 12,
-            "padding_bottom_mobile": 12
+            "padding_bottom_mobile": 12,
+            "row_gap_mobile": 8,
+            "actions_gap_mobile": 0,
+            "customize_compact_layout": true,
+            "padding_top_compact": 16,
+            "padding_bottom_compact": 16,
+            "row_gap_compact": 16
           },
           "blocks": {
             "header-menu": {
@@ -164,7 +170,8 @@
                 "show_category_selector": true,
                 "category_menu": "torvex-search-categories",
                 "category_label": "All Categories",
-                "category_label_mobile": "All"
+                "category_label_mobile": "All",
+                "color_scheme": "scheme-1"
               },
               "blocks": {},
               "static": true

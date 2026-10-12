@@ -6,6 +6,7 @@
 
   assign search_label = block.settings.label | default: 'Search'
   assign search_placeholder = block.settings.placeholder | default: search_label
+  assign search_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | default: blank | handleize
 
   assign search_font = block.settings.font | default: 'accent'
   unless search_font == 'body' or search_font == 'heading' or search_font == 'accent'
@@ -31,7 +32,7 @@
 
 {% if search_type == 'search_bar' %}
   <form
-    class="{{ search_class }}{% if block.settings.width == 'fill' %} header-search--fill{% endif %}{% if block.settings.mobile_display == 'search_bar' %} header-search--persistent{% endif %}"
+    class="{{ search_class }}{% if search_scheme != blank %} color-scheme section-color-scope {{ search_scheme }}{% endif %}{% if block.settings.width == 'fill' %} header-search--fill{% endif %}{% if block.settings.mobile_display == 'search_bar' %} header-search--persistent{% endif %}"
     data-mobile-category-label="{{ block.settings.category_label_mobile | default: 'All' | escape }}"
     data-desktop-category-label="{{ block.settings.category_label | default: 'All Categories' | escape }}"
     action="{{ routes.search_url }}"
@@ -414,6 +415,11 @@
       "id": "category_label_mobile",
       "label": "Mobile category label",
       "default": "All"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme"
     }
   ],
   "presets": [
