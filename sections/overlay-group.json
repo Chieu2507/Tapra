@@ -55,8 +55,8 @@
     "search": {
       "type": "search-overlay",
       "settings": {
-        "appearance_type": "inherit",
-        "color_scheme": "scheme-1",
+        "appearance_type": "scheme",
+        "color_scheme": "scheme-3",
         "placeholder": "Search for...",
         "placeholder_suggestions": "",
         "show_products": true,
