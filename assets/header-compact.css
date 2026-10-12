@@ -125,6 +125,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header-compact__utilities > shopify-account.header__mobile-drawer-account { display: block; }
 }
 @media (min-width: 768px) {
+  /* Keep native details content rendered until the panel's exit transition ends. */
+  .header-top.header-top--compact .header__mobile-drawer-details::details-content { content-visibility: visible; }
   .header-top.header-top--compact .header__mobile-drawer-list { position: relative; min-height: var(--compact-menu-height, 280px); }
   .header-top.header-top--compact .header__mobile-drawer-item { width: 210px; max-width: 40%; }
   .header-top.header-top--compact .header__mobile-drawer-item > details > .header__mobile-drawer-submenu { position: absolute; inset: 0 0 auto 238px; }
