@@ -1,0 +1,185 @@
+{% doc %}
+  Promotional message with an optional badge. Used as the fixed promotion slot
+  of Announcement links bar. The section owns external alignment and spacing.
+  Badge appearance inherits Theme Settings unless a supported override is chosen.
+{% enddoc %}
+{% liquid
+  assign text_size = block.settings.text_size | default: 'xs'
+  unless text_size == 'xs' or text_size == 'sm' or text_size == 'md'
+    assign text_size = 'xs'
+  endunless
+  assign badge_radius = 'var(--badge-radius)'
+  case block.settings.corner_radius
+    when 'square'
+      assign badge_radius = 'var(--radius-square)'
+    when 'radius_4'
+      assign badge_radius = 'var(--radius-4)'
+    when 'pill'
+      assign badge_radius = 'var(--radius-pill)'
+  endcase
+  assign badge_family = 'var(--badge-font-family)'
+  if block.settings.badge_font == 'body'
+    assign badge_family = 'var(--font-body-family)'
+  endif
+  assign badge_weight = 'var(--badge-font-weight)'
+  if block.settings.badge_weight == '500' or block.settings.badge_weight == '600'
+    assign badge_weight = block.settings.badge_weight
+  endif
+  assign gap = block.settings.gap | default: 8 | plus: 0
+  if gap < 0 or gap > 32
+    assign gap = 8
+  endif
+%}
+{% if block.settings.message != blank or block.settings.show_badge and block.settings.badge_text != blank or request.design_mode %}
+  <div class="announcement-promotion body-text body-{{ text_size }}" style="--promotion-gap: {{ gap }}px; --promotion-badge-radius: {{ badge_radius }}; --promotion-badge-family: {{ badge_family }}; --promotion-badge-weight: {{ badge_weight }};" {{ block.shopify_attributes }}>
+    {% if block.settings.show_badge and block.settings.badge_text != blank %}
+      <span class="announcement-promotion__badge announcement-promotion__badge--{{ block.settings.badge_style | default: 'sale' }}">{{ block.settings.badge_text | escape }}</span>
+    {% endif %}
+    {% if block.settings.message != blank %}<span class="announcement-promotion__message">{{ block.settings.message | escape }}</span>{% endif %}
+  </div>
+{% endif %}
+{% stylesheet %}
+  .announcement-promotion { display: flex; align-items: center; gap: var(--promotion-gap, 8px); min-width: 0; max-width: 100%; }
+  .announcement-promotion__badge { flex: 0 0 auto; max-width: 100%; padding: 2px 8px; border-radius: var(--promotion-badge-radius, var(--badge-radius)); background: var(--badge-sale-background); color: var(--badge-sale-color); font-family: var(--promotion-badge-family, var(--badge-font-family)); font-size: var(--badge-font-size); font-weight: var(--promotion-badge-weight, var(--badge-font-weight)); line-height: 1.5; overflow-wrap: anywhere; }
+  .announcement-promotion__badge--accent { background: var(--button-primary-background); color: var(--button-primary-text); }
+  .announcement-promotion__message { min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 767.98px) { .announcement-promotion { justify-content: center; flex-wrap: wrap; text-align: center; } }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Promotion",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.content"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "t:labels.text",
+      "default": "Apply today and get 10% back."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show badge",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": "Limited Sale",
+      "visible_if": "{{ block.settings.show_badge }}"
+    },
+    {
+      "type": "select",
+      "id": "badge_style",
+      "label": "Badge style",
+      "options": [
+        {
+          "value": "sale",
+          "label": "Sale"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
+      ],
+      "default": "sale"
+    },
+    {
+      "type": "select",
+      "id": "badge_font",
+      "label": "Badge font",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit badge font"
+        },
+        {
+          "value": "body",
+          "label": "Body"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "badge_weight",
+      "label": "Badge font weight",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        },
+        {
+          "value": "500",
+          "label": "500"
+        },
+        {
+          "value": "600",
+          "label": "600"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit badge radius"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        },
+        {
+          "value": "radius_4",
+          "label": "Rounded (4px)"
+        },
+        {
+          "value": "pill",
+          "label": "Pill"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "t:labels.gap",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "t:labels.text_size",
+      "options": [
+        {
+          "value": "xs",
+          "label": "Extra small"
+        },
+        {
+          "value": "sm",
+          "label": "Small"
+        },
+        {
+          "value": "md",
+          "label": "Medium"
+        }
+      ],
+      "default": "xs"
+    }
+  ]
+}
+{% endschema %}
