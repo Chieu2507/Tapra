@@ -12,6 +12,23 @@
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
       const navigation = [...drawer.querySelectorAll('.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary')];
       drawer.querySelectorAll('.header__mobile-drawer-list > li').forEach((item, index) => item.style.setProperty('--compact-item-index', index));
+      drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => {
+        const columns = [...panel.querySelectorAll(':scope > ul > li')];
+        let exitDuration = 300;
+        columns.forEach((column, index) => {
+          const reverseIndex = columns.length - index - 1;
+          column.style.setProperty('--compact-column-index', index);
+          column.style.setProperty('--compact-column-exit-index', reverseIndex);
+          const rows = [...column.querySelectorAll('.header__mobile-drawer-tertiary > li')];
+          rows.forEach((row, rowIndex) => {
+            row.style.setProperty('--compact-child-index', rowIndex);
+            row.style.setProperty('--compact-child-exit-index', rows.length - rowIndex - 1);
+          });
+          exitDuration = Math.max(exitDuration, 200 + reverseIndex * 25 + Math.max(0, rows.length - 1) * 20);
+        });
+        panel.style.setProperty('--compact-stagger-exit-duration', `${exitDuration}ms`);
+        panel.style.setProperty('--compact-stagger-fade-delay', `${exitDuration - 200}ms`);
+      });
       let columnsVisible = window.innerWidth >= 768;
       let fastTimer;
       const followPanel = () => {
