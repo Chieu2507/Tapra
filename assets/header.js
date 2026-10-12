@@ -4,7 +4,7 @@
   const headerResizeObservers = new Map();
   const submenuCloseTimers = new WeakMap();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const isMobileMenuViewport = () => window.matchMedia('(max-width: 991.98px)').matches;
+  const isMobileMenuViewport = () => window.matchMedia(document.querySelector('.header-top--two-rows') ? '(max-width: 1149.98px)' : '(max-width: 991.98px)').matches;
   const submenuTransitionBuffer = 16;
   const menuToggleButtons = new WeakSet();
   const megaMenuBackdropControls = new WeakSet();
@@ -1109,6 +1109,9 @@
   const updateCategoryLabels = () => document.querySelectorAll('[data-header-search-form]').forEach(form => {
     const option = form.querySelector('[data-header-search-category] option[value=""]');
     if (option) option.textContent = window.matchMedia('(max-width: 767.98px)').matches ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
+    const label = form.querySelector('.header-search__category-label');
+    const category = form.querySelector('[data-header-search-category]');
+    if (label && category) label.textContent = category.selectedOptions[0]?.textContent || '';
   });
   document.addEventListener('submit', event => {
     const form = event.target.closest?.('[data-header-search-form]');
@@ -1123,6 +1126,7 @@
     input.removeAttribute('name');
     if (category) { let type = form.querySelector('input[name="type"]'); if (!type) { type = document.createElement('input'); type.type='hidden'; type.name='type'; form.append(type); } type.value='product'; }
   });
+  document.addEventListener('change', event => { if (event.target.matches('[data-header-search-category]')) updateCategoryLabels(); });
   window.addEventListener('resize', updateCategoryLabels, { passive: true });
   document.addEventListener('shopify:section:load', updateCategoryLabels);
   updateCategoryLabels();
