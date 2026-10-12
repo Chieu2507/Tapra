@@ -1118,7 +1118,7 @@
     const query = form.querySelector('[data-header-search-query]');
     if (!input || !query) return;
     const escape = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-    query.value = category ? `${input.value.trim()} product_type:"${escape(category)}"`.trim() : input.value;
+    query.value = category ? (input.value.trim() ? `(${input.value.trim()}) AND ` : '') + `product_type:"${escape(category)}"` : input.value;
     query.name = 'q';
     input.removeAttribute('name');
     if (category) { let type = form.querySelector('input[name="type"]'); if (!type) { type = document.createElement('input'); type.type='hidden'; type.name='type'; form.append(type); } type.value='product'; }

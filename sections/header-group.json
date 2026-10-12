@@ -33,14 +33,14 @@
           "type": "menu",
           "static": true,
           "settings": {
-            "show_heading": false,
-            "direction": "horizontal",
-            "link_weight": "400",
             "menu": "",
             "heading": "Support",
+            "show_heading": false,
             "collapse_menu_on_mobile": false,
-            "menu_gap": 24,
-            "menu_size": "xs"
+            "direction": "horizontal",
+            "link_weight": "400",
+            "menu_size": "xs",
+            "menu_gap": 24
           },
           "blocks": {
             "support-0": {
@@ -104,7 +104,6 @@
           "blocks": {
             "header-menu": {
               "type": "_header-menu",
-              "static": true,
               "settings": {
                 "menu": "torvex-main-menu",
                 "gap": 32,
@@ -119,27 +118,27 @@
                 "submenu_font_size": "md",
                 "submenu_text_case": "original",
                 "submenu_text_color": ""
-              }
+              },
+              "static": true
             },
             "header-logo": {
               "type": "_header-logo",
-              "static": true,
               "settings": {
                 "position": "left"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-menu-toggle": {
               "type": "_header-menu-toggle",
-              "static": true,
               "settings": {
                 "position": "left"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-localization": {
               "type": "_header-localization",
-              "static": true,
               "settings": {
                 "dropdown_trigger": "click",
                 "show_country_selector": true,
@@ -148,11 +147,11 @@
                 "show_language_selector": true,
                 "font_size": "sm"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-search": {
               "type": "_header-search",
-              "static": true,
               "settings": {
                 "type": "search_bar",
                 "label": "Search",
@@ -163,15 +162,15 @@
                 "width": "fill",
                 "mobile_display": "search_bar",
                 "show_category_selector": true,
-                "category_menu": "torvex-main-menu",
+                "category_menu": "torvex-search-categories",
                 "category_label": "All Categories",
                 "category_label_mobile": "All"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-account": {
               "type": "_header-account",
-              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Account",
@@ -179,17 +178,18 @@
                 "font_size": "md",
                 "letter_spacing": "normal"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-cart": {
               "type": "_header-cart",
-              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Cart",
                 "badge_type": "primary"
               },
-              "blocks": {}
+              "blocks": {},
+              "static": true
             },
             "header-location": {
               "type": "_header-link",
@@ -209,7 +209,10 @@
         "sticky_type": "scroll_up",
         "color_scheme": "scheme-3",
         "header_overlay": false,
-        "transparent_color_scheme": "scheme-3"
+        "transparent_color_scheme": "scheme-3",
+        "layout": "two_rows",
+        "icon_style": "outline",
+        "icon_size_mobile": 20
       }
     }
   },
