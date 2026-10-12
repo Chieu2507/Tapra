@@ -3396,6 +3396,9 @@ legend {
 
 .menu-block__content-inner {
   min-width: 0;
+}
+
+.menu-block__details .menu-block__content-inner {
   padding-block-end: 20px;
 }
 

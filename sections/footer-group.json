@@ -511,7 +511,7 @@
             "customize_mobile_alignment": true,
             "alignment_mobile": "left",
             "gap_desktop": 24,
-            "gap_mobile": 24,
+            "gap_mobile": 8,
             "appearance_type": "inherit",
             "show_overlay": false
           },
@@ -586,8 +586,8 @@
         "padding_top": 20,
         "padding_bottom": 20,
         "customize_mobile_padding": true,
-        "padding_top_mobile": 20,
-        "padding_bottom_mobile": 24
+        "padding_top_mobile": 16,
+        "padding_bottom_mobile": 16
       }
     }
   },
