@@ -19,11 +19,13 @@
   </div>
 </div>
 {% stylesheet %}
-  .header-top--two-rows { padding: var(--header-grid-top,24px) 0 var(--header-grid-bottom,24px); border-bottom: .5px solid var(--border-color); }
+  .header-top--two-rows { padding: var(--header-grid-top,24px) 0 var(--header-grid-bottom,24px); border-bottom: 0; box-shadow: inset 0 -.5px 0 var(--border-color); }
   .header-two-row__grid { display: grid; grid-template-columns: auto minmax(0,1fr) minmax(0,1fr); grid-template-areas: 'brand search actions' 'menu menu menu'; align-items: center; column-gap: var(--header-main-gap,40px); row-gap: var(--header-row-gap,24px); }
   .header-two-row__brand { grid-area: brand; display: flex; align-items: center; gap: 12px; min-width: 0; }
-  .header-two-row__grid > .header-search--type-search_bar { grid-area: search; width: 100%; display: flex; min-height: var(--input-height); padding-inline: 20px; gap: 16px; background: var(--background-color); color: var(--heading-color); border: 0; }
-  .header-two-row__grid .header-search__input { padding: 0; font-family: var(--font-body-family); font-weight: var(--font-body-weight); }
+  .header-two-row__grid > .header-search { grid-area: search; }
+  .header-two-row__grid > .header-search--type-search_bar.header-search--fill { width: 100%; }
+  .header-two-row__grid > .header-search--type-search_bar { grid-area: search; width: min(100%,22rem); display: flex; min-height: var(--input-height); padding-inline: 20px; gap: 16px; background: var(--background-color); color: var(--heading-color); border: 0; }
+  .header-two-row__grid .header-search__input { padding: 0; font: inherit; }
   .header-two-row__grid .header-search__input::placeholder { color: var(--header-search-placeholder,#b3b3b3); opacity: 1; }
   .header-two-row__grid .header-search__submit { width: 20px; min-width: 20px; min-height: 0; padding: 0; }
   .header-two-row__actions { grid-area: actions; display: flex; align-items: center; justify-content: flex-end; gap: var(--header-actions-gap,8px); }
@@ -44,6 +46,8 @@
   @media (max-width: 1399.98px) {
     .header-top--two-rows { padding-top: var(--header-compact-top,var(--header-grid-top,24px)); padding-bottom: var(--header-compact-bottom,var(--header-grid-bottom,24px)); }
     .header-two-row__grid { grid-template-columns: minmax(0,1fr) auto; grid-template-areas: 'brand actions' 'search search'; row-gap: var(--header-compact-gap,var(--header-row-gap,24px)); column-gap: 16px; }
+    .header-two-row__grid > .header-search--type-search_bar:not(.header-search--persistent) { display: none; }
+    .header-two-row__grid > .header-search--type-search_bar:not(.header-search--persistent) + .header-search--mobile-icon { display: inline-flex; justify-self: end; }
     .header-two-row__grid > .header-menu,.header-two-row__localization { display: none; }
     .header-two-row__brand .header-menu-toggle { display: inline-flex; padding: 10px 10px 10px 0; width: auto; min-width: 0; min-height: 44px; }
     .header-top--two-rows .header-account { display: inline-flex; }
@@ -57,7 +61,9 @@
     .header-two-row__brand { gap: 4px; }
     .header-two-row__actions { gap: var(--header-actions-gap-mobile,0px); }
     .header-top--two-rows :is(.header-link,.header-account,.header-cart),.header-two-row__brand .header-menu-toggle { min-height: 40px; }
-    .header-two-row__grid > .header-search--type-search_bar { min-height: var(--input-height-mobile); }
+    .header-two-row__grid > .header-search { grid-area: search; }
+  .header-two-row__grid > .header-search--type-search_bar.header-search--fill { width: 100%; }
+  .header-two-row__grid > .header-search--type-search_bar { min-height: var(--input-height-mobile); }
   }
 
   @media (min-width: 992px) and (max-width: 1399.98px) {
@@ -411,7 +417,7 @@
     {
       "type": "range",
       "id": "gap",
-      "label": "t:labels.gap",
+      "label": "t:labels.desktop_gap",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -421,7 +427,7 @@
     {
       "type": "range",
       "id": "actions_gap",
-      "label": "Actions gap",
+      "label": "Desktop actions gap",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -431,7 +437,7 @@
     {
       "type": "range",
       "id": "row_gap",
-      "label": "Row gap",
+      "label": "Desktop row gap",
       "min": 0,
       "max": 100,
       "step": 1,
