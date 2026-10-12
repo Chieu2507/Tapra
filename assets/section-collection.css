@@ -1535,7 +1535,7 @@
 .main-collection--blocks .main-collection__promotion{grid-column:span min(var(--promo-span-mobile,2),var(--main-collection-columns-mobile,2))}
 .main-collection--blocks .main-collection__promotion-card{min-height:220px}
 .main-collection--blocks .main-collection__promotion-content{padding:var(--promo-padding-top-mobile,24px) var(--promo-padding-right-mobile,16px) var(--promo-padding-bottom-mobile,24px) var(--promo-padding-left-mobile,16px)}
-.main-collection__filter-dialog[data-mobile-layout="drawer"]{inset:0 auto 0 0;width:min(375px,100vw);height:100dvh;max-height:none;border-radius:0;transform:translateX(-100%)}
+.main-collection__filter-dialog[data-mobile-layout="drawer"]{inset:0 auto 0 0;width:min(375px,100vw);height:100dvh;max-height:none;border-radius:var(--overlay-drawer-edge-radius-mobile,0px) var(--drawer-radius) var(--drawer-radius) var(--overlay-drawer-edge-radius-mobile,0px);transform:translateX(-100%)}
 .main-collection__filter-dialog[data-mobile-layout="drawer"][open]:not(.is-closing){animation-name:main-collection-filter-drawer-in}
 .main-collection__filter-dialog[data-mobile-layout="drawer"] .main-collection__filter-handle{display:none}
 }

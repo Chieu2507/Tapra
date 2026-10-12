@@ -3330,11 +3330,6 @@ legend {
     }
   }
 
-@media (max-width: 767.98px) {
-  .component-overlay[data-mobile-layout='drawer'] .component-overlay__panel {
-    border-radius: 0;
-  }
-}
 
 /* accordion-details.css — first-paint primitives. */
 [data-accordion-details] {

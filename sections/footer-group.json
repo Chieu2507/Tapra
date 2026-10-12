@@ -390,10 +390,10 @@
                     "gap_mobile": 12,
                     "limit_width_desktop": false,
                 "limit_width_mobile": false,
-                "background_color": "rgba(0,0,0,0)",
-                "input_style": "outline",
+                "background_color": "#4d4d4d",
+                "input_style": "solid",
                 "color_scheme": "scheme-3",
-                    "corner_radius": "radius_8"
+                    "corner_radius": "inherit"
                   }
                 },
                 "newsletter-socials": {

@@ -273,6 +273,8 @@
   endcase
   assign eyebrow_letter_spacing = '0em'
   case settings.type_eyebrow_letter_spacing
+    when '0.5px'
+      assign eyebrow_letter_spacing = '0.5px'
     when 'relaxed'
       assign eyebrow_letter_spacing = '0.02em'
     when 'loose'
@@ -428,7 +430,9 @@
   endcase
 
   assign icon_button_radius = 'var(--radius-square)'
-  if settings.button_radius_style contains 'radius_' or settings.button_radius_style == 'slightly_rounded' or settings.button_radius_style == 'rounded' or settings.button_radius_style == 'pill'
+  if settings.button_radius_style contains 'radius_'
+    assign icon_button_radius = button_radius
+  elsif settings.button_radius_style == 'slightly_rounded' or settings.button_radius_style == 'rounded' or settings.button_radius_style == 'pill'
     assign icon_button_radius = 'var(--radius-pill)'
   endif
 

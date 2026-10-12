@@ -445,7 +445,7 @@
       {
         "type": "range",
         "id": "type_heading_2_size_desktop",
-        "min": 32,
+        "min": 28,
         "max": 72,
         "step": 2,
         "unit": "px",
@@ -772,6 +772,7 @@
         "id": "type_eyebrow_letter_spacing",
         "label": "t:labels.letter_spacing",
         "options": [
+          { "value": "0.5px", "label": "0.5 px" },
           { "value": "normal", "label": "t:options.letter_spacing.normal" },
           { "value": "relaxed", "label": "t:options.letter_spacing.relaxed" },
           { "value": "loose", "label": "t:options.letter_spacing.loose" },
@@ -1208,6 +1209,7 @@
         "id": "textarea_radius_style",
         "label": "Textarea corner radius",
         "options": [
+          { "value": "radius_6", "label": "6px" },
           { "value": "radius_8", "label": "8px" },
           { "value": "radius_12", "label": "12px" },
           { "value": "radius_16", "label": "16px" },

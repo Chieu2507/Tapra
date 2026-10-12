@@ -128,11 +128,6 @@ custom-cursor[data-component-overlay-cursor] svg {
   .component-overlay[data-mobile-layout='bottom_sheet'] .component-overlay__header--untitled + .component-overlay__body { padding-top: 8px; }
   .component-overlay__body { padding-bottom: max(var(--overlay-inset), env(safe-area-inset-bottom, 0px)); }
 }
-@media (max-width: 767.98px) {
-  .component-overlay[data-mobile-layout='drawer'] .component-overlay__panel {
-    border-radius: 0;
-  }
-}
 @media (prefers-reduced-motion: reduce) {
   .component-overlay__backdrop,
   .component-overlay__panel,
