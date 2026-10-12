@@ -1132,7 +1132,7 @@
     if (option) option.textContent = window.matchMedia('(max-width: 767.98px)').matches ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
     const category = form.querySelector('[data-header-search-category]');
     form.querySelectorAll('.header-search__category-label').forEach(label => {
-      label.textContent = category?.value ? category.selectedOptions[0]?.textContent || '' : label.classList.contains('header-search__category-label--mobile') ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
+      label.textContent = category?.value ? category.value : label.classList.contains('header-search__category-label--mobile') ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;
     });
   });
   document.addEventListener('submit', event => {
@@ -1147,6 +1147,32 @@
     query.name = 'q';
     input.removeAttribute('name');
     if (category) { let type = form.querySelector('input[name="type"]'); if (!type) { type = document.createElement('input'); type.type='hidden'; type.name='type'; form.append(type); } type.value='product'; }
+  });
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest?.('[data-header-category-open]');
+    if (trigger) {
+      const dialog = document.getElementById(trigger.getAttribute('aria-controls'));
+      window.ThemeOverlay?.get(dialog)?.open({ opener: trigger });
+      return;
+    }
+    const option = event.target.closest?.('[data-header-category-value]');
+    if (!option) return;
+    const list = option.closest('[data-category-form]');
+    const form = document.getElementById(list.dataset.categoryForm);
+    const category = form?.querySelector('[data-header-search-category]');
+    if (!category) return;
+    category.value = option.dataset.headerCategoryValue;
+    list.querySelectorAll('[data-header-category-value]').forEach(item => {
+      item.classList.toggle('is-selected', item === option);
+      item.setAttribute('aria-pressed', String(item === option));
+    });
+    updateCategoryLabels();
+    window.ThemeOverlay?.get(option.closest('[data-header-category-dialog]'))?.close();
+  });
+  document.addEventListener('shopify:section:unload', event => {
+    document.querySelectorAll('[data-header-category-dialog]').forEach(dialog => {
+      if (event.target.id === `shopify-section-${dialog.dataset.ownerSection}`) window.ThemeOverlay?.get(dialog)?.destroy();
+    });
   });
   document.addEventListener('change', event => { if (event.target.matches('[data-header-search-category]')) updateCategoryLabels(); });
   window.addEventListener('resize', updateCategoryLabels, { passive: true });
