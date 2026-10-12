@@ -116,6 +116,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-compact__utilities .header-divider { display: none; }
 .header-top.header-top--compact shopify-account::part(dialog) { animation-duration: 600ms; animation-timing-function: var(--compact-ease); }
 .header-top.header-top--compact .header-compact__utilities > .header__mobile-drawer-account { display: none; }
+.header-top.header-top--compact .header-compact__utilities > shopify-account.header__mobile-drawer-account::part(signed-out-avatar) { border-color: var(--button-secondary-border); border-width: var(--button-secondary-border-width); background: var(--button-secondary-background); color: var(--button-secondary-text); }
+.header-top.header-top--compact .header-compact__utilities > shopify-account.header__mobile-drawer-account:is(:hover, :focus-within)::part(signed-out-avatar) { border-color: var(--button-secondary-hover-border); background: var(--button-secondary-hover-background); color: var(--button-secondary-hover-text); }
 @media (max-width: 767.98px) {
   .header-top.header-top--compact[data-header-root] .header__column--right > .header-account { display: none; }
   .header-top.header-top--compact .header-compact__utilities { justify-content: center; }

@@ -491,7 +491,10 @@
       const actionOrder = item => item.matches('.header-search') ? 0 : item.matches('.header-account') ? 1 : item.matches('.header-cart') ? 2 : 3;
       rightColumn.append(...Array.from(rightColumn.children).sort((a, b) => actionOrder(a) - actionOrder(b)));
       const mobileAccount = drawer?.querySelector('.header__mobile-drawer-footer > .header__mobile-drawer-account');
-      if (mobileAccount) utilities.prepend(mobileAccount);
+      if (mobileAccount) {
+        mobileAccount.classList.replace('btn--primary', 'btn--secondary');
+        utilities.prepend(mobileAccount);
+      }
       drawer?.querySelector('.header__mobile-drawer-scroll')?.append(utilities);
       headerTop.dataset.layoutReady = 'true';
       return;
