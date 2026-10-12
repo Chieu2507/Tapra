@@ -1182,7 +1182,7 @@
         if (!items.length) return;
         const origin = items[0].offsetLeft;
         const positions = items.map(item => item.offsetLeft - origin);
-        const step = Math.min(3, Math.max(1, Number(bottom.dataset.menuScrollStep) || 1));
+        const step = Math.min(3, Math.max(1, Number(menu.dataset.menuScrollStep) || 1));
         const current = positions.findIndex(position => position >= viewport.scrollLeft - 1);
         const index = Math.min(items.length - 1, Math.max(0, (current < 0 ? items.length - 1 : current) + direction * step));
         viewport.scrollTo({ left: positions[index], behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });

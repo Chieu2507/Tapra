@@ -33,14 +33,14 @@
           "type": "menu",
           "static": true,
           "settings": {
-            "menu": "",
-            "heading": "Support",
             "show_heading": false,
-            "collapse_menu_on_mobile": false,
             "direction": "horizontal",
             "link_weight": "400",
-            "menu_size": "xs",
-            "menu_gap": 24
+            "menu": "",
+            "heading": "Support",
+            "collapse_menu_on_mobile": false,
+            "menu_gap": 24,
+            "menu_size": "xs"
           },
           "blocks": {
             "support-0": {
@@ -95,37 +95,38 @@
             "gap": 40,
             "actions_gap": 8,
             "row_gap": 24,
-            "padding_top": 24,
-            "padding_bottom": 12,
-            "customize_mobile_padding": true,
-            "padding_top_mobile": 12,
-            "padding_bottom_mobile": 12,
             "row_gap_mobile": 8,
             "actions_gap_mobile": 0,
             "customize_compact_layout": true,
             "padding_top_compact": 16,
             "padding_bottom_compact": 16,
-            "row_gap_compact": 16
+            "row_gap_compact": 16,
+            "padding_top": 24,
+            "padding_bottom": 12,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 12,
+            "padding_bottom_mobile": 12
           },
           "blocks": {
             "header-logo": {
               "type": "_header-logo",
+              "static": true,
               "settings": {
                 "position": "left"
               },
-              "blocks": {},
-              "static": true
+              "blocks": {}
             },
             "header-menu-toggle": {
               "type": "_header-menu-toggle",
+              "static": true,
               "settings": {
                 "position": "left"
               },
-              "blocks": {},
-              "static": true
+              "blocks": {}
             },
             "header-search": {
               "type": "_header-search",
+              "static": true,
               "settings": {
                 "type": "search_bar",
                 "label": "Search",
@@ -141,11 +142,11 @@
                 "category_label_mobile": "All",
                 "color_scheme": "scheme-1"
               },
-              "blocks": {},
-              "static": true
+              "blocks": {}
             },
             "header-account": {
               "type": "_header-account",
+              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Account",
@@ -153,18 +154,17 @@
                 "font_size": "md",
                 "letter_spacing": "normal"
               },
-              "blocks": {},
-              "static": true
+              "blocks": {}
             },
             "header-cart": {
               "type": "_header-cart",
+              "static": true,
               "settings": {
                 "type": "icon",
                 "label": "Cart",
                 "badge_type": "primary"
               },
-              "blocks": {},
-              "static": true
+              "blocks": {}
             },
             "header-location": {
               "type": "_header-link",
@@ -292,10 +292,9 @@
           "static": true,
           "settings": {
             "gap": 32,
+            "separator": "none",
             "padding_top": 12,
-            "padding_bottom": 24,
-            "menu_scroll_step": "1",
-            "separator": "none"
+            "padding_bottom": 24
           },
           "blocks": {
             "header-menu": {
@@ -336,16 +335,16 @@
         }
       },
       "settings": {
-        "section_width": "page_width",
-        "icon_size": 24,
-        "sticky_type": "scroll_up",
-        "color_scheme": "scheme-3",
-        "header_overlay": false,
-        "transparent_color_scheme": "scheme-3",
         "layout": "two_rows",
         "icon_style": "outline",
         "icon_size_mobile": 20,
-        "sticky_type_two_rows": "scroll_up"
+        "section_width": "page_width",
+        "icon_size": 24,
+        "sticky_type": "scroll_up",
+        "sticky_type_two_rows": "scroll_up",
+        "color_scheme": "scheme-3",
+        "header_overlay": false,
+        "transparent_color_scheme": "scheme-3"
       }
     }
   },

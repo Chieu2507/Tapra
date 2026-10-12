@@ -8,7 +8,7 @@
     assign container_width = 'full-width'
   endif
 %}
-<div class="header-bottom header-bottom--separator-{{ block.settings.separator }}" data-header-region="bottom" data-header-bottom data-menu-scroll-step="{{ block.settings.menu_scroll_step | default: '1' }}" style="--header-bottom-gap: {{ block.settings.gap }}px; --header-bottom-top: {{ block.settings.padding_top }}px; --header-bottom-bottom: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
+<div class="header-bottom header-bottom--separator-{{ block.settings.separator }}" data-header-region="bottom" data-header-bottom style="--header-bottom-gap: {{ block.settings.gap }}px; --header-bottom-top: {{ block.settings.padding_top }}px; --header-bottom-bottom: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
   <div class="container {{ container_width }} header-bottom__content">{% content_for 'blocks' %}</div>
 </div>
 {% stylesheet %}
@@ -44,7 +44,6 @@
   "settings": [
     {"type":"header","content":"Layout"},
     {"type":"range","id":"gap","label":"Gap","min":0,"max":80,"step":1,"unit":"px","default":20},
-    {"type":"select","id":"menu_scroll_step","label":"Menu items per scroll","options":[{"value":"1","label":"1 item"},{"value":"2","label":"2 items"},{"value":"3","label":"3 items"}],"default":"1"},
     {"type":"select","id":"separator","label":"Bottom separator","options":[{"value":"none","label":"None"},{"value":"line","label":"Line"},{"value":"shadow","label":"Shadow"}],"default":"none"},
     {"type":"header","content":"t:general.padding"},
     {"type":"range","id":"padding_top","label":"t:labels.top_padding","min":0,"max":100,"step":1,"unit":"px","default":12},
