@@ -1,0 +1,184 @@
+{% liquid
+  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-3' | handleize
+  assign container_width = 'page-width'
+  if section.settings.section_width == 'full_width'
+    assign container_width = 'full-width'
+  endif
+%}
+{% capture bar_style %}
+  --announcement-links-gap: {{ section.settings.gap_desktop | default: 32 }}px;
+  --announcement-links-top: {{ section.settings.padding_top | default: 8 }}px;
+  --announcement-links-bottom: {{ section.settings.padding_bottom | default: 8 }}px;
+  {% if section.settings.customize_mobile_padding %}
+    --announcement-links-top-mobile: {{ section.settings.padding_top_mobile | default: 6 }}px;
+    --announcement-links-bottom-mobile: {{ section.settings.padding_bottom_mobile | default: 6 }}px;
+  {% endif %}
+  {% if section.settings.background_color != blank %}--background-color: {{ section.settings.background_color }};{% endif %}
+{% endcapture %}
+<div class="section-spacing announcement-links color-scheme section-color-scope {{ scheme }}{% if section.settings.show_menu_on_mobile %} announcement-links--mobile-menu{% endif %}" style="{{ bar_style | strip }}">
+  <div class="container {{ container_width }} announcement-links__row">
+    {% content_for 'block', type: '_announcement-promotion', id: 'promotion' %}
+    <div class="announcement-links__utilities">
+      {% content_for 'block', type: 'menu', id: 'utility-menu' %}
+    </div>
+  </div>
+</div>
+{% stylesheet %}
+  .announcement-links { padding-top: var(--announcement-links-top, 8px); padding-bottom: var(--announcement-links-bottom, 8px); background-color: var(--background-color); }
+  .announcement-links__row { display: flex; align-items: center; justify-content: space-between; gap: var(--announcement-links-gap, 32px); min-width: 0; }
+  .announcement-links__utilities { margin-inline-start: auto; min-width: 0; }
+  .announcement-links__utilities .menu-block__list { justify-content: flex-end; }
+  @media (max-width: 767.98px) {
+    .announcement-links { padding-top: var(--announcement-links-top-mobile, var(--announcement-links-top, 8px)); padding-bottom: var(--announcement-links-bottom-mobile, var(--announcement-links-bottom, 8px)); }
+    .announcement-links__row { justify-content: center; flex-wrap: wrap; }
+    .announcement-links__utilities { display: none; }
+    .announcement-links--mobile-menu .announcement-links__utilities { display: block; margin-inline-start: 0; }
+    .announcement-links__utilities .menu-block__list { justify-content: center; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Announcement links bar",
+  "tag": "div",
+  "class": "section-announcement-links",
+  "enabled_on": {
+    "groups": [
+      "header"
+    ]
+  },
+  "limit": 1,
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "t:labels.desktop_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "checkbox",
+      "id": "show_menu_on_mobile",
+      "label": "Show utility menu on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background_color"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 6,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 6,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement links bar",
+      "blocks": [
+        {
+          "type": "_announcement-promotion",
+          "id": "promotion",
+          "static": true
+        },
+        {
+          "type": "menu",
+          "id": "utility-menu",
+          "static": true,
+          "settings": {
+            "menu": "",
+            "heading": "Support",
+            "show_heading": false,
+            "collapse_menu_on_mobile": false,
+            "direction": "horizontal",
+            "link_weight": "400",
+            "menu_size": "xs",
+            "menu_gap": 24
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
