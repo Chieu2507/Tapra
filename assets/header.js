@@ -1127,6 +1127,67 @@
 })();
 
 (() => {
+  const instances = new Map();
+  const initialize = (scope = document) => scope.querySelectorAll('[data-header-bottom]').forEach(bottom => {
+    if (instances.has(bottom)) return;
+    const controller = new AbortController();
+    const options = { signal: controller.signal };
+    const menus = [...bottom.querySelectorAll('.header-menu')].map(menu => {
+      const viewport = menu.querySelector('[data-header-menu-viewport]');
+      const navigation = menu.querySelector('[data-header-menu-navigation]');
+      if (!viewport || !navigation) return null;
+      const previous = navigation.querySelector('[data-header-menu-prev]');
+      const next = navigation.querySelector('[data-header-menu-next]');
+      const update = () => {
+        const overflow = viewport.scrollWidth > viewport.clientWidth + 1;
+        navigation.hidden = !overflow;
+        previous.disabled = viewport.scrollLeft <= 1;
+        next.disabled = viewport.scrollLeft >= viewport.scrollWidth - viewport.clientWidth - 1;
+      };
+      const advance = direction => {
+        const items = [...viewport.querySelectorAll('.header-menu__list > li')];
+        if (!items.length) return;
+        const origin = items[0].offsetLeft;
+        const positions = items.map(item => item.offsetLeft - origin);
+        const step = Math.min(3, Math.max(1, Number(bottom.dataset.menuScrollStep) || 1));
+        const current = positions.findIndex(position => position >= viewport.scrollLeft - 1);
+        const index = Math.min(items.length - 1, Math.max(0, (current < 0 ? items.length - 1 : current) + direction * step));
+        viewport.scrollTo({ left: positions[index], behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      };
+      previous.addEventListener('click', () => advance(-1), options);
+      next.addEventListener('click', () => advance(1), options);
+      viewport.addEventListener('scroll', () => {
+        update();
+        menu.querySelectorAll('details[open]').forEach(details => details.removeAttribute('open'));
+      }, { ...options, passive: true });
+      viewport.addEventListener('focusin', event => {
+        const item = event.target.closest('.header-menu__item');
+        if (!item || event.target.closest('.header-menu__submenu')) return;
+        const rect = item.getBoundingClientRect();
+        const frame = viewport.getBoundingClientRect();
+        if (rect.left < frame.left || rect.right > frame.right) viewport.scrollBy({ left: rect.left - frame.left });
+      }, options);
+      const observer = new ResizeObserver(update);
+      observer.observe(viewport);
+      observer.observe(viewport.querySelector('.header-menu__list'));
+      update();
+      return observer;
+    }).filter(Boolean);
+    instances.set(bottom, { controller, menus });
+  });
+  document.addEventListener('shopify:section:load', event => initialize(event.target));
+  document.addEventListener('shopify:section:unload', event => {
+    instances.forEach((instance, bottom) => {
+      if (!event.target.contains(bottom)) return;
+      instance.controller.abort();
+      instance.menus.forEach(observer => observer.disconnect());
+      instances.delete(bottom);
+    });
+  });
+  initialize();
+})();
+
+(() => {
   const updateCategoryLabels = () => document.querySelectorAll('[data-header-search-form]').forEach(form => {
     const option = form.querySelector('[data-header-search-category] option[value=""]');
     if (option) option.textContent = window.matchMedia('(max-width: 767.98px)').matches ? form.dataset.mobileCategoryLabel : form.dataset.desktopCategoryLabel;

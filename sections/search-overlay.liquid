@@ -196,6 +196,7 @@
     state.controller = null;
     document.dispatchEvent(new CustomEvent('search-overlay:close'));
     state.opener = null;
+    state.category = '';
   };
 
   const close = ({ force = false } = {}) => {
@@ -229,7 +230,9 @@
     return `<a class="search-overlay__result-card" href="${escapeHtml(item.url)}">${image ? `<img class="search-overlay__image" src="${escapeHtml(image)}" alt="${escapeHtml(item.title)}" loading="lazy">` : '<span class="search-overlay__image"></span>'}<span class="search-overlay__result-title accent-text body-sm">${escapeHtml(item.title)}</span>${showPrice ? `<span class="search-overlay__price card-price-text body-xs">${escapeHtml(money(item.price))}</span>` : ''}</a>`;
   };
 
+  const qualifiedQuery = query => state.category ? `(${query}) AND product_type:"${state.category.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"` : query;
   const getResourceTypes = (overlay) => {
+    if (state.category) return 'product';
     const types = ['query'];
     if (overlay.dataset.showProducts !== 'false') types.push('product');
     if (overlay.dataset.showCollections !== 'false') types.push('collection');
@@ -330,7 +333,7 @@
         state.controller?.abort();
         state.controller = new AbortController();
         const requestController = state.controller;
-        const params = new URLSearchParams({ q: query, 'resources[type]': getResourceTypes(nextOverlay), 'resources[limit]': '10', 'resources[limit_scope]': 'each' });
+        const params = new URLSearchParams({ q: qualifiedQuery(query), 'resources[type]': getResourceTypes(nextOverlay), 'resources[limit]': '10', 'resources[limit_scope]': 'each' });
         try {
           const response = await fetch(`${nextOverlay.dataset.predictiveSearchUrl}?${params}`, {
             headers: { Accept: 'application/json' },
@@ -339,7 +342,7 @@
           if (!response.ok) throw new Error('Predictive search failed');
           const data = await response.json();
           if (state.overlay !== nextOverlay || state.input !== nextInput || query !== nextInput.value.trim()) return;
-          render(data.resources?.results || {}, query, nextOverlay, nextResults, nextInput);
+          render(data.resources?.results || {}, qualifiedQuery(query), nextOverlay, nextResults, nextInput);
           nextInput.setAttribute('aria-expanded', 'true');
         } catch (error) {
           if (error.name !== 'AbortError' && state.overlay === nextOverlay) {
@@ -352,7 +355,13 @@
       }, 160);
     });
 
-    nextForm.addEventListener('submit', (event) => { if (!nextInput.value.trim()) event.preventDefault(); });
+    nextForm.addEventListener('submit', (event) => {
+      if (!nextInput.value.trim()) { event.preventDefault(); return; }
+      let query = nextForm.querySelector('[data-qualified-query]');
+      if (!query) { query = document.createElement('input'); query.type = 'hidden'; query.dataset.qualifiedQuery = ''; nextForm.append(query); }
+      query.name = 'q'; query.value = qualifiedQuery(nextInput.value.trim());
+      nextInput.removeAttribute('name');
+    });
     if (state.editorSelected) open({ focus: false });
   };
 
@@ -361,7 +370,21 @@
     event.preventDefault();
     initializeOverlay(getOverlay());
     state.opener = event.target.closest('[data-search-overlay-open]');
+    state.category = '';
     open({ focus: true });
+  });
+
+  // Inline header typing uses this same predictive controller and results UI.
+  document.addEventListener('input', event => {
+    const source = event.target.closest?.('[data-header-search-form] input[type="search"]');
+    if (!source || !source.value.trim()) return;
+    initializeOverlay(getOverlay());
+    if (!state.input) return;
+    state.opener = source;
+    state.category = source.form?.querySelector('[data-header-search-category]')?.value || '';
+    state.input.value = source.value;
+    open({ focus: true });
+    state.input.dispatchEvent(new Event('input'));
   });
 
   document.addEventListener('keydown', (event) => {
