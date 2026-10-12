@@ -109,3 +109,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header-menu { display: block !important; }
   .header-top.header-top--compact .header-menu-toggle { display: none; }
 }
+.header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu { display: none; }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu { position: static; display: block; width: 100%; padding: 0; background: transparent; box-shadow: none; opacity: 1; visibility: visible; transform: none; pointer-events: auto; }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__navigation { display: none; }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__container { padding: 0; }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__content { display: block; }
