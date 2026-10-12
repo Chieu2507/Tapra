@@ -146,7 +146,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header-menu-toggle { display: none; }
 }
 .header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu { display: none; }
-.header-top.header-top--compact .header__mobile-drawer-details > summary > .header__mobile-drawer-chevron { opacity: .45; transform: none; transition: opacity 250ms, transform 350ms var(--compact-ease); }
+.header-top.header-top--compact .header__mobile-drawer-details > summary > .header__mobile-drawer-chevron { --icon-width: 12px; width: var(--icon-width); height: var(--icon-width); opacity: .45; transform: none; transition: opacity 250ms, transform 350ms var(--compact-ease); }
 .header-top.header-top--compact .header__mobile-drawer-details > summary:is(:hover, :focus-visible) > .header__mobile-drawer-chevron { opacity: 1; transform: translateX(4px); }
 .header-top.header-top--compact .header__mobile-drawer-details[open] > summary > .header__mobile-drawer-chevron { opacity: 1; transform: none; }
 .header-top.header-top--compact .header__mobile-drawer-details[open] > .header__mobile-drawer-submenu { animation: compact-menu-panel-in 500ms 80ms var(--compact-ease) both; }
