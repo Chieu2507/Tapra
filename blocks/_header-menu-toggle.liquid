@@ -15,12 +15,16 @@
   data-header-menu-toggle
   {{ block.shopify_attributes }}
 >
+  {% if section.settings.header_style == 'compact' %}
+  <span class="header-menu-toggle__compact-icon" aria-hidden="true"><i></i><i></i></span>
+  {% else %}
   <span class="icon header-menu-toggle__open-icon" aria-hidden="true">
     {% render 'header-icon', icon: 'bars-3' %}
   </span>
   <span class="icon header-menu-toggle__close-icon" aria-hidden="true">
     {% render 'icon', icon: 'x-mark', bare: true %}
   </span>
+  {% endif %}
   <span class="visually-hidden">Menu</span>
 </button>
 
