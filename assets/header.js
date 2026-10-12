@@ -675,6 +675,7 @@
     const drawer = container.querySelector('[data-header-mobile-drawer]');
     if (!drawer || drawer.dataset.ready === 'true') return;
     drawer.dataset.ready = 'true';
+    container.querySelectorAll('[data-header-menu-toggle]').forEach(toggle => toggle.setAttribute('aria-controls', drawer.id));
     window.ThemeOverlay?.get(drawer);
     drawer.addEventListener('close', () => setHeaderMenuState(header, false, { syncOverlay: false }));
 
