@@ -3496,7 +3496,7 @@ legend {
   }
 
   .menu-block[data-collapse-mobile='true'] .menu-block__details[open] .menu-block__toggle-icon--plus {
-    transform: rotate(45deg);
+    transform: none;
   }
 }
 
