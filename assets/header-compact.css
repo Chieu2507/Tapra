@@ -233,10 +233,13 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact { width: min(900px, 100%); height: var(--compact-search-height, 154px); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { z-index: calc(var(--z-modal, 1000) + 1); }
 .search-overlay.search-overlay--compact[data-search-overlay] { z-index: calc(var(--z-modal, 1000) + 2); pointer-events: none; }
+/* Share one stacking context: the full backdrop sits below the rounded header,
+   while the search controls sit above it. No blur cutout is needed. */
+.search-overlay.search-overlay--compact[data-search-overlay]:not([hidden]) { display: contents; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__backdrop {
   inset: 0;
   pointer-events: auto;
-  clip-path: var(--compact-backdrop-clip);
+  z-index: var(--z-modal, 1000);
 }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel,
 .search-overlay.search-overlay--compact[data-search-overlay] > .search-overlay__close { pointer-events: auto; }
@@ -248,6 +251,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__container { padding: 0 14px 0 26px; }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__mobile-drawer { display: none; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel {
+  z-index: calc(var(--z-modal, 1000) + 2);
   inset: var(--search-overlay-top) auto auto var(--compact-search-left);
   width: min(898px, calc(100vw - 26px));
   margin: 0;
