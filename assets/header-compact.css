@@ -221,7 +221,11 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'])) .header-top.header-top--compact { width: min(900px, 100%); height: var(--compact-search-height, 154px); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { z-index: calc(var(--z-modal, 1000) + 1); }
 .search-overlay.search-overlay--compact[data-search-overlay] { z-index: calc(var(--z-modal, 1000) + 2); pointer-events: none; }
-.search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__backdrop { inset-block-start: var(--search-overlay-top); pointer-events: auto; }
+.search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__backdrop {
+  inset: 0;
+  pointer-events: auto;
+  clip-path: polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, var(--compact-shell-left) var(--compact-shell-top), var(--compact-shell-left) var(--compact-shell-bottom), var(--compact-shell-right) var(--compact-shell-bottom), var(--compact-shell-right) var(--compact-shell-top), var(--compact-shell-left) var(--compact-shell-top));
+}
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel,
 .search-overlay.search-overlay--compact[data-search-overlay] > .search-overlay__close { pointer-events: auto; }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact {

@@ -183,6 +183,10 @@
     if (compact) {
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
+      overlay.style.setProperty('--compact-shell-left', `${rect.left}px`);
+      overlay.style.setProperty('--compact-shell-right', `${rect.right}px`);
+      overlay.style.setProperty('--compact-shell-top', `${rect.top}px`);
+      overlay.style.setProperty('--compact-shell-bottom', `${rect.bottom}px`);
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
       const toggleRect = headerTop.querySelector('.header-menu-toggle')?.getBoundingClientRect();
