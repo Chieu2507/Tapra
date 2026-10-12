@@ -27,6 +27,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__column--center { display: none; }
 .header-top.header-top--compact .header-logo { margin: 0; }
 .header-top.header-top--compact .site-logo { width: min(var(--logo-width), 120px); max-width: 100%; }
+.section-header.scheme-3 .header-top--compact .site-logo__image { filter: brightness(0) invert(1); }
 .header-top.header-top--compact .header-menu-toggle.btn { display: inline-flex; width: 44px; min-width: 44px; min-height: 44px; }
 .header-top.header-top--compact .header-cart { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
 .header-top.header-top--compact .header-menu-toggle__close-icon { display: none; }
