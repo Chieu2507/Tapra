@@ -62,6 +62,7 @@
         event.stopPropagation();
       }, { ...options, capture: true });
       drawer.addEventListener('open', () => {
+        navigation.forEach(control => control.classList.remove('is-compact-menu-active'));
         if (window.innerWidth >= 768 && summaries[0]) choose(summaries[0]);
         measure();
       }, options);
