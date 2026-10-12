@@ -180,7 +180,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 
 /* Utility controls deliberately use a quiet surface instead of a filled CTA. */
 .header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle) { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
-.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle):is(:hover, :focus-visible, :focus-within) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
+.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle):is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
 .header-top.header-top--compact .header__mobile-drawer-submenu a,
 .header-top.header-top--compact .header__mobile-drawer-list > li > a,
 .header-top.header-top--compact .header__mobile-drawer-details > summary { transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); border-radius: var(--radius-8); }
