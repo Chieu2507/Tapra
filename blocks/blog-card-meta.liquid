@@ -61,6 +61,8 @@
   case blog_card_meta_date_format
     when 'long'
       assign blog_card_meta_date_format = '%B %d, %Y'
+    when 'day_month'
+      assign blog_card_meta_date_format = '%d %b %Y'
     when 'medium'
       assign blog_card_meta_date_format = '%b %d, %Y'
     when 'numeric'
@@ -148,7 +150,7 @@
 
 {% if blog_card_meta_show_date or blog_card_meta_show_author or blog_card_meta_show_comment_count %}
   <div
-    class="blog-card-meta blog-card-meta--{{ blog_card_meta_layout }}{% if blog_card_meta_display == 'badge' %} blog-card-meta--badge blog-card-meta--{{ blog_card_meta_badge_position | replace: '_', '-' }}{% endif %} body-{{ blog_card_meta_size }}"
+    class="blog-card-meta blog-card-meta--{{ blog_card_meta_layout }}{% if blog_card_meta_display == 'badge' %} blog-card-meta--badge blog-card-meta--{{ blog_card_meta_badge_position | replace: '_', '-' }}{% if block.settings.badge_style == 'compact' %} blog-card-meta--compact{% endif %}{% endif %} body-{{ blog_card_meta_size }}"
     {% if blog_card_meta_style != blank %}style="{{ blog_card_meta_style }}"{% endif %}
     {{ block.shopify_attributes }}
   >
@@ -234,7 +236,7 @@
     flex: 0 1 auto;
     min-width: 0;
     max-width: 100%;
-    padding: 6px 16px;
+    padding: var(--blog-card-meta-badge-padding-block, 6px) var(--blog-card-meta-badge-padding-inline, 16px);
     border-radius: var(--radius-pill);
     background: var(--background-color);
     color: var(--blog-card-meta-color, var(--heading-color));
@@ -243,11 +245,11 @@
 
   .blog-card--layout-stacked > .blog-card__content > .blog-card-meta--badge {
     position: absolute;
-    inset-block-start: 16px;
-    inset-inline-start: 16px;
+    inset-block-start: var(--blog-card-meta-badge-inset, 16px);
+    inset-inline-start: var(--blog-card-meta-badge-inset, 16px);
     z-index: 1;
     width: fit-content;
-    max-width: calc(100% - 32px);
+    max-width: calc(100% - (var(--blog-card-meta-badge-inset, 16px) * 2));
     padding: 0;
     justify-content: flex-start;
   }
@@ -259,7 +261,18 @@
 
   .blog-card--layout-stacked > .blog-card__content > .blog-card-meta--bottom-left {
     inset-block-start: auto;
-    inset-block-end: calc(100% + 16px);
+    inset-block-end: calc(100% + var(--blog-card-meta-badge-inset, 16px));
+  }
+
+  .blog-card-meta--compact {
+    --blog-card-meta-badge-padding-block: 4px;
+    --blog-card-meta-badge-padding-inline: 10px;
+    --blog-card-meta-badge-inset: 12px;
+  }
+
+  .blog-card-meta--compact .blog-card-meta__detail {
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .blog-card-meta--vertical {
@@ -355,6 +368,17 @@
       "id": "badge_color_scheme",
       "label": "t:labels.color_scheme",
       "default": "scheme-1",
+      "visible_if": "{{ block.settings.display_type == 'badge' }}"
+    },
+    {
+      "type": "select",
+      "id": "badge_style",
+      "label": "Badge style",
+      "options": [
+        { "value": "standard", "label": "Standard" },
+        { "value": "compact", "label": "Compact" }
+      ],
+      "default": "standard",
       "visible_if": "{{ block.settings.display_type == 'badge' }}"
     },
     {
@@ -467,6 +491,7 @@
       "options": [
         { "value": "long", "label": "December 01, 2000" },
         { "value": "medium", "label": "Dec 01, 2000" },
+        { "value": "day_month", "label": "01 Dec 2000" },
         { "value": "numeric", "label": "12/01/2000" },
         { "value": "iso", "label": "2000-12-01" }
       ],

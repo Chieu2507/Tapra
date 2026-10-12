@@ -1,0 +1,11 @@
+# Pawvera brands
+
+Plan: editorial trust strip in index after hero. Reuse text-marquee-custom → Marquee → Marquee item → Image. Section owns spacing/scheme/container; marquee owns direction/speed/gap; Image owns file, fixed width, aspect ratio, radius and alt. Seven editable items, no app slot changes. Existing controller owns clones/editor lifecycle and hover/focus/reduced-motion pause. Empty image behavior remains the shared placeholder. No new component, CSS or JavaScript.
+
+Design desktop 47306:8677; mobile 47562:12476. Original transparent Figma PNGs converted to lossless WebP. Logo order Avery, Woof, Helpful, Rimberio, Freek, Avery, Woof. Each image 100×100px with 8px radius. Desktop gap 112px; mobile gap 56px. Top padding 0; bottom 80px desktop/tablet, 56px mobile. Heading removed through saved block data. Direction forward maps to existing marquee-scroll-right (left to right). Shared page-width and margins retained.
+
+Shopify Files: Avery 46560936296747; Woof 46560936329515; Helpful 46560936526123; Rimberio 46560936624427; Freek 46560936755499. Lossless WebP preserves original alpha; no temporary Figma URLs in saved settings.
+
+QA PASS: 7 saved items in Figma order; loaded exact assets, 100px responsive sizes and intrinsic dimensions; desktop/mobile image geometry 100×100; desktop/tablet total height 180px, mobile 156px; gaps 112/56; marquee-scroll-right; no brand section overflow at 375/767/768/1149/1150px; removed heading absent. Shared page-width content at 1920 is 1304px, so the last logo may be partially visible during the loop rather than the Figma's 1400px-wide static view. Global width settings remain unchanged.
+
+Theme Editor PASS: Brands — Pawvera at position 2, no heading, seven editable Marquee Item blocks; section and Marquee selection works; saved state reloads with Save disabled. No new schema/controller code. Saved setting IDs/options/ranges validate. Theme Check 0 errors; git diff --check passes; development watcher confirms index sync. Interactive duplicate/remove/reorder/save cycle and reduced-motion emulation NOT TESTED; existing shared hover/focus/reduced-motion handling reused. A pre-existing Countdown timer section overflows the page at 768px; brand itself does not. Other sections/resources/order are unchanged by this pass. Dev watcher kept running per user request; no commit/push.

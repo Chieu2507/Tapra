@@ -2,6 +2,8 @@
   Media-led Banner block. Its media, layout, appearance and child content use
   the same shared renderer and settings as the Image card block.
 
+  @param {string} [media_sizes] - Layout-owned responsive banner image sizes
+
   @example
   {% content_for 'block', type: 'banner', id: 'banner' %}
 {% enddoc %}
@@ -13,6 +15,7 @@
 {% render 'media-card',
   media_card_block: block,
   children: banner_children,
+  sizes: media_sizes,
   class_modifier: 'image-card--featured-collection-banner',
   use_image_ratio: true
 %}

@@ -32,7 +32,7 @@
 
 {% capture blog_card_description_style %}
   {% if blog_card_description_padding_top != 0 %}--blog-card-description-padding-top: {{ blog_card_description_padding_top }}px;{% endif %}
-  {% if blog_card_description_padding_bottom != 0 %}--blog-card-description-padding-bottom: {{ blog_card_description_padding_bottom }}px;{% endif %}
+  {% if blog_card_description_padding_bottom != 6 %}--blog-card-description-padding-bottom: {{ blog_card_description_padding_bottom }}px;{% endif %}
   {% if block.settings.customize_mobile_padding %}
     {% if blog_card_description_padding_top_mobile != blog_card_description_padding_top %}--blog-card-description-padding-top-mobile: {{ blog_card_description_padding_top_mobile }}px;{% endif %}
     {% if blog_card_description_padding_bottom_mobile != blog_card_description_padding_bottom %}--blog-card-description-padding-bottom-mobile: {{ blog_card_description_padding_bottom_mobile }}px;{% endif %}

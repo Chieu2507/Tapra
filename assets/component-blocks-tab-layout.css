@@ -155,3 +155,18 @@
       transition: none;
     }
   }
+
+/* Compact pill navigation inherits the section scheme and shared button tokens. */
+.tab-layout--pill .tab-layout__tab {
+  padding: 7px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--button-radius);
+  font-weight: var(--button-font-weight, 700);
+  background: transparent;
+  color: var(--heading-color);
+}
+.tab-layout--pill .tab-layout__tab[aria-selected='true'] {
+  border-color: var(--heading-color);
+  background: var(--heading-color);
+  color: var(--background-color);
+}

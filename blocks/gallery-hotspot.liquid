@@ -1,5 +1,5 @@
 {% doc %}
-  A gallery image with one Product or custom-content hotspot. The parent
+  A gallery image with a legacy hotspot or repeatable Product/custom-content hotspots. The parent
   Product callout gallery owns image ratio, gap, icon, behavior and scheme.
   Uses the same hotspot renderer and controller as ordinary Product callouts.
 {% enddoc %}
@@ -37,13 +37,17 @@
         sizes: '(min-width: 768px) 38vw, 100vw'
       %}
       <div class="product-callout__hotspots" role="group" aria-label="{{ 'accessibility.product_callout_hotspots' | t | escape }}">
-        {% render 'product-callout-hotspot', block: block, omit_editor_attributes: true %}
+        {% if block.settings.use_nested_hotspots %}
+          {% content_for 'blocks' %}
+        {% else %}
+          {% render 'product-callout-hotspot', block: block, omit_editor_attributes: true %}
+        {% endif %}
       </div>
     </div>
   </article>
 {% schema %}
 {
-  "name": "t:general.hotspot",
+  "name": "t:general.hotspot_image",
   "tag": null,
   "settings": [
     {
@@ -67,6 +71,13 @@
       "content": "t:general.hotspot"
     },
     {
+      "type": "checkbox",
+      "id": "use_nested_hotspots",
+      "label": "t:labels.use_nested_hotspots",
+      "info": "t:info.use_nested_hotspots",
+      "default": false
+    },
+    {
       "type": "product",
       "id": "product",
       "label": "t:labels.product"
@@ -75,21 +86,22 @@
       "type": "checkbox",
       "id": "use_content",
       "label": "t:labels.use_content_for_hotspot",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.use_nested_hotspots == false }}"
     },
     {
       "type": "text",
       "id": "content_heading",
       "label": "t:labels.heading",
       "default": "Medium Heading",
-      "visible_if": "{{ block.settings.use_content }}"
+      "visible_if": "{{ block.settings.use_nested_hotspots == false and block.settings.use_content }}"
     },
     {
       "type": "richtext",
       "id": "content_text",
       "label": "t:labels.text",
       "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</p>",
-      "visible_if": "{{ block.settings.use_content }}"
+      "visible_if": "{{ block.settings.use_nested_hotspots == false and block.settings.use_content }}"
     },
     {
       "type": "header",
@@ -103,7 +115,8 @@
       "max": 100,
       "step": 1,
       "unit": "%",
-      "default": 50
+      "default": 50,
+      "visible_if": "{{ block.settings.use_nested_hotspots == false }}"
     },
     {
       "type": "range",
@@ -113,14 +126,16 @@
       "max": 100,
       "step": 1,
       "unit": "%",
-      "default": 50
+      "default": 50,
+      "visible_if": "{{ block.settings.use_nested_hotspots == false }}"
     },
     {
       "type": "checkbox",
       "id": "customize_mobile_position",
       "label": "t:labels.customize_mobile_position",
       "info": "t:info.customize_mobile_hotspot_position",
-      "default": false
+      "default": false,
+      "visible_if": "{{ block.settings.use_nested_hotspots == false }}"
     },
     {
       "type": "range",
@@ -131,7 +146,7 @@
       "step": 1,
       "unit": "%",
       "default": 50,
-      "visible_if": "{{ block.settings.customize_mobile_position }}"
+      "visible_if": "{{ block.settings.use_nested_hotspots == false and block.settings.customize_mobile_position }}"
     },
     {
       "type": "range",
@@ -142,16 +157,21 @@
       "step": 1,
       "unit": "%",
       "default": 50,
-      "visible_if": "{{ block.settings.customize_mobile_position }}"
+      "visible_if": "{{ block.settings.use_nested_hotspots == false and block.settings.customize_mobile_position }}"
     }
   ],
   "presets": [
     {
-      "name": "t:general.hotspot",
+      "name": "t:general.hotspot_image",
       "settings": {
         "vertical_position": 50,
         "horizontal_position": 50
       }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hotspot"
     }
   ]
 }

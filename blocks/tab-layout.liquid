@@ -18,7 +18,7 @@
   endcase
 
   assign tab_layout_style = block.settings.style | default: 'underline'
-  unless tab_layout_style == 'underline' or tab_layout_style == 'button'
+  unless tab_layout_style == 'underline' or tab_layout_style == 'button' or tab_layout_style == 'pill'
     assign tab_layout_style = 'underline'
   endunless
 
@@ -609,6 +609,10 @@
         {
           "value": "button",
           "label": "t:options.tab_style.button"
+        },
+        {
+          "value": "pill",
+          "label": "t:options.tab_style.pill"
         }
       ],
       "default": "underline"

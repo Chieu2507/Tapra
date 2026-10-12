@@ -1,0 +1,81 @@
+{% doc %}
+  Horizontal product card composed from shared media, title, price and cart actions.
+  The parent supplies the resource and optional rendered Product rating block.
+  @param {product} [product] - Shopify product; blank renders a product placeholder
+  @param {string} [rating_content] - Rendered shared Product rating block
+  @param {boolean} [show_quick_add] - Show the shared cart action
+  @param {number} [placeholder_index] - Ordered placeholder variant
+{% enddoc %}
+{% liquid
+  assign inline_variant = product.selected_or_first_available_variant
+  assign inline_image = product.featured_image
+  assign inline_placeholder = false
+  if product == blank
+    assign inline_placeholder = true
+  endif
+  assign inline_placeholder_number = placeholder_index | default: 1 | minus: 1 | modulo: 6 | plus: 1
+  assign inline_placeholder_name = 'product-' | append: inline_placeholder_number
+%}
+<article class="product-card-inline" {% if product != blank %}data-product-card{% endif %}>
+  <div class="product-card-inline__media">
+    {% render 'image', image: inline_image, url: product.url, alt: product.title,
+      width: 336, widths: '112,224,336', sizes: '112px', loading: 'lazy', auto_sizes: false,
+      placeholder: inline_placeholder_name
+    %}
+  </div>
+  <div class="product-card-inline__content">
+    {{ rating_content }}
+    {% render 'product-card-title', product: product, placeholder: inline_placeholder, heading_tag: 'h3' %}
+    {% render 'product-card-price', item: product, placeholder: inline_placeholder %}
+  </div>
+  {% if show_quick_add and product != blank %}
+    <div class="product-card-inline__action">
+      {% if product.available and inline_variant != blank %}
+        {% if product.variants.size > 1 %}
+          {% assign inline_action_label = 'products.choose_options' | t %}
+          {% render 'product-card-quick-add-overlay', url: product.url, label: inline_action_label,
+            product_title: product.title, style: 'icon', full_width: false
+          %}
+        {% else %}
+          {% assign inline_action_label = 'products.quick_add' | t %}
+          {% render 'product-card-quick-add', variant_id: inline_variant.id, label: inline_action_label,
+            product_title: product.title, style: 'icon', full_width: false
+          %}
+        {% endif %}
+      {% else %}
+        {% assign inline_action_label = 'products.sold_out' | t %}
+        {% render 'theme-button', label: inline_action_label, aria_label: inline_action_label,
+          variant: 'primary', icon: 'cart', icon_only: true, disabled: true, class: 'btn--icon'
+        %}
+      {% endif %}
+    </div>
+  {% endif %}
+</article>
+
+{% stylesheet %}
+  .product-card-inline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 12px 20px 12px 12px;
+    border-radius: var(--radius-16);
+    background: var(--background-color);
+    color: var(--heading-color);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--shadow-color) 60%, transparent), 0 2px 8px var(--shadow-color);
+  }
+  .product-card-inline__media { flex: 0 0 112px; width: 112px; height: 112px; overflow: hidden; border-radius: var(--radius-8); }
+  .product-card-inline__media .image,
+  .product-card-inline__media img,
+  .product-card-inline__media svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .product-card-inline__media .image { padding: var(--product-card-media-inset, 0px); }
+  .product-card-inline__content { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .product-card-inline .product-card__title { display: block; margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: 16px; line-height: 1.5; text-align: start; }
+  .product-card-inline .product-card__price { margin: 0; justify-content: flex-start; text-align: start; font-size: 15px; line-height: 1.5; }
+  .product-card-inline .product-rating { gap: 4px; flex-wrap: nowrap; font-size: 14px; line-height: 1.5; }
+  .product-card-inline .product-rating__stars { width: 90px; flex-basis: 90px; }
+  .product-card-inline .product-rating__track,
+  .product-card-inline .product-rating__fill { gap: 0; }
+  .product-card-inline__action { flex: 0 0 auto; --button-padding-inline-desktop: 0px; --button-padding-inline-mobile: 0px; }
+  .product-card-inline__action .product-card__quick-add { position: static; }
+{% endstylesheet %}

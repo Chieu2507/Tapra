@@ -1,0 +1,557 @@
+{% liquid
+  assign inline_container = 'page-width'
+  if section.settings.section_width == 'full_width' or section.settings.section_width == 'full_width_no_padding'
+    assign inline_container = 'full-width'
+  endif
+  assign inline_gap = section.settings.gap_desktop | default: 20
+  assign inline_banner_cap = 612
+  case section.settings.banner_max_width
+    when 'small'
+      assign inline_banner_cap = 450
+    when 'large'
+      assign inline_banner_cap = 800
+    when 'custom'
+      assign inline_banner_cap = section.settings.banner_custom_max_width | default: 672
+  endcase
+  assign inline_page_width = settings.max_page_width | default: 1600 | plus: 0
+  assign inline_desktop_space = settings.layout_desktop_margin | default: 40 | times: 2 | plus: inline_gap
+  assign inline_tablet_space = settings.layout_tablet_margin | default: 30 | times: 2 | plus: inline_gap
+  assign inline_mobile_space = settings.layout_mobile_margin | default: 16 | times: 2
+  assign inline_banner_width = inline_page_width | minus: inline_desktop_space | divided_by: 2 | at_most: inline_banner_cap
+%}
+{% capture inline_media_sizes %}{% if inline_container == 'page-width' %}(min-width: {{ inline_page_width }}px) {{ inline_banner_width }}px, {% endif %}(min-width: 1150px) min({{ inline_banner_cap }}px, calc((100vw - {{ inline_desktop_space }}px) / 2)), (min-width: 768px) min({% if section.settings.customize_tablet_layout %}{{ section.settings.banner_width_tablet }}{% else %}{{ inline_banner_cap }}{% endif %}px, calc((100vw - {{ inline_tablet_space }}px) / 2)), calc(100vw - {{ inline_mobile_space }}px){% endcapture %}
+{% capture section_header_content %}{% content_for 'block', type: 'header', id: 'header' %}{% endcapture %}
+{% assign section_header_content = section_header_content | strip %}
+{% capture banner_header %}{% if section_header_content != blank %}<div class="featured-collection-banner__header">{{ section_header_content }}</div>{% endif %}{% endcapture %}
+{% assign banner_header = banner_header | strip %}
+{% capture banner_media %}{% content_for 'block', type: 'banner', id: 'banner', media_sizes: inline_media_sizes %}{% endcapture %}
+{% capture banner_products %}{% content_for 'block', type: 'product-list-inline', id: 'products' %}{% endcapture %}
+{% render 'featured-collection-banner', section: section, banner_header: banner_header, banner_media: banner_media, banner_products: banner_products, product_layout: 'inline' %}
+
+{% schema %}
+{
+  "name": "t:general.product_banner_inline",
+  "tag": "section",
+  "class": "section-product-banner-inline",
+  "enabled_on": {
+    "templates": [
+      "index"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "t:options.section_width.page_width"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.section_width.full_width"
+        },
+        {
+          "value": "full_width_no_padding",
+          "label": "t:options.section_width.full_width_no_padding"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "select",
+      "id": "header_position",
+      "label": "Header position",
+      "options": [
+        {
+          "value": "above",
+          "label": "Above section"
+        },
+        {
+          "value": "products",
+          "label": "Above products"
+        }
+      ],
+      "default": "above"
+    },
+    {
+      "type": "select",
+      "id": "banner_position",
+      "label": "t:labels.banner_position",
+      "options": [
+        {
+          "value": "before",
+          "label": "t:options.banner_position.before"
+        },
+        {
+          "value": "after",
+          "label": "t:options.banner_position.after"
+        }
+      ],
+      "default": "before"
+    },
+    {
+      "type": "select",
+      "id": "banner_max_width",
+      "label": "Banner maximum width",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "banner_custom_max_width",
+      "label": "Custom banner maximum width",
+      "min": 400,
+      "max": 800,
+      "step": 4,
+      "unit": "px",
+      "default": 672,
+      "visible_if": "{{ section.settings.banner_max_width == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "banner_height",
+      "label": "Banner height",
+      "options": [
+        {
+          "value": "ratio",
+          "label": "Image ratio"
+        },
+        {
+          "value": "products",
+          "label": "Match product grid"
+        }
+      ],
+      "default": "ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky",
+      "label": "t:labels.enable_sticky",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_banner_full_width",
+      "label": "Full width banner on mobile",
+      "info": "Extend the banner to the screen edges while keeping the header and products inside the container.",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Tablet layout"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_tablet_layout",
+      "label": "Customize tablet layout",
+      "info": "Use tablet banner width, overlap and spacing. Top navigation is hidden and Header uses its mobile horizontal padding.",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "banner_width_tablet",
+      "label": "Banner maximum width",
+      "min": 200,
+      "max": 600,
+      "step": 4,
+      "unit": "px",
+      "default": 320,
+      "visible_if": "{{ section.settings.customize_tablet_layout }}"
+    },
+    {
+      "type": "select",
+      "id": "banner_ratio_tablet",
+      "label": "Banner image ratio",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Use Banner block"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait (5:7)"
+        }
+      ],
+      "default": "inherit",
+      "visible_if": "{{ section.settings.customize_tablet_layout }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_tablet",
+      "label": "Overlap",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 56,
+      "visible_if": "{{ section.settings.customize_tablet_layout }}"
+    },
+    {
+      "type": "range",
+      "id": "header_gap_tablet",
+      "label": "Header gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20,
+      "visible_if": "{{ section.settings.customize_tablet_layout }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 96,
+      "visible_if": "{{ section.settings.customize_tablet_layout }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_overlap",
+      "label": "Enable overlap",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Overlap",
+      "info": "Products overlap the banner horizontally on desktop/tablet and vertically on mobile.",
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_desktop",
+      "label": "t:options.device.desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 112,
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_mobile",
+      "label": "t:options.device.mobile",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 112,
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_panel_padding",
+      "label": "Panel padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_panel_padding_horizontal",
+      "label": "Panel horizontal padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "range",
+      "id": "overlap_panel_max_width_mobile",
+      "label": "Mobile panel maximum width",
+      "info": "Set to 0 to use the container width.",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "select",
+      "id": "overlap_panel_radius",
+      "label": "Panel corner radius",
+      "options": [
+        {
+          "value": "square",
+          "label": "t:options.radius_preset.square"
+        },
+        {
+          "value": "rounded",
+          "label": "t:options.radius_preset.rounded"
+        },
+        {
+          "value": "radius_16",
+          "label": "t:options.radius_preset.size_16"
+        }
+      ],
+      "default": "rounded",
+      "visible_if": "{{ section.settings.enable_overlap }}"
+    },
+    {
+      "type": "header",
+      "content": "t:general.gap"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "t:options.device.desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "t:options.device.mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "header_gap_desktop",
+      "label": "Desktop header gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "header_gap_mobile",
+      "label": "Mobile header gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_media_offset",
+      "label": "t:labels.media_inset",
+      "info": "t:info.media_offset_theme_settings",
+      "default": true
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background_color"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.product_banner_inline",
+      "blocks": [
+        {
+          "type": "header",
+          "id": "header",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "alignment": "center",
+            "gap_desktop": 8,
+            "gap_mobile": 8
+          },
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>SECTION TAG</p>"
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Main Heading Text Placeholder</p>",
+                "heading_size": "lg",
+                "html_tag": "h2",
+                "width": "fit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "banner",
+          "id": "banner",
+          "static": true,
+          "settings": {
+            "background_type": "image",
+            "position_desktop": "bottom_center",
+            "position_mobile": "bottom_center",
+            "image_ratio_desktop": "custom",
+            "image_ratio_custom_width_desktop": 6,
+            "image_ratio_custom_height_desktop": 7,
+            "image_ratio_mobile": "custom",
+            "image_ratio_custom_width_mobile": 6,
+            "image_ratio_custom_height_mobile": 7,
+            "corner_radius": "radius_16",
+            "show_overlay": true,
+            "overlay_style": "solid",
+            "overlay_color": "#00000033",
+            "color_scheme": "scheme-3",
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "padding_left": 40,
+            "padding_right": 40
+          },
+          "blocks": [
+            {
+              "type": "header",
+              "settings": {
+                "width": "fill",
+                "inherit_alignment": true,
+                "gap_desktop": 16,
+                "gap_mobile": 16
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Product banner</p>",
+                    "heading_size": "lg",
+                    "html_tag": "h2",
+                    "width": "fill"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Discover your next favorite.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "product-list-inline",
+          "id": "products",
+          "static": true,
+          "blocks": [
+            {
+              "type": "product-rating",
+              "id": "rating",
+              "static": true
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "banner_max_width": "large",
+        "gap_desktop": 20,
+        "gap_mobile": 32,
+        "enable_sticky": true,
+        "enable_media_offset": false,
+        "padding_top": 0,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 64
+      }
+    }
+  ]
+}
+{% endschema %}

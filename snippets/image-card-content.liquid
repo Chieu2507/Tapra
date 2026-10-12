@@ -5,6 +5,10 @@
   @param {boolean} [promo_card] - Enable section-owned grid dimensions and spans
 {% enddoc %}
 {% liquid
+  assign image_card_fetchpriority = blank
+  if section.settings.layout == 'three_columns' and section.index == 1 and section.blocks.first.id == block.id
+    assign image_card_fetchpriority = 'high'
+  endif
   assign image_card_media_type = block.settings.background_type | default: 'image'
   assign image_card_image = block.settings.image
   assign image_card_link = block.settings.link
@@ -131,6 +135,9 @@
   endif
 
   assign image_card_class = 'image-card'
+  if image_card_media_type == 'none'
+    assign image_card_class = image_card_class | append: ' image-card--no-media'
+  endif
   if block.settings.zoom_on_hover
     assign image_card_class = image_card_class | append: ' image-card--zoom'
   endif
@@ -213,13 +220,29 @@
     assign image_card_size_mobile = mobile_fraction | append: 'vw'
   %}
 {% endif %}
-{% capture image_card_sizes %}{% if promo_card %}(min-width: 1150px) {{ image_card_size_desktop }}, (min-width: 768px) {{ tablet_fraction }}vw{% else %}(min-width: 768px) {{ image_card_size_desktop }}{% endif %}, {{ image_card_size_mobile }}{% endcapture %}
+{% if section.settings.layout == 'three_columns' %}
+  {% liquid
+    assign image_card_grid_gap = section.settings.gap_desktop | default: 32 | times: 2
+    assign image_card_grid_margin = settings.layout_desktop_margin | default: 32 | times: 2 | plus: image_card_grid_gap
+    assign image_card_grid_margin_tablet = settings.layout_tablet_margin | default: 30 | times: 2 | plus: image_card_grid_gap
+    assign image_card_grid_margin_mobile = settings.layout_mobile_margin | default: 16 | times: 2 | plus: section.settings.gap_mobile
+  %}
+  {% capture image_card_size_desktop %}(min-width: 1150px) calc((min(100vw, {{ settings.max_page_width | default: 1400 }}px) - {{ image_card_grid_margin }}px) / 3), (min-width: 768px) calc((min(100vw, {{ settings.max_page_width | default: 1400 }}px) - {{ image_card_grid_margin_tablet }}px) / 3){% endcapture %}
+  {% capture image_card_size_mobile %}calc((100vw - {{ image_card_grid_margin_mobile }}px) / 2){% endcapture %}
+{% endif %}
+{% capture image_card_sizes %}{% if promo_card %}(min-width: 1150px) {{ image_card_size_desktop }}, (min-width: 768px) {{ tablet_fraction }}vw{% elsif section.settings.layout == 'three_columns' %}{{ image_card_size_desktop }}{% else %}(min-width: 768px) {{ image_card_size_desktop }}{% endif %}, {{ image_card_size_mobile }}{% endcapture %}
 
 <article
   class="{{ image_card_class }}"
   {% if image_card_style != blank %}style="{{ image_card_style }}"{% endif %}
+  {% if section.settings.layout == 'three_columns' and section.index == 1 %}
+    data-block-animation="none"
+  {% elsif block.settings.animation_type != nil %}
+    data-block-animation="{{ block.settings.animation_type | escape }}"
+  {% endif %}
   {{ block.shopify_attributes }}
 >
+  {% unless image_card_media_type == 'none' %}
   <div class="image-card__media">
     {% render 'media-background',
       media_type: image_card_media_type,
@@ -229,9 +252,12 @@
       mobile_video: block.settings.mobile_video,
       alt: image_card_media_alt,
       sizes: image_card_sizes,
+      fetchpriority: image_card_fetchpriority,
       aria_hidden: image_card_media_aria_hidden
     %}
   </div>
+
+  {% endunless %}
 
   {% if block.settings.show_overlay %}
     {% capture image_card_overlay_background %}{% render 'overlay-background', overlay_settings: block.settings %}{% endcapture %}

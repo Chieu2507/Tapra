@@ -5,6 +5,8 @@ const {loadLiquid,stripShopifyMetadata}=require('./helpers/liquid-engine.cjs');
 const Liquid=loadLiquid();
 const engine=new Liquid();
 const blog=stripShopifyMetadata(fs.readFileSync('sections/blog-posts.liquid','utf8'))
+ .replace(/{%\s*style\s*%}|{%\s*endstyle\s*%}/g,'')
+ .replace(/{%\s*render 'component-stylesheet'[^%]*%}/g,'')
  .replace(/{% content_for 'block', type: 'view-all-button',[\s\S]*?%}/g,'{{ action_markup }}')
  .replace(/{% content_for[\s\S]*?%}/g,'<div>Content</div>');
 test('disabled or unavailable Blog action creates no empty flex/grid item',async()=>{

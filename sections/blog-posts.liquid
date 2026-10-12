@@ -53,6 +53,12 @@
 {% endcapture %}
 {% assign blog_posts_style = blog_posts_style | strip %}
 
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.color_scheme.settings.background | default: '#ffffff' }};
+  }
+{% endstyle %}
+
 <div
   class="section-spacing blog-posts section-color-scope {{ blog_posts_scheme }}"
   {% if blog_posts_style != blank %}style="{{ blog_posts_style }}"{% endif %}

@@ -242,7 +242,11 @@
     "inventory_urgent_stock": "Hurry up",
     "inventory_low_stock": "Low stock",
     "inventory_in_stock": "In stock",
-    "inventory_sold_out": "Out of stock"
+    "inventory_sold_out": "Out of stock",
+    "image_cards_three_columns": "Image cards (three columns)",
+    "product_banner_inline": "Product banner: Inline",
+    "product_list_inline": "Product list: Inline",
+    "hotspot_image": "Hotspot image"
   },
   "labels": {
     "hide_view_all_on_mobile": "Hide View all on mobile",
@@ -762,14 +766,32 @@
     "inventory_count_text": "Text with count",
     "inventory_count_color": "Count color",
     "inventory_count_weight": "Count weight",
-    "inventory_bar_color": "Inventory bar color"
+    "inventory_bar_color": "Inventory bar color",
+    "minimum_card_height_mobile": "Mobile minimum card height",
+    "customize_header_gap_desktop": "Customize desktop header gap",
+    "header_gap_desktop": "Desktop header gap",
+    "omit_title_suffix": "Omit title suffix",
+    "products_to_show": "Product count",
+    "show_rating": "Show rating",
+    "show_quick_add": "Show quick add",
+    "show_quick_add_mobile": "Show quick add on mobile",
+    "navigation_button_size": "Navigation button size",
+    "desktop_header_position": "Desktop header position",
+    "mobile_header_position": "Mobile header position",
+    "header_width": "Header width",
+    "show_header_above": "Show header above",
+    "header_above_gap": "Header above gap",
+    "use_nested_hotspots": "Use multiple hotspots"
   },
   "options": {
     "overlay_style": {
       "solid": "Solid",
       "gradient": "Gradient"
     },
-    "blog_meta_display": {"content": "In content", "badge": "Badge on image"},
+    "blog_meta_display": {
+      "content": "In content",
+      "badge": "Badge on image"
+    },
     "product_quantity_style": {
       "default": "Default",
       "custom": "Custom"
@@ -948,7 +970,8 @@
     },
     "tab_style": {
       "underline": "Underline",
-      "button": "Button"
+      "button": "Button",
+      "pill": "Pill"
     },
     "tab_active_style": {
       "primary": "Primary",
@@ -1307,6 +1330,7 @@
       "chat_bubble": "Chat bubble",
       "cube": "Cube",
       "truck": "Truck",
+      "shipping_fast": "Express shipping",
       "tag": "Tag",
       "trash": "Trash",
       "document_text": "Document text",
@@ -1473,7 +1497,8 @@
     "countdown_unit_layout": {
       "separated": "Separated",
       "connected": "Connected",
-      "colon": "Colon separators"
+      "colon": "Colon separators",
+      "plain": "Plain"
     },
     "collection_tabs_header_layout": {
       "stacked": "Stacked",
@@ -1485,7 +1510,20 @@
       "grid": "Card grid"
     },
     "inventory_count_normal": "Normal",
-    "inventory_count_bold": "Bold"
+    "inventory_count_bold": "Bold",
+    "image_card_media": {
+      "none": "None"
+    },
+    "image_cards_layout": {
+      "standard": "Standard",
+      "three_columns": "Three columns"
+    },
+    "hotspot_header_position": {
+      "left": "Left",
+      "right": "Right",
+      "above": "Above",
+      "below": "Below"
+    }
   },
   "info": {
     "media_offset_theme_settings": "Use the media inset from Theme settings → Product cards. Turn off to remove the media inset in this section.",
@@ -1549,7 +1587,10 @@
     "show_image_text_card_settings": "These controls apply only to Image text card items. Slide headings and text are configured in their own blocks.",
     "inventory_urgent_threshold": "Shows Hurry up below this quantity. Capped at the low-stock threshold. Set to 0 to disable.",
     "inventory_progress_total": "Bar percentage = selected variant stock / Low-stock threshold, up to 100%. A threshold of 0 hides the bar. Updates when the selected variant changes.",
-    "inventory_count_text": "Use [count] to insert the stock quantity. Its color and weight are configured separately."
+    "inventory_count_text": "Use [count] to insert the stock quantity. Its color and weight are configured separately.",
+    "omit_title_suffix": "Remove this exact ending from the displayed collection title. The collection name and destination stay unchanged.",
+    "navigation_button_size": "Set to 0 to inherit the theme button size.",
+    "use_nested_hotspots": "Add Hotspot child blocks to place multiple products or content points on this image. Turn off to use the original hotspot settings."
   },
   "timeline": {
     "year": "Year or date label",

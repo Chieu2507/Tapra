@@ -37,9 +37,19 @@
   endif
 %}
 
+{% capture product_card_rating %}
+  {% if card_product != blank and block.settings.show_rating %}
+    {% content_for 'block', type: 'product-rating', id: 'rating', closest.product: card_product %}
+  {% endif %}
+{% endcapture %}
+{% assign product_card_rating = product_card_rating | strip %}
+
 {% if card_product != blank %}
   {% render 'product-card',
     product: card_product,
+    rating_content: product_card_rating,
+    card_style: block.settings.card_style,
+    media_corner_radius: block.settings.media_corner_radius,
     color_type: product_card_color_type,
     color_scheme: product_card_color_scheme,
     attributes: product_card_editor_attributes
@@ -49,6 +59,8 @@
     product: blank,
     placeholder: true,
     placeholder_index: placeholder_index,
+    card_style: block.settings.card_style,
+    media_corner_radius: block.settings.media_corner_radius,
     color_type: product_card_color_type,
     color_scheme: product_card_color_scheme,
     attributes: product_card_editor_attributes
@@ -84,6 +96,92 @@
     },
     {
       "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "t:labels.style",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.radius_preset.inherit"
+        },
+        {
+          "value": "standard",
+          "label": "t:options.product_card_style.standard"
+        },
+        {
+          "value": "card",
+          "label": "t:options.product_card_style.card"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "media_corner_radius",
+      "label": "t:labels.media_corner_radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.radius_preset.inherit"
+        },
+        {
+          "value": "square",
+          "label": "t:options.radius_preset.square"
+        },
+        {
+          "value": "radius_2",
+          "label": "t:options.radius_preset.size_2"
+        },
+        {
+          "value": "radius_4",
+          "label": "t:options.radius_preset.size_4"
+        },
+        {
+          "value": "radius_6",
+          "label": "t:options.radius_preset.size_6"
+        },
+        {
+          "value": "rounded",
+          "label": "t:options.radius_preset.rounded"
+        },
+        {
+          "value": "radius_8",
+          "label": "t:options.radius_preset.size_8"
+        },
+        {
+          "value": "radius_12",
+          "label": "t:options.radius_preset.size_12"
+        },
+        {
+          "value": "radius_16",
+          "label": "t:options.radius_preset.size_16"
+        },
+        {
+          "value": "radius_24",
+          "label": "t:options.radius_preset.size_24"
+        },
+        {
+          "value": "radius_32",
+          "label": "t:options.radius_preset.size_32"
+        },
+        {
+          "value": "full",
+          "label": "t:options.radius_preset.full"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "t:labels.show_rating",
+      "default": false
+    },
+    {
+      "type": "header",
       "content": "t:general.appearance"
     },
     {
@@ -91,8 +189,14 @@
       "id": "color_type",
       "label": "t:labels.type",
       "options": [
-        { "value": "inherit", "label": "t:options.appearance_type.inherit" },
-        { "value": "color_scheme", "label": "t:options.appearance_type.scheme" }
+        {
+          "value": "inherit",
+          "label": "t:options.appearance_type.inherit"
+        },
+        {
+          "value": "color_scheme",
+          "label": "t:options.appearance_type.scheme"
+        }
       ],
       "default": "inherit"
     },
@@ -112,6 +216,11 @@
         "color_type": "inherit",
         "color_scheme": "scheme-1"
       }
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product-rating"
     }
   ]
 }

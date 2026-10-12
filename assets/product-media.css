@@ -691,3 +691,13 @@ html.product-media-lightbox-open {
     box-shadow: 0 1px 3px color-mix(in srgb, var(--shadow-color) 10%, transparent);
   }
 }
+
+/* The main image frame is opt-in; video and model media retain native sizing. */
+.product-media-gallery[data-media-ratio='square'] .product-media-gallery__main .product-media--image {
+  aspect-ratio: 1;
+}
+
+.product-media-gallery[data-media-ratio='square'] .product-media-gallery__main .product-media--image > img {
+  height: 100%;
+  object-fit: cover;
+}

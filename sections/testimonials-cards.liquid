@@ -7,6 +7,10 @@
   unless card_height == 'auto' or card_height == 'fill'
     assign card_height = 'fill'
   endunless
+  assign navigation_position = section.settings.navigation_position | default: 'header'
+  unless navigation_position == 'header' or navigation_position == 'bottom'
+    assign navigation_position = 'header'
+  endunless
   assign pagination_type = section.settings.pagination_type | default: 'bullets'
   assign pagination_desktop = section.settings.show_pagination
   assign pagination_mobile = section.settings.show_pagination
@@ -23,20 +27,26 @@
 {% endcapture %}
 {% assign carousel_label = 'accessibility.testimonials' | t %}
 {% assign carousel_id = 'TestimonialsCards-' | append: section.id %}
-{% if section.settings.background_color != blank %}
-  {% style %}#shopify-section-{{ section.id }} { background-color: {{ section.settings.background_color }}; }{% endstyle %}
-{% endif %}
-<div class="section-spacing testimonials-cards testimonials-cards--height-{{ card_height }}{% if section.settings.show_navigation %} testimonials-cards--header-navigation{% endif %} color-scheme section-color-scope {{ section.settings.color_scheme }}" style="--testimonials-padding-top: {{ section.settings.padding_top }}px; --testimonials-padding-bottom: {{ section.settings.padding_bottom }}px; --testimonials-header-gap: {{ section.settings.header_gap }}px; --testimonials-header-gap-mobile: {{ section.settings.header_gap_mobile }}px; --testimonials-pagination-gap: {{ section.settings.pagination_top_padding_desktop | default: 36 }}px; --testimonials-pagination-gap-mobile: {{ section.settings.pagination_top_padding_mobile | default: 28 }}px;{% if section.settings.customize_mobile_padding %} --testimonials-padding-top-mobile: {{ section.settings.padding_top_mobile }}px; --testimonials-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}{% if section.settings.background_color != blank %} background-color: {{ section.settings.background_color }};{% endif %}">
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color | default: section.settings.color_scheme.settings.background | default: '#ffffff' }};
+  }
+{% endstyle %}
+{% capture navigation %}
+  {% if layout_type == 'carousel' %}
+    {% render 'swiper-navigation', show: section.settings.show_navigation, centered: false, style: 'outline', icon: 'chevron', behavior: 'always', wrapper_class: 'testimonials-cards__navigation', previous_attribute: 'data-carousel-previous', next_attribute: 'data-carousel-next' %}
+  {% endif %}
+{% endcapture %}
+<div class="section-spacing testimonials-cards testimonials-cards--height-{{ card_height }}{% if section.settings.show_navigation and navigation_position == 'header' %} testimonials-cards--header-navigation{% elsif section.settings.show_navigation %} testimonials-cards--bottom-navigation{% endif %} color-scheme section-color-scope {{ section.settings.color_scheme }}" style="--testimonials-header-max-width: {{ section.settings.header_max_width | default: 768 }}px; --testimonials-padding-top: {{ section.settings.padding_top }}px; --testimonials-padding-bottom: {{ section.settings.padding_bottom }}px; --testimonials-header-gap: {{ section.settings.header_gap }}px; --testimonials-header-gap-mobile: {{ section.settings.header_gap_mobile }}px; --testimonials-pagination-gap: {{ section.settings.pagination_top_padding_desktop | default: 36 }}px; --testimonials-pagination-gap-mobile: {{ section.settings.pagination_top_padding_mobile | default: 28 }}px;{% if section.settings.customize_mobile_padding %} --testimonials-padding-top-mobile: {{ section.settings.padding_top_mobile }}px; --testimonials-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}{% if section.settings.background_color != blank %} background-color: {{ section.settings.background_color }};{% endif %}">
   <div class="container {% if section.settings.section_width == 'full_width' %}full-width{% else %}page-width{% endif %} testimonials-cards__content">
     {% capture slides %}{% content_for 'blocks' %}{% endcapture %}
     <div class="testimonials-cards__carousel testimonials-cards__carousel--{{ layout_type }}" style="{% if section.settings.pagination_thickness == 'thin' %}--swiper-pagination-progressbar-size: 2px;{% endif %}--testimonials-columns-desktop: {{ section.settings.columns_desktop | default: 3 }}; --testimonials-columns-tablet: {{ section.settings.columns_tablet | default: 2 }}; --testimonials-columns-mobile: {{ section.settings.columns_mobile | default: 1 }}; --testimonials-gap-desktop: {{ section.settings.gap_desktop | default: 28 }}px; --testimonials-gap-mobile: {{ section.settings.gap_mobile | default: 16 }}px;"{% if layout_type == 'carousel' %} data-carousel-block{% endif %} data-swiper-columns-desktop="{{ section.settings.columns_desktop }}" data-swiper-columns-tablet="{{ section.settings.columns_tablet }}" data-swiper-columns-mobile="{{ section.settings.columns_mobile }}" data-swiper-gap-desktop="{{ section.settings.gap_desktop }}" data-swiper-gap-mobile="{{ section.settings.gap_mobile }}" data-swiper-pagination-type="{{ pagination_type }}" data-swiper-pagination-desktop="{{ pagination_desktop }}" data-swiper-pagination-mobile="{{ pagination_mobile }}" data-carousel-loop="false">
       <div class="testimonials-cards__header-row">
         <div class="testimonials-cards__header align-content">{% content_for 'block', type: 'header', id: 'header' %}</div>
-        {% if layout_type == 'carousel' %}
-          {% render 'swiper-navigation', show: section.settings.show_navigation, centered: false, style: 'outline', icon: 'chevron', behavior: 'always', wrapper_class: 'testimonials-cards__navigation', previous_attribute: 'data-carousel-previous', next_attribute: 'data-carousel-next' %}
-        {% endif %}
+        {% if navigation_position == 'header' %}{{ navigation }}{% endif %}
       </div>
       {% render 'swiper-carousel', id: carousel_id, content: slides, layout: layout_type, pagination: pagination, aria_label: carousel_label %}
+      {% if navigation_position == 'bottom' %}{{ navigation }}{% endif %}
     </div>
   </div>
 </div>
@@ -202,6 +212,16 @@
     },
     {
       "type": "range",
+      "id": "header_max_width",
+      "label": "Header width",
+      "min": 320,
+      "max": 1600,
+      "step": 16,
+      "unit": "px",
+      "default": 768
+    },
+    {
+      "type": "range",
       "id": "header_gap",
       "label": "Desktop header gap",
       "min": 0,
@@ -230,6 +250,17 @@
       "label": "t:labels.show_navigation_on_desktop",
       "default": false,
       "visible_if": "{{ section.settings.layout_type == 'carousel' }}"
+    },
+    {
+      "type": "select",
+      "id": "navigation_position",
+      "label": "Navigation position",
+      "options": [
+        { "value": "header", "label": "Header" },
+        { "value": "bottom", "label": "Below cards" }
+      ],
+      "default": "header",
+      "visible_if": "{{ section.settings.layout_type == 'carousel' and section.settings.show_navigation }}"
     },
     {
       "type": "header",

@@ -215,6 +215,12 @@
     .featured-collection__container[data-hide-view-all-mobile] .featured-collection__actions { display: none; }
   }
   @media (min-width: 768px) {
+    .featured-collection__container[data-desktop-alignment='left']:not(:has(.featured-collection__additional-blocks)) {
+      grid-template-areas: 'header actions navigation' 'products products products';
+    }
+    .featured-collection__container[data-desktop-alignment='right']:not(:has(.featured-collection__additional-blocks)) {
+      grid-template-areas: 'navigation actions header' 'products products products';
+    }
     .featured-collection__container[data-desktop-alignment='left']:not(:has(.product-list__navigation--top)) {
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-areas: 'header actions' 'products products' 'additional-blocks additional-blocks';

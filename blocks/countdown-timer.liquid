@@ -287,7 +287,7 @@
   assign countdown_seconds_key = 'countdown.seconds'
   if countdown_style == 'with_labels'
     case block.settings.unit_layout
-      when 'connected', 'colon'
+      when 'connected', 'colon', 'plain'
         assign countdown_class = countdown_class | append: ' countdown-timer--' | append: block.settings.unit_layout
         assign countdown_minutes_key = 'countdown.minutes_full'
         assign countdown_seconds_key = 'countdown.seconds_full'
@@ -491,7 +491,7 @@
       }
 
       syncUnitWidth() {
-        if (!this.unitElements?.length || this.classList.contains('countdown-timer--connected') || this.classList.contains('countdown-timer--colon')) return;
+        if (!this.unitElements?.length || this.classList.contains('countdown-timer--connected') || this.classList.contains('countdown-timer--colon') || this.classList.contains('countdown-timer--plain')) return;
 
         this.style.removeProperty('--countdown-unit-width');
         const maxWidth = Math.max(...this.unitElements.map((unit) => unit.getBoundingClientRect().width));
@@ -576,6 +576,10 @@
         {
           "value": "colon",
           "label": "t:options.countdown_unit_layout.colon"
+        },
+        {
+          "value": "plain",
+          "label": "t:options.countdown_unit_layout.plain"
         }
       ],
       "default": "separated",
@@ -597,7 +601,7 @@
       "step": 1,
       "unit": "px",
       "default": 32,
-      "visible_if": "{{ block.settings.unit_layout == 'colon' and block.settings.style == 'with_labels' }}"
+      "visible_if": "{{ block.settings.style == 'with_labels' and block.settings.unit_layout == 'colon' or block.settings.style == 'with_labels' and block.settings.unit_layout == 'plain' }}"
     },
     {
       "type": "range",
@@ -608,7 +612,7 @@
       "step": 1,
       "unit": "px",
       "default": 16,
-      "visible_if": "{{ block.settings.unit_layout == 'colon' and block.settings.style == 'with_labels' }}"
+      "visible_if": "{{ block.settings.style == 'with_labels' and block.settings.unit_layout == 'colon' or block.settings.style == 'with_labels' and block.settings.unit_layout == 'plain' }}"
     },
     {
       "type": "range",

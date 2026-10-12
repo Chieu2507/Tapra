@@ -18,7 +18,7 @@
   endif
 
   assign featured_product_media_width = section.settings.media_width | default: 'medium'
-  unless featured_product_media_width == 'small' or featured_product_media_width == 'medium' or featured_product_media_width == 'large' or featured_product_media_width == 'equal'
+  unless featured_product_media_width == 'small' or featured_product_media_width == 'medium' or featured_product_media_width == 'large' or featured_product_media_width == 'equal' or featured_product_media_width == 'fit_details'
     assign featured_product_media_width = 'medium'
   endunless
   assign featured_product_media_share = 55
@@ -65,6 +65,8 @@
 {% endstyle %}
 
 {% capture featured_product_style %}
+  {% if section.settings.vertical_alignment != blank and section.settings.vertical_alignment != 'center' %}--featured-product-vertical-alignment: {{ section.settings.vertical_alignment }};{% endif %}
+  {% if featured_product_media_width == 'fit_details' %}--featured-product-details-width: {{ section.settings.details_width | default: 576 | at_least: 320 | at_most: 800 }}px;{% endif %}
   --featured-product-media-share: {{ featured_product_media_share }}fr;
   --featured-product-details-share: {{ 100 | minus: featured_product_media_share }}fr;
   --featured-product-box-radius: {{ section.settings.box_corner_radius | replace: 'radius_', '' | plus: 0 }}px;
@@ -107,7 +109,7 @@
           {% content_for 'block', type: 'header', id: 'header' %}
         </div>
       {% endif %}
-      <product-sticky-layout class="product-information__layout featured-product__layout{% if section.settings.boxed %} featured-product__layout--boxed color-scheme {{ section.settings.box_color_scheme.id | default: section.settings.box_color_scheme | default: 'scheme-1' }}{% endif %}"{% unless section.settings.sticky_content == false %} data-sticky-enabled{% endunless %}>
+      <product-sticky-layout class="product-information__layout featured-product__layout{% if featured_product_media_width == 'fit_details' %} featured-product__layout--fit-details{% endif %}{% if section.settings.boxed %} featured-product__layout--boxed color-scheme {{ section.settings.box_color_scheme.id | default: section.settings.box_color_scheme | default: 'scheme-1' }}{% endif %}"{% unless section.settings.sticky_content == false %} data-sticky-enabled{% endunless %}>
         {% content_for 'block', type: '_product-media', id: 'product-media', product: featured_product, closest.product: featured_product %}
         {% content_for 'block', type: '_product-details', id: 'product-details', closest.product: featured_product %}
       </product-sticky-layout>
@@ -229,9 +231,35 @@
         {
           "value": "equal",
           "label": "Equal columns"
+        },
+        {
+          "value": "fit_details",
+          "label": "Adapt to details width"
         }
       ],
       "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "details_width",
+      "label": "Details width",
+      "min": 320,
+      "max": 800,
+      "step": 8,
+      "unit": "px",
+      "default": 576,
+      "visible_if": "{{ section.settings.media_width == 'fit_details' }}"
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Vertical alignment",
+      "options": [
+        { "value": "start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "end", "label": "Bottom" }
+      ],
+      "default": "center"
     },
     {
       "type": "header",

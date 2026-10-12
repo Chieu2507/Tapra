@@ -31,3 +31,25 @@ Reusable contract extensions: section owns optional header navigation and pagina
 - Testimonials review-card allow-list and card/section presets now use the shared Icon block with `five-stars`. Both homepage rating blocks retain their IDs and order, with a 90px icon width. Presets use 100px.
 - Color and SVG proportions follow the shared Icon library; the previous custom star color/gap settings no longer apply to these instances. The legacy Star rating block remains available for compatibility.
 - Local schema/template JSON and whitespace validation: PASS. Theme Check: PASS (0 errors; 104 repository warnings). Theme Editor and storefront visual QA for this update: NOT TESTED.
+
+## Real Pet Parents Say update — 2026-10-12
+
+Current reference: Figma `47317:14767`. Applied on the user's current `Pawvera-template` branch to the existing `perky_testimonials` instance; development theme `192069828907`, existing watcher at localhost:9292. Existing Featured product and other homepage changes are preserved.
+
+- Heading becomes Real Pet Parents Say. The three supplied trust figures and captions are editable Header → Group → Heading/Text content. Metrics are visual heading roles with semantic div tags, not additional page headings. Trust copy is authored Figma demo content, not a live review/analytics count.
+- Header gains an optional width control, preserving the previous default 768px and existing tablet/mobile caps. This instance is 1152px wide with a 40px heading-to-trust gap and 48px header-to-cards gap.
+- Cards keep existing IDs, review copy and four selected Wofyn WebP images. Photo comes first; author comes before rating/title/review. Horizontal image and content Fill slots share remaining width equally after gap/padding. At 1920px: cards 686×345px, images 313×313px, content 313px, card gap 28px, padding 16px, avatar 64px. Photo radius is 16px.
+- Reuse the existing Star rating block and its exact local testimonial-rating-star.svg asset: five 18px stars, zero gap, navy. Added this existing block to the review card allow-list; no new block file. Existing Icon blocks remain compatible.
+- Section navigation gets a Below cards position; existing default Header remains unchanged. Shared swiper-navigation provides controls and focus/hover appearance. Locked carousels hide inert navigation. The two real reviews fit on desktop, so arrows are hidden there; tablet navigation is below cards. Mobile keeps the existing progress bar and one card per view.
+- Section wrapper background now resolves the optional override, then selected scheme background. Desktop/tablet spacing 96px; mobile 64px. New literal schema labels follow existing section-specific naming, with existing translations reused where available. Deferred component bundle rebuilt.
+
+Validation:
+- PASS: Desktop geometry and all four non-broken, loaded images; exact review/author/image positions checked against the Figma screenshot. Retained shared theme font and small shadow presets.
+- PASS: No section horizontal overflow at 390, 767, 768, 1149, 1150 and 1920px. Columns resolve 1/1/1/1/2/2. Mobile photo precedes left-aligned author/review content; trust items stack and align center.
+- PASS: Tablet keyboard Enter on Next activates Jerome; Next disables and Previous enables. Previous returns to Eleanor. Navigation is geometrically below the carousel.
+- PASS: Fresh Theme Editor shows Header width 1152px, gap 48px and Below cards navigation. Save is disabled; pre-existing restore-session prompt untouched.
+- PASS: Seven scoped layout/navigation tests. The existing test fixture now loads actual shared snippets, fixing its stale single-snippet lookup limitation. Grid/carousel/default/invalid layout, pagination settings and one pair of controls in both header/footer positions are covered.
+- PASS: Theme Check zero errors; git diff --check. No JavaScript changed. Section uses two merchant review cards, existing static Header and shallow composition; no added theme block files.
+- NOT TESTED: physical touch swipe and exhaustive add/remove/duplicate/reorder lifecycle. Existing shared Swiper/editor lifecycle retained.
+
+Proof: output/wofyn-testimonials/desktop.png, mobile-header.png, mobile-card.png. Two-review navigation visibility, Nunito font and shared small shadow are intentional differences from the static mockup. No commit, push or theme publication.

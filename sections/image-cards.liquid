@@ -15,6 +15,9 @@
   endunless
 
   assign image_cards_direction = section.settings.direction | default: 'horizontal'
+  if section.settings.layout == 'three_columns'
+    assign image_cards_direction = 'horizontal'
+  endif
   unless image_cards_direction == 'horizontal' or image_cards_direction == 'vertical'
     assign image_cards_direction = 'horizontal'
   endunless
@@ -30,7 +33,7 @@
   endif
 
   assign image_cards_mobile_direction = image_cards_direction
-  if image_cards_vertical_on_mobile
+  if image_cards_vertical_on_mobile and section.settings.layout != 'three_columns'
     assign image_cards_mobile_direction = 'vertical'
   endif
 
@@ -90,6 +93,7 @@
 %}
 
 {% capture image_cards_style %}
+  {% if section.settings.layout == 'three_columns' %}--image-cards-min-height-mobile: {{ section.settings.minimum_card_height_mobile | default: 285 }}px;{% endif %}
   {% if image_cards_height != 'auto' %}--image-cards-height: {{ image_cards_height }};{% endif %}
   {% if section.settings.background_color != blank %}--image-cards-background-color: {{ section.settings.background_color | escape }};{% endif %}
   {% if image_cards_padding_top != 0 %}--image-cards-padding-top: {{ image_cards_padding_top }}px;{% endif %}
@@ -116,7 +120,7 @@
 
 {% if section.blocks.size > 0 or request.design_mode %}
   <div
-    class="section-spacing image-cards-section image-cards-section--height-{{ image_cards_height_mode }} image-cards-section--direction-{{ image_cards_direction }} image-cards-section--mobile-direction-{{ image_cards_mobile_direction }} color-scheme section-color-scope {{ image_cards_scheme }}{% if image_cards_container_no_padding %} image-cards-section--no-padding{% endif %}{% if image_cards_height_mode == 'auto' and image_cards_all_fill_desktop %} image-cards-section--auto-fill-desktop{% endif %}{% if image_cards_height_mode == 'auto' and image_cards_all_fill_mobile %} image-cards-section--auto-fill-mobile{% endif %}"
+    class="section-spacing image-cards-section{% if section.settings.layout == 'three_columns' %} image-cards-section--three-columns{% endif %} image-cards-section--height-{{ image_cards_height_mode }} image-cards-section--direction-{{ image_cards_direction }} image-cards-section--mobile-direction-{{ image_cards_mobile_direction }} color-scheme section-color-scope {{ image_cards_scheme }}{% if image_cards_container_no_padding %} image-cards-section--no-padding{% endif %}{% if image_cards_height_mode == 'auto' and image_cards_all_fill_desktop %} image-cards-section--auto-fill-desktop{% endif %}{% if image_cards_height_mode == 'auto' and image_cards_all_fill_mobile %} image-cards-section--auto-fill-mobile{% endif %}"
     {% if image_cards_style != blank %}style="{{ image_cards_style }}"{% endif %}
   >
     {% if section.settings.background_image != blank %}
@@ -183,6 +187,33 @@
     },
     {
       "type": "select",
+      "id": "layout",
+      "label": "t:labels.layout",
+      "options": [
+        {
+          "value": "standard",
+          "label": "t:options.image_cards_layout.standard"
+        },
+        {
+          "value": "three_columns",
+          "label": "t:options.image_cards_layout.three_columns"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "range",
+      "id": "minimum_card_height_mobile",
+      "label": "t:labels.minimum_card_height_mobile",
+      "min": 100,
+      "max": 600,
+      "step": 5,
+      "unit": "px",
+      "default": 285,
+      "visible_if": "{{ section.settings.layout == 'three_columns' }}"
+    },
+    {
+      "type": "select",
       "id": "height",
       "label": "t:labels.height",
       "options": [
@@ -226,13 +257,15 @@
           "label": "t:options.direction.vertical"
         }
       ],
-      "default": "horizontal"
+      "default": "horizontal",
+      "visible_if": "{{ section.settings.layout != 'three_columns' }}"
     },
     {
       "type": "checkbox",
       "id": "vertical_on_mobile",
       "label": "t:labels.vertical_on_mobile",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.layout != 'three_columns' }}"
     },
     {
       "type": "header",
@@ -439,6 +472,81 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "t:general.image_cards_three_columns",
+      "category": "t:general.banners",
+      "settings": {
+        "layout": "three_columns",
+        "height": "auto",
+        "gap_desktop": 10,
+        "gap_mobile": 10,
+        "padding_top": 48,
+        "padding_bottom": 80,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 56
+      },
+      "blocks": [
+        {
+          "type": "image-card",
+          "settings": {
+            "height_desktop": "ratio_4_5",
+            "corner_radius": "radius_16",
+            "enable_sticky": false
+          }
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "background_type": "none",
+            "height_desktop": "fill",
+            "height_mobile": "fill",
+            "corner_radius": "radius_16",
+            "color_scheme": "scheme-4",
+            "position_desktop": "center_center",
+            "position_mobile": "center_center",
+            "enable_sticky": false,
+            "padding_top": 64,
+            "padding_bottom": 64,
+            "padding_left": 64,
+            "padding_right": 64,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 32,
+            "padding_bottom_mobile": 32,
+            "padding_left_mobile": 20,
+            "padding_right_mobile": 20,
+            "gap_desktop": 40,
+            "gap_mobile": 36
+          },
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Your Pet’s Needs, On Time!</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              }
+            },
+            {
+              "type": "button",
+              "settings": {
+                "button_label": "Shop now",
+                "button_link": "shopify://collections/all",
+                "show_icon": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "image-card",
+          "settings": {
+            "height_desktop": "ratio_4_5",
+            "corner_radius": "radius_16",
+            "enable_sticky": false
+          }
         }
       ]
     }

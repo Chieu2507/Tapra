@@ -191,6 +191,8 @@
 {% assign product_list_pagination_style = product_list_pagination_style | strip %}
 
 {% capture product_list_navigation_center_style %}
+  {% if block.settings.navigation_button_size > 0 %}--swiper-nav-size: {{ block.settings.navigation_button_size | at_least: 2 | at_most: 80 }}px;{% endif %}
+  {% if block.settings.navigation_gap != blank and block.settings.navigation_gap != 8 %}--product-list-navigation-gap: {{ block.settings.navigation_gap | at_least: 0 | at_most: 40 }}px;{% endif %}
   {% if product_list_layout == 'carousel' and product_list_show_pagination and product_list_pagination_visibility != 'mobile' and product_list_pagination_visibility != 'tablet_mobile' and product_list_navigation_position != 'top' and product_list_navigation_position != 'bottom' %}--swiper-navigation-center-offset: calc(({{ product_list_pagination_top_padding_desktop }}px + {{ product_list_pagination_size }}) / 2);{% endif %}
 {% endcapture %}
 {% assign product_list_navigation_center_style = product_list_navigation_center_style | strip %}
@@ -328,7 +330,7 @@
     inset: auto;
     width: max-content;
     max-width: 100%;
-    gap: 0.5rem;
+    gap: var(--product-list-navigation-gap, 0.5rem);
     padding-inline: 0;
     transform: none;
   }
@@ -597,6 +599,29 @@
       ],
       "default": "inside",
       "visible_if": "{{ block.settings.layout_type == 'carousel' and block.settings.show_navigation_on_desktop }}"
+    },
+    {
+      "type": "range",
+      "id": "navigation_button_size",
+      "label": "t:labels.navigation_button_size",
+      "info": "t:info.navigation_button_size",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.layout_type == 'carousel' and block.settings.show_navigation_on_desktop }}"
+    },
+    {
+      "type": "range",
+      "id": "navigation_gap",
+      "label": "t:labels.gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "visible_if": "{{ block.settings.layout_type == 'carousel' and block.settings.show_navigation_on_desktop and block.settings.navigation_position == 'top' }}"
     },
     {
       "type": "select",

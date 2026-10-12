@@ -1,0 +1,89 @@
+{% doc %}
+  Collection-owned list of at most six inline product cards. Resources cannot
+  be manually duplicated or reordered; the selected collection owns their order.
+  @example
+  {% content_for 'block', type: 'product-list-inline', id: 'products' %}
+{% enddoc %}
+{% liquid
+  assign inline_collection = block.settings.collection
+  assign inline_limit = block.settings.products_to_show | default: 6 | at_least: 1 | at_most: 6
+%}
+<div class="product-list-inline{% unless block.settings.show_quick_add_mobile %} product-list-inline--hide-mobile-action{% endunless %}" {{ block.shopify_attributes }}>
+  {% if inline_collection != blank and inline_collection.products.size > 0 %}
+    {% for inline_product in inline_collection.products limit: inline_limit %}
+      {% capture inline_rating %}
+        {% if block.settings.show_rating %}
+          {% content_for 'block', type: 'product-rating', id: 'rating', closest.product: inline_product %}
+        {% endif %}
+      {% endcapture %}
+      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 }}">
+        {% render 'product-card-inline', product: inline_product, rating_content: inline_rating, show_quick_add: block.settings.show_quick_add %}
+      </div>
+    {% endfor %}
+  {% else %}
+    {% for inline_index in (1..inline_limit) %}
+      <div data-component-reveal="fade-up" data-animation-delay="{{ forloop.index0 | times: 75 }}">
+        {% render 'product-card-inline', placeholder_index: inline_index %}
+      </div>
+    {% endfor %}
+  {% endif %}
+</div>
+{% stylesheet %}
+  .product-list-inline { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; min-width: 0; }
+  @media (max-width: 767.98px) {
+    .product-list-inline--hide-mobile-action .product-card-inline__action { display: none; }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "t:general.product_list_inline",
+  "tag": null,
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:labels.collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "t:labels.products_to_show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "t:labels.show_rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "t:labels.show_quick_add",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add_mobile",
+      "label": "t:labels.show_quick_add_mobile",
+      "default": false,
+      "visible_if": "{{ block.settings.show_quick_add }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:general.product_list_inline",
+      "blocks": [
+        {
+          "type": "product-rating",
+          "id": "rating",
+          "static": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

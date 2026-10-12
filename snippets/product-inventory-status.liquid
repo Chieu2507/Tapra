@@ -74,6 +74,6 @@
 </span>
 {% if show_progress_bar and inventory_state == 'low_stock' and inventory_quantity > 0 and low_stock_threshold > 0 %}
   <div class="product-inventory__bar" aria-hidden="true">
-    <span class="product-inventory__bar-fill"></span>
+    <span class="product-inventory__bar-fill" style="width: {{ inventory_quantity | times: 100.0 | divided_by: low_stock_threshold | at_most: 100 }}%;"></span>
   </div>
 {% endif %}

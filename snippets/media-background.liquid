@@ -12,6 +12,7 @@
   @param {string} [alt] - Optional image alternative text
   @param {string} [placeholder] - Optional Shopify placeholder name when no media is selected
   @param {string} [sizes] - Responsive image sizes
+  @param {string} [fetchpriority] - Optional image request priority
   @param {boolean} [aria_hidden] - Whether the media should be hidden from assistive technology
   @param {string} [class] - Optional class for the media wrapper
 {% enddoc %}
@@ -72,7 +73,8 @@
       class: 'background-media__image',
       width: 2400,
       widths: '480, 720, 960, 1200, 1600, 2400',
-      sizes: sizes
+      sizes: sizes,
+      fetchpriority: fetchpriority
     %}
   {% endif %}
 </div>

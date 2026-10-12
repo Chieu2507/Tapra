@@ -94,7 +94,7 @@
   padding: var(--review-card-padding-top, 36px) var(--review-card-padding-right, 28px) var(--review-card-padding-bottom, 36px) var(--review-card-padding-left, 28px);
 }
 @media (min-width: 768px) {
-  .testimonial-item--review-card.testimonial-item--horizontal > .group--width-fill { flex: 1 1 0%; }
+  .testimonial-item--review-card.testimonial-item--horizontal > :is(.group--width-fill, .image-block--width-fill) { flex: 1 1 0%; }
 }
 .testimonial-item--review-card > * { position: relative; z-index: 1; min-width: 0; }
 @media (max-width: 767.98px) {
@@ -109,5 +109,5 @@
 }
 
 @media (max-width: 767.98px) {
-  .testimonial-item--review-card.testimonial-item--horizontal:not(.testimonial-item--vertical-mobile) > .group--width-fill { flex: 1 1 0%; }
+  .testimonial-item--review-card.testimonial-item--horizontal:not(.testimonial-item--vertical-mobile) > :is(.group--width-fill, .image-block--width-fill) { flex: 1 1 0%; }
 }

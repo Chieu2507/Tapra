@@ -259,3 +259,8 @@
       --image-card-content-justify: flex-end;
     }
   }
+
+.image-card--no-media .image-card__content {
+  position: relative;
+  min-height: 100%;
+}

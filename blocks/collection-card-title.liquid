@@ -16,6 +16,20 @@
     assign collection_card_title = 'collection_list.default_title' | t
   endif
 
+  assign collection_card_title_suffix = block.settings.omit_title_suffix | strip
+  if collection_card_title_suffix != blank
+    assign collection_card_title_length = collection_card_title | size
+    assign collection_card_title_suffix_length = collection_card_title_suffix | size
+    assign collection_card_title_prefix_length = collection_card_title_length | minus: collection_card_title_suffix_length
+    assign collection_card_title_ending = collection_card_title | slice: collection_card_title_prefix_length, collection_card_title_suffix_length
+    if collection_card_title_prefix_length > 0 and collection_card_title_ending == collection_card_title_suffix
+      assign collection_card_short_title = collection_card_title | slice: 0, collection_card_title_prefix_length | strip
+      if collection_card_short_title != blank
+        assign collection_card_title = collection_card_short_title
+      endif
+    endif
+  endif
+
   assign collection_card_title_size = block.settings.heading_size | default: 'sm'
   unless collection_card_title_size == 'display' or collection_card_title_size == 'xl' or collection_card_title_size == 'lg' or collection_card_title_size == 'md' or collection_card_title_size == 'sm' or collection_card_title_size == 'xs' or collection_card_title_size == 'custom' or collection_card_title_size == 'heading_1' or collection_card_title_size == 'heading_2' or collection_card_title_size == 'heading_3' or collection_card_title_size == 'heading_4' or collection_card_title_size == 'heading_5' or collection_card_title_size == 'heading_6'
     assign collection_card_title_size = 'sm'
@@ -197,7 +211,16 @@
   "name": "t:labels.title",
   "tag": null,
   "settings": [
-    { "type": "range", "id": "content_gap", "label": "Title and count gap", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 2 },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Title and count gap",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
     {
       "type": "checkbox",
       "id": "show_product_count",
@@ -207,6 +230,12 @@
     {
       "type": "header",
       "content": "t:general.typography"
+    },
+    {
+      "type": "text",
+      "id": "omit_title_suffix",
+      "label": "t:labels.omit_title_suffix",
+      "info": "t:info.omit_title_suffix"
     },
     {
       "type": "select",

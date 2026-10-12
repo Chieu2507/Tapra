@@ -1,3 +1,9 @@
+{% comment %}
+  A reusable hotspot image grid/carousel with one editable content Header.
+  Section settings own device-specific header placement,
+  column width, surface and spacing; Product callout gallery owns media layout.
+  The Header reuses the shared editable Header kernel.
+{% endcomment %}
 {% liquid
   assign gallery_width = section.settings.section_width | default: 'full_width'
   assign gallery_container = 'full-width'
@@ -7,6 +13,16 @@
   assign gallery_header_vertical_alignment = section.settings.header_vertical_alignment | default: 'middle'
   unless gallery_header_vertical_alignment == 'top' or gallery_header_vertical_alignment == 'middle' or gallery_header_vertical_alignment == 'bottom'
     assign gallery_header_vertical_alignment = 'middle'
+  endunless
+  assign gallery_header_position = 'left'
+  if section.settings.header_position == 'above'
+    assign gallery_header_position = 'above'
+  elsif section.settings.header_position == blank and section.settings.show_header_above
+    assign gallery_header_position = 'above'
+  endif
+  assign gallery_mobile_header_position = section.settings.mobile_header_position | default: 'above'
+  unless gallery_mobile_header_position == 'above' or gallery_mobile_header_position == 'below'
+    assign gallery_mobile_header_position = 'above'
   endunless
   assign gallery_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
 %}
@@ -21,6 +37,8 @@
       --section-padding-bottom-mobile: {{ section.settings.padding_bottom_mobile | default: 40 }}px;
     {% endif %}
     --hotspot-gallery-content-gap: {{ section.settings.content_gap | default: 40 }}px;
+    --hotspot-gallery-content-gap-mobile: {{ section.settings.content_gap_mobile | default: section.settings.content_gap | default: 40 }}px;
+    --hotspot-gallery-header-width: {{ section.settings.header_width | default: 320 }}px;
     {% if gallery_width != 'full_width_no_padding' and section.settings.background_color != blank %}
       --hotspot-gallery-background: {{ section.settings.background_color | escape }};
     {% endif %}
@@ -37,11 +55,15 @@
       class: 'hotspot-gallery__background'
     %}
   {% endif %}
-  <div class="hotspot-gallery__layout container {{ gallery_container }}{% if gallery_width == 'full_width_no_padding' %} hotspot-gallery__layout--no-padding{% endif %}">
+  <div class="hotspot-gallery__container container {{ gallery_container }}{% if gallery_width == 'full_width_no_padding' %} hotspot-gallery__layout--no-padding{% endif %}">
+    <div class="hotspot-gallery__layout" data-header-position="{{ gallery_header_position }}" data-mobile-header-position="{{ gallery_mobile_header_position }}">
     <div class="hotspot-gallery__header hotspot-gallery__header--{{ gallery_header_vertical_alignment }}{% if section.settings.enable_header_sticky %} hotspot-gallery__header--sticky{% endif %}">
       {% content_for 'block', type: 'header', id: 'header' %}
     </div>
-    {% content_for 'block', type: 'product-callout-gallery', id: 'product-callout' %}
+    <div class="hotspot-gallery__callout">
+      {% content_for 'block', type: 'product-callout-gallery', id: 'product-callout' %}
+    </div>
+    </div>
   </div>
 </div>
 
@@ -59,9 +81,17 @@
 
   .hotspot-gallery__layout {
     display: grid;
-    grid-template-columns: fit-content(50%) minmax(0, 1fr);
+    grid-template-columns: minmax(0, min(var(--hotspot-gallery-header-width, 320px), 40%)) minmax(0, 1fr);
     align-items: center;
     gap: var(--hotspot-gallery-content-gap, 40px);
+  }
+
+  .hotspot-gallery__callout {
+    min-width: 0;
+  }
+
+  .hotspot-gallery__layout[data-header-position="above"] {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hotspot-gallery__header {
@@ -100,8 +130,17 @@
   }
 
   @media (max-width: 767.98px) {
-    .hotspot-gallery__layout {
+    .hotspot-gallery__layout[data-mobile-header-position] {
       grid-template-columns: minmax(0, 1fr);
+      gap: var(--hotspot-gallery-content-gap-mobile, var(--hotspot-gallery-content-gap, 40px));
+    }
+
+    .hotspot-gallery__layout[data-mobile-header-position="above"] > .hotspot-gallery__header {
+      order: 0;
+    }
+
+    .hotspot-gallery__layout[data-mobile-header-position="below"] > .hotspot-gallery__header {
+      order: 1;
     }
   }
 {% endstylesheet %}
@@ -149,9 +188,62 @@
       "default": "full_width"
     },
     {
+      "type": "select",
+      "id": "header_position",
+      "label": "Header position",
+      "options": [
+        {
+          "value": "above",
+          "label": "Above section"
+        },
+        {
+          "value": "beside",
+          "label": "Beside images"
+        }
+      ],
+      "default": "beside"
+    },
+    {
+      "type": "select",
+      "id": "mobile_header_position",
+      "label": "t:labels.mobile_header_position",
+      "options": [
+        {
+          "value": "above",
+          "label": "t:options.hotspot_header_position.above"
+        },
+        {
+          "value": "below",
+          "label": "t:options.hotspot_header_position.below"
+        }
+      ],
+      "default": "above"
+    },
+    {
+      "type": "range",
+      "id": "header_width",
+      "label": "t:labels.header_width",
+      "min": 200,
+      "max": 600,
+      "step": 4,
+      "unit": "px",
+      "default": 320,
+      "visible_if": "{{ section.settings.header_position == 'beside' }}"
+    },
+    {
       "type": "range",
       "id": "content_gap",
-      "label": "t:labels.content_gap",
+      "label": "t:labels.desktop_content_gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "t:labels.mobile_content_gap",
       "min": 0,
       "max": 100,
       "step": 2,
@@ -326,7 +418,8 @@
         "section_width": "full_width",
         "color_scheme": "scheme-1",
         "padding_top": 40,
-        "padding_bottom": 40
+        "padding_bottom": 40,
+        "header_position": "beside"
       },
       "blocks": [
         {

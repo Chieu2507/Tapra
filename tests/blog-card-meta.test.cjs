@@ -45,3 +45,13 @@ test('disabled details emit no badge surface; blank resources preserve the edito
   assert.match(html, /February 03, 2026/);
   assert.doesNotMatch(html, /<time /);
 });
+
+test('compact date badges keep the semantic date and selected article context', async () => {
+  const html = await render({ display_type: 'badge', badge_position: 'bottom_left', badge_style: 'compact', date_format: 'day_month' });
+  assert.match(html, /blog-card-meta--bottom-left blog-card-meta--compact/);
+  assert.match(html, /<time datetime="2025-08-18">18 Aug 2025<\/time>/);
+  assert.equal((html.match(/<time /g) || []).length, 1);
+  assert.equal((html.match(/data-editor="meta"/g) || []).length, 1);
+  assert.doesNotMatch(await render({ display_type: 'badge' }), /blog-card-meta--compact/);
+  assert.doesNotMatch(await render({ display_type: 'content', badge_style: 'compact' }), /blog-card-meta--compact/);
+});

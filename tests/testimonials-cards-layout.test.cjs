@@ -5,7 +5,6 @@ const path = require('node:path');
 const { loadLiquid, stripShopifyMetadata } = require('./helpers/liquid-engine.cjs');
 const Liquid = loadLiquid();
 const section = fs.readFileSync(path.join(__dirname, '../sections/testimonials-cards.liquid'), 'utf8');
-const snippet = stripShopifyMetadata(fs.readFileSync(path.join(__dirname, '../snippets/swiper-carousel.liquid'), 'utf8'));
 const schema = JSON.parse(section.match(/{% schema %}([\s\S]*?){% endschema %}/)[1]);
 const source = stripShopifyMetadata(section)
   .replace(/{% content_for 'block',[^%]*%}/g, '<h2>Reviews</h2>')
@@ -14,10 +13,10 @@ const engine = new Liquid({
   partials: ['snippets'], extname: '.liquid',
   fs: {
     resolve: (root, file, ext) => file + (file.endsWith(ext) ? '' : ext),
-    exists: async file => file === 'swiper-carousel.liquid',
-    readFile: async () => snippet,
-    existsSync: file => file === 'swiper-carousel.liquid',
-    readFileSync: () => snippet,
+    exists: async file => fs.existsSync(path.join(__dirname, '../snippets', file)),
+    readFile: async file => stripShopifyMetadata(fs.readFileSync(path.join(__dirname, '../snippets', file), 'utf8')),
+    existsSync: file => fs.existsSync(path.join(__dirname, '../snippets', file)),
+    readFileSync: file => stripShopifyMetadata(fs.readFileSync(path.join(__dirname, '../snippets', file), 'utf8')),
   },
 });
 engine.registerFilter('t', value => value);
@@ -63,3 +62,16 @@ test('carousel can hide pagination and apply merchant column and gap overrides',
   assert.match(output, /--testimonials-gap-desktop: 40px/);
   assert.match(output, /--testimonials-gap-mobile: 20px/);
 });
+
+for (const position of ['header', 'bottom']) {
+  test(`navigation is rendered once at the ${position} position`, async () => {
+    const output = await engine.parseAndRender(source, { section: { id: 'reviews', settings: {
+      layout_type: 'carousel', show_navigation: true, navigation_position: position,
+      columns_desktop: '2', columns_tablet: '1', columns_mobile: '1',
+    } } });
+    assert.equal((output.match(/data-carousel-previous/g) || []).length, 1);
+    assert.equal((output.match(/data-carousel-next/g) || []).length, 1);
+    if (position === 'header') assert.ok(output.indexOf('data-carousel-next') < output.indexOf('First review'));
+    else assert.ok(output.indexOf('data-carousel-previous') > output.indexOf('Second review'));
+  });
+}

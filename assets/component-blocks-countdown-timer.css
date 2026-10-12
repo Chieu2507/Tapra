@@ -202,18 +202,18 @@
     .countdown-timer--connected .countdown-timer__unit { padding-inline: 0.4rem; }
   }
 
-  .countdown-timer--colon {
+  :is(.countdown-timer--colon, .countdown-timer--plain) {
     width: min(100%, var(--countdown-max-width, 35.2rem));
     flex-shrink: 1;
   }
 
-  .countdown-timer--colon .countdown-timer__units {
+  :is(.countdown-timer--colon, .countdown-timer--plain) .countdown-timer__units {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: var(--countdown-colon-gap, 3.2rem);
   }
 
-  .countdown-timer--colon .countdown-timer__unit {
+  :is(.countdown-timer--colon, .countdown-timer--plain) .countdown-timer__unit {
     position: relative;
     width: auto;
     min-width: 0;
@@ -239,7 +239,7 @@
     line-height: var(--font-heading-md-line-height);
   }
 
-  .countdown-timer--colon .countdown-timer__label {
+  :is(.countdown-timer--colon, .countdown-timer--plain) .countdown-timer__label {
     margin-top: 0;
     color: var(--body-color);
     letter-spacing: normal;
@@ -247,7 +247,7 @@
   }
 
   @media (max-width: 767.98px) {
-    .countdown-timer--colon .countdown-timer__units { column-gap: var(--countdown-colon-gap-mobile, 1.6rem); }
+    :is(.countdown-timer--colon, .countdown-timer--plain) .countdown-timer__units { column-gap: var(--countdown-colon-gap-mobile, 1.6rem); }
     .countdown-timer--colon .countdown-timer__unit + .countdown-timer__unit::before { inset-inline-start: calc((var(--countdown-colon-gap-mobile, 1.6rem) + var(--countdown-separator-width, 1.6rem)) / -2); }
   }
 

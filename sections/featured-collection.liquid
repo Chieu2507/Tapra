@@ -68,9 +68,13 @@
     <div class="featured-collection__header">
       {% content_for 'block', type: 'header', id: 'header' %}
     </div>
-    <div class="featured-collection__actions" data-featured-collection-actions>
-      {% content_for 'block', type: 'view-all-button', id: 'featured-collection-view-all', closest.collection: featured_collection_collection, require_more_items: true %}
-    </div>
+    {% capture featured_collection_actions %}{% content_for 'block', type: 'view-all-button', id: 'featured-collection-view-all', closest.collection: featured_collection_collection, require_more_items: true %}{% endcapture %}
+    {% assign featured_collection_actions = featured_collection_actions | strip %}
+    {% if featured_collection_actions != blank %}
+      <div class="featured-collection__actions" data-featured-collection-actions>
+        {{ featured_collection_actions }}
+      </div>
+    {% endif %}
     <div class="featured-collection__products">
       {% content_for 'block', type: 'product-list', id: 'product-list' %}
     </div>

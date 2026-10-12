@@ -76,6 +76,10 @@
       "label": "t:labels.type",
       "options": [
         {
+          "value": "none",
+          "label": "t:options.image_card_media.none"
+        },
+        {
           "value": "image",
           "label": "t:general.image"
         },
@@ -551,6 +555,24 @@
       "id": "color_scheme",
       "label": "t:labels.color_scheme",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Type",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "fade", "label": "Fade" },
+        { "value": "scale", "label": "Scale" },
+        { "value": "slide-left", "label": "Slide from left" },
+        { "value": "slide-right", "label": "Slide from right" },
+        { "value": "slide-bottom", "label": "Slide from bottom" }
+      ],
+      "default": "slide-bottom"
     },
     {
       "type": "header",

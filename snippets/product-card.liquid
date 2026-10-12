@@ -4,6 +4,8 @@
   surfaces using the global Product cards settings.
 
   @param {product} product - Product to render
+  @param {string} [card_style] - Optional local Standard/Card style; blank inherits Theme Settings
+  @param {string} [media_corner_radius] - Optional local radius preset; inherit uses Theme Settings
   @param {string} [class] - Additional classes
   @param {string} [color_type] - Inherit or override the card color scheme
   @param {object} [color_scheme] - Optional block-level color scheme override
@@ -13,6 +15,7 @@
   @param {boolean} [enable_quick_view] - Optional section override for quick view
   @param {string} [heading_tag] - Optional heading tag for the product title
   @param {boolean} [hide_swatches] - Hide swatches for card-specific layouts
+  @param {string} [rating_content] - Optional rendered Product rating block above the title
   @param {string} [middle_content] - Optional HTML after product details
   @param {string} [footer_content] - Optional HTML at the bottom of card content
 
@@ -21,7 +24,9 @@
 {% enddoc %}
 
 {% liquid
-  assign card_style = settings.product_card_style | default: 'standard'
+  unless card_style == 'standard' or card_style == 'card'
+    assign card_style = settings.product_card_style | default: 'standard'
+  endunless
   unless card_style == 'card'
     assign card_style = 'standard'
   endunless
@@ -210,9 +215,21 @@
   assign product_card_motion_speed = 'standard'
 %}
 
+{% capture product_card_local_style %}
+  {% case media_corner_radius %}
+    {% when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32' %}
+      --product-card-media-radius: var(--radius-{{ media_corner_radius | remove: 'radius_' }});
+    {% when 'square' %}--product-card-media-radius: var(--radius-square);
+    {% when 'rounded' %}--product-card-media-radius: var(--radius-rounded);
+    {% when 'full' %}--product-card-media-radius: var(--radius-pill);
+  {% endcase %}
+{% endcapture %}
+{% assign product_card_local_style = product_card_local_style | strip %}
+
 {% if placeholder or product == blank %}
   {% render 'product-card-placeholder',
     card_class: card_class,
+    style: product_card_local_style,
     attributes: attributes,
     placeholder_price: 19,
     placeholder_index: placeholder_index,
@@ -223,6 +240,7 @@
 <article
   class="{{ card_class | strip }}"
   data-product-card
+  {% if product_card_local_style != blank %}style="{{ product_card_local_style }}"{% endif %}
   {% if attributes != blank %}{{ attributes }}{% endif %}
 >
   <div class="product-card__media">
@@ -286,6 +304,8 @@
     {% if swatches_enabled and swatch_position == 'top' %}
       {% render 'product-card-swatches', product: product, secondary_image_enabled: secondary_image_enabled, image_width: image_width, image_height: image_height %}
     {% endif %}
+
+    {% if rating_content != blank %}{{ rating_content }}{% endif %}
 
     <div class="product-card__details">
       {% if show_vendor_enabled and product.vendor != blank %}

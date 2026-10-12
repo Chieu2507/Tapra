@@ -1,11 +1,13 @@
 {% doc %}
   Shared media-card renderer for the Image card and Featured collection: Banner blocks.
+  Full-card links are omitted in Theme Editor so nested content remains selectable.
 
   @param {object} media_card_block - The Theme block and its settings
   @param {string} [children] - Rendered child blocks
   @param {string} [class_modifier] - Optional class added to the media card
   @param {boolean} [enable_sticky] - Whether the media card content sticks while scrolling
   @param {boolean} [use_image_ratio] - Whether the caller supplies responsive image ratio settings
+  @param {string} [sizes] - Optional layout-owned responsive image sizes
 {% enddoc %}
 {% capture effective_overlay %}{% render 'overlay-background', overlay_settings: media_card_block.settings, color_id: 'overlay_color', enabled_id: 'show_overlay', style_id: 'overlay_style' %}{% endcapture %}
 {% assign effective_overlay = effective_overlay | strip %}
@@ -194,7 +196,9 @@
 
   assign image_card_has_link = false
   if media_card_block.settings.link != blank
-    assign image_card_has_link = true
+    unless request.design_mode
+      assign image_card_has_link = true
+    endunless
   endif
 
   assign image_card_media_alt = media_card_block.settings.image.alt | default: media_card_block.settings.mobile_image.alt | default: media_card_block.settings.video.preview_image.alt | default: media_card_block.settings.mobile_video.preview_image.alt
@@ -279,7 +283,7 @@
 {% endcapture %}
 {% assign image_card_content_style = image_card_content_style | strip %}
 
-{% capture image_card_sizes %}(min-width: 768px) {{ image_card_size_desktop }}, {{ image_card_size_mobile }}{% endcapture %}
+{% capture image_card_sizes %}{% if sizes != blank %}{{ sizes }}{% else %}(min-width: 768px) {{ image_card_size_desktop }}, {{ image_card_size_mobile }}{% endif %}{% endcapture %}
 
 <article
   class="{{ image_card_class }}{% if image_card_media_type == 'image' %} media-hover-zoom{% endif %}"

@@ -86,6 +86,7 @@
 %}
 
 {% capture collection_tabs_style %}
+  {% if section.settings.customize_header_gap_desktop %}--collection-tabs-header-gap-desktop: {{ section.settings.header_gap_desktop }}px;{% endif %}
   {% if section.settings.customize_header_gap_mobile %}--collection-tabs-header-gap-mobile: {{ section.settings.header_gap_mobile }}px;{% endif %}
   {% if section.settings.customize_action_gap %}--collection-tabs-action-gap: {{ section.settings.action_gap }}px;{% endif %}
   {% if section.settings.customize_mobile_row_gap %}--collection-tabs-row-gap-mobile: {{ section.settings.product_row_gap_mobile }}px;{% endif %}
@@ -297,6 +298,23 @@
       "step": 1,
       "unit": "px",
       "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_header_gap_desktop",
+      "label": "t:labels.customize_header_gap_desktop",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "header_gap_desktop",
+      "label": "t:labels.header_gap_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20,
+      "visible_if": "{{ section.settings.customize_header_gap_desktop }}"
     },
     {
       "type": "checkbox",

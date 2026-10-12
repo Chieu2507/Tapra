@@ -4,6 +4,7 @@
   have a product resource yet.
 
   @param {string} card_class - Fully resolved Product Card classes from the shared card component
+  @param {string} [style] - Local presentation CSS variables resolved by Product Card
   @param {string} [attributes] - Theme Editor attributes for the card root
   @param {number} [placeholder_price] - Sample amount in shop currency units
   @param {string} [middle_content] - Optional HTML after product details
@@ -16,6 +17,7 @@
 <article
   class="{{ card_class | append: ' product-card--empty product-card--placeholder' | strip }}"
   data-product-card
+  {% if style != blank %}style="{{ style }}"{% endif %}
   {% if attributes != blank %}{{ attributes }}{% endif %}
 >
   <div class="product-card__media">
