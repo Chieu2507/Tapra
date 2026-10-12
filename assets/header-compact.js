@@ -36,7 +36,14 @@
           root.style.setProperty('--compact-menu-height', `${height}px`);
         }
         const surface = drawer.querySelector('.header__mobile-drawer-surface');
-        if (surface) root.style.setProperty('--compact-shell-height', `${64 + surface.offsetHeight + 2}px`);
+        if (surface) {
+          const targetHeight = 64 + surface.offsetHeight + 2;
+          root.style.setProperty('--compact-shell-height', `${targetHeight}px`);
+          // The content adopts its new height immediately; the shell animates.
+          // Keep utilities at the animated bottom rather than the target bottom.
+          const footerShift = showColumns ? root.getBoundingClientRect().height - targetHeight : 0;
+          root.style.setProperty('--compact-footer-shift', `${footerShift}px`);
+        }
       };
       const choose = summary => {
         if (!root.classList.contains('header-top--menu-open') || window.innerWidth < 768) return;
@@ -84,6 +91,7 @@
       const observer = new ResizeObserver(measure);
       drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => observer.observe(panel));
       observer.observe(drawer.querySelector('.header__mobile-drawer-surface'));
+      observer.observe(root);
       instances.set(root, { controller, observer, clearTimer: () => { clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
     });
   };

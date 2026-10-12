@@ -111,7 +111,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-submenu a,
 .header-top.header-top--compact .header__mobile-drawer-submenu summary { display: flex; justify-content: space-between; min-height: 44px; align-items: center; color: var(--body-color); text-decoration: none; }
 .header-top.header-top--compact .header__mobile-drawer-submenu-details:not([open]) > .header__mobile-drawer-tertiary-panel { display: none; }
-.header-top.header-top--compact .header-compact__utilities { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border-color); }
+.header-top.header-top--compact .header-compact__utilities { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border-color); transform: translateY(var(--compact-footer-shift, 0px)); }
 .header-top.header-top--compact .header-compact__utilities .header-divider { display: none; }
 .header-top.header-top--compact shopify-account::part(dialog) { animation-duration: 600ms; animation-timing-function: var(--compact-ease); }
 .header-top.header-top--compact .header-compact__utilities > .header__mobile-drawer-account { display: none; }
