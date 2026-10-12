@@ -177,6 +177,7 @@
                             {% if child_link.links != blank %}
                               <details class="header__mobile-drawer-submenu-details" data-mobile-drawer-submenu-details>
                                 <summary>
+                                  {% if section.settings.header_style == 'compact' %}<a class="header-compact__category-link" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endif %}
                                   <span>{{ child_link.title | escape }}</span>
                                   {% render 'icon', icon: 'chevron-right', class: 'header__mobile-drawer-chevron' %}
                                 </summary>

@@ -38,6 +38,7 @@
       drawer.addEventListener('toggle', measure, { ...options, capture: true });
       drawer.addEventListener('click', event => {
         if (window.innerWidth < 768 || !event.target.closest('[data-mobile-drawer-submenu-details] > summary')) return;
+        if (event.target.closest('a')) return;
         event.preventDefault();
         event.stopPropagation();
       }, { ...options, capture: true });

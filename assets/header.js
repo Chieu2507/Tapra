@@ -821,6 +821,7 @@
     drawer.querySelectorAll('[data-mobile-drawer-submenu-details] > summary').forEach((summary) => {
       summary.addEventListener('click', (event) => {
         if (!isMobileMenuViewport()) return;
+        if (header.querySelector('.header-top--compact') && window.innerWidth >= 768) return;
         event.preventDefault();
 
         const details = summary.parentElement;

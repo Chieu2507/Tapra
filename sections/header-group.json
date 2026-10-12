@@ -34,6 +34,7 @@
       "block_order": [
         "wofyn-shipping"
       ],
+      "disabled": true,
       "settings": {
         "bottom_separator": false,
         "type": "slider",
@@ -43,6 +44,7 @@
         "pause_on_hover": true,
         "navigation_behavior": "always",
         "navigation_icon": "rounded_chevron",
+        "text_style": "body",
         "font_size": "sm",
         "font_weight": "400",
         "background_type": "none",
@@ -53,10 +55,8 @@
         "padding_top": 10,
         "padding_right": 0,
         "padding_bottom": 10,
-        "padding_left": 0,
-        "text_style": "body"
-      },
-      "disabled": true
+        "padding_left": 0
+      }
     },
     "header": {
       "type": "header",
@@ -118,6 +118,7 @@
                         "layout": "content_on_image",
                         "limit_width": false,
                         "max_width": 700,
+                        "image": "shopify://shop_images/tapra-menu-keyboard.webp",
                         "overlay": false,
                         "overlay_color": "#00000073",
                         "subheading": "<p>New</p>",
@@ -145,8 +146,7 @@
                         "padding_top_mobile": 40,
                         "padding_bottom_mobile": 40,
                         "padding_left_mobile": 40,
-                        "padding_right_mobile": 40,
-                        "image": "shopify://shop_images/tapra-menu-keyboard.webp"
+                        "padding_right_mobile": 40
                       },
                       "blocks": {}
                     },
@@ -187,8 +187,7 @@
                         "padding_left_mobile": 40,
                         "padding_right_mobile": 40
                       },
-                      "blocks": {},
-                      "disabled": true
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -240,12 +239,12 @@
             "header-search": {
               "type": "_header-search",
               "settings": {
+                "compact_type": "icon_with_text",
                 "type": "icon",
                 "label": "Search",
                 "font": "accent",
                 "font_size": "md",
-                "letter_spacing": "relaxed",
-                "compact_type": "icon_with_text"
+                "letter_spacing": "relaxed"
               },
               "blocks": {}
             },
@@ -283,13 +282,13 @@
         }
       },
       "settings": {
+        "header_style": "compact",
         "section_width": "page_width",
         "icon_size": 20,
         "sticky_type": "scroll_up",
         "color_scheme": "scheme-1",
         "header_overlay": false,
-        "transparent_color_scheme": "scheme-3",
-        "header_style": "compact"
+        "transparent_color_scheme": "scheme-3"
       }
     }
   },
