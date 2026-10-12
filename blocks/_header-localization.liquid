@@ -341,9 +341,8 @@
 
   @media (max-width: 1149.98px) {
     .header-localization__panel {
-      inset-inline-start: auto;
-      inset-inline-end: 0;
-      width: min(250px, calc(100vw - (var(--page-margin-current) * 2)));
+      inset-inline-start: var(--header-popup-shift,0px);
+      width: min(250px, calc(100vw - 16px));
       min-width: 0;
     }
   }
