@@ -284,6 +284,9 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
   transform: none;
   z-index: calc(var(--z-modal, 1000) + 2);
   color: var(--heading-color);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__results { gap: 20px; padding-bottom: 0; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__tabs { gap: 16px; flex-wrap: wrap; }

@@ -77,12 +77,12 @@
         </span>
         <label class="visually-hidden" for="SearchOverlayInput">{{ 'search.title' | t }}</label>
         <input id="SearchOverlayInput" class="search-overlay__input form__control form__control--input" name="q" type="search" autocomplete="off" placeholder="{{ search_overlay_placeholder | escape }}" role="combobox" aria-autocomplete="list" aria-controls="SearchOverlayResults" aria-expanded="false" data-search-overlay-input>
-        <button class="overlay-close search-overlay__close" type="button" aria-label="{{ 'search.close' | t }}" data-overlay-close data-search-overlay-close>{% render 'icon', icon: 'x-mark', bare: true, class: 'overlay-close__icon' %}</button>
       </form>
 
       <div id="SearchOverlayResults" class="search-overlay__results" data-search-overlay-results aria-live="polite" hidden></div>
     </div>
   </div>
+  <button class="overlay-close search-overlay__close" type="button" aria-label="{{ 'search.close' | t }}" data-overlay-close data-search-overlay-close>{% render 'icon', icon: 'x-mark', bare: true, class: 'overlay-close__icon' %}</button>
 </div>
 
 {% render 'deferred-stylesheet', filename: 'search-overlay.css' %}
