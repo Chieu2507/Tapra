@@ -136,7 +136,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-search .header-action__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 
 /* Compact banners reuse the banner block as an inline media/content card. */
-.header-top.header-top--compact .header-compact__category-link { display: none; }
+.header-top.header-top--compact .header__mobile-drawer-submenu-details > summary > .header-compact__category-link { display: none; }
 .header-top.header-top--compact .header-mega-menu__banner-subheading p { margin: 0; }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banners { margin-top: 16px; align-items: stretch; }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banners:empty { display: none; }
