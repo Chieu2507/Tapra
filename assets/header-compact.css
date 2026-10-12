@@ -184,6 +184,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
   box-shadow: none;
 }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header-menu-toggle { visibility: hidden; }
+body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__mobile-drawer { display: none; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel {
   inset: var(--search-overlay-top) 12px auto;
   width: min(900px, calc(100% - 24px));

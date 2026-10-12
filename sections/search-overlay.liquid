@@ -180,7 +180,8 @@
     const closeParent = compact ? overlay : overlay.querySelector('[data-search-overlay-form]');
     if (closeButton && closeParent && closeButton.parentElement !== closeParent) closeParent.append(closeButton);
     if (compact) {
-      overlay.style.setProperty('--search-overlay-top', `${headerTop.getBoundingClientRect().bottom - 1}px`);
+      const row = headerTop.querySelector('.header__row') || headerTop;
+      overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-close-top', `${headerTop.getBoundingClientRect().top + 2}px`);
     }
     const headerStyles = window.getComputedStyle(headerTop);
