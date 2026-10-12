@@ -10,6 +10,14 @@
   const cardSelector = 'article.testimonial-item, .product-card, .promo-card, .collection-card, .collection-card-kernel, .blog-card, .blog-first-card, article.image-card, .collection-thumbnail__link, .icon-text-cards__content > .group, .icon-text-cards__viewport > .swiper-wrapper > .swiper-slide > .group';
   const listSelector = '[data-product-list-mobile-promos], [data-product-carousel], .product-collection-grid, .collection-card-list__grid, .product-list__grid, [data-product-list], .image-cards-section__grid, [data-blog-list], .blog-grid, .collection-thumbnails__grid, .collection-thumbnails__carousel, .testimonial-carousel, .testimonials-cards__carousel, .icon-text-cards__content, .icon-text-cards__viewport > .swiper-wrapper';
   const scopeSelector = '[role="tabpanel"], .slideshow__swiper .swiper-slide';
+  // Shopify's CSS compiler can shorten 500ms to .5s. Web Animations
+  // always expects milliseconds, regardless of the CSS serialization.
+  const durationMilliseconds = (value, fallback) => {
+    const time = String(value).trim();
+    const number = parseFloat(time);
+    if (!Number.isFinite(number) || number < 0) return fallback;
+    return number * (time.endsWith('s') && !time.endsWith('ms') ? 1000 : 1);
+  };
   const active = element => {
     if (!element.isConnected || !element.getClientRects().length) return false;
     if (element.closest('[hidden], [aria-hidden="true"]')) return false;
@@ -40,8 +48,8 @@
     const stagger = Number(element.dataset.animationStagger) || 0;
     const delay = Math.min(1500, Math.max(0, (Number(element.dataset.animationDelay) || 0) +
       (tabMotion ? Number(element.dataset.animationTabDelay) || 0 : stagger)));
-    const duration = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-duration')) || 500 :
-      Math.max(700, parseFloat(tokens.getPropertyValue('--motion-duration-slow')) || 700);
+    const duration = tabMotion ? durationMilliseconds(tokens.getPropertyValue('--tab-card-duration'), 500) :
+      Math.max(700, durationMilliseconds(tokens.getPropertyValue('--motion-duration-slow'), 700));
     const distance = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-distance')) || 50 : 32;
     const options = {duration, delay, easing:tabMotion ? 'ease' : tokens.getPropertyValue('--motion-ease-standard').trim() || 'cubic-bezier(.22,1,.36,1)', fill:'backwards'};
     const type = element.dataset.blockAnimation || 'slide-bottom';

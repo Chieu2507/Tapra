@@ -123,3 +123,10 @@ test('each tab card has one delayed animation coupling opacity and translation f
   assert.equal(frames[0].opacity,0);assert.equal(frames[0].transform,'translateY(50px)');
   assert.equal(frames[1].opacity,1);assert.equal(frames[1].transform,'none');
 });
+
+test('Shopify-minified CSS seconds preserve the same card timing as local milliseconds', () => {
+  for (const [duration, expected] of [['500ms',500],['.5s',500],['300ms',300],['.3s',300],['1s',1000],['0ms',0]]) {
+    const h=fixture({delay:0,switching:true,motionDuration:duration});
+    assert.equal(h.played[0].options.duration,expected,duration);
+  }
+});
