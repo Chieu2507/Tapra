@@ -191,7 +191,7 @@
       scheduleUpdate();
     };
 
-    if ((isMobileMenuViewport() && !isCompactLocalization(details)) || reducedMotion.matches) {
+    if ((isMobileMenuViewport() && !(isCompactLocalization(details) && window.innerWidth > 767)) || reducedMotion.matches) {
       finish();
       return;
     }
@@ -219,7 +219,7 @@
       if (retainMenuContent &&
           details.matches('[data-mobile-drawer-details], [data-mobile-drawer-submenu-details]')) return;
       if (details.classList.contains('header-localization__details')) {
-        if (!isCompactLocalization(details) && ((details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport()) || window.innerWidth <= 767 || getLocalizationDialog(details)?.dataset.state !== 'closed')) closeLocalizationSheet(details);
+        if (!(isCompactLocalization(details) && window.innerWidth > 767) && ((details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport()) || window.innerWidth <= 767 || getLocalizationDialog(details)?.dataset.state !== 'closed')) closeLocalizationSheet(details);
         else closeHeaderDetails(details);
         return;
       }
@@ -917,9 +917,25 @@
         const controller = new AbortController();
         compactLocalizationControllers.set(details, controller);
         panel.id = `${details.dataset.localizationDialogId}-popover`;
-        summary.setAttribute('aria-controls', panel.id);
+        summary.setAttribute('aria-controls', window.innerWidth > 767 ? panel.id : details.dataset.localizationDialogId);
         summary.addEventListener('click', (event) => {
           event.preventDefault();
+          if (window.innerWidth <= 767) {
+            summary.setAttribute('aria-controls', details.dataset.localizationDialogId);
+            const dialog = getLocalizationDialog(details);
+            const overlay = dialog ? window.ThemeOverlay?.get(dialog) : null;
+            if (!dialog || !overlay) return;
+            if (dialog.dataset.state !== 'closed') overlay.close({ restoreFocus: true });
+            else {
+              closeHeaderSurfaces(header, { details, menu: true });
+              clearSubmenuClose(details);
+              details.open = false;
+              overlay.open({ opener: summary });
+              scheduleUpdate();
+            }
+            return;
+          }
+          summary.setAttribute('aria-controls', panel.id);
           if (details.open && !details.classList.contains('is-submenu-closing')) closeHeaderDetails(details);
           else {
             closeHeaderSurfaces(header, { details, menu: true });
