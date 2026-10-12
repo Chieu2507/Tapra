@@ -78,11 +78,6 @@
       "header"
     ]
   },
-  "blocks": [
-    {
-      "type": "_header-top"
-    }
-  ],
   "settings": [
     {
       "type": "header",
@@ -118,7 +113,8 @@
           "label": "Outline"
         }
       ],
-      "default": "default"
+      "default": "default",
+      "info": "Outline artwork is white. Use with a dark header color scheme."
     },
     {
       "type": "range",
@@ -128,7 +124,8 @@
       "max": 40,
       "step": 1,
       "unit": "px",
-      "default": 20
+      "default": 20,
+      "visible_if": "{{ section.settings.layout == 'two_rows' }}"
     },
     {
       "type": "select",
@@ -186,7 +183,8 @@
           "label": "t:options.sticky_type.none"
         }
       ],
-      "default": "none"
+      "default": "none",
+      "visible_if": "{{ section.settings.layout != 'two_rows' }}"
     },
     {
       "type": "header",
@@ -203,7 +201,8 @@
       "id": "header_overlay",
       "label": "t:labels.transparent_header_section",
       "info": "t:info.header_overlay",
-      "default": false
+      "default": false,
+      "visible_if": "{{ section.settings.layout != 'two_rows' }}"
     },
     {
       "type": "color_scheme",
@@ -211,6 +210,27 @@
       "label": "Transparent color scheme",
       "default": "scheme-1",
       "visible_if": "{{ section.settings.header_overlay }}"
+    },
+    {
+      "type": "select",
+      "id": "sticky_type_two_rows",
+      "label": "t:labels.sticky_type",
+      "options": [
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "scroll_up",
+          "label": "On scroll up"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "scroll_up",
+      "visible_if": "{{ section.settings.layout == 'two_rows' }}"
     }
   ],
   "presets": [
