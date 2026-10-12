@@ -160,7 +160,7 @@
   endif
 
   assign group_gap_desktop = block.settings.gap_desktop | default: 16 | plus: 0
-  if group_gap_desktop < 0 or group_gap_desktop > 100
+  if group_gap_desktop < 0 or group_gap_desktop > 200
     assign group_gap_desktop = 16
   endif
   assign group_gap_mobile = block.settings.gap_mobile | default: 12 | plus: 0
@@ -258,6 +258,7 @@
 %}
 
 {% capture group_style %}
+  {% if block.settings.mobile_order != blank %}--group-order-mobile: {{ block.settings.mobile_order | plus: 0 }};{% endif %}
   {% render 'layout-flow-group-style',
     direction: group_direction,
     position: group_position_name,
@@ -465,6 +466,7 @@
       text-align: var(--group-align-mobile, var(--group-align));
     }
   }
+  @media (max-width: 767.98px) { .group { order: var(--group-order-mobile, 0); } }
 {% endstylesheet %}
 
 {% schema %}
@@ -504,6 +506,7 @@
     }
   ],
   "settings": [
+    { "type": "range", "id": "mobile_order", "label": "Mobile order", "min": 0, "max": 10, "step": 1, "default": 0 },
     {
       "type": "header",
       "content": "t:general.layout"
@@ -653,8 +656,8 @@
       "id": "gap_desktop",
       "label": "t:labels.desktop_gap",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 200,
+      "step": 2,
       "unit": "px",
       "default": 16
     },

@@ -37,7 +37,12 @@
   endif
 %}
 
+{% assign footer_background = section.settings.background_color | default: section.settings.color_scheme.settings.background %}
+{% if footer_background != blank %}
+  {% style %}#shopify-section-{{ section.id }} { background-color: {{ footer_background }}; }{% endstyle %}
+{% endif %}
 {% capture footer_style %}
+  {% if footer_background != blank %}--background-color: {{ footer_background }};{% endif %}
   --footer-padding-top: {{ footer_padding_top }}px;
   --footer-padding-bottom: {{ footer_padding_bottom }}px;
   {% if section.settings.customize_mobile_padding %}
@@ -161,6 +166,7 @@
       "type": "header",
       "content": "t:general.padding"
     },
+    { "type": "color", "id": "background_color", "label": "t:labels.background_color" },
     {
       "type": "range",
       "id": "padding_top",

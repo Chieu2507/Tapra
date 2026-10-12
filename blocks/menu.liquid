@@ -170,6 +170,7 @@
       summary_class: 'menu-block__summary',
       content_class: 'menu-block__content',
       content_inner_class: 'menu-block__content-inner',
+      initially_open: block.settings.open_on_mobile,
       mobile_only: true
     %}
   {% else %}
@@ -190,6 +191,7 @@
   "tag": null,
   "blocks": [{ "type": "_menu-link" }],
   "settings": [
+    { "type": "checkbox", "id": "open_on_mobile", "label": "Open on mobile", "default": false },
     {
       "type": "link_list",
       "id": "menu",
