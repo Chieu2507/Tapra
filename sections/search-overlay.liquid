@@ -201,6 +201,7 @@
       }
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
+      overlay.style.setProperty('--compact-search-width', `${Math.max(0, rect.width - 2)}px`);
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
       const toggleRect = state.compactToggleSlot?.getBoundingClientRect();

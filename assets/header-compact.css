@@ -270,7 +270,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   position: fixed;
   z-index: calc(var(--z-modal, 1000) + 2);
   inset: var(--search-overlay-top) auto auto var(--compact-search-left);
-  width: min(898px, calc(100vw - 26px));
+  width: min(var(--compact-search-width, 898px), calc(100vw - 26px));
   margin: 0;
   max-height: calc(100dvh - var(--search-overlay-top) - 16px);
   padding: 0;
