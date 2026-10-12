@@ -96,7 +96,7 @@
             "actions_gap": 8,
             "row_gap": 24,
             "padding_top": 24,
-            "padding_bottom": 24,
+            "padding_bottom": 12,
             "customize_mobile_padding": true,
             "padding_top_mobile": 12,
             "padding_bottom_mobile": 12,
@@ -108,25 +108,6 @@
             "row_gap_compact": 16
           },
           "blocks": {
-            "header-menu": {
-              "type": "_header-menu",
-              "settings": {
-                "menu": "torvex-main-menu",
-                "gap": 32,
-                "show_dropdown_icon": true,
-                "dropdown_trigger": "hover",
-                "font": "accent",
-                "font_size": "sm",
-                "letter_spacing": "normal",
-                "text_case": "original",
-                "text_color": "",
-                "submenu_font": "body",
-                "submenu_font_size": "md",
-                "submenu_text_case": "original",
-                "submenu_text_color": ""
-              },
-              "static": true
-            },
             "header-logo": {
               "type": "_header-logo",
               "settings": {
@@ -139,19 +120,6 @@
               "type": "_header-menu-toggle",
               "settings": {
                 "position": "left"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-localization": {
-              "type": "_header-localization",
-              "settings": {
-                "dropdown_trigger": "click",
-                "show_country_selector": true,
-                "show_country_name": false,
-                "show_country_flag": false,
-                "show_language_selector": true,
-                "font_size": "sm"
               },
               "blocks": {},
               "static": true
@@ -317,6 +285,53 @@
             "header-search",
             "header-account",
             "header-cart"
+          ]
+        },
+        "header-bottom": {
+          "type": "_header-bottom",
+          "static": true,
+          "settings": {
+            "gap": 32,
+            "padding_top": 12,
+            "padding_bottom": 24,
+            "menu_scroll_step": "1",
+            "separator": "none"
+          },
+          "blocks": {
+            "header-menu": {
+              "type": "_header-menu",
+              "settings": {
+                "menu": "torvex-main-menu",
+                "gap": 32,
+                "show_dropdown_icon": true,
+                "dropdown_trigger": "hover",
+                "font": "accent",
+                "font_size": "sm",
+                "letter_spacing": "normal",
+                "text_case": "original",
+                "text_color": "",
+                "submenu_font": "body",
+                "submenu_font_size": "md",
+                "submenu_text_case": "original",
+                "submenu_text_color": ""
+              }
+            },
+            "header-localization": {
+              "type": "_header-localization",
+              "settings": {
+                "dropdown_trigger": "click",
+                "show_country_selector": true,
+                "show_country_name": false,
+                "show_country_flag": false,
+                "show_language_selector": true,
+                "font_size": "sm"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "header-menu",
+            "header-localization"
           ]
         }
       },
