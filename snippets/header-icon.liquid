@@ -1,0 +1,28 @@
+{% doc %}
+  Header icon artwork selected by the owning Header section. Falls back to the
+  theme icon kernel for the default style. Decorative; the control owns its label.
+  @param {string} icon - Theme icon name
+  @param {string} [class] - Optional icon class
+{% enddoc %}
+{% liquid
+  assign artwork = blank
+  if section.settings.icon_style == 'outline'
+    case icon
+      when 'user'
+        assign artwork = 'header-outline-user.webp'
+      when 'shopping-bag'
+        assign artwork = 'header-outline-bag.webp'
+      when 'magnifying-glass'
+        assign artwork = 'header-outline-search.webp'
+      when 'bars-3'
+        assign artwork = 'header-outline-menu.webp'
+      when 'chevron-down'
+        assign artwork = 'header-outline-chevron.webp'
+      when 'category-chevron'
+        assign artwork = 'header-outline-category-chevron.webp'
+      when 'location'
+        assign artwork = 'header-outline-location.webp'
+    endcase
+  endif
+%}
+{% if artwork != blank %}<img class="{{ class }}" src="{{ artwork | asset_url }}" width="24" height="24" alt="" aria-hidden="true">{% else %}{% render 'icon', icon: icon, bare: true, class: class %}{% endif %}
