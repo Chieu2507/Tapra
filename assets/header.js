@@ -775,11 +775,15 @@
     const resetSubmenu = (animate = true) => {
       window.clearTimeout(submenuResetTimer);
       drawer.classList.remove('header__mobile-drawer--submenu-active');
-      drawer.querySelectorAll('[data-header-menu-back]').forEach((back) => { back.hidden = true; });
-      drawer.querySelectorAll('[data-header-menu-back-label]').forEach((label) => {
-        label.textContent = label.dataset.headerMenuBackDefaultLabel || 'Menu';
-      });
-      if (animate) submenuResetTimer = window.setTimeout(clearActiveSubmenu, 320);
+      const resetBack = () => {
+        drawer.querySelectorAll('[data-header-menu-back]').forEach((back) => { back.hidden = true; });
+        drawer.querySelectorAll('[data-header-menu-back-label]').forEach((label) => {
+          label.textContent = label.dataset.headerMenuBackDefaultLabel || 'Menu';
+        });
+      };
+      const deferBack = animate && container.classList.contains('header-top--compact') && window.innerWidth < 768;
+      if (!deferBack) resetBack();
+      if (animate) submenuResetTimer = window.setTimeout(() => { resetBack(); clearActiveSubmenu(); }, 320);
       else clearActiveSubmenu();
     };
 
