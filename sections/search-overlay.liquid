@@ -182,7 +182,7 @@
     if (compact) {
       const row = headerTop.querySelector('.header__row') || headerTop;
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
-      overlay.style.setProperty('--compact-search-close-top', `${headerTop.getBoundingClientRect().top + 2}px`);
+      overlay.style.setProperty('--compact-search-close-top', `${headerTop.getBoundingClientRect().top + row.offsetHeight / 2 - 22}px`);
     }
     const headerStyles = window.getComputedStyle(headerTop);
     overlay.style.setProperty('--search-overlay-padding-block-start', headerStyles.paddingTop);
@@ -233,6 +233,8 @@
     if (focus) input.focus({ preventScroll: true });
     startPlaceholderRotation();
     document.dispatchEvent(new CustomEvent('search-overlay:open', { detail: { header } }));
+    // Compact's bar grows when Search opens; measure its final presentation.
+    synchronizePanelPadding(header, overlay);
   };
 
   const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
