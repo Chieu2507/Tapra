@@ -1,4 +1,7 @@
   .cart-drawer {
+    --overlay-background-color: var(--background-color);
+    --overlay-text-color: var(--body-color);
+    --overlay-border-color: var(--border-color);
     position: fixed;
     z-index: var(--z-modal, 1000);
     inset: 0;
