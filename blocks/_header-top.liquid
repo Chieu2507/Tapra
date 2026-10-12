@@ -27,7 +27,7 @@
 
   assign header_top_class = 'header-top'
   if section.settings.header_style == 'compact'
-    assign header_top_class = header_top_class | append: ' header-top--compact'
+    assign header_top_class = header_top_class | append: ' header-top--compact color-scheme section-color-scope ' | append: header_scheme
     assign header_sticky_type = 'always'
     if template.name == 'index'
       assign header_overlay_enabled = true

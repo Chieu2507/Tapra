@@ -249,6 +249,7 @@
     "hotspot_image": "Hotspot image"
   },
   "labels": {
+    "header_style": "Header style",
     "hide_view_all_on_mobile": "Hide View all on mobile",
     "product_card_alignment": "Product card alignment",
     "multiple_images_navigation": "Show navigation",
@@ -784,6 +785,7 @@
     "use_nested_hotspots": "Use multiple hotspots"
   },
   "options": {
+    "header_style": { "classic": "Classic", "compact": "Compact" },
     "overlay_style": {
       "solid": "Solid",
       "gradient": "Gradient"
