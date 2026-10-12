@@ -1061,6 +1061,18 @@
     scheduleUpdate();
   });
 
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    const header = event.target.closest?.('.shopify-section.header');
+    if (!header) return;
+    const opened = Array.from(header.querySelectorAll('details[open]'));
+    if (!opened.length) return;
+    event.preventDefault();
+    closeLocalizationDialogs(header);
+    opened.forEach(closeHeaderDetails);
+    opened[0].querySelector(':scope > summary')?.focus({ preventScroll: true });
+  });
+
   document.addEventListener('shopify:section:load', (event) => {
     initializeHeaders(event.target);
     initializeFooterLocalizations(event.target);
