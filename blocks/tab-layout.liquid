@@ -273,10 +273,7 @@
   const animatePanel = (state, panel) => {
     cancelPanelAnimation(state);
 
-    // Collection cards own the incoming fade and movement. A second panel
-    // entrance multiplies opacity and adds another translation to every card.
-    if (!panel || panel.matches?.('[data-collection-tab-panel]') ||
-        typeof panel.animate !== 'function' || prefersReducedMotion()) return;
+    if (!panel || typeof panel.animate !== 'function' || prefersReducedMotion()) return;
 
     // A newly selected panel may have just been removed from the hidden/display:none
     // state. Wait for the browser to commit that layout before starting the
@@ -515,7 +512,7 @@
       const animation = previousEntry.panel.animate([
         {transform: 'translateY(0)', opacity: 1},
         {transform: 'translateY(2rem)', opacity: 0}
-      ], {duration: 320, easing: 'ease-in-out', fill: 'forwards'});
+      ], {duration: 150, easing: 'ease', fill: 'forwards'});
       state.panelAnimation = animation;
       animation.finished.then(() => {
         if (instances.get(state.layout) === state && state.transitionRevision === revision) activate();

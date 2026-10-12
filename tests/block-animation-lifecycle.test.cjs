@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-function fixture({delay = 150, type = 'slide-bottom', preserveOpacity = false, switching = false, rowDelay = 0, motionDuration = 700, motionDistance = 32} = {}) {
+function fixture({delay = 150, type = 'slide-bottom', preserveOpacity = false, switching = false, rowDelay = 0, motionDuration = 500, motionDistance = 50} = {}) {
   let changed;
   let motionChanged;
   const classes = new Set();
@@ -97,13 +97,13 @@ test('deactivation resets contents and the next activation replays them', () => 
  test('tab-switch card motion starts immediately with responsive duration, distance and row delay', () => {
   const first=fixture({delay:0,switching:true});
   assert.equal(first.played[0].options.delay,0);
-  assert.equal(first.played[0].options.duration,700);
-  assert.equal(first.played[0].options.easing,'cubic-bezier(.22,1,.36,1)');
-  assert.equal(first.played[0].frames[0].transform,'translateY(32px)');
-  const mobile=fixture({delay:0,switching:true,rowDelay:70,motionDuration:600,motionDistance:24});
-  assert.equal(mobile.played[0].options.delay,70);
-  assert.equal(mobile.played[0].options.duration,600);
-  assert.equal(mobile.played[0].frames[0].transform,'translateY(24px)');
+  assert.equal(first.played[0].options.duration,500);
+  assert.equal(first.played[0].options.easing,'ease');
+  assert.equal(first.played[0].frames[0].transform,'translateY(50px)');
+  const mobile=fixture({delay:0,switching:true,rowDelay:50,motionDuration:300,motionDistance:30});
+  assert.equal(mobile.played[0].options.delay,50);
+  assert.equal(mobile.played[0].options.duration,300);
+  assert.equal(mobile.played[0].frames[0].transform,'translateY(30px)');
 });
 
 test('collection tab list reveals together and ignores horizontal clipping of carousel cards', () => {
@@ -112,7 +112,7 @@ test('collection tab list reveals together and ignores horizontal clipping of ca
   h.slideClasses.clear();h.changed([{type:'attributes',attributeName:'class',target:h.slide}]);
   h.slideClasses.add('swiper-slide-active');h.changed([{type:'attributes',attributeName:'class',target:h.slide}]);
   assert.equal(h.played.length,2);assert.equal(h.played[1].options.delay,300);
-  assert.equal(h.played[1].options.easing,'cubic-bezier(.22,1,.36,1)');
+  assert.equal(h.played[1].options.easing,'ease');
 });
 
 test('each tab card has one delayed animation coupling opacity and translation from start to finish', () => {
@@ -120,6 +120,6 @@ test('each tab card has one delayed animation coupling opacity and translation f
   assert.equal(h.played.length,1);
   const {frames,options}=h.played[0];
   assert.equal(options.delay,200);assert.equal(options.fill,'backwards');
-  assert.equal(frames[0].opacity,0);assert.equal(frames[0].transform,'translateY(32px)');
-  assert.equal(frames[1].opacity,1);assert.equal(frames[1].transform,'translateY(0px)');
+  assert.equal(frames[0].opacity,0);assert.equal(frames[0].transform,'translateY(50px)');
+  assert.equal(frames[1].opacity,1);assert.equal(frames[1].transform,'none');
 });

@@ -136,7 +136,7 @@ test('collection tab cards use Concept list stagger on initial and deferred reve
     const h=fixture({collectionTab:true,hidden,columns:2});
     if(hidden) h.activate();
     assert.deepEqual(h.cards.map(card=>card.played[0].options.delay),[0,100,200,300]);
-    assert.ok(h.cards.every(card=>card.played[0].options.easing==='cubic-bezier(.22,1,.36,1)'));
-    assert.ok(h.cards.every(card=>card.played[0].options.duration===700));
+    assert.ok(h.cards.every(card=>card.played[0].options.easing==='ease'));
+    assert.ok(h.cards.every(card=>card.played[0].options.duration===500));
   }
 });

@@ -42,7 +42,7 @@ test('loading keeps the active products visible and inert without replacing cont
 test('cached tab transition finishes the downward exit before revealing the incoming tab',async()=>{
   const h=fixture({motion:true});h.panels[1].removeAttribute('data-tab-deferred');h.select('new');
   assert.equal(h.panels[0].hidden,false);assert.equal(h.panels[1].hidden,true);
-  const exit=h.panels[0].animations[0];assert.equal(exit.options.duration,320);assert.equal(exit.frames[1].transform,'translateY(2rem)');
+  const exit=h.panels[0].animations[0];assert.equal(exit.options.duration,150);assert.equal(exit.frames[1].transform,'translateY(2rem)');
   exit.finish();await Promise.resolve();
   assert.equal(h.panels[0].hidden,true);assert.equal(h.panels[1].hidden,false);assert.equal(h.state.incomingPanel,h.panels[1]);assert.equal(h.panels[1].dataset.tabReveal,'switch');
 });

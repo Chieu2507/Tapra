@@ -40,10 +40,10 @@
     const stagger = Number(element.dataset.animationStagger) || 0;
     const delay = Math.min(1500, Math.max(0, (Number(element.dataset.animationDelay) || 0) +
       (tabMotion ? Number(element.dataset.animationTabDelay) || 0 : stagger)));
-    const duration = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-duration')) || 700 :
+    const duration = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-duration')) || 500 :
       Math.max(700, parseFloat(tokens.getPropertyValue('--motion-duration-slow')) || 700);
-    const distance = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-distance')) || 32 : 32;
-    const options = {duration, delay, easing:tabMotion ? 'cubic-bezier(.22,1,.36,1)' : tokens.getPropertyValue('--motion-ease-standard').trim() || 'cubic-bezier(.22,1,.36,1)', fill:'backwards'};
+    const distance = tabMotion ? parseFloat(tokens.getPropertyValue('--tab-card-distance')) || 50 : 32;
+    const options = {duration, delay, easing:tabMotion ? 'ease' : tokens.getPropertyValue('--motion-ease-standard').trim() || 'cubic-bezier(.22,1,.36,1)', fill:'backwards'};
     const type = element.dataset.blockAnimation || 'slide-bottom';
     const from = {opacity:element.dataset.animationPreserveOpacity === 'true' ? 1 : 0};
     if (type === 'scale') from.transform = 'scale(.94)';
@@ -58,14 +58,7 @@
       // Opacity-only cards must not write a transform onto a Swiper-owned slide.
       const to = {opacity:1};
       if (from.transform) to.transform = 'none';
-      // One animation owns both properties and one delay per card. Explicit
-      // starting/ending translations prevent a separate transform-only phase.
-      if (tabMotion && type === 'slide-bottom') {
-        state.animations.push(element.animate([
-          {opacity:0, transform:`translateY(${distance}px)`},
-          {opacity:1, transform:'translateY(0px)'}
-        ], options));
-      } else state.animations.push(element.animate([from,to],options));
+      state.animations.push(element.animate([from,to],options));
     }
     // No forwards fill: release the opacity/transform layer, especially for backdrop blur.
     state.animations.forEach(animation => animation.finished.then(() => animation.cancel()).catch(() => {}));
