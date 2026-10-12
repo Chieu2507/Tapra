@@ -17,9 +17,10 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   background: color-mix(in srgb, var(--background-color) 92%, transparent);
   backdrop-filter: blur(16px);
   box-shadow: 0 12px 40px color-mix(in srgb, var(--heading-color) 20%, transparent);
-  transition: width 600ms cubic-bezier(.76, 0, .24, 1);
+  transition: background-color var(--motion-duration-fast), box-shadow var(--motion-duration-fast);
 }
 .header-top.header-top--compact.header-top--menu-open { width: min(900px, 100%); }
+.header-top.header-top--compact:has([data-header-mobile-drawer]:not([hidden])) { width: min(900px, 100%); }
 .header-top.header-top--compact .header__container { width: 100%; padding: 0 6px 0 16px; }
 .header-top.header-top--compact .header__row { display: flex; min-height: 48px; gap: 4px; }
 .header-top.header-top--compact .header__column--left { display: flex; flex: 1; min-width: 0; }
@@ -34,6 +35,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact.header-top--menu-open .header-menu-toggle__open-icon { display: none; }
 .header-top.header-top--compact.header-top--menu-open .header-menu-toggle__close-icon { display: block; }
 .header-top.header-top--compact .header__mobile-drawer.component-overlay {
+  --overlay-motion-duration: 220ms;
+  --overlay-exit-duration: 180ms;
   position: relative;
   inset: auto;
   z-index: auto;
@@ -50,6 +53,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   --overlay-border-color: var(--border-color);
 }
 .header-top.header-top--compact .header__mobile-drawer[hidden] { display: none; }
+.header-top.header-top--compact .header__mobile-drawer:is([data-state='opening'], [data-state='closing']) .header__mobile-drawer-surface { transform: translateY(-6px); }
 .header-top.header-top--compact .header__mobile-drawer-backdrop { display: none; }
 .header-top.header-top--compact .header__mobile-drawer.component-overlay .header__mobile-drawer-surface {
   position: relative;
@@ -143,6 +147,19 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-search .header-action__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .header-top.header-top--compact .header__column--right > .header-search--type-icon { width: 44px; min-width: 44px; margin-inline-end: 0; justify-content: center; }
 .header-top.header-top--compact .header__column--right > .header-account { display: inline-flex; width: 44px; min-width: 44px; min-height: 44px; justify-content: center; }
+
+/* Utility controls deliberately use a quiet surface instead of a filled CTA. */
+.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle) { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
+.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle):is(:hover, :focus-visible, :focus-within) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
+.header-top.header-top--compact .header__mobile-drawer-submenu a,
+.header-top.header-top--compact .header__mobile-drawer-list > li > a,
+.header-top.header-top--compact .header__mobile-drawer-details > summary { transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); border-radius: var(--radius-8); }
+.header-top.header-top--compact .header__mobile-drawer-submenu a:is(:hover, :focus-visible),
+.header-top.header-top--compact .header__mobile-drawer-list > li > a:is(:hover, :focus-visible),
+.header-top.header-top--compact .header__mobile-drawer-details > summary:is(:hover, :focus-visible) { color: var(--heading-color); background: color-mix(in srgb, var(--heading-color) 8%, transparent); }
+.header-top.header-top--compact .header__mobile-drawer-details[open] > summary { color: var(--heading-color); }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner { transition: border-color var(--motion-duration-fast), box-shadow var(--motion-duration-fast); }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner:has(a:is(:hover, :focus-visible)) { border-color: var(--accent-color); box-shadow: 0 0 0 1px var(--accent-color); }
 
 /* Compact banners reuse the banner block as an inline media/content card. */
 .header-top.header-top--compact .header__mobile-drawer-submenu-details > summary > .header-compact__category-link { display: none; }
