@@ -202,6 +202,8 @@
   const close = ({ force = false } = {}) => {
     const presentation = state.presentation || (state.overlay && window.ThemeOverlay?.get(state.overlay));
     state.presentation = presentation;
+    window.clearTimeout(state.timer);
+    state.controller?.abort();
     if (!state.overlay || !presentation?.isOpen()) return;
     // Selecting the Search section in the Theme Editor may open the overlay for
     // inspection, but an explicit close must always take precedence.
@@ -218,6 +220,7 @@
     overlay.style.setProperty('--search-overlay-top', `${Math.max(0, header?.getBoundingClientRect().bottom || 0)}px`);
     synchronizePanelPadding(header, overlay);
     presentation?.open({ opener: state.editorSelected ? null : state.opener || document.activeElement, focus, restoreFocus: !state.editorSelected });
+    if (focus) input.focus({ preventScroll: true });
     startPlaceholderRotation();
     document.dispatchEvent(new CustomEvent('search-overlay:open', { detail: { header } }));
   };
@@ -318,6 +321,7 @@
     nextInput.addEventListener('input', () => {
       const query = nextInput.value.trim();
       window.clearTimeout(state.timer);
+      state.controller?.abort();
       if (!query) {
         nextResults.hidden = true;
         nextResults.innerHTML = '';
