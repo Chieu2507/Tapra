@@ -12,6 +12,7 @@
   const accountElements = new WeakSet();
   const deferredAccounts = new WeakSet();
   const localizationSheetDetails = new WeakSet();
+  const compactLocalizationControllers = new WeakMap();
   const footerLocalizationStates = new WeakMap();
   const openAccountSheets = new WeakSet();
   const mobileMegaMenuOrigins = new Map();
@@ -913,6 +914,8 @@
       if (isCompactLocalization(details)) {
         const panel = details.querySelector(':scope > .header-localization__panel');
         if (!summary || !panel) return;
+        const controller = new AbortController();
+        compactLocalizationControllers.set(details, controller);
         panel.id = `${details.dataset.localizationDialogId}-popover`;
         summary.setAttribute('aria-controls', panel.id);
         summary.addEventListener('click', (event) => {
@@ -936,7 +939,7 @@
         });
         document.addEventListener('pointerdown', (event) => {
           if (details.open && !details.contains(event.target)) closeHeaderDetails(details);
-        });
+        }, { signal: controller.signal });
         return;
       }
       summary?.addEventListener('click', (event) => {
@@ -1050,6 +1053,9 @@
     root.querySelectorAll?.('.header-localization__details').forEach((item) => details.push(item));
 
     details.forEach((item) => {
+      compactLocalizationControllers.get(item)?.abort();
+      compactLocalizationControllers.delete(item);
+      clearSubmenuClose(item);
       const dialog = getLocalizationDialog(item);
       if (dialog?.parentElement !== document.body) return;
       window.ThemeOverlay?.get(dialog)?.destroy();
