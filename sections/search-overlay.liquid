@@ -320,6 +320,7 @@
 
     nextInput.addEventListener('input', () => {
       const query = nextInput.value.trim();
+      if (state.opener?.matches?.('[data-header-search-form] input[type="search"]')) state.opener.value = nextInput.value;
       window.clearTimeout(state.timer);
       state.controller?.abort();
       if (!query) {

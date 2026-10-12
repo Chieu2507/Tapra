@@ -345,7 +345,9 @@
         const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
         details.style.setProperty('--header-popup-shift', `${left - rect.left}px`);
         details.style.setProperty('--header-popup-left', `${left}px`);
-        const fixedOrigin = details.closest('[data-header-bottom]') ? header.getBoundingClientRect() : { top: 0, left: 0 };
+        const headerStyle = getComputedStyle(header);
+        const hasFixedContainer = headerStyle.transform !== 'none' || headerStyle.willChange.includes('transform');
+        const fixedOrigin = details.closest('[data-header-bottom]') && hasFixedContainer ? header.getBoundingClientRect() : { top: 0, left: 0 };
         details.style.setProperty('--header-popup-left', `${left - fixedOrigin.left}px`);
         details.style.setProperty('--header-popup-top', `${Math.min(headerRect.bottom, window.innerHeight - 80) - fixedOrigin.top}px`);
         details.style.setProperty('--header-popup-height', `${Math.max(64, window.innerHeight - Math.min(headerRect.bottom, window.innerHeight - 80) - 8)}px`);
