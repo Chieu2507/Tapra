@@ -38,9 +38,10 @@
   .header-two-row__localization .header-localization { gap: 20px; }
   .header-two-row__localization .header-localization__details--language { order: -1; }
   .header-top--two-rows .header-menu__summary,.header-top--two-rows .header-menu__link { padding-block: 2px; min-height: 0; }
+  .header-two-row__localization .header-localization__icon { width: 16px; height: 16px; }
   .header-two-row__localization .header-localization__summary { min-height: 25px; padding-block: 2px; }
   .header-top--two-rows .header-menu__dropdown-icon { width: 16px; height: 16px; }
-  @media (max-width: 1149.98px) {
+  @media (max-width: 1399.98px) {
     .header-top--two-rows { padding-top: var(--header-compact-top,var(--header-grid-top,24px)); padding-bottom: var(--header-compact-bottom,var(--header-grid-bottom,24px)); }
     .header-two-row__grid { grid-template-columns: minmax(0,1fr) auto; grid-template-areas: 'brand actions' 'search search'; row-gap: var(--header-compact-gap,var(--header-row-gap,24px)); column-gap: 16px; }
     .header-two-row__grid > .header-menu,.header-two-row__localization { display: none; }
@@ -59,7 +60,7 @@
     .header-two-row__grid > .header-search--type-search_bar { min-height: var(--input-height-mobile); }
   }
 
-  @media (min-width: 992px) and (max-width: 1149.98px) {
+  @media (min-width: 992px) and (max-width: 1399.98px) {
 .header-top--two-rows .header-menu {
       display: none !important;
     }.header-top--two-rows .header__mobile-drawer.component-overlay {
@@ -386,7 +387,7 @@
   
   }
 
-  @media (min-width: 992px) and (max-width: 1149.98px) {
+  @media (min-width: 992px) and (max-width: 1399.98px) {
 .header-top--two-rows .header-menu-toggle.btn {
       display: inline-flex;
       width: 24px;
@@ -461,7 +462,7 @@
       "type": "checkbox",
       "id": "customize_compact_layout",
       "label": "Customize compact header layout",
-      "info": "Applies when the desktop menu becomes a drawer (below 1150px).",
+      "info": "Applies when the desktop menu becomes a drawer (below 1400px).",
       "default": false
     },
     {
