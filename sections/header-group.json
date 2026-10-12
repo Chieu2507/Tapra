@@ -12,49 +12,77 @@
   "name": "t:general.header",
   "sections": {
     "announcement-bar": {
-      "type": "announcement-bar",
+      "type": "announcement-links-bar",
       "blocks": {
-        "wofyn-shipping": {
-          "type": "discount-code",
+        "promotion": {
+          "type": "_announcement-promotion",
+          "static": true,
           "settings": {
-            "gap_desktop": 0,
-            "gap_mobile": 0,
-            "message": "<p>Free shipping on orders over $100. <a href=\"/collections/all-wofyn\" title=\"Shop all products\">Shop Now</a></p>",
-            "message_color": "",
-            "discount_code": "",
-            "button_label": "",
-            "button_link": "",
-            "button_open_in_new_tab": false,
-            "button_style": "tertiary",
-            "show_icon": false
+            "message": "Apply today and get 10% back.",
+            "show_badge": true,
+            "badge_text": "Limited Sale",
+            "badge_style": "sale",
+            "badge_font": "body",
+            "badge_weight": "600",
+            "corner_radius": "radius_4",
+            "gap": 8,
+            "text_size": "xs"
+          }
+        },
+        "utility-menu": {
+          "type": "menu",
+          "static": true,
+          "settings": {
+            "menu": "",
+            "heading": "Support",
+            "show_heading": false,
+            "collapse_menu_on_mobile": false,
+            "direction": "horizontal",
+            "link_weight": "400",
+            "menu_size": "xs",
+            "menu_gap": 24
           },
-          "blocks": {}
+          "blocks": {
+            "support-0": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Help Center",
+                "link": "/pages/faq"
+              }
+            },
+            "support-1": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Contact",
+                "link": "/pages/contact"
+              }
+            },
+            "support-2": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Returns & Exchanges",
+                "link": "/policies/refund-policy"
+              }
+            }
+          },
+          "block_order": [
+            "support-0",
+            "support-1",
+            "support-2"
+          ]
         }
       },
-      "block_order": [
-        "wofyn-shipping"
-      ],
       "settings": {
-        "bottom_separator": false,
-        "type": "slider",
-        "speed": 1,
-        "direction": "left",
-        "autoplay": 5,
-        "pause_on_hover": true,
-        "navigation_behavior": "always",
-        "navigation_icon": "rounded_chevron",
-        "font_size": "sm",
-        "font_weight": "400",
-        "background_type": "none",
-        "overlay": false,
-        "overlay_color": "#00000033",
-        "gap": 0,
+        "section_width": "page_width",
+        "gap_desktop": 32,
+        "show_menu_on_mobile": false,
         "color_scheme": "scheme-3",
-        "padding_top": 10,
-        "padding_right": 0,
-        "padding_bottom": 10,
-        "padding_left": 0,
-        "text_style": "body"
+        "background_color": "#333333",
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 6,
+        "padding_bottom_mobile": 6
       }
     },
     "header": {
