@@ -100,7 +100,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-scroll { overflow: visible; padding: 4px 26px 22px; }
 .header-top.header-top--compact .header__mobile-drawer-list { list-style: none; padding: 0; margin: 0; }
 .header-top.header-top--compact :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary) { opacity: 0; transform: translateY(10px); transition: opacity 200ms, transform 200ms; }
-.header-top.header-top--compact.header-top--menu-open :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary) { opacity: 1; transform: none; transition: opacity 500ms calc(300ms + var(--compact-item-index, 0) * 50ms), transform 600ms calc(300ms + var(--compact-item-index, 0) * 50ms) var(--compact-ease); }
+.header-top.header-top--compact.header-top--menu-open :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary) { opacity: 1; transform: none; transition: color 250ms, opacity 500ms calc(300ms + var(--compact-item-index, 0) * 50ms), transform 600ms calc(300ms + var(--compact-item-index, 0) * 50ms) var(--compact-ease); }
 .header-top.header-top--compact .header__mobile-drawer-item > a,
 .header-top.header-top--compact .header__mobile-drawer-details > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 8px 0; color: var(--heading-color); font-size: var(--font-body-lg); text-decoration: none; cursor: pointer; }
 .header-top.header-top--compact summary { list-style: none; }
@@ -177,8 +177,19 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-details > summary { transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); border-radius: var(--radius-8); }
 .header-top.header-top--compact .header__mobile-drawer-submenu a:is(:hover, :focus-visible),
 .header-top.header-top--compact .header__mobile-drawer-list > li > a:is(:hover, :focus-visible),
-.header-top.header-top--compact .header__mobile-drawer-details > summary:is(:hover, :focus-visible) { color: var(--heading-color); background: color-mix(in srgb, var(--heading-color) 8%, transparent); }
+.header-top.header-top--compact .header__mobile-drawer-details > summary:is(:hover, :focus-visible) { color: var(--heading-color); }
 .header-top.header-top--compact .header__mobile-drawer-details[open] > summary { color: var(--heading-color); }
+/* Keep the reveal opacity separate from the navigation's active color. */
+.header-top.header-top--compact :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary) { color: color-mix(in srgb, var(--heading-color) 45%, transparent); }
+.header-top.header-top--compact :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary):is(:hover, :focus-visible),
+.header-top.header-top--compact .header__mobile-drawer-details[open] > summary { color: var(--heading-color); background: transparent; }
+.header-top.header-top--compact .header__mobile-drawer-submenu a { opacity: .8; transition: opacity 200ms, color 200ms, transform 300ms var(--compact-ease); }
+.header-top.header-top--compact .header__mobile-drawer-submenu a:is(:hover, :focus-visible) { opacity: 1; transform: translateX(4px); background: transparent; }
+@media (min-width: 768px) {
+  .header-top.header-top--compact .header__mobile-drawer-details > .header__mobile-drawer-submenu { animation: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(8px); transition: opacity 250ms, transform 300ms var(--compact-ease), visibility 0s 250ms; }
+  .header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu { display: grid; }
+  .header-top.header-top--compact .header__mobile-drawer-details[open] > .header__mobile-drawer-submenu { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition: opacity 400ms 80ms, transform 500ms 80ms var(--compact-ease), visibility 0s; }
+}
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner { transition: border-color var(--motion-duration-fast), box-shadow var(--motion-duration-fast); }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner:has(a:is(:hover, :focus-visible)) { border-color: var(--accent-color); box-shadow: 0 0 0 1px var(--accent-color); }
 
