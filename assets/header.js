@@ -339,6 +339,7 @@
 
     submenuRects.forEach(({ details, rect }) => {
       details.style.setProperty('--header-submenu-offset', `${Math.max(0, headerRect.bottom - rect.bottom)}px`);
+      if (details.classList.contains('header-localization__details')) details.style.setProperty('--header-submenu-offset', `${Math.min(headerRect.bottom, window.innerHeight - 80) - rect.bottom}px`);
       const panel = details.querySelector(':scope > .header-localization__panel, :scope > .header-menu__submenu');
       if (panel) {
         const width = Math.min(panel.offsetWidth || 250, window.innerWidth - 16);
