@@ -1,7 +1,11 @@
 {% liquid
   assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1' | handleize
 %}
-{% if section.settings.layout == 'two_rows' %}
+{% if section.settings.header_style == 'compact' %}
+{{ 'header-compact.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'header-compact.js' | asset_url }}" defer></script>
+{% endif %}
+{% if section.settings.layout == 'two_rows' and section.settings.header_style != 'compact' %}
 <div class="header-top header-top--two-rows color-scheme section-color-scope {{ scheme }}" data-header-root data-header-scheme="{{ scheme }}" data-sticky-type="{{ section.settings.sticky_type_two_rows | default: 'scroll_up' }}" data-header-transparent-scheme="{{ scheme }}" data-logo-position="left" data-layout-ready="true" style="--header-icon-size: {{ section.settings.icon_size | default: 24 }}px; --header-icon-mobile: {{ section.settings.icon_size_mobile | default: 20 }}px;">
 {% content_for 'block', type: '_header-two-row', id: 'header-two-row' %}
 {% content_for 'block', type: '_header-bottom', id: 'header-bottom' %}
@@ -87,6 +91,7 @@
     ]
   },
   "settings": [
+    { "type": "select", "id": "header_style", "label": "Header style", "options": [{ "value": "classic", "label": "Classic" }, { "value": "compact", "label": "Compact" }], "default": "classic" },
     {
       "type": "header",
       "content": "t:general.layout"
@@ -105,7 +110,8 @@
           "label": "Two rows"
         }
       ],
-      "default": "single_row"
+      "default": "single_row",
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "select",

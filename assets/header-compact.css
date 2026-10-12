@@ -1,0 +1,97 @@
+/* Compact composes the existing header blocks and overlay menu. */
+.section-header:has(.header-top--compact) {
+  position: fixed;
+  inset: calc(16px + env(safe-area-inset-top, 0px)) 12px auto;
+  z-index: var(--z-drawer, 200);
+  width: auto;
+  background: transparent;
+  transform: none;
+}
+body:has(.header-top--compact:not([data-header-overlap-first-section])) #MainContent { padding-top: 84px; }
+.header-top--compact {
+  width: min(236px, 100%);
+  margin-inline: auto;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-24);
+  background: color-mix(in srgb, var(--background-color) 92%, transparent);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 40px color-mix(in srgb, var(--heading-color) 20%, transparent);
+  transition: width 600ms cubic-bezier(.76, 0, .24, 1);
+}
+.header-top--compact.header-top--menu-open { width: min(900px, 100%); }
+.header-top--compact .header__container { width: 100%; padding: 0 6px 0 16px; }
+.header-top--compact .header__row { display: flex; min-height: 48px; gap: 4px; }
+.header-top--compact .header__column--left { display: flex; flex: 1; min-width: 0; }
+.header-top--compact .header__column--right { display: flex; flex-direction: row; gap: 0; }
+.header-top--compact .header__column--center { display: none; }
+.header-top--compact .header-logo { margin: 0; }
+.header-top--compact .site-logo { width: min(var(--logo-width), 120px); max-width: 100%; }
+.header-top--compact .header-menu-toggle.btn { display: inline-flex; width: 44px; min-width: 44px; min-height: 44px; }
+.header-top--compact .header-cart { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
+.header-top--compact .header-menu-toggle__close-icon { display: none; }
+.header-top--compact.header-top--menu-open .header-menu-toggle__open-icon { display: none; }
+.header-top--compact.header-top--menu-open .header-menu-toggle__close-icon { display: block; }
+.header-top--compact .header__mobile-drawer.component-overlay {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  display: block;
+  visibility: visible;
+  pointer-events: auto;
+  --overlay-background-color: var(--background-color);
+  --overlay-text-color: var(--body-color);
+  --overlay-border-color: var(--border-color);
+}
+.header-top--compact .header__mobile-drawer[hidden] { display: none; }
+.header-top--compact .header__mobile-drawer-backdrop { display: none; }
+.header-top--compact .header__mobile-drawer.component-overlay .header__mobile-drawer-surface {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  max-height: calc(100dvh - 100px - env(safe-area-inset-top, 0px));
+  min-height: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0 0 var(--radius-24) var(--radius-24);
+  transform: none;
+  background: transparent;
+  overflow-y: auto;
+  --overlay-rest-transform: none;
+}
+.header-top--compact .header__mobile-drawer-header { display: flex; position: sticky; top: 0; min-height: 44px; padding: 0 20px; background: var(--background-color); z-index: 2; }
+.header-top--compact .header__mobile-drawer-title { font-size: var(--font-body-sm); }
+.header-top--compact .header__mobile-drawer-back { position: static; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; border: 0; color: var(--heading-color); background: transparent; }
+.header-top--compact .header__mobile-drawer-back[hidden] { display: none; }
+.header-top--compact .header__mobile-drawer-close { margin-inline-start: auto; min-width: 44px; min-height: 44px; }
+.header-top--compact .header__mobile-drawer-scroll { overflow: visible; padding: 12px 20px 20px; }
+.header-top--compact .header__mobile-drawer-list { list-style: none; padding: 0; margin: 0; }
+.header-top--compact .header__mobile-drawer-item > a,
+.header-top--compact .header__mobile-drawer-details > summary { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding: 8px 0; color: var(--heading-color); font-size: var(--font-body-lg); text-decoration: none; cursor: pointer; }
+.header-top--compact summary { list-style: none; }
+.header-top--compact summary::-webkit-details-marker { display: none; }
+.header-top--compact .header__mobile-drawer-submenu,
+.header-top--compact .header__mobile-drawer-tertiary-panel { position: static; width: auto; height: auto; background: transparent; transform: none; opacity: 1; visibility: visible; padding: 0; overflow: visible; }
+.header-top--compact .header__mobile-drawer-submenu ul { list-style: none; padding: 0; }
+.header-top--compact .header__mobile-drawer-submenu a,
+.header-top--compact .header__mobile-drawer-submenu summary { display: flex; justify-content: space-between; min-height: 44px; align-items: center; color: var(--body-color); text-decoration: none; }
+.header-top--compact .header__mobile-drawer-submenu-details:not([open]) > .header__mobile-drawer-tertiary-panel { display: none; }
+.header-top--compact .header-compact__utilities { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--border-color); }
+.header-top--compact .header-compact__utilities .header-divider { display: none; }
+@media (min-width: 768px) {
+  .header-top--compact .header__mobile-drawer-list { position: relative; min-height: var(--compact-menu-height, 280px); }
+  .header-top--compact .header__mobile-drawer-item { width: 210px; max-width: 40%; }
+  .header-top--compact .header__mobile-drawer-item > details > .header__mobile-drawer-submenu { position: absolute; inset: 0 0 auto 238px; }
+  .header-top--compact .header__mobile-drawer--submenu-active .header__mobile-drawer-item { display: block; }
+  .header-top--compact .header__mobile-drawer-title { display: block; }
+  .header-top--compact .header__mobile-drawer-back { display: none; }
+}
+@media (max-width: 767.98px) {
+  .header-top--compact .header__mobile-drawer--submenu-active .header__mobile-drawer-item:not(.is-mobile-submenu-active) { display: none; }
+  .header-top--compact .header__mobile-drawer--submenu-active .is-mobile-submenu-active > details > summary { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-top--compact, .header-top--compact * { transition-duration: 0.01ms; animation-duration: 0.01ms; }
+}

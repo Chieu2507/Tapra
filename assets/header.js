@@ -4,7 +4,7 @@
   const headerResizeObservers = new Map();
   const submenuCloseTimers = new WeakMap();
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const isMobileMenuViewport = () => window.matchMedia('(max-width: 991.98px)').matches;
+  const isMobileMenuViewport = () => Boolean(document.querySelector('.header-top--compact')) || window.matchMedia('(max-width: 991.98px)').matches;
   const submenuTransitionBuffer = 16;
   const menuToggleButtons = new WeakSet();
   const megaMenuBackdropControls = new WeakSet();
@@ -465,6 +465,22 @@
     const logo = items.find((item) => item.matches('.header-logo'));
     const logoPosition = logo?.classList.contains('header-logo--left') ? 'left' : 'center';
     headerTop.dataset.logoPosition = logoPosition;
+
+    if (headerTop.dataset.headerStyle === 'compact') {
+      const drawer = items.find(item => item.matches('[data-header-mobile-drawer]'));
+      const utilities = document.createElement('div');
+      utilities.className = 'header-compact__utilities';
+      items.forEach(item => {
+        if (item.matches('.header-logo')) leftColumn.append(item);
+        else if (item.matches('.header-cart, .header-menu-toggle')) rightColumn.append(item);
+        else if (item === drawer) headerTop.append(item);
+        else if (item.matches('.header-menu')) centerColumn.append(item);
+        else utilities.append(item);
+      });
+      drawer?.querySelector('.header__mobile-drawer-scroll')?.append(utilities);
+      headerTop.dataset.layoutReady = 'true';
+      return;
+    }
 
     items.forEach((item) => {
       if (item.matches('.header-logo')) {
