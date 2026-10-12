@@ -260,6 +260,8 @@
         if (event.key !== 'Tab') return;
         const controls = [...dialog.querySelectorAll('button, a[href], input:not([type="hidden"]), select, textarea, iframe, [tabindex]')]
           .filter((element) => !element.disabled && element.tabIndex >= 0 && !element.closest('[inert], [hidden], [aria-hidden="true"]') && element.getClientRects().length);
+        const externalClose = dialog.dataset.externalCloseId && document.getElementById(dialog.dataset.externalCloseId);
+        if (externalClose?.getClientRects().length) controls.push(externalClose);
         const first = controls[0];
         const last = controls[controls.length - 1];
         if (event.shiftKey && document.activeElement === first) {

@@ -61,6 +61,8 @@
     }
 
     container.querySelectorAll('[data-header-menu-toggle]').forEach((toggle) => {
+      const searchOpen = document.querySelector('.search-overlay--compact:is([data-state="opening"], [data-state="open"])');
+      toggle.classList.toggle('is-expanded', isOpen || Boolean(searchOpen));
       toggle.setAttribute('aria-expanded', String(isOpen));
       toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     });
@@ -717,7 +719,11 @@
       const container = toggle.closest('.header-top') || header;
 
       toggle.addEventListener('click', (event) => {
-        if (toggle.closest('.search-overlay--compact')) return;
+        const search = document.querySelector('.search-overlay--compact:not([hidden])');
+        if (container.classList.contains('header-top--compact') && search) {
+          closeSearchOverlay();
+          return;
+        }
         const isOpen = !container.classList.contains('header-top--menu-open');
         if (isOpen) closeHeaderSurfaces(header, { menu: true });
         setHeaderMenuState(header, isOpen, { restoreFocus: isOpen || event.detail === 0 });

@@ -109,7 +109,7 @@
     opener: null,
     compactObserver: null,
     compactToggle: null,
-    compactToggleSlot: null,
+    compactMotionObserver: null,
     compactToggleControls: null,
   };
 
@@ -185,30 +185,17 @@
     if (closeButton && closeParent && closeButton.parentElement !== closeParent) closeParent.append(closeButton);
     if (compact) {
       const toggle = state.compactToggle || headerTop.querySelector('[data-header-menu-toggle]');
-      if (toggle && !state.compactToggleSlot) {
-        const slot = document.createElement('span');
-        slot.className = 'header-search-toggle-slot';
-        slot.setAttribute('aria-hidden', 'true');
-        toggle.before(slot);
+      if (toggle && !state.compactToggle) {
         state.compactToggle = toggle;
-        state.compactToggleSlot = slot;
         state.compactToggleControls = toggle.getAttribute('aria-controls');
-        overlay.append(toggle);
-        toggle.setAttribute('data-overlay-close', '');
-        toggle.setAttribute('aria-controls', overlay.id);
-        toggle.setAttribute('aria-label', closeButton.getAttribute('aria-label'));
-        toggle.setAttribute('aria-expanded', 'true');
+        if (!toggle.id) toggle.id = `${overlay.id}-menu-toggle`;
+        overlay.dataset.externalCloseId = toggle.id;
       }
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
       overlay.style.setProperty('--compact-search-width', `${Math.max(0, rect.width - 2)}px`);
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
-      const toggleRect = state.compactToggleSlot?.getBoundingClientRect();
-      if (toggleRect) {
-        overlay.style.setProperty('--compact-search-close-top', `${toggleRect.top}px`);
-        overlay.style.setProperty('--compact-search-close-left', `${toggleRect.left}px`);
-      }
       const panel = overlay.querySelector('.search-overlay__panel');
       if (panel && !overlay.hidden) {
         const panelRect = panel.getBoundingClientRect();
@@ -236,13 +223,14 @@
     state.compactObserver?.disconnect();
     state.compactObserver = null;
     if (state.compactToggle) {
-      state.compactToggleSlot?.replaceWith(state.compactToggle);
-      state.compactToggle.removeAttribute('data-overlay-close');
+      state.compactMotionObserver?.disconnect();
+      state.compactMotionObserver = null;
+      state.compactToggle.classList.remove('is-expanded');
+      delete state.overlay.dataset.externalCloseId;
       state.compactToggle.setAttribute('aria-controls', state.compactToggleControls);
       state.compactToggle.setAttribute('aria-label', 'Open menu');
       state.compactToggle.setAttribute('aria-expanded', 'false');
       state.compactToggle = null;
-      state.compactToggleSlot = null;
       state.compactToggleControls = null;
     }
     stopPlaceholderRotation();
@@ -292,6 +280,20 @@
     synchronizePanelPadding(header, overlay);
     header?.querySelector('.header-top--compact')?.classList.remove('header-compact--fast');
     watchCompactGeometry(header, overlay);
+    if (state.compactToggle) {
+      const synchronizeToggle = () => {
+        const expanded = ['opening', 'open'].includes(overlay.dataset.state);
+        state.compactToggle?.classList.toggle('is-expanded', expanded);
+        state.compactToggle?.setAttribute('aria-controls', overlay.id);
+        state.compactToggle?.setAttribute('aria-label', overlay.querySelector('[data-search-overlay-close]').getAttribute('aria-label'));
+        state.compactToggle?.setAttribute('aria-expanded', String(expanded));
+      };
+      state.compactMotionObserver?.disconnect();
+      state.compactMotionObserver = new MutationObserver(synchronizeToggle);
+      state.compactMotionObserver.observe(overlay, { attributes: true, attributeFilter: ['data-state'] });
+      synchronizeToggle();
+    }
+
   };
 
   const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
