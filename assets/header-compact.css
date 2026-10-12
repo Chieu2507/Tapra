@@ -322,6 +322,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 }
 @media (prefers-reduced-motion: reduce) {
   .header-top.header-top--compact shopify-account::part(dialog) { animation: none; }
+  .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { transition: none; }
   .header-top.header-top--compact,
   .header-top.header-top--compact *,
   .search-overlay.search-overlay--compact,
