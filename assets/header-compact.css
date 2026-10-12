@@ -206,6 +206,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header__mobile-drawer-details > .header__mobile-drawer-submenu { animation: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(20px); transition: opacity 300ms, transform 300ms var(--compact-ease), visibility 0s 300ms; }
   .header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu { display: grid; }
   .header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu :is(.header__mobile-drawer-tertiary-panel, .header-mega-menu) { visibility: inherit; pointer-events: none; }
+  .header-top.header-top--compact .header__mobile-drawer-submenu details::details-content { visibility: inherit; }
   .header-top.header-top--compact .header__mobile-drawer-details[open] > .header__mobile-drawer-submenu { animation: none; opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition: opacity 400ms 80ms, transform 500ms 80ms var(--compact-ease), visibility 0s; }
 }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner { transition: border-color var(--motion-duration-fast), box-shadow var(--motion-duration-fast); }
