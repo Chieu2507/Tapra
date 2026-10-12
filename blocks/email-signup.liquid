@@ -76,7 +76,7 @@
   endif
 
   assign field_height = block.settings.field_height | default: 'large'
-  assign input_corner_radius = block.settings.corner_radius | default: 'inherit'
+  assign newsletter_button_radius = block.settings.corner_radius | default: 'inherit'
   assign field_height_desktop = 56
   assign field_height_mobile = 48
   case field_height
@@ -224,13 +224,14 @@
   --email-signup-gap-mobile: {{ gap_mobile }}px;
   --email-signup-field-height-desktop: {{ field_height_desktop }}px;
   --email-signup-field-height-mobile: {{ field_height_mobile }}px;
-  {% if input_corner_radius == 'radius_8' %}
-    --email-signup-input-radius: var(--radius-8);
-  {% elsif input_corner_radius == 'inherit' %}
-    --email-signup-input-radius: var(--input-radius);
-  {% else %}
-    --email-signup-input-radius: var(--radius-{{ input_corner_radius }});
-  {% endif %}
+  {% case newsletter_button_radius %}
+    {% when 'square' %}
+      --email-signup-button-radius: var(--radius-square);
+    {% when 'rounded', 'radius_8' %}
+      --email-signup-button-radius: var(--radius-rounded);
+    {% when 'pill' %}
+      --email-signup-button-radius: var(--radius-pill);
+  {% endcase %}
   {% if block.settings.background_color != blank %}
     --email-signup-background-color: {{ block.settings.background_color | escape }};
   {% endif %}
@@ -435,7 +436,7 @@
 
   .email-signup-block .form__control--input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
   .email-signup-block--layout-input_with_button .email-signup-block__input-wrap {
-    border-radius: var(--email-signup-input-radius, var(--radius-square)) !important;
+    border-radius: var(--input-radius) !important;
     background-color: var(--email-signup-background-color, var(--input-background-color));
   }
 
@@ -533,14 +534,21 @@
     min-height: var(--email-signup-field-height-desktop, var(--input-height));
   }
 
+  .email-signup-block__button > .btn:not(.btn-tertiary) {
+    border-radius: var(--email-signup-button-radius, var(--button-radius));
+  }
+
   .email-signup-block__button > .email-signup-block__submit--icon-only.btn {
     width: var(--email-signup-field-height-desktop);
     padding: 0;
-    border-radius: var(--email-signup-input-radius, var(--input-radius));
   }
 
   @media (max-width: 767.98px) {
-    .email-signup-block__button > .email-signup-block__submit--icon-only.btn { width: var(--email-signup-field-height-mobile); }
+    .email-signup-block__button > .btn:not(.btn-tertiary) {
+    border-radius: var(--email-signup-button-radius, var(--button-radius));
+  }
+
+  .email-signup-block__button > .email-signup-block__submit--icon-only.btn { width: var(--email-signup-field-height-mobile); }
   }
 
   .email-signup-block__submit {
@@ -1038,7 +1046,7 @@
       "label": "t:labels.background_color"
     },
     {"type": "select", "id": "input_style", "label": "Input style", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "solid", "label": "Solid"}, {"value": "outline", "label": "Outline"}], "default": "inherit"},
-    {"type": "select", "id": "corner_radius", "label": "t:labels.corner_radius", "options": [{"value": "radius_8", "label": "8 px"}, {"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "square", "label": "t:options.radius_preset.square"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "pill", "label": "t:options.radius_preset.pill"}], "default": "inherit"},
+    {"type": "select", "id": "corner_radius", "label": "t:labels.corner_radius", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "square", "label": "t:options.radius_preset.square"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "pill", "label": "t:options.radius_preset.pill"}], "default": "inherit"},
     {
       "type": "header",
       "content": "t:general.padding"
