@@ -312,7 +312,8 @@
       }
     },
     "product_card_media_inset": 0,
-    "product_card_media_corner_radius": "radius_12"
+    "product_card_media_corner_radius": "radius_12",
+    "logo_transparent": "shopify://shop_images/torvex-logo.webp"
   },
   "presets": {
     "Perky": {
