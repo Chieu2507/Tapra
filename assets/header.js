@@ -771,13 +771,15 @@
       });
     };
 
+    let submenuResetTimer;
     const resetSubmenu = (animate = true) => {
+      window.clearTimeout(submenuResetTimer);
       drawer.classList.remove('header__mobile-drawer--submenu-active');
       drawer.querySelectorAll('[data-header-menu-back]').forEach((back) => { back.hidden = true; });
       drawer.querySelectorAll('[data-header-menu-back-label]').forEach((label) => {
         label.textContent = label.dataset.headerMenuBackDefaultLabel || 'Menu';
       });
-      if (animate) window.setTimeout(clearActiveSubmenu, 320);
+      if (animate) submenuResetTimer = window.setTimeout(clearActiveSubmenu, 320);
       else clearActiveSubmenu();
     };
 
@@ -789,7 +791,11 @@
       }
 
       activeNestedDetails.classList.remove('is-mobile-submenu-active');
-      activeNestedDetails.removeAttribute('open');
+      if (container.classList.contains('header-top--compact') && window.innerWidth < 768) {
+        window.setTimeout(() => {
+          if (!activeNestedDetails.classList.contains('is-mobile-submenu-active')) activeNestedDetails.removeAttribute('open');
+        }, 320);
+      } else activeNestedDetails.removeAttribute('open');
       const rootSummary = activeNestedDetails.closest('[data-mobile-drawer-details]')?.querySelector(':scope > summary');
       setBackLabel(rootSummary?.querySelector('span')?.textContent?.trim());
     };
