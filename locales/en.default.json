@@ -184,6 +184,7 @@
     "go_to_slide": "Go to slide {{ index }}"
   },
   "collection_tabs": {
+    "load_error": "Unable to load these products. Please try again.",
     "default_tab": "Collection tab",
     "empty_collection": "This collection has no products.",
     "previous": "Previous slide",

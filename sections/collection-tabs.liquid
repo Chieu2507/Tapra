@@ -111,6 +111,7 @@
     <div
       class="collection-tabs__layout"
       data-collection-tabs
+      data-tab-load-error="{{ 'collection_tabs.load_error' | t | escape }}"
       data-collection-tabs-ready="false"
       data-layout-direction="{{ collection_tabs_layout_direction }}"
       data-header-layout="{{ collection_tabs_header_layout }}"
@@ -131,6 +132,7 @@
           {% content_for 'block', type: 'tabs-view-all-button', id: 'collection-tabs-view-all' %}
         </div>
       </div>
+      <span class="visually-hidden" data-tab-load-status role="status" aria-live="polite"></span>
       {% capture collection_tabs_product_style %}
         {% case section.settings.product_card_alignment %}
           {% when 'left' %}--product-card-alignment: left; --product-card-content-alignment: flex-start;

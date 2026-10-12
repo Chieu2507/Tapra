@@ -131,13 +131,22 @@
   assign collection_tab_carousel_id = 'CollectionTabCarousel-' | append: collection_tab_id
   assign collection_tab_pagination_class = 'swiper-pagination--below collection-tab__pagination collection-tab__pagination--' | append: collection_tab_pagination_type
 
-  assign collection_tab_blocks = section.blocks | where: 'type', 'collection-tab'
-  assign collection_tab_first_block = collection_tab_blocks | first
+  # Static header/navigation slots are not in section.blocks. Theme Block
+  # entries expose type @theme here, so take the first dynamic tab directly.
+  assign collection_tab_first_block = section.blocks | first
   assign collection_tab_is_initial = false
   if collection_tab_first_block != blank and collection_tab_first_block.id == block.id
     assign collection_tab_is_initial = true
   endif
 
+  assign collection_tab_deferred = false
+  if section.index != nil and request.design_mode != true and collection_tab_is_initial == false
+    assign collection_tab_deferred = true
+  endif
+%}
+
+{% unless collection_tab_deferred %}
+{% liquid
   assign collection_tab_has_products = false
   if collection_tab_collection != blank and collection_tab_collection.products != blank
     assign collection_tab_has_products = true
@@ -206,6 +215,7 @@
 {% if collection_tab_promo_cards contains '<!--promo-card-slot:' %}
   <script data-theme-module="{{ 'product-list-promos.js' | asset_url }}"></script>
 {% endif %}
+{% endunless %}
 <div
   class="collection-tab"
   data-collection-tab
@@ -235,10 +245,14 @@
     role="tabpanel"
     aria-labelledby="{{ collection_tab_trigger_id | escape }}"
     data-collection-tab-panel
+    {% if collection_tab_deferred %}data-tab-deferred data-section-id="{{ section.id | escape }}"{% endif %}
     data-tab-id="{{ collection_tab_id | escape }}"
     aria-hidden="{% if collection_tab_is_initial %}false{% else %}true{% endif %}"
     {% unless collection_tab_is_initial %}hidden{% endunless %}
   >
+    {% if collection_tab_deferred %}
+      {% if collection_tab_collection != blank %}<noscript><a href="{{ collection_tab_collection.url }}">{{ collection_tab_label | escape }}</a></noscript>{% endif %}
+    {% else %}
     <div class="product-list__mobile-promos" data-product-list-mobile-promos></div>
     {% if collection_tab_show_grid %}
       <div
@@ -311,6 +325,7 @@
       </div>
     {% endif %}
 
+    {% endif %}
   </div>
 </div>
 {% stylesheet %}
@@ -319,7 +334,20 @@
   }
 
   .collection-tab__panel {
+    --tab-card-duration: 700ms;
+    --tab-card-distance: 32px;
+    --tab-card-stagger: 100;
+    position: relative;
     min-width: 0;
+    isolation: isolate;
+  }
+
+  @media (max-width: 767.98px) {
+    .collection-tab__panel {
+      --tab-card-duration: 600ms;
+      --tab-card-distance: 24px;
+      --tab-card-stagger: 70;
+    }
   }
 
   .collection-tab__panel[hidden] {
