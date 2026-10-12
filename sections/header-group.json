@@ -12,171 +12,54 @@
   "name": "t:general.header",
   "sections": {
     "announcement-bar": {
-      "type": "announcement-links-bar",
+      "type": "announcement-bar",
       "blocks": {
-        "promotion": {
-          "type": "_announcement-promotion",
-          "static": true,
+        "wofyn-shipping": {
+          "type": "discount-code",
           "settings": {
-            "message": "Apply today and get 10% back.",
-            "show_badge": true,
-            "badge_text": "Limited Sale",
-            "badge_style": "sale",
-            "badge_font": "body",
-            "badge_weight": "600",
-            "corner_radius": "radius_4",
-            "gap": 8,
-            "text_size": "xs"
-          }
-        },
-        "utility-menu": {
-          "type": "menu",
-          "static": true,
-          "settings": {
-            "menu": "",
-            "heading": "Support",
-            "show_heading": false,
-            "collapse_menu_on_mobile": false,
-            "direction": "horizontal",
-            "link_weight": "400",
-            "menu_size": "xs",
-            "menu_gap": 24
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "message": "<p>Free shipping on orders over $100. <a href=\"/collections/all-wofyn\" title=\"Shop all products\">Shop Now</a></p>",
+            "message_color": "",
+            "discount_code": "",
+            "button_label": "",
+            "button_link": "",
+            "button_open_in_new_tab": false,
+            "button_style": "tertiary",
+            "show_icon": false
           },
-          "blocks": {
-            "support-0": {
-              "type": "_menu-link",
-              "settings": {
-                "label": "Help Center",
-                "link": "/pages/faq"
-              }
-            },
-            "support-1": {
-              "type": "_menu-link",
-              "settings": {
-                "label": "Contact",
-                "link": "/pages/contact"
-              }
-            },
-            "support-2": {
-              "type": "_menu-link",
-              "settings": {
-                "label": "Returns & Exchanges",
-                "link": "/policies/refund-policy"
-              }
-            }
-          },
-          "block_order": [
-            "support-0",
-            "support-1",
-            "support-2"
-          ]
+          "blocks": {}
         }
       },
+      "block_order": [
+        "wofyn-shipping"
+      ],
       "settings": {
-        "section_width": "page_width",
-        "gap_desktop": 32,
-        "show_menu_on_mobile": false,
+        "bottom_separator": false,
+        "type": "slider",
+        "speed": 1,
+        "direction": "left",
+        "autoplay": 5,
+        "pause_on_hover": true,
+        "navigation_behavior": "always",
+        "navigation_icon": "rounded_chevron",
+        "font_size": "sm",
+        "font_weight": "400",
+        "background_type": "none",
+        "overlay": false,
+        "overlay_color": "#00000033",
+        "gap": 0,
         "color_scheme": "scheme-3",
-        "background_color": "#333333",
-        "padding_top": 8,
-        "padding_bottom": 8,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 6,
-        "padding_bottom_mobile": 6
+        "padding_top": 10,
+        "padding_right": 0,
+        "padding_bottom": 10,
+        "padding_left": 0,
+        "text_style": "body"
       }
     },
     "header": {
       "type": "header",
       "blocks": {
-        "header-two-row": {
-          "type": "_header-two-row",
-          "static": true,
-          "settings": {
-            "gap": 40,
-            "actions_gap": 8,
-            "row_gap": 24,
-            "padding_top": 24,
-            "padding_bottom": 12,
-            "customize_mobile_padding": true,
-            "padding_top_mobile": 12,
-            "padding_bottom_mobile": 12,
-            "row_gap_mobile": 8,
-            "actions_gap_mobile": 0,
-            "customize_compact_layout": true,
-            "padding_top_compact": 16,
-            "padding_bottom_compact": 16,
-            "row_gap_compact": 16
-          },
-          "blocks": {
-            "header-logo": {
-              "type": "_header-logo",
-              "settings": {
-                "position": "left"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-menu-toggle": {
-              "type": "_header-menu-toggle",
-              "settings": {
-                "position": "left"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-search": {
-              "type": "_header-search",
-              "settings": {
-                "type": "search_bar",
-                "label": "Search",
-                "font": "body",
-                "font_size": "sm",
-                "letter_spacing": "normal",
-                "placeholder": "What are you looking for?",
-                "width": "fill",
-                "mobile_display": "search_bar",
-                "show_category_selector": true,
-                "category_menu": "torvex-search-categories",
-                "category_label": "All Categories",
-                "category_label_mobile": "All",
-                "color_scheme": "scheme-1"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-account": {
-              "type": "_header-account",
-              "settings": {
-                "type": "icon",
-                "label": "Account",
-                "font": "accent",
-                "font_size": "md",
-                "letter_spacing": "normal"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-cart": {
-              "type": "_header-cart",
-              "settings": {
-                "type": "icon",
-                "label": "Cart",
-                "badge_type": "primary"
-              },
-              "blocks": {},
-              "static": true
-            },
-            "header-location": {
-              "type": "_header-link",
-              "static": true,
-              "settings": {
-                "label": "Find a store",
-                "link": "/pages/contact",
-                "open_in_new_tab": false
-              }
-            }
-          }
-        },
         "header-top": {
           "type": "_header-top",
           "static": true,
@@ -193,7 +76,7 @@
             "header-menu": {
               "type": "_header-menu",
               "settings": {
-                "menu": "torvex-main-menu",
+                "menu": "wofyn-main-menu",
                 "gap": 32,
                 "show_dropdown_icon": true,
                 "dropdown_trigger": "hover",
@@ -206,7 +89,120 @@
                 "submenu_font_size": "md",
                 "submenu_text_case": "original",
                 "submenu_text_color": ""
-              }
+              },
+              "blocks": {
+                "mega-menu-banners": {
+                  "type": "_mega-menu-banners",
+                  "settings": {
+                    "menu_item": "Collections",
+                    "highlight_menu_item": false,
+                    "highlight_color": "#000000",
+                    "banner_width": 40,
+                    "gap": 12,
+                    "layout": "horizontal",
+                    "submenu_columns": "4",
+                    "limit_width": true,
+                    "max_width": 850,
+                    "collections": [
+                      "walks-wofyn",
+                      "bowls-wofyn",
+                      "beds-wofyn",
+                      "toys-wofyn",
+                      "foods-wofyn"
+                    ],
+                    "font": "accent",
+                    "font_size": "xl",
+                    "letter_spacing": "normal"
+                  },
+                  "blocks": {
+                    "mega-menu-banner-1": {
+                      "type": "_mega-menu-banner",
+                      "settings": {
+                        "link": "",
+                        "open_new_tab": false,
+                        "layout": "content_on_image",
+                        "limit_width": false,
+                        "max_width": 700,
+                        "overlay": false,
+                        "overlay_color": "#00000073",
+                        "subheading": "",
+                        "heading": "Curate Your Set",
+                        "text": "<p>Choose your favorites and save up to 20%.</p>",
+                        "alignment": "left",
+                        "content_position": "bottom",
+                        "heading_size": "lg",
+                        "custom_heading_size": 24,
+                        "text_size": "md",
+                        "label": "",
+                        "button_style": "primary",
+                        "show_icon": false,
+                        "icon": "arrow_right",
+                        "icon_position": "right",
+                        "full_width": false,
+                        "content_gap": 10,
+                        "button_spacing": 30,
+                        "color_scheme": "",
+                        "padding_top": 40,
+                        "padding_bottom": 40,
+                        "padding_left": 40,
+                        "padding_right": 40,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 40,
+                        "padding_bottom_mobile": 40,
+                        "padding_left_mobile": 40,
+                        "padding_right_mobile": 40
+                      },
+                      "blocks": {}
+                    },
+                    "mega-menu-banner-2": {
+                      "type": "_mega-menu-banner",
+                      "settings": {
+                        "link": "",
+                        "open_new_tab": false,
+                        "layout": "content_on_image",
+                        "limit_width": false,
+                        "max_width": 700,
+                        "overlay": false,
+                        "overlay_color": "#00000073",
+                        "subheading": "",
+                        "heading": "Curate Your Set",
+                        "text": "<p>Choose your favorites and save up to 20%.</p>",
+                        "alignment": "left",
+                        "content_position": "bottom",
+                        "heading_size": "lg",
+                        "custom_heading_size": 24,
+                        "text_size": "md",
+                        "label": "",
+                        "button_style": "primary",
+                        "show_icon": false,
+                        "icon": "arrow_right",
+                        "icon_position": "right",
+                        "full_width": false,
+                        "content_gap": 10,
+                        "button_spacing": 30,
+                        "color_scheme": "",
+                        "padding_top": 40,
+                        "padding_bottom": 40,
+                        "padding_left": 40,
+                        "padding_right": 40,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 40,
+                        "padding_bottom_mobile": 40,
+                        "padding_left_mobile": 40,
+                        "padding_right_mobile": 40
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "mega-menu-banner-1",
+                    "mega-menu-banner-2"
+                  ]
+                }
+              },
+              "block_order": [
+                "mega-menu-banners"
+              ]
             },
             "header-logo": {
               "type": "_header-logo",
@@ -286,66 +282,15 @@
             "header-account",
             "header-cart"
           ]
-        },
-        "header-bottom": {
-          "type": "_header-bottom",
-          "static": true,
-          "settings": {
-            "gap": 32,
-            "padding_top": 12,
-            "padding_bottom": 24,
-            "separator": "none"
-          },
-          "blocks": {
-            "header-menu": {
-              "type": "_header-menu",
-              "settings": {
-                "menu": "torvex-main-menu",
-                "gap": 32,
-                "show_dropdown_icon": true,
-                "dropdown_trigger": "hover",
-                "font": "accent",
-                "font_size": "sm",
-                "letter_spacing": "normal",
-                "text_case": "original",
-                "text_color": "",
-                "submenu_font": "body",
-                "submenu_font_size": "md",
-                "submenu_text_case": "original",
-                "submenu_text_color": "",
-                "menu_scroll_step": "1"
-              }
-            },
-            "header-localization": {
-              "type": "_header-localization",
-              "settings": {
-                "dropdown_trigger": "click",
-                "show_country_selector": true,
-                "show_country_name": false,
-                "show_country_flag": false,
-                "show_language_selector": true,
-                "font_size": "sm"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "header-menu",
-            "header-localization"
-          ]
         }
       },
       "settings": {
         "section_width": "page_width",
-        "icon_size": 24,
+        "icon_size": 20,
         "sticky_type": "scroll_up",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-1",
         "header_overlay": false,
-        "transparent_color_scheme": "scheme-3",
-        "layout": "two_rows",
-        "icon_style": "outline",
-        "icon_size_mobile": 20,
-        "sticky_type_two_rows": "scroll_up"
+        "transparent_color_scheme": "scheme-3"
       }
     }
   },
