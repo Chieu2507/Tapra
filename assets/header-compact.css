@@ -94,6 +94,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header__mobile-drawer-header:has(.header__mobile-drawer-back:not([hidden])) { display: flex; }
 }
 .header-top.header-top--compact .header__mobile-drawer-title { font-size: var(--font-body-sm); }
+.header-top.header-top--compact.header-compact--resizing .header__mobile-drawer.component-overlay .header__mobile-drawer-surface { overflow: visible; }
 .header-top.header-top--compact .header__mobile-drawer-back { position: static; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; border: 0; color: var(--heading-color); background: transparent; }
 .header-top.header-top--compact .header__mobile-drawer-back[hidden] { display: none; }
 .header-top.header-top--compact .header__mobile-drawer-close { margin-inline-start: auto; min-width: 44px; min-height: 44px; }

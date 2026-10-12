@@ -20,7 +20,11 @@
         fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
       };
       const measure = () => {
-        if (!root.classList.contains('header-top--menu-open')) return;
+        if (!root.classList.contains('header-top--menu-open')) {
+          root.style.setProperty('--compact-footer-shift', '0px');
+          root.classList.remove('header-compact--resizing');
+          return;
+        }
         const showColumns = window.innerWidth >= 768;
         if (showColumns !== columnsVisible) {
           drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => {
@@ -43,6 +47,7 @@
           // Keep utilities at the animated bottom rather than the target bottom.
           const footerShift = showColumns ? root.getBoundingClientRect().height - targetHeight : 0;
           root.style.setProperty('--compact-footer-shift', `${footerShift}px`);
+          root.classList.toggle('header-compact--resizing', Math.abs(footerShift) > 0.5);
         }
       };
       const choose = summary => {
