@@ -217,7 +217,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 }
 
 /* Search shares the expanded Compact shell and the existing predictive UI. */
-.search-overlay.search-overlay--compact[data-search-overlay] { --overlay-motion-duration: 400ms; --overlay-enter-delay: 600ms; --overlay-exit-duration: 250ms; }
+.search-overlay.search-overlay--compact[data-search-overlay] { --overlay-motion-duration: 400ms; --overlay-enter-delay: 600ms; --overlay-exit-duration: 250ms; --overlay-backdrop-duration: 250ms; }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact { width: min(900px, 100%); height: var(--compact-search-height, 154px); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { z-index: calc(var(--z-modal, 1000) + 1); }
 .search-overlay.search-overlay--compact[data-search-overlay] { z-index: calc(var(--z-modal, 1000) + 2); pointer-events: none; }
