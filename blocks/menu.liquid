@@ -89,6 +89,9 @@
   endif
 
   assign menu_class = 'menu-block menu-block--icon-' | append: menu_icon
+  if block.settings.compact_on_mobile
+    assign menu_class = menu_class | append: ' menu-block--compact-mobile'
+  endif
   if block.settings.direction == 'horizontal'
     assign menu_class = menu_class | append: ' menu-block--horizontal'
   endif
@@ -187,6 +190,14 @@
 </nav>
 
 {% stylesheet %}
+  @media (max-width: 767.98px) {
+    .menu-block--compact-mobile .menu-block__heading { padding-block: 10px; }
+    .menu-block--compact-mobile:first-child .menu-block__heading { padding-block-start: 0; }
+    .menu-block--compact-mobile:last-child .menu-block__heading { padding-block-end: 0; }
+    .menu-block--compact-mobile:last-child .menu-block__details { border-block-end: 0; }
+    .menu-block--compact-mobile .menu-block__content-inner { padding-block-end: 0; }
+    .menu-block--compact-mobile .menu-block__link { padding-block: 2px; }
+  }
   .menu-block__heading.heading-custom { font-size: var(--menu-block-heading-custom-size, var(--font-heading-custom)); }
   .menu-block__link { font-weight: var(--menu-block-link-weight, 400); }
   .menu-block--horizontal .menu-block__list { display: flex; flex-wrap: wrap; }
@@ -200,6 +211,7 @@
   "tag": null,
   "blocks": [{ "type": "_menu-link" }],
   "settings": [
+    { "type": "checkbox", "id": "compact_on_mobile", "label": "Compact spacing on mobile", "default": false },
     { "type": "checkbox", "id": "show_heading", "label": "Show heading", "default": true },
     { "type": "select", "id": "direction", "label": "Direction", "options": [{"value":"vertical","label":"Vertical"},{"value":"horizontal","label":"Horizontal"}], "default":"vertical" },
     { "type": "select", "id": "link_weight", "label": "Link font weight", "options": [{"value":"400","label":"400"},{"value":"500","label":"500"}], "default":"400" },

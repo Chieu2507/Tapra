@@ -64,7 +64,8 @@
                     "html_tag": "h2",
                     "menu_size": "sm",
                     "menu_color": "#ffffff",
-                    "open_on_mobile": false
+                    "open_on_mobile": false,
+                    "compact_on_mobile": true
                   },
                   "blocks": {
                     "link-0": {
@@ -124,7 +125,8 @@
                     "html_tag": "h2",
                     "menu_size": "sm",
                     "menu_color": "#ffffff",
-                    "open_on_mobile": true
+                    "open_on_mobile": true,
+                    "compact_on_mobile": true
                   },
                   "blocks": {
                     "link-0": {
@@ -168,7 +170,8 @@
                     "html_tag": "h2",
                     "menu_size": "sm",
                     "menu_color": "#ffffff",
-                    "open_on_mobile": false
+                    "open_on_mobile": false,
+                    "compact_on_mobile": true
                   },
                   "blocks": {
                     "link-0": {
