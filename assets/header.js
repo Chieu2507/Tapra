@@ -37,7 +37,9 @@
       else overlay?.close({ restoreFocus });
     }
 
-    if (!isOpen) {
+    // Keep Compact content intact while the shared overlay fades out.
+    // Its close event calls this again after the panel is hidden.
+    if (!isOpen && !(container.dataset.headerStyle === 'compact' && drawer?.dataset.state === 'closing')) {
       closeLocalizationDialogs(header);
       drawer?.classList.remove('header__mobile-drawer--submenu-active');
       drawer?.querySelectorAll('.header__mobile-drawer-item.is-mobile-submenu-active').forEach((item) => {
