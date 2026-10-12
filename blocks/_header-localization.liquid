@@ -182,11 +182,12 @@
 
   /* The panel is visually aligned to the header's lower edge. This bridge keeps
      the complete path from its trigger to that edge inside the hover boundary. */
-  .header-localization__details:is([open], .is-submenu-closing)::after {
+  .header-top .header-localization__details:is([open], .is-submenu-closing)::after {
     position: absolute;
     inset-block-start: 100%;
-    inset-inline-start: 0;
-    width: 250px;
+    inset-inline-start: auto;
+    left: var(--header-localization-bridge-left,0px);
+    width: var(--header-localization-bridge-width,100%);
     height: var(--header-submenu-offset, 0px);
     content: '';
   }

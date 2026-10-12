@@ -336,6 +336,11 @@
     const left = Math.max(viewportLeft + margin, Math.min(details.getBoundingClientRect().left, viewportLeft + viewportWidth - margin - panelRect.width));
     panel.style.left = `${left - parentRect.left - (parent.clientLeft || 0)}px`;
     panel.style.right = 'auto';
+    const detailsRect = details.getBoundingClientRect();
+    const bridgeLeft = Math.min(0, left - detailsRect.left);
+    const bridgeRight = Math.max(detailsRect.width, left + panelRect.width - detailsRect.left);
+    details.style.setProperty('--header-localization-bridge-left', `${bridgeLeft}px`);
+    details.style.setProperty('--header-localization-bridge-width', `${bridgeRight - bridgeLeft}px`);
   };
 
   const synchronizeSubmenuOffsets = (header) => {
