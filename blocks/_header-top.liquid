@@ -37,6 +37,9 @@
     assign header_transparent_scheme = settings.overlay_color_scheme.id
   endif
   assign header_transparent_scheme = header_transparent_scheme | default: 'scheme-1' | handleize
+  if section.settings.header_style == 'compact'
+    assign header_transparent_scheme = header_scheme
+  endif
   if header_overlay_enabled
     assign header_top_class = header_top_class | append: ' header-top--transparent-scheme section-color-scope ' | append: header_transparent_scheme
   endif
