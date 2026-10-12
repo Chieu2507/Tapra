@@ -926,7 +926,8 @@
     padding-bottom: 1.8rem;
     border-top: 1px solid var(--border-color);
 
-    background: var(--background-color);
+    background: var(--background-component-color);
+    color: var(--body-color);
     box-shadow: 0 -12px 36px rgb(0 0 0 / 14%);
     opacity: 0;
     pointer-events: none;
