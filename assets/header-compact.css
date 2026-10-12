@@ -132,3 +132,5 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-search--type-icon_with_text .icon { display: inline-flex; }
 .header-top.header-top--compact .header-cart .icon { position: relative; }
 .header-top.header-top--compact .header-cart .icon > .header-cart__count { inset-block-start: -6px; inset-inline-end: -6px; }
+.header-top.header-top--compact .header__column--right > .header-search { max-width: min(120px, 30vw); }
+.header-top.header-top--compact .header-search .header-action__label { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
