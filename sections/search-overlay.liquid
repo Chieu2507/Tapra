@@ -107,6 +107,7 @@
     controller: null,
     placeholderTimer: null,
     opener: null,
+    compactObserver: null,
   };
 
   const getOverlay = (root = document) => {
@@ -181,15 +182,40 @@
     if (closeButton && closeParent && closeButton.parentElement !== closeParent) closeParent.append(closeButton);
     if (compact) {
       const row = headerTop.querySelector('.header__row') || headerTop;
+      const rect = headerTop.getBoundingClientRect();
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
-      overlay.style.setProperty('--compact-search-close-top', `${headerTop.getBoundingClientRect().top + row.offsetHeight / 2 - 22}px`);
+      overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
+      const toggleRect = headerTop.querySelector('.header-menu-toggle')?.getBoundingClientRect();
+      if (toggleRect) {
+        overlay.style.setProperty('--compact-search-close-top', `${toggleRect.top}px`);
+        overlay.style.setProperty('--compact-search-close-left', `${toggleRect.left}px`);
+      }
+      const panel = overlay.querySelector('.search-overlay__panel');
+      if (panel && !overlay.hidden) {
+        const panelRect = panel.getBoundingClientRect();
+        headerTop.style.setProperty('--compact-search-height', `${64 + panelRect.height + 1}px`);
+        overlay.style.setProperty('--compact-search-clip-right', `${Math.max(0, panelRect.width - rect.width + 2)}px`);
+        overlay.style.setProperty('--compact-search-clip-bottom', `${Math.max(0, panelRect.bottom - rect.bottom + 1)}px`);
+      }
     }
     const headerStyles = window.getComputedStyle(headerTop);
     overlay.style.setProperty('--search-overlay-padding-block-start', headerStyles.paddingTop);
     overlay.style.setProperty('--search-overlay-padding-block-end', headerStyles.paddingBottom);
   };
 
+  const watchCompactGeometry = (header, overlay) => {
+    state.compactObserver?.disconnect();
+    state.compactObserver = null;
+    const headerTop = header?.querySelector('.header-top--compact');
+    if (!headerTop) return;
+    const observer = new ResizeObserver(() => synchronizePanelPadding(header, overlay));
+    [headerTop, headerTop.querySelector('.header__row'), overlay.querySelector('.search-overlay__panel')].filter(Boolean).forEach(element => observer.observe(element));
+    state.compactObserver = observer;
+  };
+
   const resetSearchState = () => {
+    state.compactObserver?.disconnect();
+    state.compactObserver = null;
     stopPlaceholderRotation();
     if (state.input) state.input.value = '';
     resetPlaceholder(state.input);
@@ -235,6 +261,8 @@
     document.dispatchEvent(new CustomEvent('search-overlay:open', { detail: { header } }));
     // Compact's bar grows when Search opens; measure its final presentation.
     synchronizePanelPadding(header, overlay);
+    header?.querySelector('.header-top--compact')?.classList.remove('header-compact--fast');
+    watchCompactGeometry(header, overlay);
   };
 
   const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[character]);
