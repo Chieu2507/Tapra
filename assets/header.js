@@ -207,6 +207,9 @@
     closeLocalizationDialogs(header, active.details);
     header.querySelectorAll('details[open], details.is-submenu-closing').forEach((details) => {
       if (details === active.details) return;
+      // Localization is a child surface of the open menu; retain its category.
+      if (active.menu && active.details?.closest('[data-header-mobile-drawer]') &&
+          details.matches('[data-mobile-drawer-details], [data-mobile-drawer-submenu-details]')) return;
       if (details.classList.contains('header-localization__details')) {
         if ((details.closest('[data-header-mobile-drawer]') && isMobileMenuViewport()) || window.innerWidth <= 767 || getLocalizationDialog(details)?.dataset.state !== 'closed') closeLocalizationSheet(details);
         else closeHeaderDetails(details);

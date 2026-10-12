@@ -67,6 +67,11 @@
         measure();
       }, options);
       document.addEventListener('pointerdown', event => {
+        const insideLocalization = [...drawer.querySelectorAll('[data-localization-dialog-id]')].some(details => {
+          const dialog = document.getElementById(details.dataset.localizationDialogId);
+          return dialog && !dialog.hidden && dialog.contains(event.target);
+        });
+        if (insideLocalization) return;
         if (root.classList.contains('header-top--menu-open') && !root.contains(event.target)) {
           window.ThemeOverlay?.get(drawer)?.close({ restoreFocus: true });
         }
