@@ -235,6 +235,7 @@
   {% if block.settings.background_color != blank %}
     --email-signup-background-color: {{ block.settings.background_color | escape }};
   {% endif %}
+  {% if block.settings.input_background_color != blank %}--email-signup-input-background: {{ block.settings.input_background_color | escape }};{% endif %}
   --email-signup-button-padding-top: {{ button_padding_top }}px;
   --email-signup-button-padding-bottom: {{ button_padding_bottom }}px;
   --email-signup-button-padding-left: {{ button_padding_left }}px;
@@ -254,7 +255,8 @@
       direction_mobile: 'row',
       wrap_mobile: 'nowrap',
       align_items_mobile: email_signup_mobile_row_align_items,
-      justify_content_mobile: 'flex-start'
+      justify_content_mobile: 'flex-start',
+      gap_mobile: gap_mobile
     %}
   {% endif %}
 {% endcapture %}
@@ -450,7 +452,7 @@
   .email-signup-block .form__control--input:not([type='checkbox']):not([type='radio']):not([type='hidden']),
   .email-signup-block--layout-input_with_button .email-signup-block__input-wrap {
     border-radius: var(--input-radius) !important;
-    background-color: var(--email-signup-background-color, var(--input-background-color));
+    background-color: var(--email-signup-input-background, var(--input-background-color));
   }
 
   .email-signup-block--layout-horizontal .form__fields {
@@ -1061,6 +1063,7 @@
       "id": "background_color",
       "label": "t:labels.background_color"
     },
+    { "type": "color", "alpha": true, "id": "input_background_color", "label": "Input background color" },
     {"type": "select", "id": "input_style", "label": "Input style", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "solid", "label": "Solid"}, {"value": "outline", "label": "Outline"}], "default": "inherit"},
     {"type": "select", "id": "corner_radius", "label": "t:labels.corner_radius", "options": [{"value": "inherit", "label": "t:options.radius_preset.inherit"}, {"value": "square", "label": "t:options.radius_preset.square"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "pill", "label": "t:options.radius_preset.pill"}], "default": "inherit"},
     {

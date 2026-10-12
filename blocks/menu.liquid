@@ -112,6 +112,7 @@
   >{{ heading_content }}</{{ heading_tag }}>
 {% endcapture %}
 {% assign heading_markup = heading_markup | strip %}
+{% if block.settings.show_heading == false and collapse_menu_on_mobile == false %}{% assign heading_markup = blank %}{% endif %}
 
 {% capture menu_markup %}
   {% if block.blocks.size > 0 and has_menu == false %}
@@ -145,7 +146,7 @@
   <span class="menu-block__toggle-icon menu-block__toggle-icon--{{ menu_icon }}" aria-hidden="true">
     {% if menu_icon == 'plus' %}
       <svg viewBox="0 0 24 24" fill="none" focusable="false">
-        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-linecap="round" stroke-width="var(--icon-thickness)" />
+        <path d="M5 12h14" stroke="currentColor" stroke-linecap="round" stroke-width="var(--icon-thickness)" /><path class="menu-block__plus-vertical" d="M12 5v14" stroke="currentColor" stroke-linecap="round" stroke-width="var(--icon-thickness)" />
       </svg>
     {% else %}
       <svg viewBox="0 0 24 24" fill="none" focusable="false">
@@ -189,6 +190,8 @@
   .menu-block__heading.heading-custom { font-size: var(--menu-block-heading-custom-size, var(--font-heading-custom)); }
   .menu-block__link { font-weight: var(--menu-block-link-weight, 400); }
   .menu-block--horizontal .menu-block__list { display: flex; flex-wrap: wrap; }
+  .menu-block .menu-block__details[open] .menu-block__toggle-icon--plus { transform: none; }
+  .menu-block .menu-block__details[open] .menu-block__plus-vertical { opacity: 0; }
 {% endstylesheet %}
 
 {% schema %}
@@ -197,6 +200,7 @@
   "tag": null,
   "blocks": [{ "type": "_menu-link" }],
   "settings": [
+    { "type": "checkbox", "id": "show_heading", "label": "Show heading", "default": true },
     { "type": "select", "id": "direction", "label": "Direction", "options": [{"value":"vertical","label":"Vertical"},{"value":"horizontal","label":"Horizontal"}], "default":"vertical" },
     { "type": "select", "id": "link_weight", "label": "Link font weight", "options": [{"value":"400","label":"400"},{"value":"500","label":"500"}], "default":"400" },
     { "type": "checkbox", "id": "open_on_mobile", "label": "Open on mobile", "default": false },
