@@ -303,9 +303,9 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   border: 0;
   box-shadow: none;
 }
-.search-overlay--compact[data-state='open'] .header-menu-toggle__compact-icon i { top: 6px; right: 1px; width: 20px; }
-.search-overlay--compact[data-state='open'] .header-menu-toggle__compact-icon i:first-child { transform: rotate(45deg); }
-.search-overlay--compact[data-state='open'] .header-menu-toggle__compact-icon i:last-child { transform: rotate(-45deg); }
+.search-overlay--compact[data-search-overlay][data-state='open'] .header-menu-toggle__compact-icon i { top: 6px; right: 1px; width: 20px; }
+.search-overlay--compact[data-search-overlay][data-state='open'] .header-menu-toggle__compact-icon i:first-child { transform: rotate(45deg); }
+.search-overlay--compact[data-search-overlay][data-state='open'] .header-menu-toggle__compact-icon i:last-child { transform: rotate(-45deg); }
 .search-overlay--compact > .header-menu-toggle:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__results { gap: 20px; padding-bottom: 0; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__tabs { gap: 16px; flex-wrap: wrap; }
