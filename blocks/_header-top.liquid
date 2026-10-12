@@ -29,6 +29,9 @@
   if section.settings.header_style == 'compact'
     assign header_top_class = header_top_class | append: ' header-top--compact'
     assign header_sticky_type = 'always'
+    if template.name == 'index'
+      assign header_overlay_enabled = true
+    endif
   endif
   assign header_transparent_scheme = section.settings.transparent_color_scheme | default: settings.overlay_color_scheme | default: section.settings.color_scheme | default: 'scheme-1'
   if section.settings.transparent_color_scheme.id != blank

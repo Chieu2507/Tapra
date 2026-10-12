@@ -198,7 +198,7 @@
         }
       ],
       "default": "none",
-      "visible_if": "{{ section.settings.layout != 'two_rows' }}"
+      "visible_if": "{{ section.settings.layout != 'two_rows' and section.settings.header_style != 'compact' }}"
     },
     {
       "type": "select",
@@ -237,14 +237,14 @@
       "label": "t:labels.transparent_header_section",
       "info": "t:info.header_overlay",
       "default": false,
-      "visible_if": "{{ section.settings.layout != 'two_rows' }}"
+      "visible_if": "{{ section.settings.layout != 'two_rows' and section.settings.header_style != 'compact' }}"
     },
     {
       "type": "color_scheme",
       "id": "transparent_color_scheme",
       "label": "Transparent color scheme",
       "default": "scheme-1",
-      "visible_if": "{{ section.settings.header_overlay }}"
+      "visible_if": "{{ section.settings.header_overlay and section.settings.header_style != 'compact' }}"
     }
   ],
   "presets": [

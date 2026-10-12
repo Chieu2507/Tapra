@@ -290,7 +290,7 @@
         "icon_size": 20,
         "sticky_type": "scroll_up",
         "color_scheme": "scheme-1",
-        "header_overlay": true,
+        "header_overlay": false,
         "transparent_color_scheme": "scheme-3",
         "header_style": "compact"
       }
