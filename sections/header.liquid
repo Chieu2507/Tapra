@@ -187,6 +187,27 @@
       "visible_if": "{{ section.settings.layout != 'two_rows' }}"
     },
     {
+      "type": "select",
+      "id": "sticky_type_two_rows",
+      "label": "t:labels.type",
+      "options": [
+        {
+          "value": "always",
+          "label": "t:options.sticky_type.always"
+        },
+        {
+          "value": "scroll_up",
+          "label": "t:options.sticky_type.scroll_up"
+        },
+        {
+          "value": "none",
+          "label": "t:options.sticky_type.none"
+        }
+      ],
+      "default": "scroll_up",
+      "visible_if": "{{ section.settings.layout == 'two_rows' }}"
+    },
+    {
       "type": "header",
       "content": "t:general.appearance"
     },
@@ -210,27 +231,6 @@
       "label": "Transparent color scheme",
       "default": "scheme-1",
       "visible_if": "{{ section.settings.header_overlay }}"
-    },
-    {
-      "type": "select",
-      "id": "sticky_type_two_rows",
-      "label": "t:labels.sticky_type",
-      "options": [
-        {
-          "value": "always",
-          "label": "Always"
-        },
-        {
-          "value": "scroll_up",
-          "label": "On scroll up"
-        },
-        {
-          "value": "none",
-          "label": "None"
-        }
-      ],
-      "default": "scroll_up",
-      "visible_if": "{{ section.settings.layout == 'two_rows' }}"
     }
   ],
   "presets": [
