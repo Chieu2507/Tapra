@@ -182,6 +182,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 /* Keep the reveal opacity separate from the navigation's active color. */
 .header-top.header-top--compact :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary) { color: color-mix(in srgb, var(--heading-color) 45%, transparent); }
 .header-top.header-top--compact :is(.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary):is(:hover, :focus-visible),
+.header-top.header-top--compact .header__mobile-drawer-item > a.is-compact-menu-active,
 .header-top.header-top--compact .header__mobile-drawer-details[open] > summary { color: var(--heading-color); background: transparent; }
 .header-top.header-top--compact .header__mobile-drawer-submenu a { opacity: .8; transition: opacity 200ms, color 200ms, transform 300ms var(--compact-ease); }
 .header-top.header-top--compact .header__mobile-drawer-submenu a:is(:hover, :focus-visible) { opacity: 1; transform: translateX(4px); background: transparent; }

@@ -10,6 +10,7 @@
       const drawer = root.querySelector('[data-header-mobile-drawer]');
       if (!drawer) return;
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
+      const navigation = [...drawer.querySelectorAll('.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary')];
       drawer.querySelectorAll('.header__mobile-drawer-list > li').forEach((item, index) => item.style.setProperty('--compact-item-index', index));
       let columnsVisible = window.innerWidth >= 768;
       let fastTimer;
@@ -39,10 +40,16 @@
       };
       const choose = summary => {
         if (!root.classList.contains('header-top--menu-open') || window.innerWidth < 768) return;
-        if (!summary.parentElement.open) { followPanel(); summary.click(); }
+        navigation.forEach(control => control.classList.toggle('is-compact-menu-active', control === summary));
+        if (summary.tagName === 'SUMMARY') {
+          if (!summary.parentElement.open) { followPanel(); summary.click(); }
+        } else {
+          followPanel();
+          summaries.forEach(control => { control.parentElement.open = false; });
+        }
         measure();
       };
-      summaries.forEach(summary => {
+      navigation.forEach(summary => {
         summary.addEventListener('pointerenter', () => choose(summary), options);
         summary.addEventListener('focus', () => choose(summary), options);
       });
