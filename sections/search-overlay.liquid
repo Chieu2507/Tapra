@@ -108,6 +108,9 @@
     placeholderTimer: null,
     opener: null,
     compactObserver: null,
+    compactToggle: null,
+    compactToggleSlot: null,
+    compactToggleControls: null,
   };
 
   const getOverlay = (root = document) => {
@@ -181,11 +184,26 @@
     const closeParent = compact ? overlay : overlay.querySelector('[data-search-overlay-form]');
     if (closeButton && closeParent && closeButton.parentElement !== closeParent) closeParent.append(closeButton);
     if (compact) {
+      const toggle = state.compactToggle || headerTop.querySelector('[data-header-menu-toggle]');
+      if (toggle && !state.compactToggleSlot) {
+        const slot = document.createElement('span');
+        slot.className = 'header-search-toggle-slot';
+        slot.setAttribute('aria-hidden', 'true');
+        toggle.before(slot);
+        state.compactToggle = toggle;
+        state.compactToggleSlot = slot;
+        state.compactToggleControls = toggle.getAttribute('aria-controls');
+        overlay.append(toggle);
+        toggle.setAttribute('data-overlay-close', '');
+        toggle.setAttribute('aria-controls', overlay.id);
+        toggle.setAttribute('aria-label', closeButton.getAttribute('aria-label'));
+        toggle.setAttribute('aria-expanded', 'true');
+      }
       const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
       overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
-      const toggleRect = headerTop.querySelector('.header-menu-toggle')?.getBoundingClientRect();
+      const toggleRect = state.compactToggleSlot?.getBoundingClientRect();
       if (toggleRect) {
         overlay.style.setProperty('--compact-search-close-top', `${toggleRect.top}px`);
         overlay.style.setProperty('--compact-search-close-left', `${toggleRect.left}px`);
@@ -216,6 +234,16 @@
   const resetSearchState = () => {
     state.compactObserver?.disconnect();
     state.compactObserver = null;
+    if (state.compactToggle) {
+      state.compactToggleSlot?.replaceWith(state.compactToggle);
+      state.compactToggle.removeAttribute('data-overlay-close');
+      state.compactToggle.setAttribute('aria-controls', state.compactToggleControls);
+      state.compactToggle.setAttribute('aria-label', 'Open menu');
+      state.compactToggle.setAttribute('aria-expanded', 'false');
+      state.compactToggle = null;
+      state.compactToggleSlot = null;
+      state.compactToggleControls = null;
+    }
     stopPlaceholderRotation();
     if (state.input) state.input.value = '';
     resetPlaceholder(state.input);

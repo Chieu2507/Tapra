@@ -717,6 +717,7 @@
       const container = toggle.closest('.header-top') || header;
 
       toggle.addEventListener('click', (event) => {
+        if (toggle.closest('.search-overlay--compact')) return;
         const isOpen = !container.classList.contains('header-top--menu-open');
         if (isOpen) closeHeaderSurfaces(header, { menu: true });
         setHeaderMenuState(header, isOpen, { restoreFocus: isOpen || event.detail === 0 });
