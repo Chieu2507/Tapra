@@ -259,7 +259,7 @@
         }
         if (event.key !== 'Tab') return;
         const controls = [...dialog.querySelectorAll('button, a[href], input:not([type="hidden"]), select, textarea, iframe, [tabindex]')]
-          .filter((element) => !element.disabled && element.tabIndex >= 0 && !element.closest('[inert], [hidden], [aria-hidden="true"]') && element.getClientRects().length);
+          .filter((element) => !element.disabled && element.tabIndex >= 0 && !element.closest('[inert], [hidden], [aria-hidden="true"]') && element.getClientRects().length && getComputedStyle(element).visibility !== 'hidden');
         const externalClose = dialog.dataset.externalCloseId && document.getElementById(dialog.dataset.externalCloseId);
         if (externalClose?.getClientRects().length) controls.push(externalClose);
         const first = controls[0];
