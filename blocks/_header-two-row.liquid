@@ -1,9 +1,8 @@
 {% doc %}
-  Fixed two-row header composition. Reuses the Header controller through its
-  existing root attributes. Role slots are static; commerce state stays native.
+  Top row for the section-owned two-row header. Fixed logo, search and commerce
+  slots retain their existing controllers. The sibling Bottom owns navigation.
 {% enddoc %}
 {% liquid
-  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1' | handleize
   assign container_width = 'page-width'
   if section.settings.section_width == 'full_width'
     assign container_width = 'full-width'
