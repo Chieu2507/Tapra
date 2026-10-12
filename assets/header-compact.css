@@ -201,7 +201,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-submenu a { opacity: .8; transition: opacity 200ms, color 200ms, transform 300ms var(--compact-ease); }
 .header-top.header-top--compact .header__mobile-drawer-submenu a:is(:hover, :focus-visible) { opacity: 1; transform: translateX(4px); background: transparent; }
 @media (min-width: 768px) {
-  .header-top.header-top--compact .header__mobile-drawer-details > .header__mobile-drawer-submenu { animation: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(8px); transition: opacity 250ms, transform 300ms var(--compact-ease), visibility 0s 250ms; }
+  .header-top.header-top--compact .header__mobile-drawer-details > .header__mobile-drawer-submenu { animation: none; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(20px); transition: opacity 300ms, transform 300ms var(--compact-ease), visibility 0s 300ms; }
   .header-top.header-top--compact .header__mobile-drawer-details:not([open]) > .header__mobile-drawer-submenu { display: grid; }
   .header-top.header-top--compact .header__mobile-drawer-details[open] > .header__mobile-drawer-submenu { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition: opacity 400ms 80ms, transform 500ms 80ms var(--compact-ease), visibility 0s; }
 }
