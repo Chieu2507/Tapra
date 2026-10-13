@@ -7,16 +7,19 @@
   background: transparent;
   transform: none;
 }
-body:has(.header-top.header-top--compact:not([data-header-overlap-first-section])) #MainContent { padding-top: 84px; }
+body:has(.header-top.header-top--compact:not([data-header-overlap-first-section])) #MainContent { padding-top: calc(var(--header-height, 50px) + 34px); }
 .header-top.header-top--compact {
   --compact-ease: cubic-bezier(.76, 0, .24, 1);
   --compact-brand-gap: 32px;
+  --compact-padding-top: var(--header-top-padding-top, 12px);
+  --compact-padding-bottom: var(--header-top-padding-bottom, 12px);
+  --compact-rest-height: calc(50px + var(--compact-padding-top) + var(--compact-padding-bottom));
   --header-top-gap: var(--header-top-gap-compact, 0px);
   width: min(var(--compact-width, 236px), 100%);
-  height: 50px;
+  height: var(--compact-rest-height);
   overflow: hidden;
   margin-inline: auto;
-  padding: 0;
+  padding: var(--compact-padding-top) 0 var(--compact-padding-bottom);
   border: 0;
   border-radius: var(--radius-24);
   background: color-mix(in srgb, var(--background-color) 92%, transparent);
@@ -80,7 +83,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   width: 100%;
   max-width: none;
   height: auto;
-  max-height: calc(100dvh - 100px - env(safe-area-inset-top, 0px));
+  max-height: calc(100dvh - 100px - var(--compact-padding-top) - var(--compact-padding-bottom) - env(safe-area-inset-top, 0px));
   min-height: 0;
   margin: 0;
   border: 0;
@@ -95,6 +98,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-title,
 .header-top.header-top--compact .header__mobile-drawer-close { display: none; }
 @media (max-width: 767.98px) {
+  .header-top.header-top--compact { --compact-padding-top: var(--header-top-padding-top-mobile, var(--header-top-padding-top, 12px)); --compact-padding-bottom: var(--header-top-padding-bottom-mobile, var(--header-top-padding-bottom, 12px)); }
   .header-top.header-top--compact .header__mobile-drawer-header:has(.header__mobile-drawer-back:not([hidden])) { display: flex; }
 }
 .header-top.header-top--compact .header__mobile-drawer-title { font-size: var(--font-body-sm); }
@@ -263,7 +267,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__container { padding: 0 14px 0 26px; }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__mobile-drawer { display: none; }
 /* Start the return halfway through the exit fade, without speeding up the fade. */
-body:has(.search-overlay--compact[data-state='closing']) .header-top.header-top--compact { width: min(var(--compact-width, 236px), 100%); height: 50px; border-radius: var(--radius-24); transition-delay: 125ms; }
+body:has(.search-overlay--compact[data-state='closing']) .header-top.header-top--compact { width: min(var(--compact-width, 236px), 100%); height: var(--compact-rest-height); border-radius: var(--radius-24); transition-delay: 125ms; }
 body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .header__row { height: 48px; transition-delay: 125ms; }
 body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .header__container { padding: 0 6px 0 16px; transition-delay: 125ms; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel {
@@ -319,7 +323,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 @media (min-width: 768px) {
   .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) {
     width: min(var(--compact-width, 236px), 100%);
-    height: 50px;
+    height: var(--compact-rest-height);
     border-radius: var(--radius-24);
     transition: width 550ms var(--compact-ease), height 550ms var(--compact-ease), border-radius 550ms var(--compact-ease);
   }

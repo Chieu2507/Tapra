@@ -79,7 +79,8 @@
         }
         const surface = drawer.querySelector('.header__mobile-drawer-surface');
         if (surface) {
-          const targetHeight = 64 + surface.offsetHeight + 2;
+          const shellStyle = getComputedStyle(root);
+          const targetHeight = 64 + surface.offsetHeight + parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) + parseFloat(shellStyle.borderTopWidth) + parseFloat(shellStyle.borderBottomWidth);
           root.style.setProperty('--compact-shell-height', `${targetHeight}px`);
           // The content adopts its new height immediately; the shell animates.
           // Keep utilities at the animated bottom rather than the target bottom.

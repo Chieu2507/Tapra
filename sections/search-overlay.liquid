@@ -208,7 +208,9 @@
       const panel = overlay.querySelector('.search-overlay__panel');
       if (panel && !overlay.hidden) {
         const panelRect = panel.getBoundingClientRect();
-        headerTop.style.setProperty('--compact-search-height', `${64 + panelRect.height + 1}px`);
+        const shellStyle = getComputedStyle(headerTop);
+        const shellPadding = parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom);
+        headerTop.style.setProperty('--compact-search-height', `${64 + panelRect.height + shellPadding + 1}px`);
         overlay.style.setProperty('--compact-search-clip-right', `${Math.max(0, panelRect.width - rect.width + 2)}px`);
         overlay.style.setProperty('--compact-search-clip-bottom', `${Math.max(0, panelRect.bottom - rect.bottom + 1)}px`);
       }

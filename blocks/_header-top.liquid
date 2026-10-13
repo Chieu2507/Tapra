@@ -375,8 +375,7 @@
     },
     {
       "type": "header",
-      "content": "t:general.padding",
-      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+      "content": "t:general.padding"
     },
     {
       "type": "range",
@@ -386,8 +385,7 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12,
-      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+      "default": 12
     },
     {
       "type": "range",
@@ -397,15 +395,13 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12,
-      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+      "default": 12
     },
     {
       "type": "checkbox",
       "id": "customize_mobile_padding",
       "label": "t:labels.customize_mobile_padding",
-      "default": true,
-      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+      "default": true
     },
     {
       "type": "range",
@@ -416,7 +412,7 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
     },
     {
       "type": "range",
@@ -427,7 +423,7 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
     }
   ],
   "presets": [
