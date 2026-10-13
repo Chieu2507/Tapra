@@ -1,4 +1,4 @@
-{% comment %}Gallery content and layout are composed through editable blocks; section settings own the full-width background.{% endcomment %}
+{% comment %}Gallery content and layout are composed through editable blocks; section settings own the full-width background and the header keeps its independent container.{% endcomment %}
 {% liquid
   assign alignment = section.settings.alignment | default: 'left'
   assign flex_align = 'start'
