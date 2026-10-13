@@ -58,13 +58,6 @@
     transition-property: background-color;
   }
 
-  .header[data-sticky-type='top_header_only'],
-  .header[data-sticky-type='bottom_header_only'] {
-    position: sticky;
-    top: 0;
-    z-index: var(--z-drawer, 200);
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .header,
     .header-top {
