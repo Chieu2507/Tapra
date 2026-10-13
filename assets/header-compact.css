@@ -28,7 +28,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 }
 .header-top.header-top--compact.header-top--separator-line { border: 1px solid color-mix(in srgb, var(--border-color) 80%, var(--heading-color) 20%); }
 .header-top.header-top--compact.header-top--separator-shadow { box-shadow: 0 12px 40px rgb(from var(--shadow-color) r g b / 0.32); }
-.header-top.header-top--compact.header-top--menu-open { width: min(900px, 100%); height: var(--compact-shell-height, 50px); }
+.header-top.header-top--compact.header-top--menu-open { width: min(var(--compact-open-width, 900px), 100%); height: var(--compact-shell-height, 50px); }
 .header-top.header-top--compact.header-top--menu-open { border-radius: 26px; }
 .header-top.header-top--compact.header-compact--fast { transition: width 600ms var(--compact-ease), height 350ms var(--compact-ease), border-radius 600ms var(--compact-ease); }
 .header-top.header-top--compact .header__container { width: 100%; padding: 0 6px 0 16px; transition: padding 600ms var(--compact-ease); }
@@ -64,7 +64,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   visibility: visible;
   pointer-events: auto;
   height: auto;
-  width: min(898px, calc(100vw - 26px));
+  width: min(calc(var(--compact-open-width, 900px) - 2px), calc(100vw - 26px));
   --background-color: inherit;
   --body-color: inherit;
   --heading-color: inherit;
@@ -157,7 +157,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-footer { display: none; }
 
 @media (scripting: none) {
-  .header-top.header-top--compact { width: min(900px, 100%); }
+  .header-top.header-top--compact { width: min(var(--compact-open-width, 900px), 100%); }
   .header-top.header-top--compact .header__blocks { display: block; }
   .header-top.header-top--compact .header-menu { display: block !important; }
   .header-top.header-top--compact .header-menu-toggle { display: none; }
@@ -244,7 +244,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 
 /* Search shares the expanded Compact shell and the existing predictive UI. */
 .search-overlay.search-overlay--compact[data-search-overlay] { --overlay-motion-duration: 400ms; --overlay-enter-delay: 400ms; --overlay-exit-duration: 250ms; --overlay-backdrop-duration: 250ms; }
-body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact { width: min(900px, 100%); height: var(--compact-search-height, 154px); }
+body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact { width: min(var(--compact-open-width, 900px), 100%); height: var(--compact-search-height, 154px); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { z-index: calc(var(--z-modal, 1000) + 1); }
 .search-overlay.search-overlay--compact[data-search-overlay] { z-index: calc(var(--z-modal, 1000) + 2); pointer-events: none; }
 /* Share one stacking context: the full backdrop sits below the rounded header,
@@ -272,7 +272,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   position: fixed;
   z-index: calc(var(--z-modal, 1000) + 2);
   inset: var(--search-overlay-top) auto auto var(--compact-search-left);
-  width: min(var(--compact-search-width, 898px), calc(100vw - 26px));
+  width: min(var(--compact-search-width, calc(var(--compact-open-width, 900px) - 2px)), calc(100vw - 26px));
   margin: 0;
   max-height: calc(100dvh - var(--search-overlay-top) - 16px);
   padding: 0;
