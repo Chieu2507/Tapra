@@ -1,3 +1,8 @@
+{% doc %}
+  Renders a Gallery image as a social overlay or an editable post card.
+  Post content is merchant-authored, including displayed likes; it is not a live Instagram feed.
+  Image, profile, badges and surface settings remain independent of the owning Gallery layout.
+{% enddoc %}
 {% capture effective_overlay %}{% render 'overlay-background', overlay_settings: block.settings, color_id: 'overlay_background', enabled_id: 'enable_overlay', style_id: 'background_overlay_style' %}{% endcapture %}
 {% assign effective_overlay = effective_overlay | strip %}
 {% liquid
@@ -6,6 +11,9 @@
   assign image_radius = 'var(--media-radius, 0px)'
   if block.settings.corner_radius contains 'radius_'
     assign image_radius = block.settings.corner_radius | replace: 'radius_', 'var(--radius-' | append: ', 0px)'
+  endif
+  if block.settings.corner_radius == 'custom'
+    assign image_radius = block.settings.custom_corner_radius | default: 18 | append: 'px'
   endif
   assign image_sizes = '(min-width: 768px) 25vw, 50vw'
   if section.type == 'gallery-carousel' and section.settings.section_width == 'page_width'
@@ -57,8 +65,32 @@
   endif
 %}
 
-<div data-marquee-interactive class="gallery-image gallery-image--overlay-{{ show_overlay }} gallery-image--style-{{ overlay_style }}" style="--gallery-image-radius: {{ image_radius }};     --gallery-social-background: {{ social_background | escape }}; --gallery-social-color: {{ social_color | escape }}; --gallery-overlay-background: {{ overlay_background | escape }}; --gallery-tag-font-size: {{ tag_font_size_token }}; --gallery-tag-font-size-mobile: {{ tag_font_size_mobile_token }};" {{ block.shopify_attributes }}>
+<div data-marquee-interactive class="gallery-image{% if overlay_style == 'post' %} gallery-image--post{% endif %} gallery-image--overlay-{{ show_overlay }} gallery-image--style-{{ overlay_style }}" style="--gallery-image-ratio: {{ block.settings.image_ratio | default: '1 / 1' }}; --gallery-post-padding: {{ block.settings.card_padding | default: 6 }}px; --gallery-post-background: {{ block.settings.background_color | default: 'var(--background-color)' }}; --gallery-post-border: {{ block.settings.border_width | default: 1 }}px; --gallery-post-border-color: {{ block.settings.border_color | default: 'var(--border-color)' }}; --gallery-post-media-radius: {{ block.settings.media_radius | default: 12 }}px; --gallery-post-text: {{ block.settings.text_color | default: 'var(--body-color)' }}; --gallery-post-like-color: {{ block.settings.likes_hover_color | default: 'var(--accent-color)' }}; --gallery-post-like-background: {{ block.settings.likes_hover_background | default: 'transparent' }}; --gallery-image-radius: {{ image_radius }};     --gallery-social-background: {{ social_background | escape }}; --gallery-social-color: {{ social_color | escape }}; --gallery-overlay-background: {{ overlay_background | escape }}; --gallery-tag-font-size: {{ tag_font_size_token }}; --gallery-tag-font-size-mobile: {{ tag_font_size_mobile_token }};" {{ block.shopify_attributes }}>
+  <div class="gallery-image__visual">
   {% render 'image', image: block.settings.image, mobile_image: block.settings.mobile_image, alt: block.settings.alt_text, class: 'gallery-image__media', width: 1600, widths: '400, 600, 800, 1200, 1600', sizes: image_sizes %}
+  {% if overlay_style == 'post' %}
+    {% if block.settings.badge_left != blank %}<span class="gallery-image__badge gallery-image__badge--left">{{ block.settings.badge_left | escape }}</span>{% endif %}
+    {% if block.settings.badge_right != blank %}<span class="gallery-image__badge gallery-image__badge--right">{{ block.settings.badge_right | escape }}</span>{% endif %}
+  {% endif %}
+  </div>
+  {% if overlay_style == 'post' %}
+    <div class="gallery-image__profile">
+      {% if block.settings.avatar_image != blank %}
+        {{ block.settings.avatar_image | image_url: width: 80 | image_tag: class: 'gallery-image__avatar', loading: 'lazy', alt: '' }}
+      {% elsif block.settings.avatar_initials != blank %}
+        <span class="gallery-image__avatar gallery-image__avatar--initials" aria-hidden="true">{{ block.settings.avatar_initials | escape }}</span>
+      {% endif %}
+      {% if tag != blank %}
+        {% if social_url != blank %}<a class="gallery-image__username link-underline" href="{{ social_url | escape }}" target="_blank" rel="noopener noreferrer">{{ tag | escape }}</a>{% else %}<span class="gallery-image__username">{{ tag | escape }}</span>{% endif %}
+      {% endif %}
+      {% if block.settings.show_likes %}
+        <span class="gallery-image__likes" aria-label="{{ 'gallery.likes' | t: count: block.settings.likes_count | escape }}">
+          {% render 'icon', source: 'library', icon: 'heart', width: 14 %}
+          <span>{{ block.settings.likes_count | escape }}</span>
+        </span>
+      {% endif %}
+    </div>
+  {% else %}
   <div class="gallery-image__overlay">
     {% unless social_network == 'none' %}
       {% if social_url != blank %}<a class="gallery-image__button" href="{{ social_url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="{{ tag | default: social_network | escape }}">{% else %}<span class="gallery-image__button">{% endif %}
@@ -79,6 +111,7 @@
     {% endunless %}
     {% if tag != blank %}<span class="gallery-image__tag">{{ tag | escape }}</span>{% endif %}
   </div>
+  {% endif %}
 </div>
 
 {% render 'component-stylesheet', filename: 'component-blocks-gallery-image.css', section_index: section.index %}
@@ -109,6 +142,38 @@
     },
     {
       "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "default": "1 / 1",
+      "options": [
+        {
+          "value": "1 / 1",
+          "label": "Square"
+        },
+        {
+          "value": "3 / 4",
+          "label": "Portrait 3:4"
+        },
+        {
+          "value": "4 / 5",
+          "label": "Portrait 4:5"
+        },
+        {
+          "value": "2 / 3",
+          "label": "Portrait 2:3"
+        },
+        {
+          "value": "4 / 3",
+          "label": "Landscape 4:3"
+        },
+        {
+          "value": "16 / 9",
+          "label": "Landscape 16:9"
+        }
+      ]
+    },
+    {
+      "type": "select",
       "id": "corner_radius",
       "label": "Corner radius",
       "options": [
@@ -135,9 +200,24 @@
         {
           "value": "radius_16",
           "label": "16px"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
         }
       ],
       "default": "media"
+    },
+    {
+      "type": "range",
+      "id": "custom_corner_radius",
+      "label": "Custom corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ block.settings.corner_radius == 'custom' }}"
     },
     {
       "type": "header",
@@ -155,6 +235,10 @@
         {
           "value": "minimal",
           "label": "Icon and text"
+        },
+        {
+          "value": "post",
+          "label": "Post"
         }
       ],
       "default": "button"
@@ -309,6 +393,116 @@
       "id": "social_color",
       "label": "Button color",
       "default": "#6A372F"
+    },
+    {
+      "type": "header",
+      "content": "Post"
+    },
+    {
+      "type": "image_picker",
+      "id": "avatar_image",
+      "label": "Avatar image",
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "text",
+      "id": "avatar_initials",
+      "label": "Avatar initials",
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "text",
+      "id": "badge_left",
+      "label": "Left badge",
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "text",
+      "id": "badge_right",
+      "label": "Right badge",
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_likes",
+      "label": "Show likes",
+      "default": false,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "text",
+      "id": "likes_count",
+      "label": "Likes count",
+      "default": "0",
+      "visible_if": "{{ block.settings.overlay_style == 'post' and block.settings.show_likes }}",
+      "info": "Display only. This value does not sync with Instagram."
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 6,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "range",
+      "id": "media_radius",
+      "label": "Image corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:labels.background_color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "t:labels.text_color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "color",
+      "id": "likes_hover_color",
+      "label": "Likes hover color",
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
+    },
+    {
+      "type": "color",
+      "id": "likes_hover_background",
+      "label": "Likes hover background",
+      "alpha": true,
+      "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "header",
