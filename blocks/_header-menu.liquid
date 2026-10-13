@@ -502,7 +502,7 @@
 
   .header-mega-menu__layout {
     display: grid;
-    grid-template-columns: minmax(0, calc(100% - var(--mega-banner-width, 40%) - var(--mega-menu-gap, 1.5rem))) minmax(0, var(--mega-banner-width, 40%));
+    grid-template-columns: minmax(min(100%, calc(var(--mega-menu-columns, 4) * 80px)), 1fr) minmax(0, min(var(--mega-banner-width, 40%), max(0px, calc(100% - var(--mega-menu-columns, 4) * 80px - var(--mega-menu-gap, 1.5rem)))));
     gap: var(--mega-menu-gap, 1.5rem);
     align-items: start;
   }
