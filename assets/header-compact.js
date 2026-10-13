@@ -64,6 +64,8 @@
         if (showColumns) {
           const mega = active?.querySelector('[data-header-mega-menu]');
           const megaStyle = mega && getComputedStyle(mega);
+          active?.style.setProperty('--compact-banner-width', megaStyle?.getPropertyValue('--mega-banner-width') || '40%');
+          active?.style.setProperty('--compact-banner-gap', megaStyle?.getPropertyValue('--mega-menu-gap') || '12px');
           root.style.setProperty('--compact-menu-columns', Number(megaStyle?.getPropertyValue('--mega-menu-columns')) || active?.querySelector(':scope > ul')?.children.length || 4);
           active?.style.setProperty('--compact-submenu-max-width', mega?.classList.contains('header-mega-menu--submenu-limited') ? megaStyle.getPropertyValue('--mega-menu-max-width') : 'none');
           active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });

@@ -341,3 +341,11 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 
 .header-top.header-top--compact .header__column--right > .header-account:not(.header-account--type-icon) { flex: 0 0 auto; width: auto; }
 .header-top.header-top--compact shopify-account.header-account:not(.header-account--type-icon)::part(signed-out-avatar) { width: auto; padding-inline: 8px; }
+
+@media (min-width: 768px) {
+  .header-top.header-top--compact .header__mobile-drawer-item > details > .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) { grid-template-columns: minmax(0, max(0px, calc(100% - var(--compact-banner-width, 40%) - var(--compact-banner-gap, 12px)))) minmax(0, var(--compact-banner-width, 40%)); gap: var(--compact-banner-gap, 12px); }
+  .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > ul { grid-column: 1; }
+  .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > .header__mobile-drawer-mega-slot { grid-column: 2; }
+  .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > .header__mobile-drawer-mega-featured-slot:not(:empty) { grid-column: 1 / -1; }
+  .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu--horizontal .header-mega-menu__banners { width: 100%; margin-block-start: 0; }
+}
