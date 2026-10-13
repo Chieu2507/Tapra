@@ -1109,6 +1109,7 @@
   --overlay-backdrop-duration: 450ms;
 }
 .cart-drawer.component-overlay[data-cart-presentation='popup'] .cart-drawer__panel {
+  --overlay-rest-transform: translateY(8px) scale(.96);
   position: relative;
   inset: auto;
   margin: auto;
