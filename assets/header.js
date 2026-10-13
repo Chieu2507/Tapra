@@ -10,6 +10,7 @@
   const megaMenuBackdropControls = new WeakSet();
   const backdropCursorBindings = new WeakMap();
   const accountElements = new WeakSet();
+  const accountMotionObservers = new WeakMap();
   const deferredAccounts = new WeakSet();
   const localizationSheetDetails = new WeakSet();
   const compactLocalizationControllers = new WeakMap();
@@ -1126,6 +1127,16 @@
       if (accountElements.has(account)) return;
       accountElements.add(account);
       account.addEventListener('open', () => {
+        const dialog = account.shadowRoot?.querySelector('dialog[part="dialog"]');
+        if (dialog && !accountMotionObservers.has(account)) {
+          const nativeDuration = getComputedStyle(dialog).getPropertyValue('--timing-default').trim();
+          if (nativeDuration) account.style.setProperty('--account-native-close-duration', nativeDuration);
+          const syncMotion = () => account.toggleAttribute('data-account-closing', dialog.classList.contains('closing'));
+          const observer = new MutationObserver(syncMotion);
+          observer.observe(dialog, { attributes: true, attributeFilter: ['class', 'open'] });
+          accountMotionObservers.set(account, observer);
+          syncMotion();
+        }
         openAccountSheets.add(account);
         const headerTop = header.querySelector('.header-top') || header;
         const keepMobileMenuOpen =
@@ -1158,6 +1169,11 @@
 
     root.querySelectorAll?.(HEADER_SELECTOR).forEach((headerTop) => headers.push(getHeaderRoot(headerTop)));
     headers.forEach((header) => {
+      header.querySelectorAll('shopify-account').forEach((account) => {
+        accountMotionObservers.get(account)?.disconnect();
+        accountMotionObservers.delete(account);
+        account.removeAttribute('data-account-closing');
+      });
       header.querySelectorAll('details').forEach(clearSubmenuClose);
       header.querySelectorAll('[data-header-mega-menu-backdrop]').forEach((backdrop) => {
         backdropCursorBindings.get(backdrop)?.destroy();
