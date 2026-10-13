@@ -1138,7 +1138,6 @@
           syncMotion();
         }
         openAccountSheets.add(account);
-        account.setAttribute('data-account-open', '');
         const headerTop = header.querySelector('.header-top') || header;
         const keepMobileMenuOpen =
           isMobileMenuViewport() && headerTop.classList.contains('header-top--menu-open');
@@ -1148,7 +1147,6 @@
       });
       account.addEventListener('close', () => {
         openAccountSheets.delete(account);
-        account.removeAttribute('data-account-open');
         scheduleUpdate();
       });
     });
