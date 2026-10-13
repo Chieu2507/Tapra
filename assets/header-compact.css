@@ -240,6 +240,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header-mega-menu__banner-text { font-size: var(--font-body-sm); }
 .header-top.header-top--compact .header-mega-menu__banner-subheading { font-size: var(--font-body-xs); text-transform: uppercase; letter-spacing: .08em; }
 .header-top.header-top--compact .header-mega-menu__banner-button { min-height: 0; }
+.header-top.header-top--compact .header-mega-menu__banner-button.btn--tertiary { scale: .85; transform-origin: left center; }
 @media (min-width: 768px) {
   .header-top.header-top--compact .header__mobile-drawer-mega-featured-slot:empty { display: none; }
   .header-top.header-top--compact .header__mobile-drawer-item > details > .header__mobile-drawer-submenu:not(:has(.header-mega-menu__featured)) { grid-template-columns: minmax(0, 1fr); }
