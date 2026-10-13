@@ -1688,7 +1688,7 @@
     "label_likes_hover_color": "Likes hover color",
     "label_likes_hover_background": "Likes hover background",
     "label_gallery_parallax": "Gallery parallax",
-    "editor_parallax_information": "When using the Parallax layout, selecting a Gallery image in the theme editor temporarily pauses motion, removes the edge mask and lets cards resize so all items can be viewed and edited. This is expected behavior. Deselect the block to restore parallax and the configured card width. Storefront visitors are not affected by editor selection."
+    "editor_parallax_information": "In the editor, selecting an image pauses parallax and reveals all cards for editing. Deselect to restore the layout. This is normal and does not affect the storefront."
   },
   "wordmark": {
     "name": "Wordmark",
