@@ -10,6 +10,39 @@
     const controller = new AbortController();
     const options = { signal: controller.signal };
     let items = [], columns = [], count = 0, firstColumns = false, frame = 0, visible = true;
+    let previousAccessible = null;
+    const transitions = new Set();
+    function cancelTransitions() {
+      transitions.forEach(animation => animation.cancel());
+      transitions.clear();
+      delete root.dataset.galleryTransition;
+    }
+    function animateChange(before) {
+      const after = root.getBoundingClientRect();
+      const timing = { duration: 320, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' };
+      const track = animation => {
+        transitions.add(animation);
+        animation.finished.then(() => {
+          transitions.delete(animation);
+          if (!transitions.size) delete root.dataset.galleryTransition;
+        }, () => {});
+      };
+      root.dataset.galleryTransition = 'true';
+      track(root.animate([{ height: before.height + 'px' }, { height: after.height + 'px' }], timing));
+      items.forEach(item => {
+        const old = before.cards.get(item);
+        const next = item.getBoundingClientRect();
+        if (!next.width || !next.height) return;
+        if (!old?.width || !old.height) {
+          track(item.animate([{ opacity: 0 }, { opacity: 1 }], timing));
+          return;
+        }
+        track(item.animate([
+          { transformOrigin: '0 0', transform: `translate(${old.left - next.left}px, ${old.top - next.top}px) scale(${old.width / next.width}, ${old.height / next.height})` },
+          { transformOrigin: '0 0', transform: 'translate(0, 0) scale(1, 1)' }
+        ], timing));
+      });
+    }
     const isEditing = () => root.dataset.galleryEditing === 'true';
     function group() {
       const current = [...root.querySelectorAll('.gallery-image')];
@@ -39,9 +72,17 @@
     }
     function update() {
       frame = 0;
+      // Measure the visible state before changing grouping, card sizing or height.
+      const accessible = isEditing() || (!window.Shopify?.designMode && root.contains(document.activeElement));
+      const changed = previousAccessible !== null && previousAccessible !== accessible;
+      const before = changed && !motion.matches && root.animate ? {
+        height: root.getBoundingClientRect().height,
+        cards: new Map(items.map(item => [item, item.getBoundingClientRect()]))
+      } : null;
+      if (changed || motion.matches) cancelTransitions();
+      previousAccessible = accessible;
       group();
       // Temporarily expose all cards while selecting a block in the editor.
-      const accessible = isEditing() || (!window.Shopify?.designMode && root.contains(document.activeElement));
       root.dataset.galleryAccessible = String(accessible);
       const style = getComputedStyle(root);
       const configuredHeight = parseFloat(style.getPropertyValue(mobile.matches ? '--gallery-parallax-height-mobile' : '--gallery-parallax-height')) || 640;
@@ -60,6 +101,7 @@
         const direction = root.dataset.parallaxDirection === 'down' ? 1 : root.dataset.parallaxDirection === 'up' ? -1 : index % 2 ? 1 : -1;
         column.style.transform = accessible || motion.matches ? '' : `translate3d(0, ${((progress * 2 - 1) * distance * direction).toFixed(2)}px, 0)`;
       });
+      if (before) animateChange(before);
     }
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     window.addEventListener('scroll', () => { if (visible) schedule(); }, { ...options, passive: true });
@@ -74,6 +116,7 @@
     group(); schedule();
     document.fonts?.ready.then(() => { if (!controller.signal.aborted) schedule(); });
     const destroy = () => {
+      cancelTransitions();
       controller.abort(); cancelAnimationFrame(frame); resize.disconnect(); intersection.disconnect(); mutations.disconnect();
       items.forEach(item => { root.append(item); delete item.dataset.galleryOrder; });
       columns.forEach(column => column.remove());

@@ -38,5 +38,9 @@
   justify-content: start;
 }
 .gallery-grid[data-gallery-item-sizing='fixed'][data-gallery-accessible='true'].is-parallax-ready {
-  overflow: auto;
+  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), minmax(0, 1fr));
+  overflow: visible;
 }
+
+/* Clip only during editor layout transitions while the viewport animates. */
+.gallery-grid[data-gallery-transition='true'].is-parallax-ready { overflow: clip; }
