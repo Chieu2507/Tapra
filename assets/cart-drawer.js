@@ -846,6 +846,9 @@
     drawer.style.setProperty('--compact-cart-shift', `${window.innerWidth / 2 - 12 - restWidth / 2}px`);
     drawer.style.setProperty('--compact-cart-expand-shift', `${-(width - restWidth) / 2}px`);
   };
+  window.addEventListener('resize', () => {
+    if (state.drawer && state.overlay?.isOpen()) prepareCompactMotion(state.drawer);
+  });
 
   const open = ({ refreshCart = true } = {}) => {
     const drawer = state.drawer;

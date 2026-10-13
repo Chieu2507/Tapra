@@ -65,7 +65,8 @@
     height: min(680px, calc(100dvh - var(--compact-cart-top, 16px) - 12px - env(safe-area-inset-bottom, 0px)));
     border-radius: 26px;
     transform: translateX(var(--compact-cart-shift, 0px));
-    translate: var(--compact-cart-expand-shift, 0px) 0;
+    /* The demo's flex centering contributes the other half of this offset. */
+    translate: calc(var(--compact-cart-expand-shift, 0px) * 2) 0;
     transition: transform 550ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__inner {
