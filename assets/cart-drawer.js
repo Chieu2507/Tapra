@@ -968,14 +968,6 @@
     if (!drawer || (state.editorSelected && !force)) return;
     setOrderOptionsOpen();
     if (!state.overlay?.isOpen()) return;
-    // Keep the outgoing X intact on open; restore the travelling hamburger
-    // only as the cart contracts back into the resting header.
-    drawer.querySelector('.cart-drawer__pill')?.querySelectorAll('.header-menu-toggle').forEach(toggle => {
-      toggle.querySelectorAll('.header-menu-toggle__compact-icon i').forEach(line => {
-        ['top', 'right', 'width', 'transform', 'transition', 'animation'].forEach(property => line.style.removeProperty(property));
-      });
-      toggle.classList.remove('is-expanded');
-    });
     drawer.classList.remove('is-open');
     drawer.classList.add('is-closing');
     state.overlay.close({ restoreFocus: !state.editorSelected });

@@ -133,6 +133,10 @@
   .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__menu-residue { display: none; }
   .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__pill .header-logo,
   .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__pill .header-logo * { visibility: visible !important; opacity: 1 !important; }
+  /* Override the frozen icon snapshot on every close path, including Escape. */
+  .cart-drawer.cart-drawer--compact[data-state='closing'] .header-menu-toggle__compact-icon i { right: 0 !important; transform: none !important; transition: top 500ms var(--compact-ease), width 500ms var(--compact-ease), right 500ms var(--compact-ease), transform 500ms var(--compact-ease) !important; }
+  .cart-drawer.cart-drawer--compact[data-state='closing'] .header-menu-toggle__compact-icon i:first-child { top: 3px !important; width: 22px !important; }
+  .cart-drawer.cart-drawer--compact[data-state='closing'] .header-menu-toggle__compact-icon i:last-child { top: 10px !important; width: 14px !important; }
   @media (max-width: 767.98px) {
     .cart-drawer.cart-drawer--compact.component-overlay[data-state='open'] .cart-drawer__panel {
       top: var(--drawer-mobile-top, 16px);
