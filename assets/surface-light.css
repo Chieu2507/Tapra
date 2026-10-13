@@ -1,6 +1,15 @@
-/* Add surface-light to a box/panel with its own background and border radius.
-   Optional overrides: --surface-light-edge, --surface-light-glow,
-   --surface-light-border-width. Reserve ::before / ::after for the effect. */
+/* SURFACE LIGHT CONTRACT — one explicit opt-in, never automatic decoration.
+   1. Add surface-light to the element owning the visible box's background,
+      border and radius. Do not add it to layout wrappers, backdrops or images.
+   2. Separate nested boxes may each opt in; an unbounded inner panel must not.
+   3. Reserve ::before / ::after for glow and the masked 1px edge. Both inherit
+      the owner's radius and never intercept pointer input.
+   4. Only the Compact header shell adds surface-light--header: its glow/edge
+      shrink from 190/140px to 75/50px over open menu controls. Other boxes
+      keep 230/150px; they do not change size when a child link is hovered.
+   5. Motion > Enable pointer light on bordered boxes controls everything.
+      Off removes both generated layers; touch/reduced motion disable light.
+   Customize only through --surface-light-* properties on the owning box. */
 :where(html[data-surface-light-enabled] .surface-light) { position: relative; }
 html[data-surface-light-enabled] .surface-light {
   --surface-light-x: 50%;
