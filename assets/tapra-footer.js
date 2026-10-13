@@ -17,7 +17,7 @@
     const update = () => {
       frame = 0;
       if (disposed) return;
-      if (motion.matches || window.Shopify?.designMode || root.dataset.scrollEffect !== 'true' || root.contains(document.activeElement)) { reset(); return; }
+      if (motion.matches || root.dataset.footerEditing === 'true' || root.dataset.scrollEffect !== 'true' || root.contains(document.activeElement)) { reset(); return; }
       const rect = root.getBoundingClientRect();
       const height = Math.min(rect.height, window.innerHeight);
       if (!height) { reset(); return; }
@@ -37,7 +37,7 @@
     root.addEventListener('focusout', schedule);
     const resize = new ResizeObserver(schedule);
     resize.observe(root);
-    instances.set(root, () => {
+    const destroy = () => {
       disposed = true;
       cancelAnimationFrame(frame);
       resize.disconnect();
@@ -47,8 +47,11 @@
       root.removeEventListener('focusin', schedule);
       root.removeEventListener('focusout', schedule);
       reset();
+      delete root.dataset.footerEditing;
       instances.delete(root);
-    });
+    };
+    destroy.schedule = schedule;
+    instances.set(root, destroy);
     schedule();
   }
   const init = (scope) => {
@@ -60,5 +63,13 @@
   document.addEventListener('shopify:section:unload', (event) => {
     for (const [root, destroy] of instances) if (event.target.contains(root)) destroy();
   });
+  for (const name of ['shopify:block:select', 'shopify:block:deselect']) {
+    document.addEventListener(name, event => {
+      for (const [root, destroy] of instances) if (root.contains(event.target)) {
+        root.dataset.footerEditing = String(name === 'shopify:block:select');
+        destroy.schedule();
+      }
+    });
+  }
   init(document);
 })();
