@@ -160,4 +160,5 @@
   }
   @media (max-width: 767.98px) { .group { order: var(--group-order-mobile, 0); } }
 
-.group.container.page-width { max-width: var(--page-width); }
+.gallery-header-group { width: 100%; min-width: 0; }
+.gallery-header-group.container.page-width { max-width: var(--page-width); }

@@ -256,9 +256,6 @@
   if group_appearance_type == 'scheme'
     assign group_class = group_class | append: ' color-scheme ' | append: group_scheme
   endif
-  if container_class != blank
-    assign group_class = group_class | append: ' ' | append: container_class
-  endif
   if group_vertical_on_mobile
     assign group_class = group_class | append: ' group--mobile-vertical'
   endif
@@ -311,6 +308,7 @@
 {% endcapture %}
 {% assign group_style = group_style | strip %}
 
+{% if container_class != blank %}<div class="{{ container_class }}">{% endif %}
 <div
   class="{{ group_class }}"
   {% if group_style != blank %}style="{{ group_style }}"{% endif %}
@@ -321,4 +319,5 @@
 </div>
 
 
+{% if container_class != blank %}</div>{% endif %}
 {% render 'component-stylesheet', filename: 'component-blocks-group.css', section_index: section.index %}
