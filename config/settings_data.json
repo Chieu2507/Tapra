@@ -58,7 +58,7 @@
     "type_eyebrow_line_height": "normal",
     "type_eyebrow_letter_spacing": "loose",
     "type_eyebrow_case": "uppercase",
-    "motion_pointer_light": true,
+    "motion_pointer_light": false,
     "motion_image_zoom": true,
     "motion_block_animations": true,
     "radius_badges_subheadings": "pill",
