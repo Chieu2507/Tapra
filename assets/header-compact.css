@@ -318,6 +318,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel { width: var(--compact-search-width); height: var(--compact-search-panel-height, calc(var(--drawer-mobile-height) - 64px)); max-height: var(--compact-search-panel-height, calc(var(--drawer-mobile-height) - 64px)); overflow-y: auto; }
 
   .header-top.header-top--compact.header-top--menu-open .header__column--right > .header-account { display: inline-flex; }
+  body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'])) .header-top.header-top--compact[data-header-root] .header__column--right > .header-account { display: inline-flex; }
   .header-top.header-top--compact.header-top--menu-open .header__container { position: relative; z-index: 5; pointer-events: none; }
   .header-top.header-top--compact.header-top--menu-open .header__column--right { pointer-events: auto; }
   .header-top.header-top--compact:has(.header__mobile-drawer:is(.header__mobile-drawer--submenu-active, .header__mobile-drawer--submenu-closing)) .header-logo { visibility: hidden; }
