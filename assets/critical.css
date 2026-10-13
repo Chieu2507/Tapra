@@ -762,7 +762,7 @@ dialog {
 }
 
 [popover] {
-  border-radius: var(--drawer-radius);
+  border-radius: var(--popover-radius);
   border: var(--overlay-popover-border-width) solid var(--overlay-border-color);
   background-color: var(--overlay-background-color);
   color: var(--overlay-text-color);

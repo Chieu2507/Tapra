@@ -1695,7 +1695,7 @@
   .collection-columns__option > .collection-columns__option-input:active + .collection-columns__option-content { transform: none; }
 }
 
-.main-collection__sort-listbox { border-radius: var(--drawer-radius); box-shadow: 0 .75rem 1.5rem color-mix(in srgb, var(--shadow-color) 15%, transparent); }
+.main-collection__sort-listbox { border-radius: var(--popover-radius); box-shadow: 0 .75rem 1.5rem color-mix(in srgb, var(--shadow-color) 15%, transparent); }
 .main-collection__sort-option-button { border-radius: var(--radius-square); }
 
 /* Drawer gutters belong only to the dialog presentation, not the grid sidebar. */
