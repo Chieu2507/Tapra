@@ -55,9 +55,13 @@
     assign header_top_separator = 'none'
   endunless
 
-  assign header_top_gap = block.settings.gap | default: 16 | plus: 0
-  if header_top_gap < 0 or header_top_gap > 100
-    assign header_top_gap = 16
+  assign header_top_gap_basic = block.settings.gap_basic | default: 10 | plus: 0
+  assign header_top_gap_compact = block.settings.gap_compact | default: 0 | plus: 0
+  if header_top_gap_basic < 0 or header_top_gap_basic > 100
+    assign header_top_gap_basic = 10
+  endif
+  if header_top_gap_compact < 0 or header_top_gap_compact > 100
+    assign header_top_gap_compact = 0
   endif
 
   assign header_top_padding_top = block.settings.padding_top | default: 12 | plus: 0
@@ -84,7 +88,8 @@
 
 {% capture header_top_style %}
   {% if header_icon_size != 20 %}--header-icon-size: {{ header_icon_size }}px;{% endif %}
-  --header-top-gap: {{ header_top_gap }}px;
+  --header-top-gap-basic: {{ header_top_gap_basic }}px;
+  --header-top-gap-compact: {{ header_top_gap_compact }}px;
   {% if header_top_padding_top != 12 %}--header-top-padding-top: {{ header_top_padding_top }}px;{% endif %}
   {% if header_top_padding_bottom != 12 %}--header-top-padding-bottom: {{ header_top_padding_bottom }}px;{% endif %}
   {% if header_top_customize_mobile_padding %}--header-top-padding-top-mobile: {{ header_top_padding_top_mobile }}px;--header-top-padding-bottom-mobile: {{ header_top_padding_bottom_mobile }}px;{% endif %}
@@ -117,6 +122,7 @@
 
 {% stylesheet %}
   .header-top {
+    --header-top-gap: var(--header-top-gap-basic, 10px);
     position: relative;
     min-width: 0;
     padding-top: var(--header-top-padding-top, 12px);
@@ -145,7 +151,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    gap: var(--header-top-gap, 16px);
+    gap: var(--header-top-gap, 10px);
   }
 
   .header-top[data-logo-position='left'] .header__row {
@@ -156,7 +162,7 @@
     display: none;
     align-items: center;
     min-height: var(--button-height);
-    gap: var(--header-top-gap, 16px);
+    gap: var(--header-top-gap, 10px);
   }
 
   .header__blocks {
@@ -347,13 +353,25 @@
     },
     {
       "type": "range",
-      "id": "gap",
+      "id": "gap_basic",
       "label": "t:labels.gap",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 16
+      "default": 10,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_compact",
+      "label": "t:labels.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
     },
     {
       "type": "header",
