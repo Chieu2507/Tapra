@@ -83,12 +83,12 @@
     opacity: 1;
     visibility: visible;
   }
-  .cart-drawer.cart-drawer--compact .cart-drawer__inner > * {
+  .cart-drawer.cart-drawer--compact .cart-drawer__inner > :where(.cart-drawer__header, .cart-drawer__body, .cart-drawer__footer) {
     opacity: 0;
     visibility: hidden;
     transition: opacity 200ms, visibility 0ms 200ms;
   }
-  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__inner > * {
+  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__inner > :where(.cart-drawer__header, .cart-drawer__body, .cart-drawer__footer) {
     opacity: 1;
     visibility: visible;
     transition: opacity 450ms 750ms, visibility 0ms;
@@ -738,15 +738,15 @@
   .cart-drawer__message { margin: 0.75rem 0 0; padding: 0; }
 
   @media (prefers-reduced-motion: no-preference) {
-    .cart-drawer--animated.is-open .cart-drawer__header,
-    .cart-drawer--animated.is-open .cart-drawer__shipping-progress,
-    .cart-drawer--animated.is-open .cart-drawer__items,
-    .cart-drawer--animated.is-open .cart-drawer__recommendations,
-    .cart-drawer--animated.is-open .cart-drawer__footer { animation: cart-drawer-content-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
-    .cart-drawer--animated.is-open .cart-drawer__shipping-progress { animation-delay: 0.08s; }
-    .cart-drawer--animated.is-open .cart-drawer__items { animation-delay: 0.12s; }
-    .cart-drawer--animated.is-open .cart-drawer__recommendations { animation-delay: 0.16s; }
-    .cart-drawer--animated.is-open .cart-drawer__footer { animation-delay: 0.2s; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__header,
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__shipping-progress,
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__items,
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__recommendations,
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__footer { animation: cart-drawer-content-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__shipping-progress { animation-delay: 0.08s; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__items { animation-delay: 0.12s; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__recommendations { animation-delay: 0.16s; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__footer { animation-delay: 0.2s; }
   }
 
   @keyframes cart-drawer-content-reveal { from { opacity: 0; } to { opacity: 1; } }
