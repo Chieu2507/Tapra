@@ -12,590 +12,292 @@
   "name": "t:general.footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "tapra-footer",
       "blocks": {
-        "footer-content": {
+        "brand": {
           "type": "group",
+          "static": true,
           "settings": {
-            "direction": "horizontal",
-            "width": "fill",
-            "width_mobile": "fill",
-            "height": "fit",
-            "alignment": "left",
-            "horizontal_alignment": "left",
+            "direction": "vertical",
             "position_horizontal": "top",
-            "customize_mobile_alignment": true,
-            "alignment_mobile": "left",
-            "gap_desktop": 144,
-            "gap_mobile": 24,
+            "horizontal_alignment": "left",
+            "alignment": "left",
+            "gap_desktop": 26,
+            "gap_mobile": 26,
+            "width": "fill",
+            "height": "fit",
+            "width_mobile": "fill",
             "appearance_type": "inherit",
             "show_overlay": false
           },
           "blocks": {
-            "footer-links": {
-              "type": "group",
+            "brand-name": {
+              "type": "heading",
               "settings": {
-                "direction": "horizontal",
-                "width": "fill",
-                "width_mobile": "fill",
-                "height": "fit",
-                "alignment": "left",
-                "horizontal_alignment": "left",
-                "position_horizontal": "top",
-                "customize_mobile_alignment": true,
-                "alignment_mobile": "left",
-                "gap_desktop": 40,
-                "gap_mobile": 0,
-                "appearance_type": "inherit",
-                "show_overlay": false,
-                "mobile_order": 2
-              },
-              "blocks": {
-                "shop-menu": {
-                  "type": "menu",
-                  "settings": {
-                    "menu": "",
-                    "heading": "Categories",
-                    "collapse_menu_on_mobile": true,
-                    "icon": "plus",
-                    "heading_gap": 12,
-                    "menu_gap": 8,
-                    "heading_size": "sm",
-                    "html_tag": "h2",
-                    "menu_size": "sm",
-                    "menu_color": "#ffffff",
-                    "open_on_mobile": false,
-                    "compact_on_mobile": true
-                  },
-                  "blocks": {
-                    "link-0": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Smartphone",
-                        "link": "/collections/smartphone"
-                      }
-                    },
-                    "link-1": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Tablet",
-                        "link": "/collections/tablet"
-                      }
-                    },
-                    "link-2": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Smartwatch",
-                        "link": "/collections/smartwatch"
-                      }
-                    },
-                    "link-3": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Laptop",
-                        "link": "/collections/laptop"
-                      }
-                    },
-                    "link-4": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Audio",
-                        "link": "/collections/audio"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "link-0",
-                    "link-1",
-                    "link-2",
-                    "link-3",
-                    "link-4"
-                  ]
-                },
-                "information-menu": {
-                  "type": "menu",
-                  "settings": {
-                    "menu": "",
-                    "heading": "Collections",
-                    "collapse_menu_on_mobile": true,
-                    "icon": "plus",
-                    "heading_gap": 12,
-                    "menu_gap": 8,
-                    "heading_size": "sm",
-                    "html_tag": "h2",
-                    "menu_size": "sm",
-                    "menu_color": "#ffffff",
-                    "open_on_mobile": true,
-                    "compact_on_mobile": true
-                  },
-                  "blocks": {
-                    "link-0": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "New Arrivals",
-                        "link": "/collections/all?sort_by=created-desc"
-                      }
-                    },
-                    "link-1": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Top Deals",
-                        "link": "/collections/all?sort_by=price-ascending"
-                      }
-                    },
-                    "link-2": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Best Sellers",
-                        "link": "/collections/all?sort_by=best-selling"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "link-0",
-                    "link-1",
-                    "link-2"
-                  ]
-                },
-                "service-menu": {
-                  "type": "menu",
-                  "settings": {
-                    "menu": "",
-                    "heading": "Pages",
-                    "collapse_menu_on_mobile": true,
-                    "icon": "plus",
-                    "heading_gap": 12,
-                    "menu_gap": 8,
-                    "heading_size": "sm",
-                    "html_tag": "h2",
-                    "menu_size": "sm",
-                    "menu_color": "#ffffff",
-                    "open_on_mobile": false,
-                    "compact_on_mobile": true
-                  },
-                  "blocks": {
-                    "link-0": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Our story",
-                        "link": "/pages/about-us"
-                      }
-                    },
-                    "link-1": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Contact",
-                        "link": "/pages/contact"
-                      }
-                    },
-                    "link-2": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "FAQ",
-                        "link": "/pages/faq"
-                      }
-                    },
-                    "link-3": {
-                      "type": "_menu-link",
-                      "settings": {
-                        "label": "Find a store",
-                        "link": "/pages/store-locator"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "link-0",
-                    "link-1",
-                    "link-2",
-                    "link-3"
-                  ]
-                }
-              },
-              "block_order": [
-                "shop-menu",
-                "information-menu",
-                "service-menu"
-              ]
+                "text": "<p>Tapra®</p>",
+                "heading_size": "custom",
+                "custom_heading_size": 20,
+                "html_tag": "div",
+                "text_color": "#ffffff",
+                "width": "fill"
+              }
             },
-            "footer-newsletter": {
-              "type": "group",
+            "tagline": {
+              "type": "heading",
               "settings": {
-                "direction": "vertical",
-                "width": "custom",
-                "width_mobile": "fill",
-                "height": "fit",
-                "alignment": "left",
-                "horizontal_alignment": "left",
-                "position_horizontal": "top",
-                "customize_mobile_alignment": false,
-                "alignment_mobile": "left",
-                "gap_desktop": 24,
-                "gap_mobile": 24,
-                "appearance_type": "inherit",
-                "show_overlay": false,
-                "width_custom": 32,
-                "mobile_order": 1
-              },
-              "blocks": {
-                "newsletter-heading": {
-                  "type": "group",
-                  "settings": {
-                    "direction": "vertical",
-                    "width": "fill",
-                    "width_mobile": "fill",
-                    "height": "fit",
-                    "alignment": "left",
-                    "horizontal_alignment": "left",
-                    "position_horizontal": "top",
-                    "customize_mobile_alignment": false,
-                    "alignment_mobile": "left",
-                    "gap_desktop": 20,
-                    "gap_mobile": 20,
-                    "appearance_type": "inherit",
-                    "show_overlay": false
-                  },
-                  "blocks": {
-                    "logo": {
-                      "type": "logo",
-                      "settings": {
-                        "style": "transparent",
-                        "fallback_text": "TORVEX",
-                        "width": "custom",
-                        "width_desktop": 90,
-                        "width_mobile": 88
-                      }
-                    },
-                    "description": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>Join our newsletter to stay up to date on features and releases.</p>",
-                        "text_size": "md",
-                        "width": "fill",
-                        "text_color": "#ffffff"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "logo",
-                    "description"
-                  ]
-                },
-                "newsletter-actions": {
-                  "type": "group",
-                  "settings": {
-                    "direction": "vertical",
-                    "width": "fill",
-                    "width_mobile": "fill",
-                    "height": "fit",
-                    "alignment": "left",
-                    "horizontal_alignment": "left",
-                    "position_horizontal": "top",
-                    "customize_mobile_alignment": false,
-                    "alignment_mobile": "left",
-                    "gap_desktop": 12,
-                    "gap_mobile": 12,
-                    "appearance_type": "inherit",
-                    "show_overlay": false
-                  },
-                  "blocks": {
-                    "newsletter-form": {
-                      "type": "email-signup",
-                      "settings": {
-                        "form_layout": "horizontal",
-                        "vertical_on_mobile": false,
-                        "width_desktop": "fill",
-                        "width_mobile": "fill",
-                        "field_height": "medium",
-                        "input_placeholder": "Enter your email",
-                        "button_label": "Subscribe",
-                        "button_style": "primary",
-                        "show_icon": true,
-                        "button_icon_only": false,
-                        "icon_only_on_mobile": true,
-                        "icon": "arrow_up_right",
-                        "icon_size": "custom",
-                        "icon_width": 20,
-                        "gap_desktop": 12,
-                        "gap_mobile": 8,
-                        "input_style": "solid",
-                        "color_scheme": "scheme-3",
-                        "corner_radius": "inherit",
-                        "input_background_color": "#4d4d4d"
-                      }
-                    },
-                    "newsletter-consent": {
-                      "type": "text",
-                      "settings": {
-                        "text": "<p>By subscribing you agree to with our <a href=\"/policies/privacy-policy\">Privacy Policy</a> and provide consent to receive updates from our company.</p>",
-                        "text_size": "xs",
-                        "width": "fill",
-                        "text_color": "#ffffff"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "newsletter-form",
-                    "newsletter-consent"
-                  ]
-                }
-              },
-              "block_order": [
-                "newsletter-heading",
-                "newsletter-actions"
-              ]
+                "text": "<p>A little structure for a desk that feels more like you.</p>",
+                "heading_size": "custom",
+                "custom_heading_size": 40,
+                "html_tag": "h2",
+                "text_color": "#ffffff",
+                "width": "fill"
+              }
+            },
+            "email": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"mailto:hello@tapra.com\">hello@tapra.com</a></p>",
+                "text_size": "lg",
+                "text_color": "#ffffff",
+                "width": "fill"
+              }
             }
           },
           "block_order": [
-            "footer-links",
-            "footer-newsletter"
+            "brand-name",
+            "tagline",
+            "email"
           ]
         },
-        "footer-utilities": {
-          "type": "group",
+        "explore": {
+          "type": "menu",
+          "static": true,
           "settings": {
-            "direction": "horizontal",
-            "width": "fill",
-            "width_mobile": "fill",
-            "height": "fit",
+            "link_weight": "600",
+            "menu": "",
+            "heading": "Explore",
+            "collapse_menu_on_mobile": false,
+            "heading_gap": 18,
+            "menu_gap": 18,
+            "heading_size": "custom",
+            "custom_heading_size": 13,
+            "html_tag": "h2",
+            "heading_color": "#9fb0d0",
+            "menu_size": "sm",
+            "menu_color": "#ffffff"
+          },
+          "blocks": {
+            "link-0": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Home",
+                "link": "/"
+              }
+            },
+            "link-1": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Shop",
+                "link": "/collections/all"
+              }
+            },
+            "link-2": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Categories",
+                "link": "/collections"
+              }
+            },
+            "link-3": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Lookbook",
+                "link": "/pages/lookbook"
+              }
+            },
+            "link-4": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "FAQ",
+                "link": "/pages/faq"
+              }
+            }
+          },
+          "block_order": [
+            "link-0",
+            "link-1",
+            "link-2",
+            "link-3",
+            "link-4"
+          ]
+        },
+        "newsletter": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "direction": "vertical",
+            "position_horizontal": "top",
+            "horizontal_alignment": "left",
             "alignment": "left",
-            "horizontal_alignment": "space-between",
-            "position_horizontal": "center",
-            "customize_mobile_alignment": true,
-            "alignment_mobile": "left",
-            "gap_desktop": 24,
-            "gap_mobile": 24,
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "width": "fill",
+            "height": "fit",
+            "width_mobile": "fill",
             "appearance_type": "inherit",
             "show_overlay": false
           },
           "blocks": {
-            "utilities": {
+            "intro": {
               "type": "group",
               "settings": {
-                "direction": "horizontal",
-                "width": "fit",
-                "width_mobile": "fill",
-                "height": "fit",
-                "alignment": "left",
+                "direction": "vertical",
+                "position_horizontal": "top",
                 "horizontal_alignment": "left",
-                "position_horizontal": "center",
-                "customize_mobile_alignment": true,
-                "alignment_mobile": "left",
-                "gap_desktop": 24,
-                "gap_mobile": 24,
+                "alignment": "left",
+                "gap_desktop": 14,
+                "gap_mobile": 14,
+                "width": "fill",
+                "height": "fit",
+                "width_mobile": "fill",
                 "appearance_type": "inherit",
                 "show_overlay": false
               },
               "blocks": {
-                "payments": {
-                  "type": "group",
+                "title": {
+                  "type": "heading",
                   "settings": {
-                    "direction": "vertical",
-                    "width": "fit",
-                    "width_mobile": "fill",
-                    "height": "fit",
-                    "alignment": "left",
-                    "horizontal_alignment": "left",
-                    "position_horizontal": "top",
-                    "customize_mobile_alignment": false,
-                    "alignment_mobile": "left",
-                    "gap_desktop": 0,
-                    "gap_mobile": 0,
-                    "appearance_type": "inherit",
-                    "show_overlay": false,
-                    "mobile_order": 2
-                  },
-                  "blocks": {
-                    "payment-icons": {
-                      "type": "payment-icons",
-                      "settings": {
-                        "icon_width": 38,
-                        "gap_desktop": 12,
-                        "gap_mobile": 12
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "payment-icons"
-                  ]
+                    "text": "<p>A small note. A fresh start.</p>",
+                    "heading_size": "custom",
+                    "custom_heading_size": 22,
+                    "html_tag": "h2",
+                    "text_color": "#ffffff",
+                    "width": "fill"
+                  }
                 },
-                "localization": {
-                  "type": "group",
+                "description": {
+                  "type": "text",
                   "settings": {
-                    "direction": "vertical",
-                    "width": "fit",
-                    "width_mobile": "fill",
-                    "height": "fit",
-                    "alignment": "left",
-                    "horizontal_alignment": "left",
-                    "position_horizontal": "top",
-                    "customize_mobile_alignment": false,
-                    "alignment_mobile": "left",
-                    "gap_desktop": 0,
-                    "gap_mobile": 0,
-                    "appearance_type": "inherit",
-                    "show_overlay": false,
-                    "mobile_order": 1
-                  },
-                  "blocks": {
-                    "selector": {
-                      "type": "localization",
-                      "settings": {
-                        "show_country_selector": true,
-                        "show_country_name": false,
-                        "show_country_flag": false,
-                        "show_language_selector": true,
-                        "show_language_selector_mobile": true,
-                        "compact_controls": true,
-                        "font_size": "sm"
-                      }
-                    }
-                  },
-                  "block_order": [
-                    "selector"
-                  ]
+                    "text": "<p>Thoughtful typing tips and Tapra updates, occasionally.</p>",
+                    "text_size": "sm",
+                    "text_color": "#9fb0d0",
+                    "width": "fill"
+                  }
                 }
               },
               "block_order": [
-                "payments",
-                "localization"
+                "title",
+                "description"
               ]
             },
-            "social": {
-              "type": "social-links",
+            "signup": {
+              "type": "email-signup",
               "settings": {
-                "display_mode": "icon",
-                "direction": "horizontal",
-                "gap_desktop": 20,
-                "gap_mobile": 20,
-                "icon_width": 24,
-                "padding": 0,
-                "border_thickness": 0,
-                "corner_radius": "square",
-                "shadow": "none",
-                "color_type": "inherit"
+                "form_layout": "vertical",
+                "vertical_on_mobile": true,
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width_desktop": "fill",
+                "width_mobile": "fill",
+                "field_height": "large",
+                "input_placeholder": "you@example.com",
+                "button_label": "Join the list",
+                "button_style": "secondary",
+                "show_icon": true,
+                "icon_only_on_mobile": false,
+                "button_icon_only": false,
+                "icon": "arrow",
+                "icon_size": "custom",
+                "icon_width": 16,
+                "color_scheme": "scheme-3",
+                "input_background_color": "#ffffff0a",
+                "input_style": "outline",
+                "corner_radius": "rounded"
+              }
+            },
+            "consent": {
+              "type": "text",
+              "settings": {
+                "text": "<p>By subscribing, you agree to receive Tapra emails. Unsubscribe at any time.</p>",
+                "text_size": "xs",
+                "text_color": "#9fb0d0",
+                "width": "fill"
               }
             }
           },
           "block_order": [
-            "utilities",
-            "social"
+            "intro",
+            "signup",
+            "consent"
           ]
-        }
-      },
-      "block_order": [
-        "footer-content",
-        "footer-utilities"
-      ],
-      "settings": {
-        "section_width": "page_width",
-        "gap_desktop": 48,
-        "gap_mobile": 36,
-        "color_scheme": "scheme-3",
-        "padding_top": 80,
-        "padding_bottom": 40,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 48,
-        "padding_bottom_mobile": 32
-      }
-    },
-    "footer-bottom": {
-      "type": "footer",
-      "blocks": {
-        "credits-row": {
+        },
+        "credits": {
           "type": "group",
+          "static": true,
           "settings": {
             "direction": "horizontal",
-            "width": "fill",
-            "width_mobile": "fill",
-            "height": "fit",
-            "alignment": "left",
-            "horizontal_alignment": "space-between",
-            "position_horizontal": "center",
+            "position_horizontal": "top",
+            "horizontal_alignment": "left",
             "customize_mobile_alignment": true,
-            "alignment_mobile": "left",
-            "gap_desktop": 24,
-            "gap_mobile": 8,
+            "alignment": "left",
+            "gap_desktop": 16,
+            "gap_mobile": 16,
+            "width": "fill",
+            "height": "fit",
+            "width_mobile": "fill",
             "appearance_type": "inherit",
             "show_overlay": false
           },
           "blocks": {
+            "note": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Made for people who type.</p>",
+                "text_size": "sm",
+                "text_color": "#9fb0d0",
+                "width": "fill"
+              }
+            },
+            "privacy": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"/policies/privacy-policy\">Privacy Policy</a></p>",
+                "text_size": "sm",
+                "text_color": "#ffffff",
+                "width": "fit"
+              }
+            },
             "copyright": {
               "type": "text",
               "settings": {
-                "text": "<p>\u00a9 2025 LayoutHub. Powered by Shopify.</p>",
+                "text": "<p>© 2026 Tapra. All rights reserved.</p>",
                 "text_size": "sm",
-                "width": "fit",
-                "text_color": "#ffffff"
+                "text_color": "#9fb0d0",
+                "width": "fill"
               }
-            },
-            "policies": {
-              "type": "menu",
-              "settings": {
-                "menu": "",
-                "heading": "",
-                "collapse_menu_on_mobile": false,
-                "direction": "horizontal",
-                "link_weight": "500",
-                "menu_size": "sm",
-                "menu_gap": 24,
-                "menu_color": "#ffffff",
-                "show_heading": false
-              },
-              "blocks": {
-                "policy-0": {
-                  "type": "_menu-link",
-                  "settings": {
-                    "label": "Privacy Policy",
-                    "link": "/policies/privacy-policy"
-                  }
-                },
-                "policy-1": {
-                  "type": "_menu-link",
-                  "settings": {
-                    "label": "Terms of Service",
-                    "link": "/policies/terms-of-service"
-                  }
-                },
-                "policy-2": {
-                  "type": "_menu-link",
-                  "settings": {
-                    "label": "Cookies Settings",
-                    "link": "/policies/privacy-policy#cookies"
-                  }
-                }
-              },
-              "block_order": [
-                "policy-0",
-                "policy-1",
-                "policy-2"
-              ]
             }
           },
           "block_order": [
-            "copyright",
-            "policies"
+            "note",
+            "privacy",
+            "copyright"
           ]
         }
       },
-      "block_order": [
-        "credits-row"
-      ],
       "settings": {
-        "section_width": "page_width",
-        "gap_desktop": 0,
-        "gap_mobile": 0,
+        "section_width": "full_width",
+        "wordmark": "TAPRA",
+        "show_glow": true,
         "color_scheme": "scheme-3",
-        "background_color": "#333333",
-        "padding_top": 20,
-        "padding_bottom": 20,
+        "padding_top": 72,
+        "padding_bottom": 28,
         "customize_mobile_padding": true,
-        "padding_top_mobile": 16,
-        "padding_bottom_mobile": 16
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 24
       }
     }
   },
   "order": [
-    "footer",
-    "footer-bottom"
+    "footer"
   ]
 }

@@ -17,6 +17,8 @@
     {% endif %}
   }
 {% endstyle %}
+<script src="{{ 'tapra-footer.js' | asset_url }}" defer></script>
+<div class="tapra-footer-frame" data-tapra-footer data-scroll-effect="{{ section.settings.enable_scroll_effect }}">
 <footer class="tapra-footer section-spacing color-scheme section-color-scope {{ footer_scheme }}{% if section.settings.show_glow %} tapra-footer--glow{% endif %}">
   <div class="container {{ footer_width }} tapra-footer__container">
     <div class="tapra-footer__top">
@@ -30,7 +32,9 @@
     <div class="tapra-footer__bottom">{% content_for 'block', type: 'group', id: 'credits' %}</div>
   </div>
 </footer>
+</div>
 {% stylesheet %}
+  .tapra-footer-frame { overflow: clip; }
   .tapra-footer { position: relative; overflow: clip; }
   .tapra-footer--glow::before {
     content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -46,6 +50,7 @@
   .tapra-footer__top > * { min-width: 0; }
   .tapra-footer__brand .heading-block { max-width: 680px; }
   .tapra-footer__newsletter { --input-radius: 12px; }
+  .tapra-footer__newsletter > .group > .text-block:last-child { text-align: center; }
   .tapra-footer__wordmark { margin-top: clamp(40px, 6vw, 100px); padding-bottom: clamp(10px, 1.4vw, 22px); overflow: hidden; user-select: none; }
   .tapra-footer__wordmark span {
     display: block; width: fit-content; max-width: 100%; font-family: var(--font-heading-family); font-weight: 600;
@@ -53,8 +58,12 @@
     background: linear-gradient(180deg, #f2f8ff 10%, rgb(191 227 255 / .18) 100%); background-clip: text; -webkit-background-clip: text; color: transparent;
   }
   .tapra-footer__bottom { border-top: 1px solid var(--border-color, rgb(255 255 255 / .1)); padding-top: 24px; }
+  .tapra-footer__bottom > .group > :nth-child(2) { flex-shrink: 0; }
   .tapra-footer__bottom > .group > :last-child { margin-inline-start: auto; text-align: end; }
   .tapra-footer a:focus-visible { outline: 2px solid var(--accent-color, #bfe3ff); outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    .tapra-footer, .tapra-footer__wordmark span { transform: none !important; opacity: 1 !important; }
+  }
   @media (min-width: 768px) and (max-width: 1149.98px) {
     .tapra-footer__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .tapra-footer__brand { grid-column: 1 / -1; }
@@ -76,6 +85,17 @@
   "settings": [
     {
       "type": "header",
+      "content": "t:general.content"
+    },
+    {
+      "type": "text",
+      "id": "wordmark",
+      "label": "Wordmark",
+      "default": "TAPRA",
+      "info": "Decorative brand lettering. Leave blank to hide."
+    },
+    {
+      "type": "header",
       "content": "t:general.layout"
     },
     {
@@ -95,19 +115,6 @@
       "default": "full_width"
     },
     {
-      "type": "text",
-      "id": "wordmark",
-      "label": "Wordmark",
-      "default": "TAPRA",
-      "info": "Decorative brand lettering. Leave blank to hide."
-    },
-    {
-      "type": "checkbox",
-      "id": "show_glow",
-      "label": "Show background glow",
-      "default": true
-    },
-    {
       "type": "header",
       "content": "t:general.appearance"
     },
@@ -121,6 +128,19 @@
       "type": "color",
       "id": "background_color",
       "label": "t:labels.background_color"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_glow",
+      "label": "Show background glow",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_scroll_effect",
+      "label": "Enable scroll effect",
+      "default": true,
+      "info": "Footer reveal and wordmark motion. Disabled for reduced motion and in the theme editor."
     },
     {
       "type": "header",
@@ -177,7 +197,278 @@
   ],
   "presets": [
     {
-      "name": "Tapra footer"
+      "name": "Tapra footer",
+      "blocks": {
+        "brand": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "width_mobile": "fill",
+            "height": "fit",
+            "alignment": "left",
+            "horizontal_alignment": "left",
+            "position_horizontal": "top",
+            "gap_desktop": 26,
+            "gap_mobile": 26,
+            "appearance_type": "inherit",
+            "show_overlay": false
+          },
+          "blocks": {
+            "brand-name": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Tapra\u00ae</p>",
+                "heading_size": "custom",
+                "custom_heading_size": 20,
+                "html_tag": "div",
+                "width": "fill",
+                "text_color": "#ffffff"
+              }
+            },
+            "tagline": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>A little structure for a desk that feels more like you.</p>",
+                "heading_size": "custom",
+                "custom_heading_size": 40,
+                "html_tag": "h2",
+                "width": "fill",
+                "text_color": "#ffffff"
+              }
+            },
+            "email": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"mailto:hello@tapra.com\">hello@tapra.com</a></p>",
+                "text_size": "lg",
+                "text_color": "#ffffff",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "brand-name",
+            "tagline",
+            "email"
+          ],
+          "static": true
+        },
+        "explore": {
+          "type": "menu",
+          "settings": {
+            "menu": "",
+            "heading": "Explore",
+            "collapse_menu_on_mobile": false,
+            "heading_gap": 18,
+            "menu_gap": 18,
+            "heading_size": "custom",
+            "custom_heading_size": 13,
+            "heading_color": "#9fb0d0",
+            "html_tag": "h2",
+            "menu_size": "sm",
+            "menu_color": "#ffffff",
+            "link_weight": "600"
+          },
+          "blocks": {
+            "link-0": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Home",
+                "link": "/"
+              }
+            },
+            "link-1": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Shop",
+                "link": "/collections/all"
+              }
+            },
+            "link-2": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Categories",
+                "link": "/collections"
+              }
+            },
+            "link-3": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "Lookbook",
+                "link": "/pages/lookbook"
+              }
+            },
+            "link-4": {
+              "type": "_menu-link",
+              "settings": {
+                "label": "FAQ",
+                "link": "/pages/faq"
+              }
+            }
+          },
+          "block_order": [
+            "link-0",
+            "link-1",
+            "link-2",
+            "link-3",
+            "link-4"
+          ],
+          "static": true
+        },
+        "newsletter": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "width_mobile": "fill",
+            "height": "fit",
+            "alignment": "left",
+            "horizontal_alignment": "left",
+            "position_horizontal": "top",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "inherit",
+            "show_overlay": false
+          },
+          "blocks": {
+            "intro": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "width_mobile": "fill",
+                "height": "fit",
+                "alignment": "left",
+                "horizontal_alignment": "left",
+                "position_horizontal": "top",
+                "gap_desktop": 14,
+                "gap_mobile": 14,
+                "appearance_type": "inherit",
+                "show_overlay": false
+              },
+              "blocks": {
+                "title": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>A small note. A fresh start.</p>",
+                    "heading_size": "custom",
+                    "custom_heading_size": 22,
+                    "html_tag": "h2",
+                    "width": "fill",
+                    "text_color": "#ffffff"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Thoughtful typing tips and Tapra updates, occasionally.</p>",
+                    "text_size": "sm",
+                    "text_color": "#9fb0d0",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "title",
+                "description"
+              ]
+            },
+            "signup": {
+              "type": "email-signup",
+              "settings": {
+                "form_layout": "vertical",
+                "vertical_on_mobile": true,
+                "width_desktop": "fill",
+                "width_mobile": "fill",
+                "field_height": "large",
+                "input_placeholder": "you@example.com",
+                "button_label": "Join the list",
+                "button_style": "secondary",
+                "show_icon": true,
+                "button_icon_only": false,
+                "icon_only_on_mobile": false,
+                "icon": "arrow",
+                "icon_size": "custom",
+                "icon_width": 16,
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "input_style": "outline",
+                "color_scheme": "scheme-3",
+                "corner_radius": "rounded",
+                "input_background_color": "#ffffff0a"
+              }
+            },
+            "consent": {
+              "type": "text",
+              "settings": {
+                "text": "<p>By subscribing, you agree to receive Tapra emails. Unsubscribe at any time.</p>",
+                "text_size": "xs",
+                "text_color": "#9fb0d0",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "intro",
+            "signup",
+            "consent"
+          ],
+          "static": true
+        },
+        "credits": {
+          "type": "group",
+          "settings": {
+            "direction": "horizontal",
+            "width": "fill",
+            "width_mobile": "fill",
+            "height": "fit",
+            "alignment": "left",
+            "horizontal_alignment": "left",
+            "position_horizontal": "top",
+            "gap_desktop": 16,
+            "gap_mobile": 16,
+            "appearance_type": "inherit",
+            "show_overlay": false,
+            "customize_mobile_alignment": true
+          },
+          "blocks": {
+            "note": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Made for people who type.</p>",
+                "text_size": "sm",
+                "text_color": "#9fb0d0",
+                "width": "fill"
+              }
+            },
+            "privacy": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"/policies/privacy-policy\">Privacy Policy</a></p>",
+                "text_size": "sm",
+                "text_color": "#ffffff",
+                "width": "fit"
+              }
+            },
+            "copyright": {
+              "type": "text",
+              "settings": {
+                "text": "<p>\u00a9 2026 Tapra. All rights reserved.</p>",
+                "text_size": "sm",
+                "text_color": "#9fb0d0",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "note",
+            "privacy",
+            "copyright"
+          ],
+          "static": true
+        }
+      }
     }
   ]
 }
