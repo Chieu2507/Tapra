@@ -98,6 +98,7 @@
 
 {% capture header_top_style %}
   {% if header_icon_size != 20 %}--header-icon-size: {{ header_icon_size }}px;{% endif %}
+  --header-row-gap: {{ block.settings.row_gap | default: 32 }}px;
   --header-top-gap-basic: {{ header_top_gap_basic }}px;
   --header-top-gap-compact: {{ header_top_gap_compact }}px;
   {% if header_top_padding_top != 12 %}--header-top-padding-top: {{ header_top_padding_top }}px;{% endif %}
@@ -161,7 +162,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    gap: var(--header-top-gap, 10px);
+    gap: var(--header-row-gap, 32px);
   }
 
   .header-top[data-logo-position='left'] .header__row {
@@ -360,6 +361,17 @@
     {
       "type": "header",
       "content": "t:general.gap"
+    },
+    {
+      "type": "range",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "info": "Space between header columns. Applies to both Classic and Compact."
     },
     {
       "type": "range",
