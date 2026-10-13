@@ -7,7 +7,7 @@
   assign cart_drawer_title = section.settings.title | default: 'Cart'
   assign cart_drawer_title_size = settings.overlay_title_size | default: 'md'
   assign cart_drawer_custom_title_size = settings.overlay_custom_title_size | default: 24
-  assign cart_drawer_title_size_class = 'heading-md'
+  assign cart_drawer_title_size_class = 'heading-sm'
   case cart_drawer_title_size
     when 'display', 'heading_1'
       assign cart_drawer_title_size_class = 'heading-display'
@@ -16,7 +16,7 @@
     when 'lg', 'heading_3'
       assign cart_drawer_title_size_class = 'heading-lg'
     when 'md', 'heading_4'
-      assign cart_drawer_title_size_class = 'heading-md'
+      assign cart_drawer_title_size_class = 'heading-sm'
     when 'sm', 'heading_5'
       assign cart_drawer_title_size_class = 'heading-sm'
     when 'xs', 'heading_6'

@@ -989,11 +989,6 @@
   }
 
 /* Cart composition: a restrained type scale and an 8px spacing rhythm. */
-.cart-drawer__header .drawer__title:not(.heading-custom) {
-  font-size: 28px;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-}
 .cart-drawer__header { min-height: 72px; }
 .cart-drawer__item-count { font-size: 13px; }
 .cart-drawer__savings[hidden], .cart-drawer__message[hidden] { display: none; }
@@ -1078,7 +1073,6 @@ html[data-surface-light-enabled] .cart-drawer__panel.surface-light::before {
 @media (max-width: 767.98px) {
   .cart-drawer__footer { padding-block-start: 0; }
   .cart-drawer__header { min-height: 64px; }
-  .cart-drawer__header .drawer__title:not(.heading-custom) { font-size: 24px; }
   .cart-drawer__item { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
   .cart-drawer__item-media { width: 64px; height: 64px; }
   .cart-drawer__item-actions { grid-column: 2 / -1; grid-row: 2; display: flex; justify-content: space-between; align-items: center; }
