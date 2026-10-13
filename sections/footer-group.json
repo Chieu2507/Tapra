@@ -241,7 +241,7 @@
             "height": "fit",
             "alignment": "left",
             "horizontal_alignment": "left",
-            "position_horizontal": "top",
+            "position_horizontal": "center",
             "gap_desktop": 16,
             "gap_mobile": 16,
             "appearance_type": "inherit",
@@ -252,35 +252,67 @@
             "note": {
               "type": "text",
               "settings": {
-                "text": "<p>Made for people who type.</p>",
+                "text": "<p>\u00a9 2025 Tapra. Powered by Shopify.</p>",
                 "text_size": "sm",
                 "text_color": "#9fb0d0",
                 "width": "fill"
               }
             },
-            "privacy": {
-              "type": "text",
+            "policies": {
+              "type": "menu",
               "settings": {
-                "text": "<p><a href=\"/policies/privacy-policy\">Privacy Policy</a></p>",
-                "text_size": "sm",
-                "text_color": "#ffffff",
-                "width": "fit"
-              }
+                "menu": "",
+                "heading": "Policies",
+                "show_heading": false,
+                "collapse_menu_on_mobile": false,
+                "direction": "horizontal",
+                "menu_size": "sm",
+                "menu_gap": 24,
+                "menu_color": "#ffffff",
+                "link_weight": "600"
+              },
+              "blocks": {
+                "policy-0": {
+                  "type": "_menu-link",
+                  "settings": {
+                    "label": "Privacy Policy",
+                    "link": "/policies/privacy-policy"
+                  }
+                },
+                "policy-1": {
+                  "type": "_menu-link",
+                  "settings": {
+                    "label": "Terms of Service",
+                    "link": "/policies/terms-of-service"
+                  }
+                },
+                "policy-2": {
+                  "type": "_menu-link",
+                  "settings": {
+                    "label": "Cookies Settings",
+                    "link": "/policies/privacy-policy#cookies"
+                  }
+                }
+              },
+              "block_order": [
+                "policy-0",
+                "policy-1",
+                "policy-2"
+              ]
             },
-            "copyright": {
-              "type": "text",
+            "payment": {
+              "type": "payment-icons",
               "settings": {
-                "text": "<p>\u00a9 2026 Tapra. All rights reserved.</p>",
-                "text_size": "sm",
-                "text_color": "#9fb0d0",
-                "width": "fill"
+                "icon_width": 34,
+                "gap_desktop": 8,
+                "gap_mobile": 8
               }
             }
           },
           "block_order": [
             "note",
-            "privacy",
-            "copyright"
+            "policies",
+            "payment"
           ],
           "static": true
         }
