@@ -30,7 +30,6 @@ html[data-surface-light-enabled] .surface-light::after {
   border-radius: inherit;
   pointer-events: none;
   opacity: var(--surface-light-opacity);
-  transition: opacity 250ms ease;
 }
 html[data-surface-light-enabled] .surface-light::before {
   z-index: -1;
