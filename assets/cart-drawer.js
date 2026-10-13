@@ -856,6 +856,8 @@
       });
     };
     freezeVisual(container, visual.firstElementChild);
+    visual.firstElementChild.style.removeProperty('opacity');
+    visual.firstElementChild.style.removeProperty('transition');
     if (header.classList.contains('header-top--menu-open')) {
       const surface = header.querySelector('.header__mobile-drawer-surface');
       if (surface) {
