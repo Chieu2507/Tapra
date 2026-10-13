@@ -14,11 +14,11 @@
     scanFrame = 0;
     if (!running) return;
     items.forEach((item, element) => {
-      if (!element.isConnected || !element.classList.contains('surface-light')) { observer.unobserve(element); element.style.setProperty('--surface-light-opacity', '0'); items.delete(element); }
+      if (!element.isConnected || !element.matches('.surface-light, .button-light')) { observer.unobserve(element); element.style.setProperty('--surface-light-opacity', '0'); items.delete(element); }
     });
-    document.querySelectorAll('.surface-light').forEach(element => {
+    document.querySelectorAll([root.hasAttribute('data-surface-light-enabled') ? '.surface-light' : '', root.hasAttribute('data-button-light-enabled') ? '.button-light' : ''].filter(Boolean).join(',') || ':not(*)').forEach(element => {
       if (items.has(element)) return;
-      items.set(element, { element, reach: 170, x: 0, y: 0, intensity: 0, tightness: 0, visible: false });
+      items.set(element, { element, reach: element.classList.contains('button-light') ? 100 : 170, x: 0, y: 0, intensity: 0, tightness: 0, visible: false });
       observer.observe(element);
     });
     wake();
@@ -66,10 +66,10 @@
     if (moving) frame = requestAnimationFrame(update);
   };
   const mutations = new MutationObserver(records => {
-    if (records.some(record => record.type === 'childList' || record.target.classList?.contains('surface-light') || items.has(record.target)) && !scanFrame) scanFrame = requestAnimationFrame(scan);
+    if (records.some(record => record.type === 'childList' || record.target.matches?.('.surface-light, .button-light') || items.has(record.target)) && !scanFrame) scanFrame = requestAnimationFrame(scan);
   });
   const synchronize = () => {
-    running = root.hasAttribute('data-surface-light-enabled') && hover.matches && !reducedMotion.matches;
+    running = (root.hasAttribute('data-surface-light-enabled') || root.hasAttribute('data-button-light-enabled')) && hover.matches && !reducedMotion.matches;
     if (running) { scan(); mutations.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] }); }
     else {
       mutations.disconnect(); observer.disconnect(); cancelAnimationFrame(frame); cancelAnimationFrame(scanFrame); frame = scanFrame = 0;
@@ -88,6 +88,6 @@
   document.addEventListener('close', wake, true);
   hover.addEventListener('change', synchronize);
   reducedMotion.addEventListener('change', synchronize);
-  new MutationObserver(synchronize).observe(root, { attributes: true, attributeFilter: ['data-surface-light-enabled'] });
+  new MutationObserver(synchronize).observe(root, { attributes: true, attributeFilter: ['data-surface-light-enabled', 'data-button-light-enabled'] });
   synchronize();
 })();

@@ -563,7 +563,7 @@ input[type='reset'] {
 }
 
 .input-style--outline {
-  --input-background-color: var(--input-background-color-override, transparent);
+  --input-background-color: var(--input-background-color-override, var(--background-color));
   --input-background: var(--input-background-color);
   --input-border-width: var(--input-border-width-outline);
 }
@@ -1357,7 +1357,8 @@ input[type='submit'].btn {
     color var(--button-motion-duration, var(--motion-duration-standard))
       var(--button-motion-ease, var(--motion-ease-standard)),
     transform var(--button-motion-duration, var(--motion-duration-standard))
-      var(--button-motion-ease, var(--motion-ease-standard));
+      var(--button-motion-ease, var(--motion-ease-standard)),
+    box-shadow var(--button-motion-duration, var(--motion-duration-standard)) var(--button-motion-ease, var(--motion-ease-standard));
 }
 
 .btn:hover,
@@ -3517,4 +3518,22 @@ body[data-block-animations] .motion-block {animation:none;}
 .reveal-word {display:inline-block;transform-origin:50% 100%;}
 @media (prefers-reduced-motion:reduce) {
   .reveal-pending {opacity:1!important;}
+}
+
+/* Design guide: shared semantic colors and button hover controls. */
+.text-muted { color: var(--text-muted-color); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .btn:is(.btn-primary, .btn--primary, .btn-secondary, .btn--secondary):not(:disabled):not([aria-disabled='true']):hover {
+    box-shadow: 0 var(--button-shadow-y) var(--button-shadow-blur) color-mix(in srgb, var(--button-shadow-color) var(--button-shadow-opacity), transparent);
+  }
+  .btn.button-light--icon:not(:disabled):not([aria-disabled='true']):hover {
+    transform: translateX(var(--button-icon-nudge));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn, button.btn, input.btn, input[type='submit'].btn {
+    --button-motion-duration: 0ms;
+    --motion-distance-hover: 0px;
+    --button-icon-nudge: 0px;
+  }
 }

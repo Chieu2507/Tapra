@@ -162,3 +162,13 @@
 
 .gallery-header-group { width: 100%; min-width: 0; }
 .gallery-header-group.container.page-width { max-width: var(--page-width); }
+
+/* Explicit glass opt-in: selected scheme supplies the tint, border and text. */
+.group.theme-glass {
+  isolation: auto;
+  background-color: color-mix(in srgb, var(--background-color) var(--glass-opacity), transparent);
+  border: 1px solid var(--border-color);
+  color: var(--body-color);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.3);
+}
