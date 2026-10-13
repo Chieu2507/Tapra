@@ -398,7 +398,8 @@
             "width": "fill",
             "width_mobile": "fill",
             "gap_desktop": 32,
-            "height": "fit"
+            "height": "fit",
+            "alignment_mobile": "left"
           },
           "blocks": {
             "insta_1_1": {
