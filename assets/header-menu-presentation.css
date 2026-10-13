@@ -35,3 +35,4 @@
 .header-top:not(.header-top--compact) .header-menu__submenu a:is(:hover, :focus-visible) { color: var(--heading-color); transform: translateX(4px); }
 html[data-surface-light-enabled] .header-top .header-mega-menu__banner.surface-light::after { display: block; }
 html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-mega-menu.surface-light::before { z-index: 1; mix-blend-mode: screen; }
+.header-top:not(.header-top--compact) .header-menu__tertiary-link { padding-block: 0; }
