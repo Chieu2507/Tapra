@@ -6,8 +6,11 @@ html[data-surface-light-enabled] .surface-light {
   --surface-light-x: 50%;
   --surface-light-y: 50%;
   --surface-light-opacity: 0;
+  --surface-light-glow-radius: 230px;
+  --surface-light-edge-radius: 150px;
+  --surface-light-strength: .18;
   --surface-light-edge: color-mix(in srgb, var(--heading-color, #cde6ff) 75%, var(--accent-color, #8cb9ff));
-  --surface-light-glow: color-mix(in srgb, var(--accent-color, #8cb9ff) 18%, transparent);
+  --surface-light-glow: color-mix(in srgb, var(--accent-color, #8cb9ff) calc(var(--surface-light-strength) * 100%), transparent);
   isolation: isolate;
 }
 html[data-surface-light-enabled] .surface-light::before,
@@ -22,15 +25,20 @@ html[data-surface-light-enabled] .surface-light::after {
 }
 html[data-surface-light-enabled] .surface-light::before {
   z-index: -1;
-  background: radial-gradient(circle 230px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%);
+  background: radial-gradient(circle var(--surface-light-glow-radius) at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), color-mix(in srgb, var(--surface-light-glow) 28%, transparent) 45%, transparent 72%);
 }
 html[data-surface-light-enabled] .surface-light::after {
   z-index: 2;
   padding: var(--surface-light-border-width, 1px);
-  background: radial-gradient(circle 150px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-edge), transparent 70%);
+  background: radial-gradient(circle var(--surface-light-edge-radius) at var(--surface-light-x) var(--surface-light-y), var(--surface-light-edge), transparent 70%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+}
+html[data-surface-light-enabled] .surface-light--header {
+  --surface-light-glow-radius: 190px;
+  --surface-light-edge-radius: 140px;
+  --surface-light-strength: .36;
 }
 @media (hover: none) {
   html[data-surface-light-enabled] .surface-light::before, html[data-surface-light-enabled] .surface-light::after { display: none; }
