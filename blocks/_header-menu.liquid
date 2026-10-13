@@ -45,7 +45,7 @@
     assign submenu_text_case = 'original'
   endunless
 
-  assign submenu_text_color = block.settings.submenu_text_color | default: 'var(--body-color)'
+  assign submenu_text_color = block.settings.submenu_text_color | default: 'color-mix(in srgb, var(--heading-color) 60%, var(--body-color))'
   if submenu_text_color == 'heading'
     assign submenu_text_color = 'var(--heading-color)'
   elsif submenu_text_color == 'body'
@@ -82,6 +82,8 @@
 
 {% capture menu_style %}
   {% if menu_gap != 24 %}--header-menu-gap: {{ menu_gap }}px;{% endif %}
+  --header-menu-font-size: var(--font-body-{{ menu_font_size }});
+  --header-submenu-font-size: var(--font-body-{{ submenu_font_size }});
   --header-menu-color: {{ menu_text_color }};
   --header-submenu-color: {{ submenu_text_color }};
 {% endcapture %}
@@ -92,7 +94,6 @@
     id="HeaderMenu-{{ section.id }}-{{ block.id }}"
     aria-label="{{ 'accessibility.menu' | t }}"
     data-dropdown-trigger="{{ dropdown_trigger }}"
-    data-menu-scroll-step="{{ block.settings.menu_scroll_step | default: '1' }}"
     {% if menu_style != blank %}style="{{ menu_style }}"{% endif %}
     {{ block.shopify_attributes }}
   >
@@ -151,7 +152,7 @@
     {% endif %}
   </nav>
 
-  <aside class="component-overlay color-scheme section-color-scope {{ mobile_drawer_scheme }} {{ mobile_drawer_class }} {{ menu_typography_class }}" id="HeaderMobileDrawer-{{ section.id }}-{{ block.id }}" aria-label="{{ 'accessibility.menu' | t }}" aria-labelledby="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}" aria-hidden="true" aria-modal="true" role="dialog" data-component-overlay data-drawer-side="left" data-desktop-layout="drawer" data-mobile-layout="drawer" data-state="closed" scroll-lock hidden data-header-mobile-drawer{% if menu_style != blank %} style="{{ menu_style | strip }}"{% endif %}>
+  <aside class="component-overlay color-scheme section-color-scope {{ mobile_drawer_scheme }} {{ mobile_drawer_class }} {{ menu_typography_class }}" id="HeaderMobileDrawer-{{ section.id }}-{{ block.id }}" aria-label="{{ 'accessibility.menu' | t }}" aria-labelledby="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}" aria-hidden="true" aria-modal="true" role="dialog" data-component-overlay data-drawer-side="left" data-desktop-layout="drawer" data-mobile-layout="drawer" data-state="closed" scroll-lock hidden data-header-mobile-drawer data-dropdown-trigger="{{ dropdown_trigger }}"{% if menu_style != blank %} style="{{ menu_style | strip }}"{% endif %}>
     <button class="component-overlay__backdrop backdrop-blur header__mobile-drawer-backdrop" type="button" tabindex="-1" aria-label="Close menu" data-component-overlay-backdrop data-header-menu-backdrop></button>
     <div class="component-overlay__panel header__mobile-drawer-surface">
       <header class="component-overlay__header header__mobile-drawer-header">
@@ -168,7 +169,7 @@
               <li class="header__mobile-drawer-item{% if link.links != blank %} header__mobile-drawer-item--has-children{% endif %}" data-menu-title="{{ link.title | handleize }}">
                 {% if link.links != blank %}
                   <details class="header__mobile-drawer-details" data-mobile-drawer-details>
-                    <summary><span>{{ link.title | escape }}</span>{% render 'icon', icon: 'chevron-right', class: 'header__mobile-drawer-chevron' %}</summary>
+                    <summary><span>{{ link.title | escape }}</span>{% if block.settings.show_dropdown_icon %}{% render 'icon', icon: 'chevron-right', class: 'header__mobile-drawer-chevron' %}{% endif %}</summary>
                     <div class="header__mobile-drawer-submenu scrollbar scrollbar--vertical {{ submenu_typography_class }}">
                       <div class="header__mobile-drawer-mega-featured-slot" data-mobile-mega-featured-slot="{{ link.title | handleize }}"></div>
                       <ul role="list">
@@ -179,7 +180,7 @@
                                 <summary>
                                   {% if section.settings.header_style == 'compact' %}<a class="header-compact__category-link" href="{{ child_link.url }}">{{ child_link.title | escape }}</a>{% endif %}
                                   <span>{{ child_link.title | escape }}</span>
-                                  {% render 'icon', icon: 'chevron-right', class: 'header__mobile-drawer-chevron' %}
+                                  {% if block.settings.show_dropdown_icon %}{% render 'icon', icon: 'chevron-right', class: 'header__mobile-drawer-chevron' %}{% endif %}
                                 </summary>
                                 <div class="header__mobile-drawer-tertiary-panel scrollbar scrollbar--vertical">
                                   <ul class="header__mobile-drawer-tertiary" role="list">
@@ -501,7 +502,7 @@
 
   .header-mega-menu__layout {
     display: grid;
-    grid-template-columns: minmax(0, calc(100% - var(--mega-banner-width, 40%) - var(--mega-menu-gap, 1.5rem))) minmax(0, var(--mega-banner-width, 40%));
+    grid-template-columns: minmax(min(100%, calc(var(--mega-menu-columns, 4) * 80px)), 1fr) minmax(0, min(var(--mega-banner-width, 40%), max(0px, calc(100% - var(--mega-menu-columns, 4) * 80px - var(--mega-menu-gap, 1.5rem)))));
     gap: var(--mega-menu-gap, 1.5rem);
     align-items: start;
   }
@@ -1156,7 +1157,11 @@
 {
   "name": "t:general.header_menu",
   "tag": null,
-  "blocks": [{ "type": "_mega-menu-banners" }],
+  "blocks": [
+    {
+      "type": "_mega-menu-banners"
+    }
+  ],
   "settings": [
     {
       "type": "header",
@@ -1176,9 +1181,9 @@
       "max": 48,
       "step": 1,
       "unit": "px",
-      "default": 24
+      "default": 24,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
-    {"type":"select","id":"menu_scroll_step","label":"Menu items per scroll","options":[{"value":"1","label":"1 item"},{"value":"2","label":"2 items"},{"value":"3","label":"3 items"}],"default":"1"},
     {
       "type": "checkbox",
       "id": "show_dropdown_icon",
@@ -1190,8 +1195,14 @@
       "id": "dropdown_trigger",
       "label": "t:labels.dropdown_trigger",
       "options": [
-        { "value": "click", "label": "t:options.dropdown_trigger.click" },
-        { "value": "hover", "label": "t:options.dropdown_trigger.hover" }
+        {
+          "value": "click",
+          "label": "t:options.dropdown_trigger.click"
+        },
+        {
+          "value": "hover",
+          "label": "t:options.dropdown_trigger.hover"
+        }
       ],
       "default": "hover"
     },
@@ -1204,9 +1215,18 @@
       "id": "font",
       "label": "t:labels.font",
       "options": [
-        { "value": "body", "label": "t:options.menu_font.body" },
-        { "value": "heading", "label": "t:options.menu_font.heading" },
-        { "value": "accent", "label": "t:options.menu_font.accent" }
+        {
+          "value": "body",
+          "label": "t:options.menu_font.body"
+        },
+        {
+          "value": "heading",
+          "label": "t:options.menu_font.heading"
+        },
+        {
+          "value": "accent",
+          "label": "t:options.menu_font.accent"
+        }
       ],
       "default": "accent"
     },
@@ -1215,12 +1235,30 @@
       "id": "font_size",
       "label": "t:labels.font_size",
       "options": [
-        { "value": "xs", "label": "t:options.menu_font_size.extra_small" },
-        { "value": "sm", "label": "t:options.menu_font_size.small" },
-        { "value": "md", "label": "t:options.menu_font_size.medium" },
-        { "value": "lg", "label": "t:options.menu_font_size.large" },
-        { "value": "xl", "label": "t:options.menu_font_size.extra_large" },
-        { "value": "xxl", "label": "t:options.menu_font_size.double_extra_large" }
+        {
+          "value": "xs",
+          "label": "t:options.menu_font_size.extra_small"
+        },
+        {
+          "value": "sm",
+          "label": "t:options.menu_font_size.small"
+        },
+        {
+          "value": "md",
+          "label": "t:options.menu_font_size.medium"
+        },
+        {
+          "value": "lg",
+          "label": "t:options.menu_font_size.large"
+        },
+        {
+          "value": "xl",
+          "label": "t:options.menu_font_size.extra_large"
+        },
+        {
+          "value": "xxl",
+          "label": "t:options.menu_font_size.double_extra_large"
+        }
       ],
       "default": "md"
     },
@@ -1229,9 +1267,18 @@
       "id": "letter_spacing",
       "label": "t:labels.letter_spacing",
       "options": [
-        { "value": "tight", "label": "t:options.letter_spacing.tight" },
-        { "value": "normal", "label": "t:options.letter_spacing.normal" },
-        { "value": "relaxed", "label": "t:options.letter_spacing.relaxed" }
+        {
+          "value": "tight",
+          "label": "t:options.letter_spacing.tight"
+        },
+        {
+          "value": "normal",
+          "label": "t:options.letter_spacing.normal"
+        },
+        {
+          "value": "relaxed",
+          "label": "t:options.letter_spacing.relaxed"
+        }
       ],
       "default": "normal"
     },
@@ -1240,8 +1287,14 @@
       "id": "text_case",
       "label": "t:labels.text_case",
       "options": [
-        { "value": "original", "label": "t:options.text_case.original" },
-        { "value": "uppercase", "label": "t:options.text_case.uppercase" }
+        {
+          "value": "original",
+          "label": "t:options.text_case.original"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.text_case.uppercase"
+        }
       ],
       "default": "original"
     },
@@ -1260,9 +1313,18 @@
       "id": "submenu_font",
       "label": "Font",
       "options": [
-        { "value": "body", "label": "Body" },
-        { "value": "heading", "label": "Heading" },
-        { "value": "accent", "label": "Accent" }
+        {
+          "value": "body",
+          "label": "Body"
+        },
+        {
+          "value": "heading",
+          "label": "Heading"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
       ],
       "default": "body"
     },
@@ -1271,11 +1333,26 @@
       "id": "submenu_font_size",
       "label": "Font size",
       "options": [
-        { "value": "sm", "label": "Small" },
-        { "value": "md", "label": "Medium" },
-        { "value": "lg", "label": "Large" },
-        { "value": "xl", "label": "Extra large" },
-        { "value": "xxl", "label": "Double extra large" }
+        {
+          "value": "sm",
+          "label": "Small"
+        },
+        {
+          "value": "md",
+          "label": "Medium"
+        },
+        {
+          "value": "lg",
+          "label": "Large"
+        },
+        {
+          "value": "xl",
+          "label": "Extra large"
+        },
+        {
+          "value": "xxl",
+          "label": "Double extra large"
+        }
       ],
       "default": "md"
     },
@@ -1284,8 +1361,14 @@
       "id": "submenu_text_case",
       "label": "Text case",
       "options": [
-        { "value": "original", "label": "Original" },
-        { "value": "uppercase", "label": "Uppercase" }
+        {
+          "value": "original",
+          "label": "Original"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
       ],
       "default": "original"
     },

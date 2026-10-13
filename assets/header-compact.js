@@ -37,7 +37,10 @@
         fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
       };
       const measure = () => {
+        // Preserve shell measurements throughout the exit transition.
+        if (drawer.dataset.state === 'closing') return;
         if (!root.classList.contains('header-top--menu-open')) {
+          if (document.querySelector(".search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])")) return;
           root.style.setProperty('--compact-footer-shift', '0px');
           root.classList.remove('header-compact--resizing');
           return;
@@ -52,14 +55,20 @@
         }
         const active = drawer.querySelector('[data-mobile-drawer-details][open] > .header__mobile-drawer-submenu');
         if (showColumns) {
-          root.style.setProperty('--compact-menu-columns', active?.querySelector(':scope > ul')?.children.length || 4);
+          const mega = active?.querySelector('[data-header-mega-menu]');
+          const megaStyle = mega && getComputedStyle(mega);
+          active?.style.setProperty('--compact-banner-width', megaStyle?.getPropertyValue('--mega-banner-width') || '40%');
+          active?.style.setProperty('--compact-banner-gap', megaStyle?.getPropertyValue('--mega-menu-gap') || '12px');
+          root.style.setProperty('--compact-menu-columns', Number(megaStyle?.getPropertyValue('--mega-menu-columns')) || active?.querySelector(':scope > ul')?.children.length || 4);
+          active?.style.setProperty('--compact-submenu-max-width', mega?.classList.contains('header-mega-menu--submenu-limited') ? megaStyle.getPropertyValue('--mega-menu-max-width') : 'none');
           active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
           const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
           root.style.setProperty('--compact-menu-height', `${height}px`);
         }
         const surface = drawer.querySelector('.header__mobile-drawer-surface');
         if (surface) {
-          const targetHeight = 64 + surface.offsetHeight + 2;
+          const shellStyle = getComputedStyle(root);
+          const targetHeight = 64 + surface.offsetHeight + parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) + parseFloat(shellStyle.borderTopWidth) + parseFloat(shellStyle.borderBottomWidth);
           root.style.setProperty('--compact-shell-height', `${targetHeight}px`);
           // The content adopts its new height immediately; the shell animates.
           // Keep utilities at the animated bottom rather than the target bottom.
@@ -80,7 +89,7 @@
         measure();
       };
       navigation.forEach(summary => {
-        summary.addEventListener('pointerenter', () => choose(summary), options);
+        if (drawer.dataset.dropdownTrigger !== 'click') summary.addEventListener('pointerenter', () => choose(summary), options);
         summary.addEventListener('focus', () => choose(summary), options);
       });
       drawer.addEventListener('toggle', measure, { ...options, capture: true });

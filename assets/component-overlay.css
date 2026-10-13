@@ -11,16 +11,16 @@
 }
 
 .component-overlay__backdrop {
-  background-color: transparent;
+  background-color: var(--overlay-backdrop-color);
   cursor: pointer;
   opacity: 0;
   --backdrop-blur: 0px;
-  transition:
-    background-color var(--overlay-backdrop-duration) var(--overlay-backdrop-ease),
-    opacity var(--overlay-backdrop-duration) var(--overlay-backdrop-ease),
-    -webkit-backdrop-filter var(--overlay-backdrop-duration) var(--overlay-backdrop-ease),
-    backdrop-filter var(--overlay-backdrop-duration) var(--overlay-backdrop-ease);
+  /* A zero-blur backdrop needs no filter layer. Fade its alpha once. */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  transition: opacity var(--overlay-backdrop-duration) var(--overlay-backdrop-ease);
 }
+.component-overlay:is([data-state='opening'], [data-state='open'], [data-state='closing']) .component-overlay__backdrop { will-change: opacity; }
 .component-overlay__panel {
   border: var(--overlay-popover-border-width) solid var(--overlay-border-color);
   border-radius: var(--drawer-radius);
@@ -44,14 +44,9 @@
   transition-timing-function: var(--overlay-exit-ease);
 }
 .component-overlay[data-state='open'] .component-overlay__backdrop {
-  --backdrop-blur: var(--overlay-backdrop-blur, 0px);
-  /* The color token already owns alpha; element opacity also attenuates blur. */
-  background-color: var(--overlay-backdrop-color);
   opacity: 1;
 }
 .component-overlay[data-state='closing'] .component-overlay__backdrop {
-  --backdrop-blur: 0px;
-  background-color: transparent;
   opacity: 0;
 }
 custom-cursor[data-component-overlay-cursor] {
@@ -66,9 +61,9 @@ custom-cursor[data-component-overlay-cursor] {
   justify-content: center;
   overflow: hidden;
   border-radius: 50%;
-  color: var(--color-cursor-text);
+  color: var(--overlay-text-color);
   pointer-events: none;
-  background-color: var(--color-cursor-background);
+  background-color: var(--overlay-background-color);
   transform: translate(-50%, -50%);
   transition: width .2s ease, height .2s ease;
   will-change: width, height;

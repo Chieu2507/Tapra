@@ -6,7 +6,7 @@
   assign header_scheme = header_scheme | default: 'scheme-1' | handleize
 
   assign header_sticky_type = section.settings.sticky_type | default: 'none'
-  unless header_sticky_type == 'always' or header_sticky_type == 'scroll_up' or header_sticky_type == 'top_header_only' or header_sticky_type == 'bottom_header_only' or header_sticky_type == 'none'
+  unless header_sticky_type == 'always' or header_sticky_type == 'scroll_up' or header_sticky_type == 'none'
     assign header_sticky_type = 'none'
   endunless
 
@@ -55,19 +55,33 @@
     assign header_top_separator = 'none'
   endunless
 
-  assign header_top_gap = block.settings.gap | default: 16 | plus: 0
-  if header_top_gap < 0 or header_top_gap > 100
-    assign header_top_gap = 16
+  assign header_top_gap_basic = block.settings.gap_basic | default: 10 | plus: 0
+  assign header_top_gap_compact = block.settings.gap_compact | default: 0 | plus: 0
+  if header_top_gap_basic < 0 or header_top_gap_basic > 100
+    assign header_top_gap_basic = 10
+  endif
+  if header_top_gap_compact < 0 or header_top_gap_compact > 100
+    assign header_top_gap_compact = 0
   endif
 
-  assign header_top_padding_top = block.settings.padding_top | default: 12 | plus: 0
-  assign header_top_padding_bottom = block.settings.padding_bottom | default: 12 | plus: 0
   assign header_top_customize_mobile_padding = true
-  if block.settings.customize_mobile_padding == false
-    assign header_top_customize_mobile_padding = false
+  if section.settings.header_style == 'compact'
+    assign header_top_padding_top = block.settings.padding_top_compact | default: 12 | plus: 0
+    assign header_top_padding_bottom = block.settings.padding_bottom_compact | default: 12 | plus: 0
+    assign header_top_padding_top_mobile = block.settings.padding_top_mobile_compact | default: 12 | plus: 0
+    assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile_compact | default: 12 | plus: 0
+    if block.settings.customize_mobile_padding_compact == false
+      assign header_top_customize_mobile_padding = false
+    endif
+  else
+    assign header_top_padding_top = block.settings.padding_top | default: 12 | plus: 0
+    assign header_top_padding_bottom = block.settings.padding_bottom | default: 12 | plus: 0
+    assign header_top_padding_top_mobile = block.settings.padding_top_mobile | default: 12 | plus: 0
+    assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile | default: 12 | plus: 0
+    if block.settings.customize_mobile_padding == false
+      assign header_top_customize_mobile_padding = false
+    endif
   endif
-  assign header_top_padding_top_mobile = block.settings.padding_top_mobile | default: 12 | plus: 0
-  assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile | default: 12 | plus: 0
   if header_top_padding_top < 0 or header_top_padding_top > 100
     assign header_top_padding_top = 12
   endif
@@ -84,7 +98,10 @@
 
 {% capture header_top_style %}
   {% if header_icon_size != 20 %}--header-icon-size: {{ header_icon_size }}px;{% endif %}
-  {% if header_top_gap != 16 %}--header-top-gap: {{ header_top_gap }}px;{% endif %}
+  {% if section.settings.header_style == 'compact' %}--compact-width: {{ block.settings.compact_max_width | default: 288 }}px;--compact-open-width: {{ block.settings.compact_menu_width | default: 900 }}px;{% endif %}
+  --header-row-gap: {{ block.settings.row_gap | default: 32 }}px;
+  --header-top-gap-basic: {{ header_top_gap_basic }}px;
+  --header-top-gap-compact: {{ header_top_gap_compact }}px;
   {% if header_top_padding_top != 12 %}--header-top-padding-top: {{ header_top_padding_top }}px;{% endif %}
   {% if header_top_padding_bottom != 12 %}--header-top-padding-bottom: {{ header_top_padding_bottom }}px;{% endif %}
   {% if header_top_customize_mobile_padding %}--header-top-padding-top-mobile: {{ header_top_padding_top_mobile }}px;--header-top-padding-bottom-mobile: {{ header_top_padding_bottom_mobile }}px;{% endif %}
@@ -103,6 +120,11 @@
   {% if header_top_style != blank %}style="{{ header_top_style }}"{% endif %}
   {{ block.shopify_attributes }}
 >
+  {% if section.settings.header_style == 'compact' %}
+    {% style %}
+      #shopify-section-{{ section.id }}, #MainContent { --header-compact-top: {{ block.settings.compact_top | default: 16 }}px; }
+    {% endstyle %}
+  {% endif %}
   <div class="container {{ header_container_width }} header__container">
     <div class="header__row" data-header-row>
       <div class="header__column header__column--left" data-header-column="left"></div>
@@ -117,6 +139,7 @@
 
 {% stylesheet %}
   .header-top {
+    --header-top-gap: var(--header-top-gap-basic, 10px);
     position: relative;
     min-width: 0;
     padding-top: var(--header-top-padding-top, 12px);
@@ -145,7 +168,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
-    gap: var(--header-top-gap, 16px);
+    gap: var(--header-row-gap, 32px);
   }
 
   .header-top[data-logo-position='left'] .header__row {
@@ -156,7 +179,7 @@
     display: none;
     align-items: center;
     min-height: var(--button-height);
-    gap: var(--header-top-gap, 16px);
+    gap: var(--header-top-gap, 10px);
   }
 
   .header__blocks {
@@ -291,14 +314,30 @@
   "name": "t:general.header_top",
   "tag": null,
   "blocks": [
-    { "type": "_header-menu" },
-    { "type": "_header-menu-toggle" },
-    { "type": "_header-logo" },
-    { "type": "_header-localization" },
-    { "type": "_header-divider" },
-    { "type": "_header-search" },
-    { "type": "_header-account" },
-    { "type": "_header-cart" }
+    {
+      "type": "_header-menu"
+    },
+    {
+      "type": "_header-menu-toggle"
+    },
+    {
+      "type": "_header-logo"
+    },
+    {
+      "type": "_header-localization"
+    },
+    {
+      "type": "_header-divider"
+    },
+    {
+      "type": "_header-search"
+    },
+    {
+      "type": "_header-account"
+    },
+    {
+      "type": "_header-cart"
+    }
   ],
   "settings": [
     {
@@ -310,11 +349,60 @@
       "id": "bottom_separator",
       "label": "t:labels.bottom_separator",
       "options": [
-        { "value": "none", "label": "t:options.header_separator.none" },
-        { "value": "line", "label": "t:options.header_separator.line" },
-        { "value": "shadow", "label": "t:options.header_separator.shadow" }
+        {
+          "value": "none",
+          "label": "t:options.header_separator.none"
+        },
+        {
+          "value": "line",
+          "label": "t:options.header_separator.line"
+        },
+        {
+          "value": "shadow",
+          "label": "t:options.header_separator.shadow"
+        }
       ],
       "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Position",
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "compact_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "compact_max_width",
+      "label": "Max width",
+      "info": "Applies when the menu and search are closed.",
+      "min": 160,
+      "max": 560,
+      "step": 4,
+      "unit": "px",
+      "default": 288,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "compact_menu_width",
+      "label": "Menu width",
+      "info": "Applies when the menu or search is open. Mobile menus use the full screen width.",
+      "min": 600,
+      "max": 1600,
+      "step": 10,
+      "unit": "px",
+      "default": 900,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
     },
     {
       "type": "header",
@@ -322,13 +410,36 @@
     },
     {
       "type": "range",
-      "id": "gap",
+      "id": "row_gap",
+      "label": "Row gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "info": "Space between header columns. Applies to both Classic and Compact."
+    },
+    {
+      "type": "range",
+      "id": "gap_basic",
       "label": "t:labels.gap",
       "min": 0,
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 16
+      "default": 10,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_compact",
+      "label": "t:labels.gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
     },
     {
       "type": "header",
@@ -342,7 +453,8 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "range",
@@ -352,13 +464,15 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "checkbox",
       "id": "customize_mobile_padding",
       "label": "t:labels.customize_mobile_padding",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "range",
@@ -369,7 +483,7 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
     },
     {
       "type": "range",
@@ -380,7 +494,58 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_compact",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_compact",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding_compact",
+      "label": "t:labels.customize_mobile_padding",
+      "default": true,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile_compact",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' and block.settings.customize_mobile_padding_compact }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile_compact",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' and block.settings.customize_mobile_padding_compact }}"
     }
   ],
   "presets": [

@@ -25,9 +25,6 @@
   .search-overlay__results[hidden] { display: none; }
   body:has(.section-header .header__container.full-width) .search-overlay__container { max-width: none; }
   .search-overlay--scheme { color: var(--body-color); }
-  .search-overlay__backdrop {
-    background-color: transparent;
-  }
   .search-overlay__container { padding-block: 1rem; }
   .search-overlay__panel { background: var(--overlay-background-color); }
   .search-overlay--has-results .search-overlay__panel {
