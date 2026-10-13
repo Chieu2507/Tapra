@@ -49,7 +49,7 @@
     {% endcase %}
     {% unless layout_flow_mobile_justify == 'flex-start' %}--layout-flow-justify-content-mobile: {{ layout_flow_mobile_justify }};{% endunless %}
   {% else %}
-    --layout-flow-wrap-mobile: nowrap;
+    --layout-flow-wrap-mobile: {{ layout_flow_wrap }};
   {% endif %}
 {% else %}
   {% case layout_flow_alignment %}
