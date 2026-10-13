@@ -863,6 +863,7 @@
       }
     });
     visual.querySelectorAll('script, template').forEach(node => node.remove());
+    visual.querySelectorAll('.header-menu-toggle').forEach(node => node.classList.remove('is-expanded'));
     visual.querySelectorAll('shopify-account').forEach(node => {
       const avatar = document.createElement('div');
       avatar.className = node.className;
