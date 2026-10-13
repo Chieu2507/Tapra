@@ -64,14 +64,24 @@
     assign header_top_gap_compact = 0
   endif
 
-  assign header_top_padding_top = block.settings.padding_top | default: 12 | plus: 0
-  assign header_top_padding_bottom = block.settings.padding_bottom | default: 12 | plus: 0
   assign header_top_customize_mobile_padding = true
-  if block.settings.customize_mobile_padding == false
-    assign header_top_customize_mobile_padding = false
+  if section.settings.header_style == 'compact'
+    assign header_top_padding_top = block.settings.padding_top_compact | default: 12 | plus: 0
+    assign header_top_padding_bottom = block.settings.padding_bottom_compact | default: 12 | plus: 0
+    assign header_top_padding_top_mobile = block.settings.padding_top_mobile_compact | default: 12 | plus: 0
+    assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile_compact | default: 12 | plus: 0
+    if block.settings.customize_mobile_padding_compact == false
+      assign header_top_customize_mobile_padding = false
+    endif
+  else
+    assign header_top_padding_top = block.settings.padding_top | default: 12 | plus: 0
+    assign header_top_padding_bottom = block.settings.padding_bottom | default: 12 | plus: 0
+    assign header_top_padding_top_mobile = block.settings.padding_top_mobile | default: 12 | plus: 0
+    assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile | default: 12 | plus: 0
+    if block.settings.customize_mobile_padding == false
+      assign header_top_customize_mobile_padding = false
+    endif
   endif
-  assign header_top_padding_top_mobile = block.settings.padding_top_mobile | default: 12 | plus: 0
-  assign header_top_padding_bottom_mobile = block.settings.padding_bottom_mobile | default: 12 | plus: 0
   if header_top_padding_top < 0 or header_top_padding_top > 100
     assign header_top_padding_top = 12
   endif
@@ -385,7 +395,8 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "range",
@@ -395,13 +406,15 @@
       "max": 100,
       "step": 1,
       "unit": "px",
-      "default": 12
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "checkbox",
       "id": "customize_mobile_padding",
       "label": "t:labels.customize_mobile_padding",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "range",
@@ -412,7 +425,7 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
     },
     {
       "type": "range",
@@ -423,7 +436,58 @@
       "step": 1,
       "unit": "px",
       "default": 12,
-      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_compact",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_compact",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding_compact",
+      "label": "t:labels.customize_mobile_padding",
+      "default": true,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile_compact",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' and block.settings.customize_mobile_padding_compact }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile_compact",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ section.settings.header_style == 'compact' and block.settings.customize_mobile_padding_compact }}"
     }
   ],
   "presets": [
