@@ -146,3 +146,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 .header-top:not(.header-top--compact) .header-menu__details[open]:not(.is-submenu-closing) > .header-menu__summary :is(.header-menu__top-link-label, .header-menu__dropdown-icon) {
   color: var(--heading-color);
 }
+
+@media (max-width: 767.98px) {
+  .header-top[data-header-root] .header__column--right > .header-account { display: none; }
+}
