@@ -37,7 +37,11 @@
         fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
       };
       const measure = () => {
+        // Keep the collapsed target stable while the shell animates. Measuring
+        // the expanded row here would restart its width transition on each resize.
+        if (drawer.dataset.state === 'closing') return;
         if (!root.classList.contains('header-top--menu-open')) {
+          if (document.querySelector(".search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])")) return;
           const row = root.querySelector('[data-header-row]');
           const logo = row?.querySelector('.site-logo');
           const actions = row?.querySelector('.header__column--right');
