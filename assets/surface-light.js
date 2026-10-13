@@ -13,10 +13,11 @@
   const scan = () => {
     scanFrame = 0;
     if (!running) return;
+    const selector = [root.hasAttribute('data-surface-light-enabled') ? '.surface-light' : '', root.hasAttribute('data-button-light-enabled') ? '.button-light' : ''].filter(Boolean).join(',') || ':not(*)';
     items.forEach((item, element) => {
-      if (!element.isConnected || !element.matches('.surface-light, .button-light')) { observer.unobserve(element); element.style.setProperty('--surface-light-opacity', '0'); items.delete(element); }
+      if (!element.isConnected || !element.matches(selector)) { observer.unobserve(element); element.style.setProperty('--surface-light-opacity', '0'); items.delete(element); }
     });
-    document.querySelectorAll([root.hasAttribute('data-surface-light-enabled') ? '.surface-light' : '', root.hasAttribute('data-button-light-enabled') ? '.button-light' : ''].filter(Boolean).join(',') || ':not(*)').forEach(element => {
+    document.querySelectorAll(selector).forEach(element => {
       if (items.has(element)) return;
       items.set(element, { element, reach: element.classList.contains('button-light') ? 100 : 170, x: 0, y: 0, intensity: 0, tightness: 0, visible: false });
       observer.observe(element);
