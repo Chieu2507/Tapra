@@ -63,6 +63,9 @@
 
   assign button_class = 'button-block size-style button-block--width-' | append: button_width
   assign button_class = button_class | append: ' button-block--width-mobile-' | append: button_width_mobile
+  if block.settings.customize_button_style
+    assign button_class = button_class | append: ' button-block--custom-style'
+  endif
   if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit'
     assign button_class = button_class | append: ' button-block--custom-radius'
   endif
@@ -79,6 +82,14 @@
 %}
 
 {% capture button_style_attribute %}
+  {% if block.settings.customize_button_style %}
+    --button-block-font-size: {{ block.settings.font_size }}px;
+    --button-block-font-weight: {{ block.settings.font_weight }};
+    --button-block-text-case: {{ block.settings.text_transform }};
+    --button-block-padding-start: {{ block.settings.button_padding_start }}px;
+    --button-block-padding-end: {{ block.settings.button_padding_end }}px;
+    --button-block-icon-gap: {{ block.settings.icon_gap }}px;
+  {% endif %}
   {% if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit' %}
     --button-block-radius: {% case block.settings.corner_radius %}{% when 'pill' %}var(--radius-pill){% when 'rounded' %}var(--radius-rounded){% else %}var(--radius-square){% endcase %};
   {% endif %}
@@ -124,6 +135,12 @@
 {% endif %}
 
 {% stylesheet %}
+  .button-block--custom-style .btn {
+    font-size: var(--button-block-font-size); font-weight: var(--button-block-font-weight);
+    text-transform: var(--button-block-text-case);
+    padding-inline: var(--button-block-padding-start) var(--button-block-padding-end);
+  }
+  .button-block--custom-style .btn__label--icon { gap: var(--button-block-icon-gap); }
   .button-block--custom-radius .btn { border-radius: var(--button-block-radius); }
   .button-block--icon-background .btn__icon {
     width: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
@@ -321,6 +338,102 @@
     {
       "type": "header",
       "content": "t:general.appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_button_style",
+      "label": "t:gallery_header_controls.customize_button_style",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:gallery_header_controls.font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:gallery_header_controls.font_weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "t:gallery_header_controls.option_400"
+        },
+        {
+          "value": "500",
+          "label": "t:gallery_header_controls.option_500"
+        },
+        {
+          "value": "600",
+          "label": "t:gallery_header_controls.option_600"
+        },
+        {
+          "value": "700",
+          "label": "t:gallery_header_controls.option_700"
+        }
+      ],
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "t:gallery_header_controls.text_transform",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:gallery_header_controls.option_none"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:gallery_header_controls.option_uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "t:gallery_header_controls.option_capitalize"
+        }
+      ],
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_start",
+      "label": "t:gallery_header_controls.button_padding_start",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_end",
+      "label": "t:gallery_header_controls.button_padding_end",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "label": "t:gallery_header_controls.icon_gap",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "visible_if": "{{ block.settings.customize_button_style }}"
     },
     {
       "type": "color_scheme",

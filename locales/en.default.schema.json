@@ -1712,6 +1712,17 @@
     "option_rounded": "Rounded",
     "option_pill": "Pill",
     "icon_background_color": "Icon background color",
-    "icon_padding": "Icon padding"
+    "icon_padding": "Icon padding",
+    "customize_button_style": "Customize typography and spacing",
+    "font_weight": "Font weight",
+    "option_400": "400",
+    "option_500": "500",
+    "option_600": "600",
+    "option_700": "700",
+    "option_capitalize": "Capitalize",
+    "button_padding_start": "Start padding",
+    "button_padding_end": "End padding",
+    "icon_gap": "Icon gap",
+    "background_gradient": "Background gradient"
   }
 }
