@@ -106,3 +106,29 @@
     .search-overlay__tabs { gap: 1.25rem; }
     .search-overlay__product-grid, .search-overlay__collection-grid, .search-overlay__article-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
   }
+
+/* Basic starts as a straight header extension; results add the lower corners. */
+.search-overlay:not(.search-overlay--compact) .search-overlay__panel,
+.search-overlay:not(.search-overlay--compact)[data-mobile-layout='drawer'] .search-overlay__panel {
+  border-radius: 0;
+  transition-property: transform, opacity, border-radius;
+}
+.search-overlay:not(.search-overlay--compact).search-overlay--has-results .search-overlay__panel {
+  border-radius: 0 0 var(--drawer-radius) var(--drawer-radius);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .search-overlay--has-results .search-overlay__results {
+    animation: search-results-reveal 350ms var(--motion-ease-standard) both;
+  }
+  .search-overlay--has-results :is(.search-overlay__result-card, .search-overlay__suggestion-list > li, .search-overlay__page-list > li) {
+    animation: search-results-reveal 350ms var(--motion-ease-standard) both;
+    animation-delay: 40ms;
+  }
+  .search-overlay--has-results :is(.search-overlay__result-card, .search-overlay__suggestion-list > li, .search-overlay__page-list > li):nth-child(2) { animation-delay: 80ms; }
+  .search-overlay--has-results :is(.search-overlay__result-card, .search-overlay__suggestion-list > li, .search-overlay__page-list > li):nth-child(3) { animation-delay: 120ms; }
+  .search-overlay--has-results :is(.search-overlay__result-card, .search-overlay__suggestion-list > li, .search-overlay__page-list > li):nth-child(n+4) { animation-delay: 160ms; }
+}
+@keyframes search-results-reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
