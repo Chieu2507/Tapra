@@ -835,6 +835,7 @@
     const header = document.querySelector('.header-top--compact[data-header-root]');
     const panel = drawer.querySelector('.cart-drawer__panel');
     panel?.querySelector('.cart-drawer__pill')?.remove();
+    if (drawer.dataset?.cartPresentation === 'popup') return;
     if (!header || !panel) return;
     const container = header.querySelector('.header__container');
     if (!container) return;
@@ -898,7 +899,7 @@
   // Keep Shopify's cart content/lifecycle, but originate motion at the CURRENT
   // shell, including an expanded or partially animated menu.
   const prepareCompactMotion = (drawer) => {
-    const header = document.querySelector('.header-top--compact[data-header-root]');
+    const header = drawer.dataset?.cartPresentation === 'popup' ? null : document.querySelector('.header-top--compact[data-header-root]');
     drawer.classList.toggle('cart-drawer--compact', Boolean(header));
     if (!header) return;
     const style = getComputedStyle(header);
