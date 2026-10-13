@@ -330,6 +330,7 @@
     "font_size": "Font size",
     "unit": "Unit",
     "icon_thickness": "Icon thickness",
+    "enable_pointer_light": "Enable pointer light on cards, buttons and overlays",
     "enable_image_zoom_on_hover": "Enable image zoom on hover",
     "enable_block_animations": "Enable block animations",
     "font_size_desktop": "Font size (desktop)",

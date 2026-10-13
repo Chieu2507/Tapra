@@ -1,8 +1,8 @@
 /* Add surface-light to a box/panel with its own background and border radius.
    Optional overrides: --surface-light-edge, --surface-light-glow,
    --surface-light-border-width. Reserve ::before / ::after for the effect. */
-:where(.surface-light) { position: relative; }
-.surface-light {
+:where(html[data-surface-light-enabled] .surface-light) { position: relative; }
+html[data-surface-light-enabled] .surface-light {
   --surface-light-x: 50%;
   --surface-light-y: 50%;
   --surface-light-opacity: 0;
@@ -10,8 +10,8 @@
   --surface-light-glow: color-mix(in srgb, var(--accent-color, #8cb9ff) 18%, transparent);
   isolation: isolate;
 }
-.surface-light::before,
-.surface-light::after {
+html[data-surface-light-enabled] .surface-light::before,
+html[data-surface-light-enabled] .surface-light::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -20,11 +20,11 @@
   opacity: var(--surface-light-opacity);
   transition: opacity 250ms ease;
 }
-.surface-light::before {
+html[data-surface-light-enabled] .surface-light::before {
   z-index: -1;
   background: radial-gradient(circle 230px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%);
 }
-.surface-light::after {
+html[data-surface-light-enabled] .surface-light::after {
   z-index: 2;
   padding: var(--surface-light-border-width, 1px);
   background: radial-gradient(circle 150px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-edge), transparent 70%);
@@ -33,8 +33,17 @@
   mask-composite: exclude;
 }
 @media (hover: none) {
-  .surface-light::before, .surface-light::after { display: none; }
+  html[data-surface-light-enabled] .surface-light::before, .surface-light::after { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .surface-light::before, .surface-light::after { transition: none; }
+  html[data-surface-light-enabled] .surface-light::before, .surface-light::after { transition: none; }
 }
+
+/* Disabled means no generated light layers, including in the Theme Editor. */
+html:not([data-surface-light-enabled]) .surface-light::before,
+html:not([data-surface-light-enabled]) .surface-light::after { content: none; display: none; }
+html[data-surface-light-enabled] .surface-light--button { overflow: hidden; }
+html[data-surface-light-enabled] .surface-light--button::before { background: radial-gradient(circle 90px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%); }
+html[data-surface-light-enabled] .surface-light--button::after { content: none; }
+html[data-surface-light-enabled] .surface-light--line::before { z-index: 2; inset: 0 0 auto; height: 1px; background: radial-gradient(circle 260px at var(--surface-light-x) 50%, var(--surface-light-edge), transparent 75%); }
+html[data-surface-light-enabled] .surface-light--line::after { content: none; }

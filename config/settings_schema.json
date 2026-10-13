@@ -798,6 +798,12 @@
     "settings": [
       {
         "type": "checkbox",
+        "id": "motion_pointer_light",
+        "label": "t:labels.enable_pointer_light",
+        "default": true
+      },
+      {
+        "type": "checkbox",
         "id": "motion_image_zoom",
         "label": "t:labels.enable_image_zoom_on_hover",
         "default": true
