@@ -52,6 +52,7 @@
         }
         const active = drawer.querySelector('[data-mobile-drawer-details][open] > .header__mobile-drawer-submenu');
         if (showColumns) {
+          root.style.setProperty('--compact-menu-columns', active?.querySelector(':scope > ul')?.children.length || 4);
           active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
           const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
           root.style.setProperty('--compact-menu-height', `${height}px`);

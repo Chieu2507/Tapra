@@ -195,10 +195,74 @@
                     "mega-menu-banner-1",
                     "mega-menu-banner-2"
                   ]
+                },
+                "collections-mega-banners": {
+                  "type": "_mega-menu-banners",
+                  "settings": {
+                    "menu_item": "Collections",
+                    "highlight_menu_item": false,
+                    "highlight_color": "#000000",
+                    "banner_width": 40,
+                    "gap": 12,
+                    "layout": "horizontal",
+                    "submenu_columns": "3",
+                    "limit_width": true,
+                    "max_width": 850,
+                    "collections": [],
+                    "font": "accent",
+                    "font_size": "xl",
+                    "letter_spacing": "normal"
+                  },
+                  "blocks": {
+                    "collections-banner": {
+                      "type": "_mega-menu-banner",
+                      "settings": {
+                        "link": "/search?type=product&q=Arctic%20desk",
+                        "open_new_tab": false,
+                        "layout": "content_on_image",
+                        "limit_width": false,
+                        "max_width": 700,
+                        "overlay": false,
+                        "overlay_color": "#00000073",
+                        "subheading": "<p>Lookbook</p>",
+                        "heading": "A setup worth lingering at",
+                        "text": "",
+                        "alignment": "left",
+                        "content_position": "bottom",
+                        "heading_size": "custom",
+                        "custom_heading_size": 16,
+                        "text_size": "sm",
+                        "label": "Shop the setup",
+                        "button_style": "tertiary",
+                        "show_icon": true,
+                        "icon": "arrow_right",
+                        "icon_position": "right",
+                        "full_width": false,
+                        "content_gap": 4,
+                        "button_spacing": 4,
+                        "color_scheme": "scheme-3",
+                        "padding_top": 40,
+                        "padding_bottom": 40,
+                        "padding_left": 40,
+                        "padding_right": 40,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 40,
+                        "padding_bottom_mobile": 40,
+                        "padding_left_mobile": 40,
+                        "padding_right_mobile": 40,
+                        "image": "shopify://shop_images/tapra-menu-keyboard.webp"
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "collections-banner"
+                  ]
                 }
               },
               "block_order": [
-                "mega-menu-banners"
+                "mega-menu-banners",
+                "collections-mega-banners"
               ]
             },
             "header-logo": {

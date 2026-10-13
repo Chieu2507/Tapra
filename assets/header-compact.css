@@ -235,7 +235,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header__mobile-drawer-tertiary { display: grid; gap: 8px; margin: 0; }
 }
 @media (min-width: 1150px) {
-  .header-top.header-top--compact .header__mobile-drawer-submenu > ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .header-top.header-top--compact .header__mobile-drawer-submenu > ul { grid-template-columns: repeat(var(--compact-menu-columns, 4), minmax(0, 1fr)); }
 }
 
 /* Search shares the expanded Compact shell and the existing predictive UI. */
