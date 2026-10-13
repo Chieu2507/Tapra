@@ -677,7 +677,6 @@
       --cart-drawer-inset: 0px;
       --cart-drawer-footer-padding: 1.25rem var(--cart-drawer-padding) 20px;
     }
-    .cart-drawer.component-overlay[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: 0; }
     .cart-drawer__header { min-height: 74px; }
     .cart-drawer__items { padding-top: 20px; }
     .cart-drawer__item { grid-template-columns: 6rem minmax(0, 1fr) auto; min-height: 6rem; column-gap: 1rem; }
