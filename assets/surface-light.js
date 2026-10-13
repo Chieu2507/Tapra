@@ -4,7 +4,8 @@
   const hover = matchMedia('(hover: hover) and (pointer: fine)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const groups = [
-    ['.surface-light:not(.surface-light--button):not(.surface-light--line), .product-card, .collection-card-kernel, .image-card, .blog-card, .testimonial-item, .component-overlay__panel', '', 170],
+    ['.image-card, .collection-card-kernel', 'surface-light--image', 170],
+    ['.surface-light:not(.surface-light--button):not(.surface-light--line), .product-card, .blog-card, .testimonial-item, .component-overlay__panel', '', 170],
     ['.btn:not(.header-menu-toggle):not(.btn--tertiary):not(.link-underline), .surface-light--button', 'surface-light--button', 100],
     ['.footer__container, .surface-light--line', 'surface-light--line', 40],
   ];

@@ -45,5 +45,6 @@ html:not([data-surface-light-enabled]) .surface-light::after { content: none; di
 html[data-surface-light-enabled] .surface-light--button { overflow: hidden; }
 html[data-surface-light-enabled] .surface-light--button::before { background: radial-gradient(circle 90px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%); }
 html[data-surface-light-enabled] .surface-light--button::after { content: none; }
+html[data-surface-light-enabled] .surface-light--image::before { z-index: 1; mix-blend-mode: screen; background: radial-gradient(circle 240px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 75%); }
 html[data-surface-light-enabled] .surface-light--line::before { z-index: 2; inset: 0 0 auto; height: 1px; background: radial-gradient(circle 260px at var(--surface-light-x) 50%, var(--surface-light-edge), transparent 75%); }
 html[data-surface-light-enabled] .surface-light--line::after { content: none; }
