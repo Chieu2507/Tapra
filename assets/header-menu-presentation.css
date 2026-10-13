@@ -163,7 +163,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 }
 .header-top shopify-account::part(dialog) {
   animation-duration: var(--header-motion-duration);
-  animation-timing-function: ease;
+  animation-timing-function: var(--header-motion-ease);
 }
 .header-top:not(.header-top--compact) .header__mobile-drawer.component-overlay,
 .search-overlay:not(.search-overlay--compact) {
