@@ -20,6 +20,7 @@
 <script src="{{ 'tapra-footer.js' | asset_url }}" defer></script>
 <div class="tapra-footer-frame" data-tapra-footer data-scroll-effect="{{ section.settings.enable_scroll_effect }}">
 <footer class="tapra-footer section-spacing color-scheme section-color-scope {{ footer_scheme }}{% if section.settings.show_glow %} tapra-footer--glow{% endif %}">
+  {% capture tapra_footer_content %}
   <div class="container {{ footer_width }} tapra-footer__container">
     <div class="tapra-footer__top">
       <div class="tapra-footer__brand">{% content_for 'block', type: 'group', id: 'brand' %}</div>
@@ -31,6 +32,8 @@
     {% endif %}
     <div class="tapra-footer__bottom">{% content_for 'block', type: 'group', id: 'credits' %}</div>
   </div>
+  {% endcapture %}
+  {{ tapra_footer_content | replace: '<a href=', '<a class="link-underline" href=' }}
 </footer>
 </div>
 {% stylesheet %}
@@ -66,6 +69,7 @@
     .tapra-footer__bottom > .group > .menu-block,
     .tapra-footer__bottom > .group > .payment-icons-block { justify-self: start; }
   }
+  .tapra-footer a { text-decoration: none; }
   .tapra-footer a:focus-visible { outline: 2px solid var(--accent-color, #bfe3ff); outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) {
     .tapra-footer, .tapra-footer__wordmark span { transform: none !important; opacity: 1 !important; }
