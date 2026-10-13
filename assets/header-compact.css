@@ -29,7 +29,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact.header-top--separator-line { border: 1px solid color-mix(in srgb, var(--border-color) 80%, var(--heading-color) 20%); }
 .header-top.header-top--compact.header-top--separator-shadow { box-shadow: 0 12px 40px rgb(from var(--shadow-color) r g b / 0.32); }
 .header-top.header-top--compact.header-top--menu-open { width: min(var(--compact-open-width, 900px), 100%); height: var(--compact-shell-height, 50px); }
-.header-top.header-top--compact.header-top--menu-open { border-radius: 26px; }
+/* Demo set(true) calls pick(), enabling its 350ms fast height immediately. */
+.header-top.header-top--compact.header-top--menu-open { border-radius: 26px; transition: width 600ms var(--compact-ease), height 350ms var(--compact-ease), border-radius 600ms var(--compact-ease); }
 .header-top.header-top--compact.header-compact--fast { transition: width 600ms var(--compact-ease), height 350ms var(--compact-ease), border-radius 600ms var(--compact-ease); }
 .header-top.header-top--compact .header__container { width: 100%; padding: 0 6px 0 16px; transition: padding 600ms var(--compact-ease); }
 .header-top.header-top--compact .header__row { display: flex; height: 48px; min-height: 48px; gap: var(--header-row-gap, 32px); transition: height 600ms var(--compact-ease); }
@@ -246,6 +247,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 
 /* Search shares the expanded Compact shell and the existing predictive UI. */
 .search-overlay.search-overlay--compact[data-search-overlay] { --overlay-motion-duration: 400ms; --overlay-enter-delay: 250ms; --overlay-exit-duration: 250ms; --overlay-motion-ease: ease; --overlay-exit-ease: ease; --overlay-backdrop-duration: 450ms; --overlay-backdrop-ease: ease; }
+body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'])) .header-top.header-top--compact { transition: width 600ms var(--compact-ease), height 350ms var(--compact-ease), border-radius 600ms var(--compact-ease); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top.header-top--compact { width: min(var(--compact-open-width, 900px), 100%); height: var(--compact-search-height, 154px); }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { z-index: calc(var(--z-modal, 1000) + 1); }
 .search-overlay.search-overlay--compact[data-search-overlay] { z-index: calc(var(--z-modal, 1000) + 2); pointer-events: none; }
@@ -302,7 +304,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   .header-top.header-top--compact.header-top--menu-open { display: flex; flex-direction: column; width: 100%; height: 100dvh; border: 0; border-radius: 0; background: var(--background-color); box-shadow: none; }
   .header-top.header-top--compact.header-top--menu-open .header__container { flex: 0 0 auto; padding: env(safe-area-inset-top, 0px) 14px 0 20px; }
   .header-top.header-top--compact .header__mobile-drawer.component-overlay { flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; }
-  .header-top.header-top--compact.header-top--menu-open :is(.header-search, .header-cart, .header-account) { display: none; }
+  .header-top.header-top--compact.header-top--menu-open :is(.header-search, .header-account) { display: none; }
   .header-top.header-top--compact:has(.header__mobile-drawer:is(.header__mobile-drawer--submenu-active, .header__mobile-drawer--submenu-closing)) .header-logo { visibility: hidden; }
   .header-top.header-top--compact .header__mobile-drawer.component-overlay .header__mobile-drawer-surface { height: 100%; max-height: none; overflow: visible; border-radius: 0; }
   .header-top.header-top--compact .header__mobile-drawer .header__mobile-drawer-header { position: absolute; top: -64px; left: 0; right: 60px; z-index: 4; display: flex; min-height: 64px; height: 64px; padding: 0 20px; border: 0; background: transparent; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(12px); transition: opacity 200ms, transform 300ms var(--compact-ease); }

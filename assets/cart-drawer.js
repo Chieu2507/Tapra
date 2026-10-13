@@ -888,7 +888,12 @@
     const width = Math.min(410, window.innerWidth - 24);
     const restHeight = parseFloat(style.getPropertyValue('--compact-rest-height')) ||
       50 + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
-    drawer.style.setProperty('--compact-cart-top', `${Math.max(0, bounds.top)}px`);
+    const fromMobileMenu = window.innerWidth < 768 && header.classList.contains('header-top--menu-open');
+    drawer.style.setProperty('--compact-cart-top', fromMobileMenu
+      ? `calc(${parseFloat(style.getPropertyValue('--header-compact-top')) || 16}px + env(safe-area-inset-top, 0px))`
+      : `${Math.max(0, bounds.top)}px`);
+    drawer.style.setProperty('--compact-cart-origin-top', `${Math.max(0, bounds.top)}px`);
+    drawer.style.setProperty('--compact-cart-origin-radius', style.borderRadius);
     drawer.style.setProperty('--compact-cart-rest-width', `${restWidth}px`);
     drawer.style.setProperty('--compact-cart-rest-height', `${restHeight}px`);
     drawer.style.setProperty('--compact-cart-shift', `${window.innerWidth / 2 - 12 - restWidth / 2}px`);
