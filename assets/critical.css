@@ -3228,12 +3228,12 @@ legend {
   }
   .component-overlay[data-mobile-layout='drawer'] .component-overlay__panel {
     position: absolute;
-    inset: var(--overlay-drawer-inset) var(--overlay-drawer-inset) var(--overlay-drawer-inset) auto;
-    width: calc(100vw - var(--overlay-drawer-inset));
-    height: calc(100dvh - var(--overlay-drawer-inset) - var(--overlay-drawer-inset));
-    max-height: calc(100dvh - var(--overlay-drawer-inset) - var(--overlay-drawer-inset));
+    inset: var(--drawer-mobile-top, 16px) var(--drawer-mobile-gutter, 12px) auto auto;
+    width: var(--drawer-mobile-width, calc(100vw - 24px));
+    height: var(--drawer-mobile-height, min(680px, calc(100dvh - 28px)));
+    max-height: var(--drawer-mobile-height, min(680px, calc(100dvh - 28px)));
     margin: 0;
-    border-radius: var(--drawer-radius) var(--overlay-drawer-edge-radius) var(--overlay-drawer-edge-radius) var(--drawer-radius);
+    border-radius: var(--drawer-mobile-radius, 26px);
   }
 }
 

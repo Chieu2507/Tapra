@@ -744,10 +744,22 @@
         "id": "type_eyebrow_weight",
         "label": "t:labels.font_weight",
         "options": [
-          { "value": "400", "label": "400" },
-          { "value": "500", "label": "500" },
-          { "value": "600", "label": "600" },
-          { "value": "700", "label": "700" }
+          {
+            "value": "400",
+            "label": "400"
+          },
+          {
+            "value": "500",
+            "label": "500"
+          },
+          {
+            "value": "600",
+            "label": "600"
+          },
+          {
+            "value": "700",
+            "label": "700"
+          }
         ],
         "default": "700"
       },
@@ -847,120 +859,42 @@
         "type": "select",
         "id": "radius_badges_subheadings",
         "label": "t:labels.badges_and_subheadings",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "pill"
       },
       {
         "type": "select",
         "id": "radius_variant_pickers",
         "label": "t:labels.variant_pickers",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "square"
       },
       {
         "type": "select",
         "id": "radius_swatches",
         "label": "t:labels.swatches",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "square"
       },
       {
         "type": "select",
         "id": "radius_navigation",
         "label": "t:labels.navigation",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "pill"
       },
       {
         "type": "select",
         "id": "radius_tags",
         "label": "t:labels.tags",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "square"
       },
       {
         "type": "select",
         "id": "radius_media_containers",
         "label": "t:labels.media_and_containers",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}],
         "default": "square",
         "info": "t:info.media_and_containers_radius"
       },
@@ -968,40 +902,14 @@
         "type": "select",
         "id": "radius_drawers",
         "label": "t:labels.drawers",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}],
         "default": "square"
       },
       {
         "type": "select",
         "id": "radius_bottom_sheets",
         "label": "t:labels.bottom_sheets",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "extra_rounded", "label": "t:options.radius_preset.extra_rounded"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}],
         "default": "slightly_rounded"
       },
       {
@@ -1038,19 +946,7 @@
         "type": "select",
         "id": "button_radius_style",
         "label": "t:labels.corner_radius",
-        "options": [
-          { "value": "square", "label": "t:options.button_radius.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.button_radius.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.button_radius.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.button_radius.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.button_radius.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.button_radius.pill"}],
         "default": "pill"
       },
       {
@@ -1145,10 +1041,22 @@
         "id": "button_font_weight",
         "label": "t:labels.font_weight",
         "options": [
-          { "value": "400", "label": "400" },
-          { "value": "500", "label": "500" },
-          { "value": "600", "label": "600" },
-          { "value": "700", "label": "700" }
+          {
+            "value": "400",
+            "label": "400"
+          },
+          {
+            "value": "500",
+            "label": "500"
+          },
+          {
+            "value": "600",
+            "label": "600"
+          },
+          {
+            "value": "700",
+            "label": "700"
+          }
         ],
         "default": "700"
       },
@@ -1306,10 +1214,22 @@
         "label": "t:labels.button_hover_easing",
         "default": "ease",
         "options": [
-          { "value": "ease", "label": "ease" },
-          { "value": "ease-out", "label": "ease-out" },
-          { "value": "ease-in-out", "label": "ease-in-out" },
-          { "value": "cubic-bezier(.22,1,.36,1)", "label": "cubic-bezier(.22,1,.36,1)" }
+          {
+            "value": "ease",
+            "label": "ease"
+          },
+          {
+            "value": "ease-out",
+            "label": "ease-out"
+          },
+          {
+            "value": "ease-in-out",
+            "label": "ease-in-out"
+          },
+          {
+            "value": "cubic-bezier(.22,1,.36,1)",
+            "label": "cubic-bezier(.22,1,.36,1)"
+          }
         ]
       },
       {
@@ -1413,20 +1333,7 @@
         "type": "select",
         "id": "input_radius_style",
         "label": "t:labels.corner_radius",
-        "options": [
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "pill", "label": "t:options.radius_preset.pill" }
-        ],
+        "options": [{"value": "square", "label": "t:options.radius_preset.square"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "slightly_rounded", "label": "t:options.radius_preset.slightly_rounded"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "rounded", "label": "t:options.radius_preset.rounded"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "pill", "label": "t:options.radius_preset.pill"}],
         "default": "rounded"
       },
       {
@@ -1660,18 +1567,54 @@
         "id": "product_card_media_corner_radius",
         "label": "t:labels.media_corner_radius",
         "options": [
-          { "value": "inherit", "label": "t:options.radius_preset.inherit" },
-          { "value": "square", "label": "t:options.radius_preset.square" },
-          { "value": "radius_2", "label": "t:options.radius_preset.size_2" },
-          { "value": "radius_4", "label": "t:options.radius_preset.size_4" },
-          { "value": "radius_6", "label": "t:options.radius_preset.size_6" },
-          { "value": "rounded", "label": "t:options.radius_preset.rounded" },
-          { "value": "radius_8", "label": "t:options.radius_preset.size_8" },
-          { "value": "radius_12", "label": "t:options.radius_preset.size_12" },
-          { "value": "radius_16", "label": "t:options.radius_preset.size_16" },
-          { "value": "radius_24", "label": "t:options.radius_preset.size_24" },
-          { "value": "radius_32", "label": "t:options.radius_preset.size_32" },
-          { "value": "full", "label": "t:options.radius_preset.full" }
+          {
+            "value": "inherit",
+            "label": "t:options.radius_preset.inherit"
+          },
+          {
+            "value": "square",
+            "label": "t:options.radius_preset.square"
+          },
+          {
+            "value": "radius_2",
+            "label": "t:options.radius_preset.size_2"
+          },
+          {
+            "value": "radius_4",
+            "label": "t:options.radius_preset.size_4"
+          },
+          {
+            "value": "radius_6",
+            "label": "t:options.radius_preset.size_6"
+          },
+          {
+            "value": "rounded",
+            "label": "t:options.radius_preset.rounded"
+          },
+          {
+            "value": "radius_8",
+            "label": "t:options.radius_preset.size_8"
+          },
+          {
+            "value": "radius_12",
+            "label": "t:options.radius_preset.size_12"
+          },
+          {
+            "value": "radius_16",
+            "label": "t:options.radius_preset.size_16"
+          },
+          {
+            "value": "radius_24",
+            "label": "t:options.radius_preset.size_24"
+          },
+          {
+            "value": "radius_32",
+            "label": "t:options.radius_preset.size_32"
+          },
+          {
+            "value": "full",
+            "label": "t:options.radius_preset.full"
+          }
         ],
         "default": "inherit"
       },
@@ -2126,8 +2069,14 @@
         "id": "badge_letter_spacing",
         "label": "Letter spacing",
         "options": [
-          { "value": "normal", "label": "Normal" },
-          { "value": "reference", "label": "Reference (0.01em)" }
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "reference",
+            "label": "Reference (0.01em)"
+          }
         ],
         "default": "normal"
       },
@@ -2445,10 +2394,22 @@
         "default": true
       },
       {
+        "type": "select",
+        "id": "overlay_drawer_width_mobile",
+        "label": "t:labels.mobile_width",
+        "info": "t:info.drawer_mobile_width",
+        "options": [
+          { "value": "auto", "label": "t:options.drawer_mobile_width.auto" },
+          { "value": "full", "label": "t:options.drawer_mobile_width.full" }
+        ],
+        "default": "auto"
+      },
+      {
         "type": "checkbox",
         "id": "overlay_drawer_padding_mobile",
         "label": "t:labels.enable_padding_on_mobile",
-        "default": false
+        "default": false,
+        "visible_if": "{{ settings.overlay_drawer_width_mobile == 'auto' }}"
       },
       {
         "type": "header",

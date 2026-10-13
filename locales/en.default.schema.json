@@ -802,6 +802,10 @@
     "tapra_glass": "Glass"
   },
   "options": {
+    "drawer_mobile_width": {
+      "auto": "Auto",
+      "full": "Full"
+    },
     "compact_search_type": {
       "icon": "Icon",
       "text": "Text",
@@ -1553,6 +1557,7 @@
     }
   },
   "info": {
+    "drawer_mobile_width": "Auto uses a floating panel. Full fills the mobile screen. Applies to all drawers, including menu, cart and search.",
     "compact_search_type": "Used when Header style is Compact. Desktop type applies to Classic headers.",
     "media_offset_theme_settings": "Use the media inset from Theme settings \u2192 Product cards. Turn off to remove the media inset in this section.",
     "blog_meta_badge_placement": "Badge on image places a direct Meta child at the selected corner of a stacked Blog card. Nested Meta and horizontal cards keep badges in the content.",
