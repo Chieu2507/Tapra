@@ -59,7 +59,7 @@
   .search-overlay__form input.search-overlay__input::-webkit-search-results-button,
   .search-overlay__form input.search-overlay__input::-webkit-search-results-decoration { display: none; appearance: none; -webkit-appearance: none; }
   .search-overlay__form input.search-overlay__input::-ms-clear { display: none; width: 0; height: 0; }
-  .search-overlay__form input.search-overlay__input::placeholder { color: currentColor; opacity: 0.58; font-size: var(--font-body-md); letter-spacing: var(--font-eyebrow-letter-spacing); text-transform: var(--font-eyebrow-text-transform); }
+  .search-overlay__form input.search-overlay__input::placeholder { color: currentColor; opacity: 0.58; font-size: var(--font-body-sm); letter-spacing: var(--font-eyebrow-letter-spacing); text-transform: var(--font-eyebrow-text-transform); }
   .search-overlay__form .search-overlay__input:focus { outline: 2px solid var(--input-focus-color); outline-offset: -2px; }
   .search-overlay__close { position: absolute; top: 50%; left: calc(100% + 1rem); color: var(--overlay-text-color); transform: translateY(-50%); }
   .search-overlay--scheme .search-overlay__close { color: var(--body-color); }
