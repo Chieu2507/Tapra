@@ -870,6 +870,7 @@
       node.replaceWith(avatar);
     });
     visual.inert = true;
+    visual.dataset.layoutReady = 'true';
     visual.setAttribute('aria-hidden', 'true');
     panel.prepend(visual);
   };
