@@ -78,3 +78,9 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 @media (prefers-reduced-motion: reduce) {
   .header-top .header__mobile-drawer * { transition: none !important; animation: none !important; }
 }
+@media (max-width: 767.98px) {
+  .header-top .header__mobile-drawer-surface { background: var(--background-color); }
+  .header-top:not(.header-top--compact) .header__mobile-drawer-back { order: 0; }
+  .header-top:not(.header-top--compact) .header__mobile-drawer-title { order: 0; }
+  .header-top:not(.header-top--compact) .header__mobile-drawer-close { order: 1; }
+}

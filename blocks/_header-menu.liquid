@@ -151,7 +151,7 @@
     {% endif %}
   </nav>
 
-  <aside class="component-overlay section-color-scope {{ mobile_drawer_scheme }} {{ mobile_drawer_class }} {{ menu_typography_class }}" id="HeaderMobileDrawer-{{ section.id }}-{{ block.id }}" aria-label="{{ 'accessibility.menu' | t }}" aria-labelledby="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}" aria-hidden="true" aria-modal="true" role="dialog" data-component-overlay data-drawer-side="left" data-desktop-layout="drawer" data-mobile-layout="drawer" data-state="closed" scroll-lock hidden data-header-mobile-drawer{% if menu_style != blank %} style="{{ menu_style | strip }}"{% endif %}>
+  <aside class="component-overlay color-scheme section-color-scope {{ mobile_drawer_scheme }} {{ mobile_drawer_class }} {{ menu_typography_class }}" id="HeaderMobileDrawer-{{ section.id }}-{{ block.id }}" aria-label="{{ 'accessibility.menu' | t }}" aria-labelledby="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}" aria-hidden="true" aria-modal="true" role="dialog" data-component-overlay data-drawer-side="left" data-desktop-layout="drawer" data-mobile-layout="drawer" data-state="closed" scroll-lock hidden data-header-mobile-drawer{% if menu_style != blank %} style="{{ menu_style | strip }}"{% endif %}>
     <button class="component-overlay__backdrop backdrop-blur header__mobile-drawer-backdrop" type="button" tabindex="-1" aria-label="Close menu" data-component-overlay-backdrop data-header-menu-backdrop></button>
     <div class="component-overlay__panel header__mobile-drawer-surface">
       <header class="component-overlay__header header__mobile-drawer-header">
