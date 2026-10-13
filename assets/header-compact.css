@@ -370,5 +370,6 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   .header-top.header-top--compact .header__mobile-drawer.component-overlay[data-state='closing'] .header__mobile-drawer-surface {
     opacity: 0;
     transition-delay: 0ms;
+    transition-timing-function: ease;
   }
 }
