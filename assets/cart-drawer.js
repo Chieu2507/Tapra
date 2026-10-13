@@ -854,6 +854,11 @@
         node.style.transform = style.transform;
         node.style.animation = 'none';
         node.style.transition = 'none';
+        if (node.matches('.header-menu-toggle__compact-icon i')) {
+          node.style.top = style.top;
+          node.style.right = style.right;
+          node.style.width = style.width;
+        }
       });
     };
     freezeVisual(container, visual.firstElementChild);
@@ -882,7 +887,6 @@
       }
     });
     visual.querySelectorAll('script, template').forEach(node => node.remove());
-    visual.querySelectorAll('.header-menu-toggle').forEach(node => node.classList.remove('is-expanded'));
     visual.querySelectorAll('shopify-account').forEach(node => {
       const avatar = document.createElement('div');
       avatar.className = node.className;
@@ -964,6 +968,14 @@
     if (!drawer || (state.editorSelected && !force)) return;
     setOrderOptionsOpen();
     if (!state.overlay?.isOpen()) return;
+    // Keep the outgoing X intact on open; restore the travelling hamburger
+    // only as the cart contracts back into the resting header.
+    drawer.querySelector('.cart-drawer__pill')?.querySelectorAll('.header-menu-toggle').forEach(toggle => {
+      toggle.querySelectorAll('.header-menu-toggle__compact-icon i').forEach(line => {
+        ['top', 'right', 'width', 'transform', 'transition', 'animation'].forEach(property => line.style.removeProperty(property));
+      });
+      toggle.classList.remove('is-expanded');
+    });
     drawer.classList.remove('is-open');
     drawer.classList.add('is-closing');
     state.overlay.close({ restoreFocus: !state.editorSelected });
