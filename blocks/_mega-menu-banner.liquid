@@ -53,7 +53,7 @@
   {% endif %}
 {% endcapture %}
 {% assign banner_style = banner_style | strip %}
-<article class="header-mega-menu__banner header-mega-menu__banner--{{ block.settings.layout | default: 'content_on_image' }} section-color-scope {{ banner_scheme }}{% if block.settings.limit_width %} header-mega-menu__banner--limited{% endif %}{% if block.settings.overlay %} header-mega-menu__banner--overlay{% endif %}"{% if banner_style != blank %} style="{{ banner_style }}"{% endif %} {{ block.shopify_attributes }}>
+<article class="header-mega-menu__banner{% if section.settings.header_style == 'compact' %} surface-light{% endif %} header-mega-menu__banner--{{ block.settings.layout | default: 'content_on_image' }} section-color-scope {{ banner_scheme }}{% if block.settings.limit_width %} header-mega-menu__banner--limited{% endif %}{% if block.settings.overlay %} header-mega-menu__banner--overlay{% endif %}"{% if banner_style != blank %} style="{{ banner_style }}"{% endif %} {{ block.shopify_attributes }}>
   <{% if block.settings.link != blank %}a{% else %}div{% endif %} class="header-mega-menu__banner-media{% if block.settings.image == blank %} placeholder-image{% endif %}" {% if block.settings.link != blank %}href="{{ block.settings.link | escape }}" target="{{ banner_target }}"{% if block.settings.open_new_tab %} rel="noopener noreferrer"{% endif %}{% endif %}>
     {% if block.settings.image != blank %}
       {% if section.settings.header_style == 'compact' %}
