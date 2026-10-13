@@ -84,7 +84,22 @@
       "type": "header",
       "content": "t:general.layout"
     },
-    { "type": "select", "id": "header_style", "label": "t:labels.header_style", "options": [{ "value": "classic", "label": "t:options.header_style.classic" }, { "value": "compact", "label": "t:options.header_style.compact" }], "default": "classic" },
+    {
+      "type": "select",
+      "id": "header_style",
+      "label": "t:labels.header_style",
+      "options": [
+        {
+          "value": "classic",
+          "label": "t:options.header_style.classic"
+        },
+        {
+          "value": "compact",
+          "label": "t:options.header_style.compact"
+        }
+      ],
+      "default": "classic"
+    },
     {
       "type": "select",
       "id": "icon_style",
@@ -116,7 +131,8 @@
           "label": "t:options.section_width.full_width"
         }
       ],
-      "default": "page_width"
+      "default": "page_width",
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "range",

@@ -275,11 +275,21 @@
       "label": "t:labels.compact_search_type",
       "info": "t:info.compact_search_type",
       "options": [
-        { "value": "icon", "label": "t:options.compact_search_type.icon" },
-        { "value": "text", "label": "t:options.compact_search_type.text" },
-        { "value": "icon_with_text", "label": "t:options.compact_search_type.icon_with_text" }
+        {
+          "value": "icon",
+          "label": "t:options.compact_search_type.icon"
+        },
+        {
+          "value": "text",
+          "label": "t:options.compact_search_type.text"
+        },
+        {
+          "value": "icon_with_text",
+          "label": "t:options.compact_search_type.icon_with_text"
+        }
       ],
-      "default": "text"
+      "default": "text",
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
     },
     {
       "type": "select",
@@ -303,7 +313,8 @@
           "label": "Search bar"
         }
       ],
-      "default": "search_bar"
+      "default": "search_bar",
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     },
     {
       "type": "text",
@@ -391,7 +402,8 @@
       "type": "text",
       "id": "placeholder",
       "label": "Placeholder",
-      "default": "What are you looking for?"
+      "default": "What are you looking for?",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     },
     {
       "type": "select",
@@ -407,7 +419,8 @@
           "label": "Fill"
         }
       ],
-      "default": "fit"
+      "default": "fit",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     },
     {
       "type": "select",
@@ -423,36 +436,42 @@
           "label": "Search bar"
         }
       ],
-      "default": "icon"
+      "default": "icon",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     },
     {
       "type": "checkbox",
       "id": "show_category_selector",
       "label": "Show category selector",
-      "default": false
+      "default": false,
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     },
     {
       "type": "link_list",
       "id": "category_menu",
       "label": "Category menu",
-      "info": "Menu item titles must match Shopify Product type values. Links are not used as search filters."
+      "info": "Menu item titles must match Shopify Product type values. Links are not used as search filters.",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' and block.settings.show_category_selector }}"
     },
     {
       "type": "text",
       "id": "category_label",
       "label": "Category label",
-      "default": "All Categories"
+      "default": "All Categories",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' and block.settings.show_category_selector }}"
     },
     {
       "type": "text",
       "id": "category_label_mobile",
       "label": "Mobile category label",
-      "default": "All"
+      "default": "All",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' and block.settings.show_category_selector }}"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
-      "label": "t:labels.color_scheme"
+      "label": "t:labels.color_scheme",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     }
   ],
   "presets": [

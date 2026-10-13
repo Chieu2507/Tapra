@@ -121,10 +121,17 @@
       "id": "position",
       "label": "t:labels.position",
       "options": [
-        { "value": "left", "label": "t:options.alignment.left" },
-        { "value": "center", "label": "t:options.alignment.center" }
+        {
+          "value": "left",
+          "label": "t:options.alignment.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.alignment.center"
+        }
       ],
-      "default": "center"
+      "default": "center",
+      "visible_if": "{{ section.settings.header_style != 'compact' }}"
     }
   ],
   "presets": [

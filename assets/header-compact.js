@@ -52,7 +52,10 @@
         }
         const active = drawer.querySelector('[data-mobile-drawer-details][open] > .header__mobile-drawer-submenu');
         if (showColumns) {
-          root.style.setProperty('--compact-menu-columns', active?.querySelector(':scope > ul')?.children.length || 4);
+          const mega = active?.querySelector('[data-header-mega-menu]');
+          const megaStyle = mega && getComputedStyle(mega);
+          root.style.setProperty('--compact-menu-columns', Number(megaStyle?.getPropertyValue('--mega-menu-columns')) || active?.querySelector(':scope > ul')?.children.length || 4);
+          active?.style.setProperty('--compact-submenu-max-width', mega?.classList.contains('header-mega-menu--submenu-limited') ? megaStyle.getPropertyValue('--mega-menu-max-width') : 'none');
           active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
           const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
           root.style.setProperty('--compact-menu-height', `${height}px`);
@@ -80,7 +83,7 @@
         measure();
       };
       navigation.forEach(summary => {
-        summary.addEventListener('pointerenter', () => choose(summary), options);
+        if (drawer.dataset.dropdownTrigger !== 'click') summary.addEventListener('pointerenter', () => choose(summary), options);
         summary.addEventListener('focus', () => choose(summary), options);
       });
       drawer.addEventListener('toggle', measure, { ...options, capture: true });
