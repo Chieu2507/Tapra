@@ -323,15 +323,15 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
     width: min(var(--compact-width, 288px), 100%);
     height: var(--compact-rest-height);
     border-radius: var(--radius-24);
-    transition: width 550ms var(--compact-ease), height 550ms var(--compact-ease), border-radius 550ms var(--compact-ease);
+    transition: width 600ms var(--compact-ease), height 600ms var(--compact-ease), border-radius 600ms var(--compact-ease);
   }
   .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) .header__container {
     padding: 0 6px 0 16px;
-    transition: padding 550ms var(--compact-ease);
+    transition: padding 600ms var(--compact-ease);
   }
   .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) .header__row {
     height: 48px;
-    transition: height 550ms var(--compact-ease);
+    transition: height 600ms var(--compact-ease);
   }
   .header-top.header-top--compact .header__mobile-drawer.component-overlay[data-state='closing'] .header__mobile-drawer-surface {
     opacity: 0;
