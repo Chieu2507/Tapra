@@ -34,8 +34,8 @@
 
     {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
-    <link rel="stylesheet" href="{{ 'component-overlay.css' | asset_url }}" media="print" onload="this.media='all'">
-    <noscript>{{ 'component-overlay.css' | asset_url | stylesheet_tag }}</noscript>
+    {% comment %} Header overlays need their motion styles before interaction, including slow connections. {% endcomment %}
+    {{ 'component-overlay.css' | asset_url | stylesheet_tag: preload: true }}
     <script src="{{ 'component-overlay.js' | asset_url }}" defer></script>
     {% render 'deferred-stylesheet', filename: 'surface-light.css' %}
     <script src="{{ 'surface-light.js' | asset_url }}" defer></script>
