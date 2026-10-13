@@ -74,8 +74,8 @@
     container.querySelectorAll('[data-header-menu-toggle]').forEach((toggle) => {
       const searchOpen = document.querySelector('.search-overlay--compact:is([data-state="opening"], [data-state="open"])');
       toggle.classList.toggle('is-expanded', isOpen || Boolean(searchOpen));
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      toggle.setAttribute('aria-expanded', String(isOpen || Boolean(searchOpen)));
+      toggle.setAttribute('aria-label', searchOpen ? 'Close search' : isOpen ? 'Close menu' : 'Open menu');
     });
     scheduleUpdate();
   };
