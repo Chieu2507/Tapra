@@ -80,15 +80,20 @@
     transition: transform 550ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__inner {
+    opacity: 1;
+    visibility: visible;
+  }
+  .cart-drawer.cart-drawer--compact .cart-drawer__inner > * {
     opacity: 0;
     visibility: hidden;
     transition: opacity 200ms, visibility 0ms 200ms;
   }
-  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__inner {
+  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__inner > * {
     opacity: 1;
     visibility: visible;
     transition: opacity 450ms 750ms, visibility 0ms;
   }
+  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__header { transition: opacity 400ms 700ms, visibility 0ms; }
   .cart-drawer.cart-drawer--compact .cart-drawer__pill {
     position: absolute;
     inset: 0 0 auto;
@@ -129,7 +134,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .cart-drawer.cart-drawer--compact.component-overlay .cart-drawer__panel,
-    .cart-drawer.cart-drawer--compact .cart-drawer__inner,
+    .cart-drawer.cart-drawer--compact .cart-drawer__inner > *,
     .cart-drawer.cart-drawer--compact .cart-drawer__pill,
     .cart-drawer.cart-drawer--compact .cart-drawer__pill * { transition: none !important; }
   }
