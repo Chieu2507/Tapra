@@ -162,8 +162,10 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   --header-motion-ease: cubic-bezier(.76, 0, .24, 1);
 }
 .header-top shopify-account::part(dialog) {
+  --timing-default: var(--header-motion-duration);
+  --dialog-drawer-easing: ease;
   animation-duration: var(--header-motion-duration);
-  animation-timing-function: var(--header-motion-ease);
+  animation-timing-function: ease;
 }
 .header-top:not(.header-top--compact) .header__mobile-drawer.component-overlay,
 .search-overlay:not(.search-overlay--compact) {
