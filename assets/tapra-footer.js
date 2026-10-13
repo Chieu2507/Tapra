@@ -6,7 +6,7 @@
   function mount(root) {
     if (instances.has(root)) return;
     const surface = root.querySelector('.tapra-footer');
-    const wordmark = root.querySelector('.tapra-footer__wordmark span');
+    const wordmark = root.querySelector('[data-footer-wordmark]');
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let frame = 0;
     let disposed = false;

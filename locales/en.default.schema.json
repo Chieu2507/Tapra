@@ -1687,5 +1687,12 @@
     "label_likes_hover_color": "Likes hover color",
     "label_likes_hover_background": "Likes hover background",
     "label_gallery_parallax": "Gallery parallax"
+  },
+  "wordmark": {
+    "name": "Wordmark",
+    "scale": "Text scale",
+    "scale_info": "Font size as a percentage of the block width.",
+    "weight": "Font weight",
+    "gradient": "Text gradient"
   }
 }

@@ -1,0 +1,38 @@
+{% doc %}
+  Renders decorative brand lettering with the shared heading font.
+  Text, scale, weight and gradient belong to this block. The parent owns its
+  outer spacing. Blank or hidden blocks produce no decorative surface.
+
+  @example
+  {% content_for 'block', type: 'wordmark', id: 'wordmark' %}
+{% enddoc %}
+{% if block.settings.text != blank %}
+  <div class="wordmark-block" aria-hidden="true" {{ block.shopify_attributes }}
+    style="--wordmark-scale: {{ block.settings.text_scale | default: 21.8 }}cqw; --wordmark-weight: {{ block.settings.font_weight | default: '600' }}; --wordmark-gradient: {{ block.settings.text_gradient | default: 'linear-gradient(180deg, #f2f8ff 10%, rgba(191, 227, 255, 0.18) 100%)' | escape }};">
+    <span class="wordmark-block__text" data-footer-wordmark>{{ block.settings.text | escape }}</span>
+  </div>
+{% endif %}
+{% stylesheet %}
+  .wordmark-block { width: 100%; min-width: 0; container-type: inline-size; overflow: hidden; user-select: none; }
+  .wordmark-block__text {
+    display: block; width: fit-content; max-width: 100%; padding: 0 .08em .04em 0;
+    font-family: var(--font-heading-family); font-weight: var(--wordmark-weight, 600);
+    font-size: var(--wordmark-scale, 21.8cqw); letter-spacing: -.065em; line-height: 1;
+    text-transform: uppercase; overflow-wrap: anywhere;
+    background: var(--wordmark-gradient); background-clip: text; -webkit-background-clip: text; color: transparent;
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "t:wordmark.name",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "text", "label": "t:labels.text", "default": "TAPRA" },
+    { "type": "range", "id": "text_scale", "label": "t:wordmark.scale", "min": 10, "max": 30, "step": 0.2, "unit": "%", "default": 21.8, "info": "t:wordmark.scale_info" },
+    { "type": "select", "id": "font_weight", "label": "t:wordmark.weight", "default": "600", "options": [
+      { "value": "400", "label": "400" }, { "value": "500", "label": "500" }, { "value": "600", "label": "600" }, { "value": "700", "label": "700" }
+    ] },
+    { "type": "color_background", "id": "text_gradient", "label": "t:wordmark.gradient", "default": "linear-gradient(180deg, #f2f8ff 10%, rgba(191, 227, 255, 0.18) 100%)" }
+  ]
+}
+{% endschema %}

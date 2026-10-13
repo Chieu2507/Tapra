@@ -27,9 +27,7 @@
       <div class="tapra-footer__navigation">{% content_for 'block', type: 'menu', id: 'explore' %}</div>
       <div class="tapra-footer__newsletter">{% content_for 'block', type: 'group', id: 'newsletter' %}</div>
     </div>
-    {% if section.settings.wordmark != blank %}
-      <div class="tapra-footer__wordmark" aria-hidden="true"><span>{{ section.settings.wordmark | escape }}</span></div>
-    {% endif %}
+    <div class="tapra-footer__wordmark-slot">{% content_for 'block', type: 'wordmark', id: 'wordmark' %}</div>
     <div class="tapra-footer__bottom">{% content_for 'block', type: 'group', id: 'credits' %}</div>
   </div>
   {% endcapture %}
@@ -60,12 +58,7 @@
   }
   .tapra-footer__newsletter { --input-radius: 12px; }
   .tapra-footer__newsletter > .group > .text-block:last-child { text-align: center; }
-  .tapra-footer__wordmark { margin-top: clamp(40px, 6vw, 100px); padding-bottom: clamp(10px, 1.4vw, 22px); overflow: hidden; user-select: none; }
-  .tapra-footer__wordmark span {
-    display: block; width: fit-content; max-width: 100%; padding: 0 .08em .04em 0; font-family: var(--font-heading-family); font-weight: 600;
-    font-size: 21.8cqw; letter-spacing: -.065em; line-height: 1; text-transform: uppercase; overflow-wrap: anywhere;
-    background: linear-gradient(180deg, #f2f8ff 10%, rgb(191 227 255 / .18) 100%); background-clip: text; -webkit-background-clip: text; color: transparent;
-  }
+  .tapra-footer__wordmark-slot > .wordmark-block { margin-top: clamp(40px, 6vw, 100px); padding-bottom: clamp(10px, 1.4vw, 22px); }
   .tapra-footer__bottom { border-top: 1px solid var(--border-color, rgb(255 255 255 / .1)); padding-top: 24px; }
   .tapra-footer__bottom > .group { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; }
   .tapra-footer__bottom > .group > .menu-block { justify-self: center; }
@@ -78,7 +71,7 @@
   .tapra-footer a { text-decoration: none; }
   .tapra-footer a:focus-visible { outline: 2px solid var(--accent-color, #bfe3ff); outline-offset: 4px; }
   @media (prefers-reduced-motion: reduce) {
-    .tapra-footer, .tapra-footer__wordmark span { transform: none !important; opacity: 1 !important; }
+    .tapra-footer, [data-footer-wordmark] { transform: none !important; opacity: 1 !important; }
   }
   @media (min-width: 768px) and (max-width: 1149.98px) {
     .tapra-footer__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
@@ -98,17 +91,6 @@
     ]
   },
   "settings": [
-    {
-      "type": "header",
-      "content": "t:general.content"
-    },
-    {
-      "type": "text",
-      "id": "wordmark",
-      "label": "Wordmark",
-      "default": "TAPRA",
-      "info": "Decorative brand lettering. Leave blank to hide."
-    },
     {
       "type": "header",
       "content": "t:general.layout"
@@ -514,6 +496,16 @@
             "payment"
           ],
           "static": true
+        },
+        "wordmark": {
+          "type": "wordmark",
+          "static": true,
+          "settings": {
+            "text": "TAPRA",
+            "text_scale": 21.8,
+            "font_weight": "600",
+            "text_gradient": "linear-gradient(180deg, #f2f8ff 10%, rgba(191, 227, 255, 0.18) 100%)"
+          }
         }
       }
     }

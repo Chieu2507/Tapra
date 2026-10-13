@@ -314,11 +314,20 @@
             "payment"
           ],
           "static": true
+        },
+        "wordmark": {
+          "type": "wordmark",
+          "static": true,
+          "settings": {
+            "text": "TAPRA",
+            "text_scale": 21.8,
+            "font_weight": "600",
+            "text_gradient": "linear-gradient(180deg, #f2f8ff 10%, rgba(191, 227, 255, 0.18) 100%)"
+          }
         }
       },
       "settings": {
         "section_width": "full_width",
-        "wordmark": "TAPRA",
         "show_glow": true,
         "color_scheme": "scheme-3",
         "padding_top": 72,
