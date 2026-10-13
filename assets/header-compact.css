@@ -360,10 +360,10 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 .header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks { display: flex; width: 100%; height: 100%; min-height: 0; min-width: 0; align-items: center; gap: var(--header-top-gap, 0px); }
 .header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > :not(.header-logo):not(.header-search):not(.header-account):not(.header-cart):not(.header-menu-toggle) { display: none; }
 .header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > .header-logo { position: relative; inset: auto; transform: none; order: 0; flex: 1 1 0; width: auto; max-width: none; min-width: 0; margin-inline-end: calc(var(--header-row-gap, 32px) - var(--header-top-gap, 0px)); }
-.header-top.header-top--compact:not([data-layout-ready='true']) .header-search { order: 1; }
-.header-top.header-top--compact:not([data-layout-ready='true']) .header-account { order: 2; }
-.header-top.header-top--compact:not([data-layout-ready='true']) .header-cart { order: 3; }
-.header-top.header-top--compact:not([data-layout-ready='true']) .header-menu-toggle { order: 4; }
+.header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > .header-search { order: 1; }
+.header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > .header-account { order: 2; }
+.header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > .header-cart { order: 3; }
+.header-top.header-top--compact:not([data-layout-ready='true']) .header__blocks > .header-menu-toggle { position: relative; inset: auto; transform: none; margin-inline: 0; order: 4; }
 .header-top.header-top--compact:not([data-layout-ready='true']) :is(.header-search--type-icon, .header-account--type-icon, .header-cart--type-icon) { display: inline-flex; flex: 0 0 44px; width: 44px; min-width: 44px; height: 44px; min-height: 44px; align-items: center; justify-content: center; }
 @media (max-width: 767.98px) {
   .header-top.header-top--compact:not([data-layout-ready='true']) .header-account { display: none; }
