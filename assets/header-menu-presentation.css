@@ -99,3 +99,19 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 
 .header-top .site-logo__fallback { display: inline-block; color: var(--heading-color); font-family: var(--font-heading-family); font-size: 20px; font-weight: 700; line-height: 1.2; letter-spacing: -.04em; white-space: nowrap; }
 .header-top .site-logo__fallback sup { font-size: .5em; vertical-align: super; letter-spacing: 0; }
+
+/* Nested dropdowns use the small popover radius, with a pointer-safe gap. */
+.header-top .header-menu__details:not(.header-menu__details--mega) > .header-menu__submenu,
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary {
+  border-radius: var(--popover-radius);
+}
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary {
+  inset-inline-start: calc(100% + 12px); /* 8px outer padding + 4px visible gap */
+}
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 100%;
+  width: 12px;
+}
