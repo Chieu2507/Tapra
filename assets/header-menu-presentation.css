@@ -3,7 +3,7 @@
 .header-top .header-mega-menu__banners { gap: var(--mega-menu-gap); align-items: stretch; }
 .header-top .header-mega-menu__banners:empty { display: none; }
 .header-top .header-mega-menu__banners:has(> .header-mega-menu__banner:only-child) { grid-template-columns: minmax(0, 1fr); }
-.header-top .header-mega-menu__banner--inline { display: grid; grid-template-columns: minmax(0, 116px) minmax(0, 1fr); align-items: center; gap: 14px; padding: var(--mega-banner-padding-top) var(--mega-banner-padding-right) var(--mega-banner-padding-bottom) var(--mega-banner-padding-left); max-width: none; border: 1px solid var(--border-color); border-radius: var(--radius-16); }
+.header-top .header-mega-menu__banner--inline { display: grid; grid-template-columns: minmax(0, min(116px, 30%)) minmax(0, 1fr); align-items: center; gap: 14px; padding: var(--mega-banner-padding-top) var(--mega-banner-padding-right) var(--mega-banner-padding-bottom) var(--mega-banner-padding-left); max-width: none; border: 1px solid var(--border-color); border-radius: var(--radius-16); }
 .header-top .header-mega-menu__banner--inline::after { display: none; }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-media { --media-radius: var(--radius-4); grid-area: auto; border-radius: var(--media-radius); overflow: hidden; }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-image { min-height: 0; height: 76px; aspect-ratio: auto; border-radius: inherit; }
@@ -19,7 +19,7 @@
   .header-top .header-mega-menu__banner--inline { padding: var(--mega-banner-padding-top-mobile, var(--mega-banner-padding-top)) var(--mega-banner-padding-right-mobile, var(--mega-banner-padding-right)) var(--mega-banner-padding-bottom-mobile, var(--mega-banner-padding-bottom)) var(--mega-banner-padding-left-mobile, var(--mega-banner-padding-left)); }
 }
 @media (max-width: 1149.98px) {
-  .header-top .header-mega-menu__banner--inline { grid-template-columns: minmax(0, 80px) minmax(0, 1fr); gap: 10px; }
+  .header-top .header-mega-menu__banner--inline { grid-template-columns: minmax(0, min(80px, 30%)) minmax(0, 1fr); gap: 10px; }
 }
 
 /* Basic keeps top-level links still; only submenu links travel on hover. */

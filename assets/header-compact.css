@@ -338,3 +338,6 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 
 .header-top.header-top--compact .header__column--right > .header-menu-toggle { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
 .header-top.header-top--compact .header__column--right > .header-menu-toggle:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
+
+.header-top.header-top--compact .header__column--right > .header-account:not(.header-account--type-icon) { flex: 0 0 auto; width: auto; }
+.header-top.header-top--compact shopify-account.header-account:not(.header-account--type-icon)::part(signed-out-avatar) { width: auto; padding-inline: 8px; }

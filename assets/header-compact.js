@@ -38,6 +38,16 @@
       };
       const measure = () => {
         if (!root.classList.contains('header-top--menu-open')) {
+          const row = root.querySelector('[data-header-row]');
+          const logo = row?.querySelector('.site-logo');
+          const actions = row?.querySelector('.header__column--right');
+          const container = root.querySelector('.header__container');
+          if (logo && actions && container) {
+            const spacing = getComputedStyle(container);
+            const shell = getComputedStyle(root);
+            const width = logo.getBoundingClientRect().width + actions.scrollWidth + parseFloat(getComputedStyle(row).columnGap) + parseFloat(spacing.paddingLeft) + parseFloat(spacing.paddingRight) + parseFloat(shell.borderLeftWidth) + parseFloat(shell.borderRightWidth);
+            root.style.setProperty('--compact-width', `${Math.ceil(width)}px`);
+          }
           root.style.setProperty('--compact-footer-shift', '0px');
           root.classList.remove('header-compact--resizing');
           return;
