@@ -1048,12 +1048,12 @@
 }
 .cart-drawer__order-options-action {
   min-height: 56px;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
   padding: 4px;
-  text-align: center;
+  text-align: start;
 }
-.cart-drawer__order-options-action-copy { justify-items: center; gap: 4px; }
+.cart-drawer__order-options-action-copy { justify-items: start; gap: 4px; }
 .cart-drawer__order-options-action-copy > span { font-size: 13px; line-height: 1.35; }
 .cart-drawer__order-options-action-copy small {
   color: var(--body-color);
