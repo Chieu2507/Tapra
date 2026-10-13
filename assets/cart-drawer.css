@@ -1180,6 +1180,8 @@ html[data-surface-light-enabled] .cart-drawer__panel.surface-light::before {
   mix-blend-mode: screen;
 }
 @media (max-width: 767.98px) {
+  /* The inert travelling header has no data-header-root attribute. */
+  .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__column--right > .header-account { display: none; }
   .cart-drawer.component-overlay:not(.cart-drawer--compact)[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: var(--drawer-mobile-radius, 26px); }
   .cart-drawer__footer { padding-block-start: 0; }
   .cart-drawer__header { min-height: 64px; }

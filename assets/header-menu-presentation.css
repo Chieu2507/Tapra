@@ -84,6 +84,8 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   .header-top:not(.header-top--compact) .header__mobile-drawer-back { position: static; color: var(--heading-color); }
   .header-top .header__mobile-drawer-scroll { position: relative; }
   .header-top .header__mobile-drawer-list { width: 100%; }
+  .header-top .header__mobile-drawer :is(.header__mobile-drawer-submenu-details > summary, .header__mobile-drawer-tertiary > li > a:not(.btn)) { min-height: 44px; }
+  .header-top .header__mobile-drawer .header__mobile-drawer-tertiary { gap: 0; }
   .header-top .header__mobile-drawer :is(a, summary) { color: var(--header-menu-color, var(--body-color)); text-decoration: none; }
   .header-top .header__mobile-drawer :is(a, summary):is(:hover, :focus-visible) { color: var(--heading-color); }
   .header-top .header__mobile-drawer :is(.header__mobile-drawer-submenu a, .header__mobile-drawer-submenu summary) { height: auto; }
