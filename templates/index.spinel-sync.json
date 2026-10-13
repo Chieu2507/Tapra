@@ -4270,7 +4270,8 @@
             "direction": "vertical",
             "width": "fill",
             "width_mobile": "fill",
-            "gap_desktop": 8
+            "gap_desktop": 8,
+            "height": "fit"
           },
           "blocks": {
             "eyebrow_Lc8Rp6": {

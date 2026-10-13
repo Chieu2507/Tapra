@@ -392,9 +392,13 @@
           "type": "gallery-header-group",
           "settings": {
             "alignment": "left",
-            "gap": 32,
             "gap_mobile": 24,
-            "width": "page_width"
+            "content_width": "page_width",
+            "direction": "vertical",
+            "width": "fill",
+            "width_mobile": "fill",
+            "gap_desktop": 32,
+            "height": "fit"
           },
           "blocks": {
             "insta_1_1": {
@@ -525,7 +529,7 @@
                     "instagram_tags": {
                       "type": "group",
                       "settings": {
-                        "direction": "vertical",
+                        "direction": "horizontal",
                         "width": "fill",
                         "width_mobile": "fill",
                         "height": "fit",
@@ -534,77 +538,58 @@
                         "position_horizontal": "top",
                         "gap_desktop": 8,
                         "gap_mobile": 8,
-                        "customize_mobile_alignment": false
+                        "customize_mobile_alignment": false,
+                        "wrap": true,
+                        "horizontal_alignment": "left"
                       },
                       "blocks": {
-                        "tag_row": {
-                          "type": "group",
+                        "followers": {
+                          "type": "eyebrow",
                           "settings": {
-                            "direction": "horizontal",
-                            "width": "fill",
-                            "width_mobile": "fill",
-                            "height": "fit",
-                            "alignment": "left",
-                            "position": "top",
-                            "position_horizontal": "top",
-                            "gap_desktop": 8,
-                            "gap_mobile": 8,
-                            "customize_mobile_alignment": false
-                          },
-                          "blocks": {
-                            "followers": {
-                              "type": "eyebrow",
-                              "settings": {
-                                "text": "<p>12K followers</p>",
-                                "show_background": true,
-                                "show_icon": true,
-                                "icon": "circle",
-                                "color": "#cfe0ff",
-                                "background_color": "#ffffff00",
-                                "border_color": "#ffffff24",
-                                "border_thickness": 1,
-                                "corner_radius": "pill",
-                                "color_scheme": "scheme-3",
-                                "padding_top": 6,
-                                "padding_bottom": 6,
-                                "padding_left": 10,
-                                "padding_right": 10,
-                                "customize_typography": true,
-                                "font_size": 10,
-                                "font_role": "monospace",
-                                "text_transform": "uppercase",
-                                "letter_spacing": 0.8
-                              }
-                            },
-                            "posts": {
-                              "type": "eyebrow",
-                              "settings": {
-                                "text": "<p>380 posts</p>",
-                                "show_background": true,
-                                "show_icon": true,
-                                "icon": "circle",
-                                "color": "#cfe0ff",
-                                "background_color": "#ffffff00",
-                                "border_color": "#ffffff24",
-                                "border_thickness": 1,
-                                "corner_radius": "pill",
-                                "color_scheme": "scheme-3",
-                                "padding_top": 6,
-                                "padding_bottom": 6,
-                                "padding_left": 10,
-                                "padding_right": 10,
-                                "customize_typography": true,
-                                "font_size": 10,
-                                "font_role": "monospace",
-                                "text_transform": "uppercase",
-                                "letter_spacing": 0.8
-                              }
-                            }
-                          },
-                          "block_order": [
-                            "followers",
-                            "posts"
-                          ]
+                            "text": "<p>12K followers</p>",
+                            "show_background": true,
+                            "show_icon": true,
+                            "icon": "circle",
+                            "color": "#cfe0ff",
+                            "background_color": "#ffffff00",
+                            "border_color": "#ffffff24",
+                            "border_thickness": 1,
+                            "corner_radius": "pill",
+                            "color_scheme": "scheme-3",
+                            "padding_top": 6,
+                            "padding_bottom": 6,
+                            "padding_left": 10,
+                            "padding_right": 10,
+                            "customize_typography": true,
+                            "font_size": 10,
+                            "font_role": "monospace",
+                            "text_transform": "uppercase",
+                            "letter_spacing": 0.8
+                          }
+                        },
+                        "posts": {
+                          "type": "eyebrow",
+                          "settings": {
+                            "text": "<p>380 posts</p>",
+                            "show_background": true,
+                            "show_icon": true,
+                            "icon": "circle",
+                            "color": "#cfe0ff",
+                            "background_color": "#ffffff00",
+                            "border_color": "#ffffff24",
+                            "border_thickness": 1,
+                            "corner_radius": "pill",
+                            "color_scheme": "scheme-3",
+                            "padding_top": 6,
+                            "padding_bottom": 6,
+                            "padding_left": 10,
+                            "padding_right": 10,
+                            "customize_typography": true,
+                            "font_size": 10,
+                            "font_role": "monospace",
+                            "text_transform": "uppercase",
+                            "letter_spacing": 0.8
+                          }
                         },
                         "weekly": {
                           "type": "eyebrow",
@@ -632,7 +617,8 @@
                         }
                       },
                       "block_order": [
-                        "tag_row",
+                        "followers",
+                        "posts",
                         "weekly"
                       ]
                     }
