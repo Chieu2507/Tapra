@@ -9,6 +9,11 @@
   nested inside Product Details; outside a product-aware parent they render
   according to their own empty-state behavior.
 
+  @param {object} block - Owning Group block
+  @param {object} section - Owning section
+  @param {string} children - Captured child blocks
+  @param {string} [container_class] - Optional shared container classes
+
   @example
   {% content_for 'block', type: 'group', id: 'group' %}
 {% enddoc %}
