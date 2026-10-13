@@ -5,7 +5,7 @@
    3. Reserve ::before / ::after for glow and the masked 1px edge. Both inherit
       the owner's radius and never intercept pointer input.
    4. Only the Compact header shell adds surface-light--header: its glow/edge
-      shrink from 190/140px to 75/50px over open menu controls. Other boxes
+      shrink from 190/140px to 75/50px over open menu/localization controls. Other boxes
       keep 230/150px; they do not change size when a child link is hovered.
    5. Motion > Enable pointer light on bordered boxes controls everything.
       Off removes both generated layers; touch/reduced motion disable light.

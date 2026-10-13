@@ -45,7 +45,7 @@
       item.x += (x - item.x) * positionEase;
       item.y += (y - item.y) * positionEase;
       item.intensity += (target - item.intensity) * (target > item.intensity ? (header ? .1 : .12) : (header ? .05 : .06));
-      const control = header && pointerTarget?.closest?.('.header__mobile-drawer-item > details > summary, .header__mobile-drawer-item > a, .header__mobile-drawer-submenu a, .header__mobile-drawer-submenu-details > summary, .header-mega-menu__banner, [data-header-menu-back]');
+      const control = header && pointerTarget?.closest?.('.header__mobile-drawer-item > details > summary, .header__mobile-drawer-item > a, .header__mobile-drawer-submenu a, .header__mobile-drawer-submenu-details > summary, .header-mega-menu__banner, .header-localization__summary, [data-header-menu-back]');
       const targetTightness = header && inside && !hidden && element.classList.contains('header-top--menu-open') && control && element.contains(control) ? 1 : 0;
       item.tightness += (targetTightness - item.tightness) * .14;
       if (Math.abs(targetTightness - item.tightness) < .004) item.tightness = targetTightness;
