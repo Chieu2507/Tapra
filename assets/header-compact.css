@@ -349,3 +349,26 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   .search-overlay.search-overlay--compact,
   .search-overlay.search-overlay--compact * { transition: none !important; animation: none !important; }
 }
+
+/* Closing starts the shell return alongside the content fade. The opening
+   curve's slow first half otherwise leaves an empty expanded box on screen. */
+@media (min-width: 768px) {
+  .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) {
+    width: min(var(--compact-width, 236px), 100%);
+    height: 50px;
+    border-radius: var(--radius-24);
+    transition: width 500ms cubic-bezier(.4, 0, .2, 1), height 500ms cubic-bezier(.4, 0, .2, 1), border-radius 500ms cubic-bezier(.4, 0, .2, 1);
+  }
+  .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) .header__container {
+    padding: 0 6px 0 16px;
+    transition: padding 500ms cubic-bezier(.4, 0, .2, 1);
+  }
+  .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) .header__row {
+    height: 48px;
+    transition: height 500ms cubic-bezier(.4, 0, .2, 1);
+  }
+  .header-top.header-top--compact .header__mobile-drawer.component-overlay[data-state='closing'] .header__mobile-drawer-surface {
+    opacity: 0;
+    transition-delay: 0ms;
+  }
+}
