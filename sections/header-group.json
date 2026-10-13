@@ -289,7 +289,7 @@
         "color_scheme": "scheme-3",
         "header_overlay": false,
         "transparent_color_scheme": "scheme-3",
-        "header_style": "compact"
+        "header_style": "classic"
       }
     }
   },
