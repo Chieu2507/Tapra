@@ -52,6 +52,11 @@
   .tapra-footer__top { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, .6fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: start; }
   .tapra-footer__top > * { min-width: 0; }
   .tapra-footer__brand .heading-block { max-width: 680px; }
+  .tapra-footer__brand > .group > .heading-block:first-child {
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -.04em;
+  }
   .tapra-footer__newsletter { --input-radius: 12px; }
   .tapra-footer__newsletter > .group > .text-block:last-child { text-align: center; }
   .tapra-footer__wordmark { margin-top: clamp(40px, 6vw, 100px); padding-bottom: clamp(10px, 1.4vw, 22px); overflow: hidden; user-select: none; }
