@@ -2394,10 +2394,22 @@
         "default": true
       },
       {
+        "type": "select",
+        "id": "overlay_drawer_width_mobile",
+        "label": "t:labels.mobile_width",
+        "info": "t:info.drawer_mobile_width",
+        "options": [
+          { "value": "auto", "label": "t:options.drawer_mobile_width.auto" },
+          { "value": "full", "label": "t:options.drawer_mobile_width.full" }
+        ],
+        "default": "auto"
+      },
+      {
         "type": "checkbox",
         "id": "overlay_drawer_padding_mobile",
         "label": "t:labels.enable_padding_on_mobile",
-        "default": false
+        "default": false,
+        "visible_if": "{{ settings.overlay_drawer_width_mobile == 'auto' }}"
       },
       {
         "type": "header",

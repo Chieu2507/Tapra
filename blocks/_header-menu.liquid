@@ -118,7 +118,7 @@
                   </summary>
                   <ul class="header-menu__submenu {{ submenu_typography_class }}" role="list">
                     {% for child_link in link.links %}
-                      <li class="header-menu__submenu-item">
+                      <li class="header-menu__submenu-item" style="--header-column-index: {{ forloop.index0 }};">
                         {% if child_link.links != blank and child_link.url == '#' %}
                           <span class="header-menu__link header-menu__link--has-tertiary" aria-label="{{ child_link.title | escape }}"><span class="header-menu__link-label">{{ child_link.title | escape }}</span>{% render 'icon', icon: 'chevron-right', class: 'header-menu__tertiary-arrow' %}</span>
                         {% else %}
@@ -127,7 +127,7 @@
                         {% if child_link.links != blank %}
                           <ul class="header-menu__tertiary {{ submenu_typography_class }}" role="list">
                             {% for grandchild_link in child_link.links %}
-                              <li><a class="header-menu__tertiary-link link-underline-trigger" href="{{ grandchild_link.url }}"><span class="header-menu__tertiary-link-label link-underline">{{ grandchild_link.title | escape }}</span></a></li>
+                              <li style="--header-item-index: {{ forloop.index }};"><a class="header-menu__tertiary-link link-underline-trigger" href="{{ grandchild_link.url }}"><span class="header-menu__tertiary-link-label link-underline">{{ grandchild_link.title | escape }}</span></a></li>
                             {% endfor %}
                           </ul>
                         {% endif %}
@@ -1072,18 +1072,18 @@
       align-items: center;
       justify-content: center;
       padding: 0 var(--button-padding-inline-mobile);
-      border: var(--button-primary-border-width) solid var(--button-primary-border);
+      border: var(--button-secondary-border-width) solid var(--button-secondary-border);
       border-radius: var(--button-radius);
-      background: var(--button-primary-background);
-      color: var(--button-primary-text);
+      background: var(--button-secondary-background);
+      color: var(--button-secondary-text);
       text-align: center;
       text-decoration: none;
     }
 
     shopify-account.header__mobile-drawer-account:hover::part(signed-out-avatar) {
-      border-color: var(--button-primary-hover-border);
-      background: var(--button-primary-hover-background);
-      color: var(--button-primary-hover-text);
+      border-color: var(--button-secondary-hover-border);
+      background: var(--button-secondary-hover-background);
+      color: var(--button-secondary-hover-text);
       transform: translateY(var(--motion-distance-hover));
     }
 
@@ -1100,7 +1100,7 @@
       --shopify-account-radius-button-small: var(--overlay-close-radius);
       --shopify-account-radius-input: var(--input-radius);
       display: block;
-      color: var(--button-primary-text);
+      color: var(--button-secondary-text);
     }
 
     .header__mobile-drawer-account-avatar {

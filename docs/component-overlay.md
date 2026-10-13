@@ -66,9 +66,16 @@ Quick View keeps the overlay body as its only scroll container; the desktop
 media-left layout keeps product details sticky without creating a second column
 scroll area. Mobile layouts remain a single natural document flow.
 Mobile through 767.98px uses `bottom_sheet` (slide from bottom) or `drawer`.
-Drawer padding settings control the panel's outer inset on top, right and
-bottom; they never remove the header/body content padding. An unchecked setting
-keeps those edges flush at `0`.
+Theme settings → Overlay and layering → Mobile width controls all mobile drawers
+through `overlay_drawer_width_mobile`. Auto (default) uses a floating panel capped
+at 410px wide and 680px tall. Full uses the full viewport with square corners.
+The existing mobile padding toggle increases the Auto gutters; it is hidden in
+Full mode. These settings never remove the header/body content padding.
+`snippets/css-variables.liquid` owns the shared `--drawer-mobile-*` geometry tokens.
+Cart, Compact/Basic menu, Compact Search, generic drawer panels and collection
+drawer adapters consume them. Classic Search remains a full-width extension
+below the header, sized to its content. Bottom sheets retain their separate content-height layout.
+Shopify's externally hosted account experience remains platform-owned.
 All modes use the global motion and backdrop tokens. Backdrop alpha is part of
 `--overlay-backdrop-color` as an `rgba()` background color so the blur remains
 visible while the overlay opacity setting still controls the configured alpha.

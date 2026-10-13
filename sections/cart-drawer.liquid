@@ -122,8 +122,9 @@
   class="component-overlay cart-drawer color-scheme section-color-scope {{ cart_drawer_scheme }}{% if section.settings.product_cards %} cart-drawer--product-cards{% endif %}{% if section.settings.enable_block_animations %} cart-drawer--animated{% endif %}"
   data-component-overlay
   data-append-to-body
-  data-desktop-layout="drawer"
-  data-mobile-layout="drawer"
+  data-cart-presentation="{{ section.settings.presentation | default: 'drawer' }}"
+  data-desktop-layout="{{ section.settings.presentation | default: 'drawer' }}"
+  data-mobile-layout="{{ section.settings.presentation | default: 'drawer' }}"
   data-state="closed"
   scroll-lock
   aria-hidden="true"
@@ -387,6 +388,16 @@
     {
       "type": "header",
       "content": "Cart drawer"
+    },
+    {
+      "type": "select",
+      "id": "presentation",
+      "label": "Presentation",
+      "options": [
+        { "value": "drawer", "label": "Drawer" },
+        { "value": "popup", "label": "Popup" }
+      ],
+      "default": "drawer"
     },
     {
       "type": "text",

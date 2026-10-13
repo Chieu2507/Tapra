@@ -829,12 +829,133 @@
     }
   };
 
+  // An inert visual copy travels with the cart shell. The real header remains
+  // the only interactive header and is revealed after the shell returns home.
+  const prepareCompactBar = (drawer) => {
+    const header = document.querySelector('.header-top--compact[data-header-root]');
+    const panel = drawer.querySelector('.cart-drawer__panel');
+    panel?.querySelector('.cart-drawer__pill')?.remove();
+    if (!header || !panel) return;
+    const container = header.querySelector('.header__container');
+    if (!container) return;
+    const visual = header.cloneNode(false);
+    visual.className = 'header-top header-top--compact cart-drawer__pill';
+    visual.style.paddingTop = getComputedStyle(header).paddingTop;
+    visual.style.paddingBottom = getComputedStyle(header).paddingBottom;
+    visual.style.setProperty('--compact-cart-row-height', `${header.querySelector('.header__row')?.getBoundingClientRect().height || 48}px`);
+    visual.append(container.cloneNode(true));
+    // Freeze the rendered state, including an in-flight drill-down transition.
+    const freezeVisual = (source, copy) => {
+      const originals = [source, ...source.querySelectorAll('*')];
+      [copy, ...copy.querySelectorAll('*')].forEach((node, index) => {
+        const style = getComputedStyle(originals[index]);
+        node.style.opacity = style.opacity;
+        node.style.visibility = style.visibility;
+        node.style.transform = style.transform;
+        node.style.animation = 'none';
+        node.style.transition = 'none';
+        if (node.matches('.header-menu-toggle__compact-icon i')) {
+          node.style.top = style.top;
+          node.style.right = style.right;
+          node.style.width = style.width;
+        }
+      });
+    };
+    freezeVisual(container, visual.firstElementChild);
+    visual.firstElementChild.style.removeProperty('opacity');
+    visual.firstElementChild.style.removeProperty('transition');
+    if (header.classList.contains('header-top--menu-open')) {
+      const surface = header.querySelector('.header__mobile-drawer-surface');
+      if (surface) {
+        const menu = surface.cloneNode(true);
+        const drawerSource = surface.closest('[data-header-mobile-drawer]');
+        menu.className += ' cart-drawer__menu-residue header__mobile-drawer';
+        if (drawerSource?.classList.contains('header__mobile-drawer--submenu-active')) menu.classList.add('header__mobile-drawer--submenu-active');
+        freezeVisual(surface, menu);
+        const bounds = surface.getBoundingClientRect();
+        menu.style.width = `${bounds.width}px`;
+        menu.style.height = `${bounds.height}px`;
+        menu.style.opacity = getComputedStyle(surface).opacity;
+        menu.style.transition = 'opacity 200ms';
+        visual.append(menu);
+      }
+    }
+    // Avoid duplicate IDs, editor ownership, triggers and custom-element mounts.
+    [visual, ...visual.querySelectorAll('*')].forEach(node => {
+      for (const attribute of [...node.attributes]) {
+        if (attribute.name === 'id' || attribute.name.startsWith('data-') || attribute.name.startsWith('aria-')) node.removeAttribute(attribute.name);
+      }
+    });
+    visual.querySelectorAll('script, template').forEach(node => node.remove());
+    visual.querySelectorAll('shopify-account').forEach(node => {
+      const avatar = document.createElement('div');
+      avatar.className = node.className;
+      avatar.append(...node.childNodes);
+      node.replaceWith(avatar);
+    });
+    visual.inert = true;
+    visual.dataset.layoutReady = 'true';
+    visual.setAttribute('aria-hidden', 'true');
+    panel.prepend(visual);
+  };
+
+  // Keep Shopify's cart content/lifecycle, but originate motion at the CURRENT
+  // shell, including an expanded or partially animated menu.
+  const prepareCompactMotion = (drawer) => {
+    const header = document.querySelector('.header-top--compact[data-header-root]');
+    drawer.classList.toggle('cart-drawer--compact', Boolean(header));
+    if (!header) return;
+    const style = getComputedStyle(header);
+    const bounds = header.getBoundingClientRect();
+    if (drawer.dataset?.cartPresentation === 'popup') {
+      const popupStyle = getComputedStyle(drawer);
+      const popupWidth = Math.min(parseFloat(popupStyle.getPropertyValue('--component-overlay-width')) || 550, window.innerWidth - 32);
+      const popupHeight = Math.min(680, window.innerHeight - 32);
+      const originHeight = bounds.height || 50;
+      drawer.style.setProperty('--compact-popup-width', `${popupWidth}px`);
+      drawer.style.setProperty('--compact-popup-height', `${popupHeight}px`);
+      drawer.style.setProperty('--compact-popup-center-shift', `${window.innerHeight / 2 - bounds.top - originHeight / 2}px`);
+      drawer.style.setProperty('--compact-popup-grow-shift', `${-(popupHeight - originHeight) / 2}px`);
+    }
+    const restWidth = Math.min(parseFloat(style.getPropertyValue('--compact-width')) || 288, window.innerWidth - 24);
+    const mobileDrawer = window.innerWidth < 768;
+    const fullMobile = mobileDrawer && style.getPropertyValue('--drawer-mobile-mode').trim() === 'full';
+    const gutter = mobileDrawer ? (parseFloat(style.getPropertyValue('--drawer-mobile-gutter')) || (fullMobile ? 0 : 12)) : 12;
+    const maxWidth = mobileDrawer ? (parseFloat(style.getPropertyValue('--drawer-mobile-max-width')) || 410) : 410;
+    const width = fullMobile ? window.innerWidth : Math.min(maxWidth, window.innerWidth - gutter * 2);
+    const restHeight = parseFloat(style.getPropertyValue('--compact-rest-height')) ||
+      50 + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    const fromMobileMenu = window.innerWidth < 768 && header.classList.contains('header-top--menu-open');
+    drawer.style.setProperty('--compact-cart-top', fromMobileMenu
+      ? `calc(${parseFloat(style.getPropertyValue('--header-compact-top')) || 16}px + env(safe-area-inset-top, 0px))`
+      : `${Math.max(0, bounds.top)}px`);
+    drawer.style.setProperty('--compact-cart-origin-top', `${Math.max(0, bounds.top)}px`);
+    drawer.style.setProperty('--compact-cart-origin-radius', style.borderRadius);
+    drawer.style.setProperty('--compact-cart-rest-width', `${restWidth}px`);
+    drawer.style.setProperty('--compact-cart-rest-height', `${restHeight}px`);
+    drawer.style.setProperty('--compact-cart-shift', `${fullMobile ? 0 : window.innerWidth / 2 - gutter - restWidth / 2}px`);
+    drawer.style.setProperty('--compact-cart-expand-shift', `${-(width - restWidth) / 2}px`);
+    drawer.style.setProperty('--compact-cart-open-translate', `${-(width - restWidth) / (fullMobile ? 2 : 1)}px`);
+    drawer.style.setProperty('--compact-cart-origin-width', `${bounds.width || restWidth}px`);
+    drawer.style.setProperty('--compact-cart-origin-height', `${bounds.height || restHeight}px`);
+    drawer.style.setProperty('--compact-cart-origin-shift', `${(restWidth - (bounds.width || restWidth)) / 2}px`);
+    drawer.style.setProperty('--compact-cart-background', style.backgroundColor);
+    drawer.style.setProperty('--compact-cart-border', style.border);
+    drawer.style.setProperty('--compact-cart-shadow', style.boxShadow);
+    drawer.style.setProperty('--compact-cart-blur', style.backdropFilter);
+  };
+  window.addEventListener('resize', () => {
+    if (state.drawer && state.overlay?.isOpen()) prepareCompactMotion(state.drawer);
+  });
+
   const open = ({ refreshCart = true } = {}) => {
     const drawer = state.drawer;
     if (!drawer) return;
     const shouldOpen = !state.overlay?.isOpen();
     if (!shouldOpen) return;
     const opener = state.editorSelected ? null : (state.opener || document.activeElement);
+    prepareCompactMotion(drawer);
+    prepareCompactBar(drawer);
     drawer.classList.remove('is-closing');
     drawer.classList.add('is-open');
     state.overlay?.open({ opener, focus: !state.editorSelected, restoreFocus: !state.editorSelected, defer: true });

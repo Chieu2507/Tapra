@@ -74,8 +74,8 @@
     container.querySelectorAll('[data-header-menu-toggle]').forEach((toggle) => {
       const searchOpen = document.querySelector('.search-overlay--compact:is([data-state="opening"], [data-state="open"])');
       toggle.classList.toggle('is-expanded', isOpen || Boolean(searchOpen));
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      toggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+      toggle.setAttribute('aria-expanded', String(isOpen || Boolean(searchOpen)));
+      toggle.setAttribute('aria-label', searchOpen ? 'Close search' : isOpen ? 'Close menu' : 'Open menu');
     });
     scheduleUpdate();
   };
@@ -83,7 +83,9 @@
   const closeSearchOverlay = () => {
     const overlay = document.querySelector('[data-search-overlay]');
     if (!overlay || overlay.hasAttribute('hidden')) return;
-    overlay.querySelector('[data-search-overlay-close]')?.click();
+    const presentation = window.ThemeOverlay?.get(overlay);
+    if (presentation) presentation.close({ restoreFocus: false });
+    else overlay.querySelector('[data-search-overlay-close]')?.click();
   };
 
   const closeCartDrawer = () => {
@@ -225,7 +227,7 @@
       // Localization is a child surface of the open menu; retain its category.
       // Cart handoff also keeps the outgoing Compact content intact until fade-out.
       const retainMenuContent = (active.menu && (active.account || active.details?.closest('[data-header-mobile-drawer]'))) ||
-        (active.cart && header.querySelector('.header-top--compact.header-top--menu-open'));
+        ((active.cart || active.search) && header.querySelector('.header-top--compact.header-top--menu-open'));
       if (retainMenuContent &&
           details.matches('[data-mobile-drawer-details], [data-mobile-drawer-submenu-details]')) return;
       if (details.classList.contains('header-localization__details')) {
@@ -855,6 +857,8 @@
         if (!details || !item) return;
         moveMegaMenuToMobileDrawer(item);
         details.open = true;
+        // Establish the offscreen start before adding the active class next frame.
+        void details.querySelector('.header__mobile-drawer-submenu')?.offsetWidth;
         window.requestAnimationFrame(() => {
           item.classList.add('is-mobile-submenu-active');
           drawer.classList.add('header__mobile-drawer--submenu-active');
@@ -881,6 +885,7 @@
         });
 
         details.open = true;
+        void details.querySelector('.header__mobile-drawer-tertiary-panel')?.offsetWidth;
         window.requestAnimationFrame(() => {
           details.classList.remove('is-mobile-submenu-closing');
           details.classList.add('is-mobile-submenu-active');

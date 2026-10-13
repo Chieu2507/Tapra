@@ -83,7 +83,8 @@ function fixture({ assertReady = true, recommendationsEnabled = false } = {}) {
     close() { opened = false; },
     destroy() {},
   };
-  const window = { ThemeOverlay: { get: () => overlay } };
+  const window = new Element();
+  window.ThemeOverlay = { get: () => overlay };
   document.addEventListener('cart:add:ready', (event) => events.push({ type: 'ready', detail: event.detail }));
   vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../assets/cart-drawer.js'), 'utf8'), {
     document, window, Intl, Date, URLSearchParams,
