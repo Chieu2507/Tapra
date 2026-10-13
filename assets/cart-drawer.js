@@ -840,6 +840,8 @@
     if (!container) return;
     const visual = header.cloneNode(false);
     visual.className = 'header-top header-top--compact cart-drawer__pill';
+    visual.style.paddingTop = getComputedStyle(header).paddingTop;
+    visual.style.paddingBottom = getComputedStyle(header).paddingBottom;
     visual.append(container.cloneNode(true));
     if (header.classList.contains('header-top--menu-open')) {
       const surface = header.querySelector('.header__mobile-drawer-surface');
@@ -847,6 +849,10 @@
         const menu = surface.cloneNode(true);
         menu.className += ' cart-drawer__menu-residue';
         menu.style.opacity = getComputedStyle(surface).opacity;
+        menu.querySelectorAll('.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary').forEach(node => {
+          node.style.opacity = '1';
+          node.style.transform = 'none';
+        });
         visual.append(menu);
       }
     }
