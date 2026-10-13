@@ -1187,8 +1187,10 @@ html[data-surface-light-enabled] .cart-drawer__panel.surface-light::before {
   .cart-drawer__header { min-height: 64px; }
   .cart-drawer__item { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
   .cart-drawer__item-media { width: 64px; height: 64px; }
-  .cart-drawer__item-actions { grid-column: 2 / -1; grid-row: 2; display: flex; justify-content: space-between; align-items: center; }
-  .cart-drawer__item-info { grid-column: 2 / -1; }
+  .cart-drawer__item-actions { display: contents; }
+  .cart-drawer__item-info { grid-column: 2; }
+  .cart-drawer__remove { grid-column: 3; grid-row: 1; justify-self: end; align-self: start; width: 28px; height: 28px; }
+  .cart-drawer__quantity { grid-column: 2 / -1; grid-row: 2; justify-self: end; margin-block-start: 12px; }
   .cart-drawer__item-media { grid-row: 1 / span 2; }
   .cart-drawer__shipping-progress { gap: 12px; padding: 12px; }
   .cart-drawer__shipping-progress-icon { display: none; }
