@@ -51,9 +51,9 @@
     inset: var(--compact-cart-top, 16px) auto auto 50%;
     margin: 0 0 0 calc(var(--compact-cart-rest-width, 288px) / -2);
     width: var(--compact-cart-rest-width, 288px);
-    max-width: calc(100vw - 24px);
+    max-width: none;
     height: var(--compact-cart-rest-height, 50px);
-    max-height: calc(100dvh - var(--compact-cart-top, 16px) - 12px - env(safe-area-inset-bottom, 0px));
+    max-height: none;
     border-radius: 24px;
     background: var(--compact-cart-background, var(--background-color));
     border: var(--compact-cart-border, 0);
@@ -62,9 +62,11 @@
     opacity: 1;
     transform: translateX(0);
     translate: 0 0;
-    transition: width 600ms var(--header-motion-ease), height 600ms var(--header-motion-ease), border-radius 600ms var(--header-motion-ease), translate 600ms var(--header-motion-ease), transform 550ms 300ms var(--header-motion-ease);
+    transition: top 600ms var(--header-motion-ease), width 600ms var(--header-motion-ease), height 600ms var(--header-motion-ease), border-radius 600ms var(--header-motion-ease), translate 600ms var(--header-motion-ease), transform 550ms 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact.component-overlay[data-state='opening'] .cart-drawer__panel {
+    top: var(--compact-cart-origin-top, var(--compact-cart-top));
+    border-radius: var(--compact-cart-origin-radius, 24px);
     width: var(--compact-cart-origin-width, var(--compact-cart-rest-width));
     height: var(--compact-cart-origin-height, var(--compact-cart-rest-height));
     translate: var(--compact-cart-origin-shift, 0px) 0;
@@ -77,7 +79,7 @@
     transform: translateX(var(--compact-cart-shift, 0px));
     /* The demo's flex centering contributes the other half of this offset. */
     translate: calc(var(--compact-cart-expand-shift, 0px) * 2) 0;
-    transition: transform 550ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
+    transition: transform 550ms var(--header-motion-ease), top 600ms 300ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__inner {
     opacity: 1;
@@ -1166,7 +1168,7 @@ html[data-surface-light-enabled] .cart-drawer__panel.surface-light::before {
   mix-blend-mode: screen;
 }
 @media (max-width: 767.98px) {
-  .cart-drawer.component-overlay[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: 0; }
+  .cart-drawer.component-overlay:not(.cart-drawer--compact)[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: 0; }
   .cart-drawer__footer { padding-block-start: 0; }
   .cart-drawer__header { min-height: 64px; }
   .cart-drawer__item { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
