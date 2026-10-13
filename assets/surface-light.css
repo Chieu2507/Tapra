@@ -48,6 +48,9 @@ html[data-surface-light-enabled] .surface-light--header {
   --surface-light-edge-radius: 140px;
   --surface-light-strength: .36;
 }
+/* The shell light crosses nested boxes instead of disappearing behind them. */
+html[data-surface-light-enabled] .surface-light--header::before { z-index: 3; mix-blend-mode: screen; }
+html[data-surface-light-enabled] .surface-light--header::after { z-index: 4; }
 @media (hover: none) {
   html[data-surface-light-enabled] .surface-light::before, html[data-surface-light-enabled] .surface-light::after { display: none; }
 }
