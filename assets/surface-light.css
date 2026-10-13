@@ -61,3 +61,6 @@ html:not([data-surface-light-enabled]) .surface-light::after { content: none; di
 /* Compact owns one outside shell; its inner menu/search panels stay plain. */
 html[data-surface-light-enabled] .header-top.header-top--compact .header-mega-menu__banner.surface-light::after { display: block; }
 html[data-surface-light-enabled] .search-overlay__form.surface-light::before { z-index: 1; mix-blend-mode: screen; }
+
+/* Basic header owns a spotlight across the full top bar. */
+html[data-surface-light-enabled] .header-top:not(.header-top--compact).surface-light--header::before { z-index: 1; mix-blend-mode: screen; }

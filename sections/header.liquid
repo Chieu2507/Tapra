@@ -7,7 +7,7 @@
 <script src="{{ 'header-compact.js' | asset_url }}" defer></script>
 {% endif %}
 {% if section.settings.layout == 'two_rows' and section.settings.header_style != 'compact' %}
-<div class="header-top header-top--two-rows color-scheme section-color-scope {{ scheme }}" data-header-root data-header-scheme="{{ scheme }}" data-sticky-type="{{ section.settings.sticky_type_two_rows | default: 'scroll_up' }}" data-header-transparent-scheme="{{ scheme }}" data-logo-position="left" data-layout-ready="true" style="--header-icon-size: {{ section.settings.icon_size | default: 24 }}px; --header-icon-mobile: {{ section.settings.icon_size_mobile | default: 20 }}px;">
+<div class="header-top header-top--two-rows surface-light surface-light--header color-scheme section-color-scope {{ scheme }}" data-header-root data-header-scheme="{{ scheme }}" data-sticky-type="{{ section.settings.sticky_type_two_rows | default: 'scroll_up' }}" data-header-transparent-scheme="{{ scheme }}" data-logo-position="left" data-layout-ready="true" style="--header-icon-size: {{ section.settings.icon_size | default: 24 }}px; --header-icon-mobile: {{ section.settings.icon_size_mobile | default: 20 }}px;">
 {% content_for 'block', type: '_header-two-row', id: 'header-two-row' %}
 {% content_for 'block', type: '_header-bottom', id: 'header-bottom' %}
 </div>
