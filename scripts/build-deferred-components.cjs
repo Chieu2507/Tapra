@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const files = [
+  "assets/component-blocks-group.css",
   "assets/component-sections-collection-tabs.css",
   "assets/component-sections-featured-collection.css",
   "assets/component-sections-image-cards.css",
@@ -15,6 +16,7 @@ const files = [
   "assets/component-blocks-countdown-timer.css",
   "assets/component-blocks-tab-layout.css",
   "assets/component-blocks-gallery-image.css",
+  "assets/component-gallery-parallax.css",
   "assets/component-snippets-product-callout-runtime.css",
   "assets/component-sections-collection-list-thumbnails.css"
 ];

@@ -1,0 +1,46 @@
+/* Gallery layout behavior. All variable values are owned by Gallery settings. */
+.gallery-grid[data-gallery-layout='parallax'].is-parallax-ready {
+  height: var(--gallery-parallax-rendered-height, var(--gallery-parallax-height));
+  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), minmax(0, 1fr));
+  align-items: start;
+  overflow: clip;
+  background-color: var(--gallery-parallax-background, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--gallery-parallax-fade), #000 calc(100% - var(--gallery-parallax-fade)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--gallery-parallax-fade), #000 calc(100% - var(--gallery-parallax-fade)), transparent);
+}
+.gallery-parallax__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gallery-grid-gap);
+  min-width: 0;
+  margin-top: calc(var(--gallery-parallax-effective-distance, 0px) * -1 - var(--gallery-parallax-column-stagger, 0px));
+}
+.gallery-parallax__column > .gallery-image { flex: none; }
+.gallery-parallax__column[hidden] { display: none; }
+.gallery-grid[data-gallery-layout='parallax'][data-gallery-accessible='true'] {
+  height: auto;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.gallery-grid[data-gallery-accessible='true'] .gallery-parallax__column { margin-top: 0; }
+@media (max-width: 767.98px) {
+  .gallery-grid[data-gallery-layout='parallax'].is-parallax-ready { height: var(--gallery-parallax-rendered-height, var(--gallery-parallax-height-mobile)); }
+  .gallery-grid[data-gallery-accessible='true'].is-parallax-ready { height: auto; }
+  .gallery-parallax__column { gap: var(--gallery-grid-gap-mobile); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-parallax__column { transform: none !important; }
+}
+/* Tracks fill wide viewports, retain a minimum card width and crop the trailing edge. */
+.gallery-grid[data-gallery-layout='parallax'][data-gallery-item-sizing='fixed'].is-parallax-ready {
+  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), minmax(var(--gallery-grid-item-width), 1fr));
+  justify-content: start;
+}
+.gallery-grid[data-gallery-item-sizing='fixed'][data-gallery-accessible='true'].is-parallax-ready {
+  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), minmax(0, 1fr));
+  overflow: visible;
+}
+
+/* Clip only during editor layout transitions while the viewport animates. */
+.gallery-grid[data-gallery-layout='parallax'][data-gallery-transition='true'].is-parallax-ready { overflow: clip; }

@@ -4264,10 +4264,14 @@
           "static": true,
           "settings": {
             "alignment": "left",
-            "gap": 8,
-            "customize_mobile_alignment": false,
             "alignment_mobile": "center",
-            "gap_mobile": 8
+            "gap_mobile": 8,
+            "content_width": "inherit",
+            "direction": "vertical",
+            "width": "fill",
+            "width_mobile": "fill",
+            "gap_desktop": 8,
+            "height": "fit"
           },
           "blocks": {
             "eyebrow_Lc8Rp6": {

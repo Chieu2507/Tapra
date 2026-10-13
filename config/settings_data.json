@@ -310,6 +310,35 @@
           "button_tertiary_text": "#0A1530",
           "button_tertiary_hover_text": "#2A5FD6"
         }
+      },
+      "scheme-5": {
+        "settings": {
+          "background": "#ffffff00",
+          "heading": "#FFFFFF",
+          "heading_highlight": "#FFFFFF",
+          "text": "#9FB0D0",
+          "accent": "#BFE3FF",
+          "border": "rgba(255,255,255,0.12)",
+          "variant_overlay": "#ffffff80",
+          "background_bar": "#666666",
+          "background_component": "rgba(255,255,255,0.06)",
+          "shadow": "#1c1b1a1a",
+          "sale_price": "#d82727",
+          "button_primary_background": "#FFFFFF",
+          "button_primary_text": "#0A1530",
+          "button_primary_border": "#FFFFFF",
+          "button_primary_hover_background": "#BFE3FF",
+          "button_primary_hover_text": "#0A1530",
+          "button_primary_hover_border": "#BFE3FF",
+          "button_secondary_background": "#ffffff14",
+          "button_secondary_text": "#ffffff",
+          "button_secondary_border": "#ffffff24",
+          "button_secondary_hover_background": "#ffffff24",
+          "button_secondary_hover_text": "#ffffff",
+          "button_secondary_hover_border": "#ffffff38",
+          "button_tertiary_text": "#BFE3FF",
+          "button_tertiary_hover_text": "#FFFFFF"
+        }
       }
     },
     "product_card_media_inset": 0,

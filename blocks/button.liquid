@@ -3,7 +3,8 @@
 
   The block owns its label, destination, variant, icon visibility, width and
   outer padding. Typography, height, horizontal padding, color and states are
-  inherited from the global Button settings and active color scheme.
+  inherited from the global Button settings and active color scheme. Optional
+  local appearance controls override only this button through explicit settings.
 
   @example
   {% content_for 'block', type: 'button', id: 'button' %}
@@ -63,12 +64,37 @@
 
   assign button_class = 'button-block size-style button-block--width-' | append: button_width
   assign button_class = button_class | append: ' button-block--width-mobile-' | append: button_width_mobile
+  if block.settings.customize_button_style
+    assign button_class = button_class | append: ' button-block--custom-style'
+  endif
+  if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit'
+    assign button_class = button_class | append: ' button-block--custom-radius'
+  endif
+  if block.settings.color_scheme != blank
+    assign button_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | handleize
+    assign button_class = button_class | append: ' color-scheme ' | append: button_scheme
+  endif
+  if block.settings.icon_background_color != blank and block.settings.show_icon
+    assign button_class = button_class | append: ' button-block--icon-background'
+  endif
   if button_label == blank
     assign button_class = button_class | append: ' button-block--empty'
   endif
 %}
 
 {% capture button_style_attribute %}
+  {% if block.settings.customize_button_style %}
+    --button-block-font-size: {{ block.settings.font_size }}px;
+    --button-block-font-weight: {{ block.settings.font_weight }};
+    --button-block-text-case: {{ block.settings.text_transform }};
+    --button-block-padding-start: {{ block.settings.button_padding_start }}px;
+    --button-block-padding-end: {{ block.settings.button_padding_end }}px;
+    --button-block-icon-gap: {{ block.settings.icon_gap }}px;
+  {% endif %}
+  {% if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit' %}
+    --button-block-radius: {% case block.settings.corner_radius %}{% when 'pill' %}var(--radius-pill){% when 'rounded' %}var(--radius-rounded){% else %}var(--radius-square){% endcase %};
+  {% endif %}
+  {% if block.settings.icon_background_color != blank %}--button-icon-background: {{ block.settings.icon_background_color }}; --button-icon-padding: {{ block.settings.icon_padding | default: 0 }}px;{% endif %}
   {% render 'size-style',
     width: button_size_width,
     width_mobile: button_size_width_mobile
@@ -110,6 +136,18 @@
 {% endif %}
 
 {% stylesheet %}
+  .button-block--custom-style .btn {
+    font-size: var(--button-block-font-size); font-weight: var(--button-block-font-weight);
+    text-transform: var(--button-block-text-case);
+    padding-inline: var(--button-block-padding-start) var(--button-block-padding-end);
+  }
+  .button-block--custom-style .btn__label--icon { gap: var(--button-block-icon-gap); }
+  .button-block--custom-radius .btn { border-radius: var(--button-block-radius); }
+  .button-block--icon-background .btn__icon {
+    width: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
+    height: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
+    padding: var(--button-icon-padding); background: var(--button-icon-background); border-radius: var(--radius-pill);
+  }
   .button-block {
     display: block;
     min-width: 0;
@@ -297,6 +335,153 @@
     {
       "type": "header",
       "content": "t:general.size"
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_button_style",
+      "label": "t:gallery_header_controls.customize_button_style",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "t:gallery_header_controls.font_size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "select",
+      "id": "font_weight",
+      "label": "t:gallery_header_controls.font_weight",
+      "default": "600",
+      "options": [
+        {
+          "value": "400",
+          "label": "t:gallery_header_controls.option_400"
+        },
+        {
+          "value": "500",
+          "label": "t:gallery_header_controls.option_500"
+        },
+        {
+          "value": "600",
+          "label": "t:gallery_header_controls.option_600"
+        },
+        {
+          "value": "700",
+          "label": "t:gallery_header_controls.option_700"
+        }
+      ],
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "t:gallery_header_controls.text_transform",
+      "default": "none",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:gallery_header_controls.option_none"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:gallery_header_controls.option_uppercase"
+        },
+        {
+          "value": "capitalize",
+          "label": "t:gallery_header_controls.option_capitalize"
+        }
+      ],
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_start",
+      "label": "t:gallery_header_controls.button_padding_start",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "button_padding_end",
+      "label": "t:gallery_header_controls.button_padding_end",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_gap",
+      "label": "t:gallery_header_controls.icon_gap",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 8,
+      "visible_if": "{{ block.settings.customize_button_style }}"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme"
+    },
+    {
+      "type": "select",
+      "id": "corner_radius",
+      "label": "t:labels.corner_radius",
+      "default": "inherit",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:gallery_header_controls.option_inherit"
+        },
+        {
+          "value": "square",
+          "label": "t:gallery_header_controls.option_square"
+        },
+        {
+          "value": "rounded",
+          "label": "t:gallery_header_controls.option_rounded"
+        },
+        {
+          "value": "pill",
+          "label": "t:gallery_header_controls.option_pill"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "t:gallery_header_controls.icon_background_color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.show_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "t:gallery_header_controls.icon_padding",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.show_icon }}"
     },
     {
       "type": "select",
