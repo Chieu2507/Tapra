@@ -225,7 +225,7 @@
       // Localization is a child surface of the open menu; retain its category.
       // Cart handoff also keeps the outgoing Compact content intact until fade-out.
       const retainMenuContent = (active.menu && (active.account || active.details?.closest('[data-header-mobile-drawer]'))) ||
-        (active.cart && header.querySelector('.header-top--compact.header-top--menu-open'));
+        ((active.cart || active.search) && header.querySelector('.header-top--compact.header-top--menu-open'));
       if (retainMenuContent &&
           details.matches('[data-mobile-drawer-details], [data-mobile-drawer-submenu-details]')) return;
       if (details.classList.contains('header-localization__details')) {
