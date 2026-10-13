@@ -33,10 +33,10 @@ html[data-surface-light-enabled] .surface-light::after {
   mask-composite: exclude;
 }
 @media (hover: none) {
-  html[data-surface-light-enabled] .surface-light::before, .surface-light::after { display: none; }
+  html[data-surface-light-enabled] .surface-light::before, html[data-surface-light-enabled] .surface-light::after { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  html[data-surface-light-enabled] .surface-light::before, .surface-light::after { transition: none; }
+  html[data-surface-light-enabled] .surface-light::before, html[data-surface-light-enabled] .surface-light::after { content: none; display: none; transition: none; }
 }
 
 /* Disabled means no generated light layers, including in the Theme Editor. */
