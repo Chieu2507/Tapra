@@ -376,7 +376,7 @@
     "instagram_gallery": {
       "type": "gallery-image-grid",
       "settings": {
-        "section_width": "full_width_no_padding",
+        "section_width": "full_width",
         "alignment": "left",
         "content_gap": 56,
         "customize_mobile_gap": true,

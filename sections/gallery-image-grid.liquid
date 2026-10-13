@@ -68,6 +68,7 @@
   .gallery-image-grid__container { position: relative; z-index: 1; }
   .container.full-width.gallery-image-grid__container--no-padding { padding-inline: 0; }
   .gallery-image-grid__content { display: flex; flex-direction: column; align-items: var(--gallery-content-align); gap: var(--gallery-content-gap); min-width: 0; }
+  .gallery-image-grid--full_width .gallery-header-group.container.page-width { width: calc(100% + 2 * var(--page-margin-current)); max-width: var(--page-width); align-self: center; }
   .gallery-image-grid__content > * { min-width: 0; max-width: 100%; }
   @media (max-width: 767.98px) {
     .gallery-image-grid__spacing { padding-top: var(--gallery-section-padding-top-mobile, var(--gallery-section-padding-top, 0px)); padding-bottom: var(--gallery-section-padding-bottom-mobile, var(--gallery-section-padding-bottom, 0px)); }
@@ -344,7 +345,7 @@
       "name": "t:gallery_extension.label_gallery_parallax",
       "category": "Storytelling",
       "settings": {
-        "section_width": "full_width_no_padding",
+        "section_width": "full_width",
         "alignment": "left",
         "content_gap": 56,
         "customize_mobile_gap": true,
