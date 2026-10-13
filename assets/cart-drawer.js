@@ -829,12 +829,31 @@
     }
   };
 
+  // Keep Shopify's cart content/lifecycle, but originate Compact motion at the pill.
+  const prepareCompactMotion = (drawer) => {
+    const header = document.querySelector('.header-top--compact[data-header-root]');
+    drawer.classList.toggle('cart-drawer--compact', Boolean(header));
+    if (!header) return;
+    const style = getComputedStyle(header);
+    const bounds = header.getBoundingClientRect();
+    const restWidth = Math.min(parseFloat(style.getPropertyValue('--compact-width')) || 288, window.innerWidth - 24);
+    const width = Math.min(410, window.innerWidth - 24);
+    const restHeight = parseFloat(style.getPropertyValue('--compact-rest-height')) ||
+      50 + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+    drawer.style.setProperty('--compact-cart-top', `${Math.max(0, bounds.top)}px`);
+    drawer.style.setProperty('--compact-cart-rest-width', `${restWidth}px`);
+    drawer.style.setProperty('--compact-cart-rest-height', `${restHeight}px`);
+    drawer.style.setProperty('--compact-cart-shift', `${window.innerWidth / 2 - 12 - restWidth / 2}px`);
+    drawer.style.setProperty('--compact-cart-expand-shift', `${-(width - restWidth) / 2}px`);
+  };
+
   const open = ({ refreshCart = true } = {}) => {
     const drawer = state.drawer;
     if (!drawer) return;
     const shouldOpen = !state.overlay?.isOpen();
     if (!shouldOpen) return;
     const opener = state.editorSelected ? null : (state.opener || document.activeElement);
+    prepareCompactMotion(drawer);
     drawer.classList.remove('is-closing');
     drawer.classList.add('is-open');
     state.overlay?.open({ opener, focus: !state.editorSelected, restoreFocus: !state.editorSelected, defer: true });
