@@ -31,14 +31,13 @@
           },
           "blocks": {
             "brand-name": {
-              "type": "heading",
+              "type": "logo",
               "settings": {
-                "text": "<p>Tapra\u00ae</p>",
-                "heading_size": "custom",
-                "custom_heading_size": 20,
-                "html_tag": "div",
-                "width": "fill",
-                "text_color": "#ffffff"
+                "style": "transparent",
+                "fallback_text": "Tapra\u00ae",
+                "width": "custom",
+                "width_desktop": 80,
+                "width_mobile": 80
               }
             },
             "tagline": {

@@ -52,7 +52,8 @@
   .tapra-footer__top { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, .6fr) minmax(0, 1fr); gap: clamp(32px, 4vw, 72px); align-items: start; }
   .tapra-footer__top > * { min-width: 0; }
   .tapra-footer__brand .heading-block { max-width: 680px; }
-  .tapra-footer__brand > .group > .heading-block:first-child {
+  .tapra-footer__brand .logo-block .site-logo__fallback {
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -.04em;
@@ -230,14 +231,13 @@
           },
           "blocks": {
             "brand-name": {
-              "type": "heading",
+              "type": "logo",
               "settings": {
-                "text": "<p>Tapra\u00ae</p>",
-                "heading_size": "custom",
-                "custom_heading_size": 20,
-                "html_tag": "div",
-                "width": "fill",
-                "text_color": "#ffffff"
+                "style": "transparent",
+                "fallback_text": "Tapra\u00ae",
+                "width": "custom",
+                "width_desktop": 80,
+                "width_mobile": 80
               }
             },
             "tagline": {
