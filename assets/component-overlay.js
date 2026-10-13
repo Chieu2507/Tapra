@@ -45,19 +45,6 @@
 
     cursor.style.setProperty('--cursor-x', `${event.clientX}px`);
     cursor.style.setProperty('--cursor-y', `${event.clientY}px`);
-    const source = typeof colorSource === 'function' ? colorSource() : colorSource;
-    const overlayStyle = getComputedStyle(source || root);
-    cursor.style.setProperty('--color-cursor-text', overlayStyle.getPropertyValue?.('--overlay-text-color') || '');
-    cursor.style.setProperty('--color-cursor-background', overlayStyle.getPropertyValue?.('--overlay-background-color') || '');
-    const scheme = root?.dataset.overlayColorScheme
-      || Array.from(root?.classList || []).find((className) => /^scheme-[a-z0-9_-]+$/i.test(className));
-    if (cursor.dataset.backdropCursorScheme && cursor.dataset.backdropCursorScheme !== scheme) {
-      cursor.classList.remove(cursor.dataset.backdropCursorScheme);
-    }
-    if (scheme) {
-      cursor.classList.add('color-scheme', 'section-color-scope', scheme);
-      cursor.dataset.backdropCursorScheme = scheme;
-    }
     cursor.classList.add('active');
     root?.classList.add('cursor-none');
     backdropCursorOwners.add(owner);

@@ -66,9 +66,9 @@ custom-cursor[data-component-overlay-cursor] {
   justify-content: center;
   overflow: hidden;
   border-radius: 50%;
-  color: var(--color-cursor-text);
+  color: var(--overlay-text-color);
   pointer-events: none;
-  background-color: var(--color-cursor-background);
+  background-color: var(--overlay-background-color);
   transform: translate(-50%, -50%);
   transition: width .2s ease, height .2s ease;
   will-change: width, height;
