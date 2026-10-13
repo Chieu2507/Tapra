@@ -815,6 +815,8 @@
       const megaMenu = trigger
         ? Array.from(header.querySelectorAll('[data-header-mega-menu]')).find((menu) => menu.dataset.megaMenuTrigger === trigger)
         : null;
+      item.classList.toggle('header__mobile-drawer-item--highlight', !!megaMenu?.classList.contains('header-mega-menu--highlight'));
+      if (megaMenu) item.style.setProperty('--header-menu-highlight-color', megaMenu.style.getPropertyValue('--mega-menu-highlight-color'));
       const featured = megaMenu?.querySelector(':scope .header-mega-menu__featured');
       if (!featuredSlot || !slot || !megaMenu) return;
 

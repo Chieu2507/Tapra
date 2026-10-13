@@ -219,3 +219,9 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 .header-top .header-mega-menu__banner-content--top { justify-content: flex-start; }
 .header-top .header-mega-menu__banner-content--center { justify-content: center; }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-content { min-height: 76px; }
+
+.header-top .header-menu__item--highlight .header-menu__top-link-label,
+.header-top .header__mobile-drawer-item--highlight > details > summary,
+.header-top .header__mobile-drawer-item--highlight > a { color: var(--header-menu-highlight-color); }
+.header-top .header__mobile-drawer-submenu :is(a, summary) { color: var(--header-submenu-color, var(--body-color)); }
+.header-top .header__mobile-drawer-submenu :is(a, summary):is(:hover, :focus-visible) { color: var(--heading-color); }
