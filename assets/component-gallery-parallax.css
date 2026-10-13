@@ -32,9 +32,9 @@
 @media (prefers-reduced-motion: reduce) {
   .gallery-parallax__column { transform: none !important; }
 }
-/* Fixed tracks preserve card dimensions and crop only at the trailing edge. */
+/* Tracks fill wide viewports, retain a minimum card width and crop the trailing edge. */
 .gallery-grid[data-gallery-layout='parallax'][data-gallery-item-sizing='fixed'].is-parallax-ready {
-  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), var(--gallery-grid-item-width));
+  grid-template-columns: repeat(var(--gallery-parallax-visible-columns, var(--gallery-grid-columns)), minmax(var(--gallery-grid-item-width), 1fr));
   justify-content: start;
 }
 .gallery-grid[data-gallery-item-sizing='fixed'][data-gallery-accessible='true'].is-parallax-ready {
