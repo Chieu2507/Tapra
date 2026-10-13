@@ -98,6 +98,7 @@
 
 {% capture header_top_style %}
   {% if header_icon_size != 20 %}--header-icon-size: {{ header_icon_size }}px;{% endif %}
+  {% if section.settings.header_style == 'compact' %}--compact-width: {{ block.settings.compact_max_width | default: 288 }}px;{% endif %}
   --header-row-gap: {{ block.settings.row_gap | default: 32 }}px;
   --header-top-gap-basic: {{ header_top_gap_basic }}px;
   --header-top-gap-compact: {{ header_top_gap_compact }}px;
@@ -353,6 +354,18 @@
       "step": 1,
       "unit": "px",
       "default": 16,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "compact_max_width",
+      "label": "Max width",
+      "info": "Applies when the menu and search are closed.",
+      "min": 160,
+      "max": 560,
+      "step": 4,
+      "unit": "px",
+      "default": 288,
       "visible_if": "{{ section.settings.header_style == 'compact' }}"
     },
     {

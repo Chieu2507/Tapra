@@ -14,7 +14,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   --compact-padding-bottom: var(--header-top-padding-bottom, 12px);
   --compact-rest-height: calc(50px + var(--compact-padding-top) + var(--compact-padding-bottom));
   --header-top-gap: var(--header-top-gap-compact, 0px);
-  width: min(var(--compact-width, 236px), 100%);
+  width: min(var(--compact-width, 288px), 100%);
   height: var(--compact-rest-height);
   overflow: hidden;
   margin-inline: auto;
@@ -184,7 +184,6 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
   .header-top.header-top--compact .header__mobile-drawer-mega-slot { grid-column: 1 / -1; }
 }
 
-.header-top.header-top--compact:has(.header__column--right .header-search) { --compact-width: 320px; }
 .header-top.header-top--compact .header__column--right > .header-search { flex: 0 0 auto; min-height: 44px; gap: 6px; margin-inline-end: 8px; }
 .header-top.header-top--compact .header-search .header-action__label { display: block; position: static; width: auto; height: auto; clip: auto; clip-path: none; overflow: visible; white-space: nowrap; }
 .header-top.header-top--compact .header-search--type-text .icon { display: none; }
@@ -266,7 +265,7 @@ body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open']
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__container { padding: 0 14px 0 26px; }
 body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact .header__mobile-drawer { display: none; }
 /* Start the return halfway through the exit fade, without speeding up the fade. */
-body:has(.search-overlay--compact[data-state='closing']) .header-top.header-top--compact { width: min(var(--compact-width, 236px), 100%); height: var(--compact-rest-height); border-radius: var(--radius-24); transition-delay: 125ms; }
+body:has(.search-overlay--compact[data-state='closing']) .header-top.header-top--compact { width: min(var(--compact-width, 288px), 100%); height: var(--compact-rest-height); border-radius: var(--radius-24); transition-delay: 125ms; }
 body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .header__row { height: 48px; transition-delay: 125ms; }
 body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .header__container { padding: 0 6px 0 16px; transition-delay: 125ms; }
 .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel {
@@ -321,7 +320,7 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
    curve's slow first half otherwise leaves an empty expanded box on screen. */
 @media (min-width: 768px) {
   .header-top.header-top--compact:has(.header__mobile-drawer[data-state='closing']) {
-    width: min(var(--compact-width, 236px), 100%);
+    width: min(var(--compact-width, 288px), 100%);
     height: var(--compact-rest-height);
     border-radius: var(--radius-24);
     transition: width 550ms var(--compact-ease), height 550ms var(--compact-ease), border-radius 550ms var(--compact-ease);

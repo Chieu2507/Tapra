@@ -37,22 +37,10 @@
         fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
       };
       const measure = () => {
-        // Keep the collapsed target stable while the shell animates. Measuring
-        // the expanded row here would restart its width transition on each resize.
+        // Preserve shell measurements throughout the exit transition.
         if (drawer.dataset.state === 'closing') return;
         if (!root.classList.contains('header-top--menu-open')) {
           if (document.querySelector(".search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])")) return;
-          const row = root.querySelector('[data-header-row]');
-          const logo = row?.querySelector('.site-logo');
-          const actions = row?.querySelector('.header__column--right');
-          const container = root.querySelector('.header__container');
-          if (logo && actions && container) {
-            const spacing = getComputedStyle(container);
-            const shell = getComputedStyle(root);
-            const logoWidth = logo.querySelector('img') ? Math.min(parseFloat(getComputedStyle(logo).getPropertyValue('--logo-width')) || 120, 120) : (logo.querySelector('.site-logo__fallback')?.scrollWidth || logo.scrollWidth);
-            const width = logoWidth + actions.scrollWidth + parseFloat(getComputedStyle(row).columnGap) + parseFloat(spacing.paddingLeft) + parseFloat(spacing.paddingRight) + parseFloat(shell.borderLeftWidth) + parseFloat(shell.borderRightWidth);
-            root.style.setProperty('--compact-width', `${Math.ceil(width)}px`);
-          }
           root.style.setProperty('--compact-footer-shift', '0px');
           root.classList.remove('header-compact--resizing');
           return;
