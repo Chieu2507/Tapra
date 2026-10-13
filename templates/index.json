@@ -372,9 +372,470 @@
         "slide_2",
         "slide_3"
       ]
+    },
+    "instagram_gallery": {
+      "type": "gallery-image-grid",
+      "settings": {
+        "section_width": "page_width",
+        "alignment": "left",
+        "content_gap": 56,
+        "customize_mobile_gap": true,
+        "content_gap_mobile": 32,
+        "color_scheme": "scheme-3",
+        "customize_mobile_padding": false,
+        "padding_top": 80,
+        "padding_bottom": 0
+      },
+      "blocks": {
+        "insta_1": {
+          "type": "gallery-header-group",
+          "settings": {
+            "alignment": "left",
+            "gap": 24,
+            "gap_mobile": 24
+          },
+          "blocks": {
+            "insta_1_1": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Instagram</p>"
+              }
+            },
+            "insta_1_2": {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "width": "fill",
+                "width_mobile": "fill",
+                "height": "fit",
+                "alignment": "left",
+                "position": "top",
+                "gap_desktop": 40,
+                "gap_mobile": 24,
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left"
+              },
+              "blocks": {
+                "insta_1_2_1": {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "width": "custom",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "alignment": "left",
+                    "position": "top",
+                    "gap_desktop": 0,
+                    "gap_mobile": 0,
+                    "width_custom": 58
+                  },
+                  "blocks": {
+                    "insta_1_2_1_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Seen on desks.</p>",
+                        "heading_size": "xl",
+                        "html_tag": "h2",
+                        "width": "fill"
+                      }
+                    },
+                    "insta_1_2_1_2": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Shared by typists.</p>",
+                        "heading_size": "xl",
+                        "html_tag": "div",
+                        "text_color": "#bfe3ff",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "insta_1_2_1_1",
+                    "insta_1_2_1_2"
+                  ]
+                },
+                "insta_1_2_2": {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "width": "custom",
+                    "width_mobile": "fill",
+                    "height": "fit",
+                    "alignment": "left",
+                    "position": "top",
+                    "gap_desktop": 16,
+                    "gap_mobile": 16,
+                    "width_custom": 36
+                  },
+                  "blocks": {
+                    "insta_1_2_2_1": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Follow along for build logs, new drops and real desk setups from our community.</p>",
+                        "text_size": "sm",
+                        "width": "fill"
+                      }
+                    },
+                    "insta_1_2_2_2": {
+                      "type": "button",
+                      "settings": {
+                        "button_label": "Follow on Instagram",
+                        "button_link": "https://www.instagram.com/",
+                        "button_style": "secondary",
+                        "icon": "arrow_up_right",
+                        "show_icon": true
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "insta_1_2_2_1",
+                    "insta_1_2_2_2"
+                  ]
+                }
+              },
+              "block_order": [
+                "insta_1_2_1",
+                "insta_1_2_2"
+              ]
+            }
+          },
+          "block_order": [
+            "insta_1_1",
+            "insta_1_2"
+          ]
+        },
+        "insta_2": {
+          "type": "gallery-grid",
+          "settings": {
+            "columns_desktop": 5,
+            "columns_mobile": "2",
+            "gap": 14,
+            "gap_mobile": 14,
+            "width": "fill",
+            "layout": "parallax",
+            "parallax_height": 820,
+            "parallax_height_mobile": 640,
+            "parallax_distance": 130,
+            "edge_fade": 7,
+            "background_color": "#ffffff00",
+            "color_scheme": "scheme-3",
+            "mobile_columns_mode": "first_columns"
+          },
+          "blocks": {
+            "insta_2_1": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_2": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_3": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_4": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_5": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_6": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_7": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_8": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_9": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_10": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_11": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_12": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_13": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_14": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            },
+            "insta_2_15": {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12,
+                "tag_font_size": "custom",
+                "tag_font_size_custom": 12,
+                "background_color": "#0d1426",
+                "border_color": "#ffffff14",
+                "text_color": "#cfe0ff",
+                "likes_hover_color": "#ff6fa5",
+                "likes_hover_background": "#ff4d8d29"
+              }
+            }
+          },
+          "block_order": [
+            "insta_2_1",
+            "insta_2_2",
+            "insta_2_3",
+            "insta_2_4",
+            "insta_2_5",
+            "insta_2_6",
+            "insta_2_7",
+            "insta_2_8",
+            "insta_2_9",
+            "insta_2_10",
+            "insta_2_11",
+            "insta_2_12",
+            "insta_2_13",
+            "insta_2_14",
+            "insta_2_15"
+          ]
+        }
+      },
+      "block_order": [
+        "insta_1",
+        "insta_2"
+      ]
     }
   },
   "order": [
-    "slideshow"
+    "slideshow",
+    "instagram_gallery"
   ]
 }
