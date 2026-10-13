@@ -27,12 +27,21 @@
     header.classList.toggle('header--overlap-first-section', headerTop.hasAttribute('data-header-overlap-first-section'));
   };
 
+  const prepareCompactMenu = (container, drawer) => {
+    // The primary header controller can open before the Compact enhancement loads.
+    if (container.dataset.headerStyle !== 'compact' || window.innerWidth < 768 || !drawer) return;
+    if (!drawer.querySelector('[data-mobile-drawer-details][open]')) {
+      drawer.querySelector('[data-mobile-drawer-details] > summary')?.click();
+    }
+  };
+
   const setHeaderMenuState = (header, isOpen, { opener = null, restoreFocus = true, syncOverlay = true } = {}) => {
     const container = header.querySelector('.header-top') || header;
     const drawer = container.querySelector('[data-header-mobile-drawer]');
     const overlay = drawer ? window.ThemeOverlay?.get(drawer) : null;
     container.classList.toggle('header-top--menu-open', isOpen);
     drawer?.setAttribute('aria-hidden', String(!isOpen));
+    if (isOpen) prepareCompactMenu(container, drawer);
 
     if (syncOverlay) {
       if (isOpen) overlay?.open({ opener: opener || document.activeElement, focus: true, restoreFocus: true, defer: isMobileMenuViewport() });

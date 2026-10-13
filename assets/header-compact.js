@@ -111,14 +111,18 @@
         event.preventDefault();
         event.stopPropagation();
       }, { ...options, capture: true });
-      drawer.addEventListener('open', () => {
+      const synchronizeOpenMenu = (preserveSelection = false) => {
         openingUntil = performance.now() + 600;
         clearTimeout(fastTimer);
         root.classList.remove('header-compact--fast');
         navigation.forEach(control => control.classList.remove('is-compact-menu-active'));
-        if (window.innerWidth >= 768 && summaries[0]) choose(summaries[0]);
+        if (window.innerWidth >= 768) {
+          const selected = preserveSelection ? summaries.find(control => control.parentElement.open) : null;
+          if (selected || summaries[0]) choose(selected || summaries[0]);
+        }
         scheduleMeasure();
-      }, options);
+      };
+      drawer.addEventListener('open', () => synchronizeOpenMenu(), options);
       document.addEventListener('pointerdown', event => {
         const insideLocalization = [...drawer.querySelectorAll('[data-localization-dialog-id]')].some(details => {
           const dialog = document.getElementById(details.dataset.localizationDialogId);
@@ -143,6 +147,8 @@
       observer.observe(drawer.querySelector('.header__mobile-drawer-surface'));
       shellObserver.observe(root);
       instances.set(root, { controller, observer, shellObserver, clearTimer: () => { cancelAnimationFrame(measureFrame); cancelAnimationFrame(footerFrame); clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
+      // Catch an open event that happened before this deferred script was ready.
+      if (root.classList.contains('header-top--menu-open') && ['opening', 'open'].includes(drawer.dataset.state)) synchronizeOpenMenu(true);
     });
   };
   document.addEventListener('shopify:section:load', event => initialize(event.target));
