@@ -19,7 +19,7 @@
 <a
   class="{{ logo_class }}"
   href="{{ routes.root_url }}"
-  aria-label="{{ shop.name | escape }}"
+  aria-label="{% if logo_image != blank %}{{ shop.name | escape }}{% else %}Tapra®{% endif %}"
   {{ block.shopify_attributes }}
 >
   {% if logo_has_overlay_image %}
@@ -36,7 +36,7 @@
         alt: shop.name
     }}
   {% else %}
-    <span class="site-logo__fallback heading-text heading-md">{{ shop.name | escape }}</span>
+    <span class="site-logo__fallback">Tapra<sup>®</sup></span>
   {% endif %}
 </a>
 

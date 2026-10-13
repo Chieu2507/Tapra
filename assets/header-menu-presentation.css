@@ -96,3 +96,6 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 .header-top .header__column--right > :is(.header-search:not(.header-search--type-search_bar), .header-account, .header-cart):is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
 .header-top .header__column--right > :is(.header-search--type-icon, .header-account, .header-cart--type-icon) { display: inline-flex; width: 44px; min-width: 44px; height: 44px; min-height: 44px; align-items: center; justify-content: center; }
 .header-top shopify-account.header-account::part(signed-out-avatar) { box-sizing: border-box; width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: var(--radius-pill); }
+
+.header-top .site-logo__fallback { display: inline-block; color: var(--heading-color); font-family: var(--font-heading-family); font-size: 20px; font-weight: 700; line-height: 1.2; letter-spacing: -.04em; white-space: nowrap; }
+.header-top .site-logo__fallback sup { font-size: .5em; vertical-align: super; letter-spacing: 0; }
