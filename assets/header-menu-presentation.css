@@ -136,3 +136,13 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   color: var(--body-color);
 }
 .header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary-link:is(:hover, :focus-visible) { color: var(--heading-color); }
+
+/* Label and chevron share the active menu color. */
+.header-top:not(.header-top--compact) .header-menu__dropdown-icon {
+  color: var(--body-color);
+  transition: color 250ms var(--motion-ease-standard), transform var(--motion-duration-standard) var(--motion-ease-standard);
+}
+.header-top:not(.header-top--compact) .header-menu__item:is(:hover, :focus-within) .header-menu__dropdown-icon,
+.header-top:not(.header-top--compact) .header-menu__details[open]:not(.is-submenu-closing) > .header-menu__summary :is(.header-menu__top-link-label, .header-menu__dropdown-icon) {
+  color: var(--heading-color);
+}
