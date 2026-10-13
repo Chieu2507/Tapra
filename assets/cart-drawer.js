@@ -843,16 +843,32 @@
     visual.style.paddingTop = getComputedStyle(header).paddingTop;
     visual.style.paddingBottom = getComputedStyle(header).paddingBottom;
     visual.append(container.cloneNode(true));
+    // Freeze the rendered state, including an in-flight drill-down transition.
+    const freezeVisual = (source, copy) => {
+      const originals = [source, ...source.querySelectorAll('*')];
+      [copy, ...copy.querySelectorAll('*')].forEach((node, index) => {
+        const style = getComputedStyle(originals[index]);
+        node.style.opacity = style.opacity;
+        node.style.visibility = style.visibility;
+        node.style.transform = style.transform;
+        node.style.animation = 'none';
+        node.style.transition = 'none';
+      });
+    };
+    freezeVisual(container, visual.firstElementChild);
     if (header.classList.contains('header-top--menu-open')) {
       const surface = header.querySelector('.header__mobile-drawer-surface');
       if (surface) {
         const menu = surface.cloneNode(true);
-        menu.className += ' cart-drawer__menu-residue';
+        const drawerSource = surface.closest('[data-header-mobile-drawer]');
+        menu.className += ' cart-drawer__menu-residue header__mobile-drawer';
+        if (drawerSource?.classList.contains('header__mobile-drawer--submenu-active')) menu.classList.add('header__mobile-drawer--submenu-active');
+        freezeVisual(surface, menu);
+        const bounds = surface.getBoundingClientRect();
+        menu.style.width = `${bounds.width}px`;
+        menu.style.height = `${bounds.height}px`;
         menu.style.opacity = getComputedStyle(surface).opacity;
-        menu.querySelectorAll('.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary').forEach(node => {
-          node.style.opacity = '1';
-          node.style.transform = 'none';
-        });
+        menu.style.transition = 'opacity 200ms';
         visual.append(menu);
       }
     }
