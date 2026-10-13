@@ -42,9 +42,6 @@ html[data-surface-light-enabled] .surface-light::after {
 /* Disabled means no generated light layers, including in the Theme Editor. */
 html:not([data-surface-light-enabled]) .surface-light::before,
 html:not([data-surface-light-enabled]) .surface-light::after { content: none; display: none; }
-html[data-surface-light-enabled] .surface-light--button { overflow: hidden; }
-html[data-surface-light-enabled] .surface-light--button::before { background: radial-gradient(circle 90px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%); }
-html[data-surface-light-enabled] .surface-light--button::after { content: none; }
-html[data-surface-light-enabled] .surface-light--image::before { z-index: 1; mix-blend-mode: screen; background: radial-gradient(circle 240px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 75%); }
-html[data-surface-light-enabled] .surface-light--line::before { z-index: 2; inset: 0 0 auto; height: 1px; background: radial-gradient(circle 260px at var(--surface-light-x) 50%, var(--surface-light-edge), transparent 75%); }
-html[data-surface-light-enabled] .surface-light--line::after { content: none; }
+/* Compact owns one outside shell; its inner menu/search panels stay plain. */
+html[data-surface-light-enabled] .header-top.header-top--compact .header-mega-menu__banner.surface-light::after { display: block; }
+html[data-surface-light-enabled] .search-overlay__form.surface-light::before { z-index: 1; mix-blend-mode: screen; }

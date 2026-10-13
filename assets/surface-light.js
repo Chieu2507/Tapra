@@ -1,13 +1,10 @@
-/* Shared proximity spotlight. Opt in with surface-light, or its --button / --line variant. */
+/* Shared proximity spotlight for bordered boxes; surface-light is an explicit opt-in. */
 (() => {
   const root = document.documentElement;
   const hover = matchMedia('(hover: hover) and (pointer: fine)');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const groups = [
-    ['.image-card, .collection-card-kernel', 'surface-light--image', 170],
-    ['.surface-light:not(.surface-light--button):not(.surface-light--line), .product-card, .blog-card, .testimonial-item, .component-overlay__panel', '', 170],
-    ['.btn:not(.header-menu-toggle):not(.btn--tertiary):not(.link-underline), .surface-light--button', 'surface-light--button', 100],
-    ['.footer__container, .surface-light--line', 'surface-light--line', 40],
+    ['.surface-light, .header-top--compact, .header-mega-menu__banner, .product-card, .collection-card-kernel, .image-card, .blog-card, .testimonial-item, .search-overlay__form', '', 170],
   ];
   const items = new Map();
   let frame = 0, scanFrame = 0, pointerX = 0, pointerY = 0, inside = false, running = false;
@@ -25,6 +22,12 @@
     groups.forEach(([selector, variant, reach]) => {
       document.querySelectorAll(selector).forEach(element => {
         if (items.has(element)) return;
+        // Compact's floating search/menu content is not the outside box.
+        if (element.matches('.header__mobile-drawer-surface, .search-overlay__panel') && document.querySelector('.header-top--compact')) return;
+        const borderHost = element.matches('.search-overlay__form') ? element.querySelector('input') : element;
+        const style = getComputedStyle(borderHost || element);
+        const hasBorder = ['Top', 'Right', 'Bottom', 'Left'].some(side => parseFloat(style[`border${side}Width`]) > 0 && !['none', 'hidden'].includes(style[`border${side}Style`]));
+        if (!element.classList.contains('surface-light') && !hasBorder) return;
         element.classList.add('surface-light');
         if (variant) element.classList.add(variant);
         items.set(element, { element, reach, x: 0, y: 0, intensity: 0, visible: false });
