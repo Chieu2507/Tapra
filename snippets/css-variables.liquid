@@ -882,7 +882,7 @@
   endif
   assign overlay_opacity_value = overlay_opacity | divided_by: 100.0
   # Backdrop opacity owns alpha; color_to_rgb can return rgba for saved alpha colors.
-  assign overlay_backdrop_color = overlay_color | color_modify: 'alpha', overlay_opacity_value
+  assign overlay_backdrop_color = '#030816' | color_modify: 'alpha', overlay_opacity_value
   assign overlay_z_base = settings.overlay_z_base
   if overlay_z_base == blank
     assign overlay_z_base = 10
