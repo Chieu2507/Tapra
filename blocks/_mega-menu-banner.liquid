@@ -56,7 +56,11 @@
 <article class="header-mega-menu__banner surface-light header-mega-menu__banner--{{ block.settings.layout | default: 'content_on_image' }} section-color-scope {{ banner_scheme }}{% if block.settings.limit_width %} header-mega-menu__banner--limited{% endif %}{% if block.settings.overlay %} header-mega-menu__banner--overlay{% endif %}"{% if banner_style != blank %} style="{{ banner_style }}"{% endif %} {{ block.shopify_attributes }}>
   <{% if block.settings.link != blank %}a{% else %}div{% endif %} class="header-mega-menu__banner-media{% if block.settings.image == blank %} placeholder-image{% endif %}" {% if block.settings.link != blank %}href="{{ block.settings.link | escape }}" target="{{ banner_target }}"{% if block.settings.open_new_tab %} rel="noopener noreferrer"{% endif %}{% endif %}>
     {% if block.settings.image != blank %}
-      {{ block.settings.image | image_url: width: 360 | image_tag: class: 'header-mega-menu__banner-image', widths: '80, 116, 160, 232, 360', sizes: '(min-width: 1150px) 116px, 80px', loading: 'lazy', alt: banner_heading }}
+      {% if block.settings.layout == 'inline' %}
+        {{ block.settings.image | image_url: width: 360 | image_tag: class: 'header-mega-menu__banner-image', widths: '80, 116, 160, 232, 360', sizes: '(min-width: 1150px) 116px, 80px', loading: 'lazy', alt: banner_heading }}
+      {% else %}
+        {{ block.settings.image | image_url: width: 1400 | image_tag: class: 'header-mega-menu__banner-image', widths: '320, 480, 700, 1000, 1400', sizes: '(min-width: 768px) 50vw, 100vw', loading: 'lazy', alt: banner_heading }}
+      {% endif %}
     {% else %}
       {{ 'image' | placeholder_svg_tag: 'header-mega-menu__banner-image' }}
     {% endif %}
@@ -99,6 +103,7 @@
       "id": "layout",
       "label": "t:general.layout",
       "options": [
+        { "value": "inline", "label": "Inline" },
         {
           "value": "content_on_image",
           "label": "Content on image"

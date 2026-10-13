@@ -168,7 +168,8 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__container { padding: 0; }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__content { display: block; }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__layout { display: block; }
-.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: 100%; gap: 16px; }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banners { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); width: var(--mega-banner-width); max-width: 100%; gap: var(--mega-menu-gap); }
+.header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu--vertical .header-mega-menu__banners { grid-template-columns: minmax(0, 1fr); }
 .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banner { min-width: 0; overflow-wrap: anywhere; }
 @media (max-width: 767.98px) {
   .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu__banners { grid-template-columns: minmax(0, 1fr); }
