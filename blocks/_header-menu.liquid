@@ -45,7 +45,7 @@
     assign submenu_text_case = 'original'
   endunless
 
-  assign submenu_text_color = block.settings.submenu_text_color | default: 'var(--body-color)'
+  assign submenu_text_color = block.settings.submenu_text_color | default: 'color-mix(in srgb, var(--heading-color) 60%, var(--body-color))'
   if submenu_text_color == 'heading'
     assign submenu_text_color = 'var(--heading-color)'
   elsif submenu_text_color == 'body'
@@ -94,7 +94,6 @@
     id="HeaderMenu-{{ section.id }}-{{ block.id }}"
     aria-label="{{ 'accessibility.menu' | t }}"
     data-dropdown-trigger="{{ dropdown_trigger }}"
-    
     {% if menu_style != blank %}style="{{ menu_style }}"{% endif %}
     {{ block.shopify_attributes }}
   >
