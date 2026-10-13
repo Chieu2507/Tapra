@@ -855,6 +855,8 @@
         if (!details || !item) return;
         moveMegaMenuToMobileDrawer(item);
         details.open = true;
+        // Establish the offscreen start before adding the active class next frame.
+        void details.querySelector('.header__mobile-drawer-submenu')?.offsetWidth;
         window.requestAnimationFrame(() => {
           item.classList.add('is-mobile-submenu-active');
           drawer.classList.add('header__mobile-drawer--submenu-active');
@@ -881,6 +883,7 @@
         });
 
         details.open = true;
+        void details.querySelector('.header__mobile-drawer-tertiary-panel')?.offsetWidth;
         window.requestAnimationFrame(() => {
           details.classList.remove('is-mobile-submenu-closing');
           details.classList.add('is-mobile-submenu-active');
