@@ -675,6 +675,7 @@
     .cart-drawer.color-scheme {
       --cart-drawer-padding: var(--cart-drawer-padding-mobile, var(--overlay-drawer-content-padding-mobile, 1rem));
       --cart-drawer-inset: 0px;
+      --overlay-drawer-edge-radius: var(--overlay-drawer-edge-radius-mobile, 0px);
       --cart-drawer-footer-padding: 1.25rem var(--cart-drawer-padding) 20px;
     }
     .cart-drawer__header { min-height: 74px; }
