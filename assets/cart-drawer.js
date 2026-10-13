@@ -835,7 +835,6 @@
     const header = document.querySelector('.header-top--compact[data-header-root]');
     const panel = drawer.querySelector('.cart-drawer__panel');
     panel?.querySelector('.cart-drawer__pill')?.remove();
-    if (drawer.dataset?.cartPresentation === 'popup') return;
     if (!header || !panel) return;
     const container = header.querySelector('.header__container');
     if (!container) return;
@@ -899,11 +898,21 @@
   // Keep Shopify's cart content/lifecycle, but originate motion at the CURRENT
   // shell, including an expanded or partially animated menu.
   const prepareCompactMotion = (drawer) => {
-    const header = drawer.dataset?.cartPresentation === 'popup' ? null : document.querySelector('.header-top--compact[data-header-root]');
+    const header = document.querySelector('.header-top--compact[data-header-root]');
     drawer.classList.toggle('cart-drawer--compact', Boolean(header));
     if (!header) return;
     const style = getComputedStyle(header);
     const bounds = header.getBoundingClientRect();
+    if (drawer.dataset?.cartPresentation === 'popup') {
+      const popupStyle = getComputedStyle(drawer);
+      const popupWidth = Math.min(parseFloat(popupStyle.getPropertyValue('--component-overlay-width')) || 550, window.innerWidth - 32);
+      const popupHeight = Math.min(680, window.innerHeight - 32);
+      const originHeight = bounds.height || 50;
+      drawer.style.setProperty('--compact-popup-width', `${popupWidth}px`);
+      drawer.style.setProperty('--compact-popup-height', `${popupHeight}px`);
+      drawer.style.setProperty('--compact-popup-center-shift', `${window.innerHeight / 2 - bounds.top - originHeight / 2}px`);
+      drawer.style.setProperty('--compact-popup-grow-shift', `${-(popupHeight - originHeight) / 2}px`);
+    }
     const restWidth = Math.min(parseFloat(style.getPropertyValue('--compact-width')) || 288, window.innerWidth - 24);
     const mobileDrawer = window.innerWidth < 768;
     const fullMobile = mobileDrawer && style.getPropertyValue('--drawer-mobile-mode').trim() === 'full';
