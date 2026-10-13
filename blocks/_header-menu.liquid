@@ -217,7 +217,7 @@
             </span>
           </shopify-account>
           {% else %}
-            <a class="header__mobile-drawer-account btn btn--primary body-text" href="{{ routes.account_login_url }}" data-deferred-account>
+            <a class="header__mobile-drawer-account btn btn--secondary body-text" href="{{ routes.account_login_url }}" data-deferred-account>
               {{ 'customers.login.submit' | t }}
               <template data-deferred-account-template>
           <shopify-account class="header__mobile-drawer-account body-text" menu="customer-account-main-menu">
@@ -229,7 +229,7 @@
             </a>
           {% endif %}
         {% else %}
-          <a class="header__mobile-drawer-account btn btn--primary body-text" href="{{ routes.account_login_url }}">{{ 'customers.login.submit' | t }}</a>
+          <a class="header__mobile-drawer-account btn btn--secondary body-text" href="{{ routes.account_login_url }}">{{ 'customers.login.submit' | t }}</a>
         {% endif %}
 
         {% if localization.available_countries.size > 1 or localization.available_languages.size > 0 %}
