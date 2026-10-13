@@ -520,7 +520,7 @@
             "edge_fade": 7,
             "background_color": "#ffffff00",
             "color_scheme": "scheme-3",
-            "mobile_columns_mode": "first_columns"
+            "mobile_columns_mode": "redistribute"
           },
           "blocks": {
             "insta_2_1": {
