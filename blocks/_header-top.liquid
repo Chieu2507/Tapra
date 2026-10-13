@@ -6,7 +6,7 @@
   assign header_scheme = header_scheme | default: 'scheme-1' | handleize
 
   assign header_sticky_type = section.settings.sticky_type | default: 'none'
-  unless header_sticky_type == 'always' or header_sticky_type == 'scroll_up' or header_sticky_type == 'top_header_only' or header_sticky_type == 'bottom_header_only' or header_sticky_type == 'none'
+  unless header_sticky_type == 'always' or header_sticky_type == 'scroll_up' or header_sticky_type == 'none'
     assign header_sticky_type = 'none'
   endunless
 
