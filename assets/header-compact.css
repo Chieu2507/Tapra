@@ -1,13 +1,13 @@
 /* Compact composes the existing header blocks and overlay menu. */
 .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root][data-header-style='compact']) {
   position: fixed;
-  inset: calc(16px + env(safe-area-inset-top, 0px)) 12px auto;
+  inset: calc(var(--header-compact-top, 16px) + env(safe-area-inset-top, 0px)) 12px auto;
   z-index: var(--z-drawer, 200);
   width: auto;
   background: transparent;
   transform: none;
 }
-body:has(.header-top.header-top--compact:not([data-header-overlap-first-section])) #MainContent { padding-top: calc(var(--header-height, 50px) + 34px); }
+body:has(.header-top.header-top--compact:not([data-header-overlap-first-section])) #MainContent { padding-top: calc(var(--header-height, 50px) + var(--header-compact-top, 16px) + 18px); }
 .header-top.header-top--compact {
   --compact-ease: cubic-bezier(.76, 0, .24, 1);
   --compact-padding-top: var(--header-top-padding-top, 12px);

@@ -119,6 +119,11 @@
   {% if header_top_style != blank %}style="{{ header_top_style }}"{% endif %}
   {{ block.shopify_attributes }}
 >
+  {% if section.settings.header_style == 'compact' %}
+    {% style %}
+      #shopify-section-{{ section.id }}, #MainContent { --header-compact-top: {{ block.settings.compact_top | default: 16 }}px; }
+    {% endstyle %}
+  {% endif %}
   <div class="container {{ header_container_width }} header__container">
     <div class="header__row" data-header-row>
       <div class="header__column header__column--left" data-header-column="left"></div>
@@ -334,6 +339,22 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Position",
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
+    {
+      "type": "range",
+      "id": "compact_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.header_style == 'compact' }}"
+    },
     {
       "type": "header",
       "content": "t:general.appearance"
