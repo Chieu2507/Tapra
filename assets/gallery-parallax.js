@@ -10,11 +10,12 @@
     const controller = new AbortController();
     const options = { signal: controller.signal };
     let items = [], columns = [], count = 0, firstColumns = false, frame = 0, visible = true;
+    const isEditing = () => root.dataset.galleryEditing === 'true';
     function group() {
       const current = [...root.querySelectorAll('.gallery-image')];
       const style = getComputedStyle(root);
       const nextCount = Math.min(Math.max(1, current.length), Math.max(1, parseInt(style.getPropertyValue(mobile.matches ? '--gallery-grid-columns-mobile' : '--gallery-grid-columns'), 10) || 1));
-      const nextFirst = mobile.matches && root.dataset.mobileColumnsMode === 'first_columns';
+      const nextFirst = mobile.matches && root.dataset.mobileColumnsMode === 'first_columns' && !isEditing();
       if (nextCount === count && nextFirst === firstColumns && current.length === items.length && current.every(item => items.includes(item))) return;
       const focused = root.contains(document.activeElement) ? document.activeElement : null;
       let nextOrder = Math.max(-1, ...current.filter(item => item.hasAttribute('data-gallery-order')).map(item => Number(item.dataset.galleryOrder))) + 1;
@@ -39,9 +40,8 @@
     function update() {
       frame = 0;
       group();
-      // Editor selection must not expand the masked viewport or regroup columns.
-      // Storefront keyboard navigation still exposes clipped content.
-      const accessible = !window.Shopify?.designMode && root.contains(document.activeElement);
+      // Temporarily expose all cards while selecting a block in the editor.
+      const accessible = isEditing() || (!window.Shopify?.designMode && root.contains(document.activeElement));
       root.dataset.galleryAccessible = String(accessible);
       const style = getComputedStyle(root);
       const configuredHeight = parseFloat(style.getPropertyValue(mobile.matches ? '--gallery-parallax-height-mobile' : '--gallery-parallax-height')) || 640;
@@ -77,7 +77,7 @@
       controller.abort(); cancelAnimationFrame(frame); resize.disconnect(); intersection.disconnect(); mutations.disconnect();
       items.forEach(item => { root.append(item); delete item.dataset.galleryOrder; });
       columns.forEach(column => column.remove());
-      root.classList.remove('is-parallax-ready'); delete root.dataset.galleryAccessible;
+      root.classList.remove('is-parallax-ready'); delete root.dataset.galleryAccessible; delete root.dataset.galleryEditing;
       for (const key of ['--gallery-parallax-visible-columns', '--gallery-parallax-rendered-height', '--gallery-parallax-effective-distance']) root.style.removeProperty(key);
       states.delete(root);
     };
@@ -96,6 +96,7 @@
   for (const name of ['shopify:block:select', 'shopify:block:deselect']) {
     document.addEventListener(name, event => {
       for (const [root, destroy] of states) if (root.contains(event.target)) {
+        root.dataset.galleryEditing = String(name === 'shopify:block:select');
         destroy.schedule();
       }
     });
