@@ -829,7 +829,47 @@
     }
   };
 
-  // Keep Shopify's cart content/lifecycle, but originate Compact motion at the pill.
+  // An inert visual copy travels with the cart shell. The real header remains
+  // the only interactive header and is revealed after the shell returns home.
+  const prepareCompactBar = (drawer) => {
+    const header = document.querySelector('.header-top--compact[data-header-root]');
+    const panel = drawer.querySelector('.cart-drawer__panel');
+    panel?.querySelector('.cart-drawer__pill')?.remove();
+    if (!header || !panel) return;
+    const container = header.querySelector('.header__container');
+    if (!container) return;
+    const visual = header.cloneNode(false);
+    visual.className = 'header-top header-top--compact cart-drawer__pill';
+    visual.append(container.cloneNode(true));
+    if (header.classList.contains('header-top--menu-open')) {
+      const surface = header.querySelector('.header__mobile-drawer-surface');
+      if (surface) {
+        const menu = surface.cloneNode(true);
+        menu.className += ' cart-drawer__menu-residue';
+        menu.style.opacity = getComputedStyle(surface).opacity;
+        visual.append(menu);
+      }
+    }
+    // Avoid duplicate IDs, editor ownership, triggers and custom-element mounts.
+    [visual, ...visual.querySelectorAll('*')].forEach(node => {
+      for (const attribute of [...node.attributes]) {
+        if (attribute.name === 'id' || attribute.name.startsWith('data-') || attribute.name.startsWith('aria-')) node.removeAttribute(attribute.name);
+      }
+    });
+    visual.querySelectorAll('script, template').forEach(node => node.remove());
+    visual.querySelectorAll('shopify-account').forEach(node => {
+      const avatar = document.createElement('div');
+      avatar.className = node.className;
+      avatar.append(...node.childNodes);
+      node.replaceWith(avatar);
+    });
+    visual.inert = true;
+    visual.setAttribute('aria-hidden', 'true');
+    panel.prepend(visual);
+  };
+
+  // Keep Shopify's cart content/lifecycle, but originate motion at the CURRENT
+  // shell, including an expanded or partially animated menu.
   const prepareCompactMotion = (drawer) => {
     const header = document.querySelector('.header-top--compact[data-header-root]');
     drawer.classList.toggle('cart-drawer--compact', Boolean(header));
@@ -845,6 +885,13 @@
     drawer.style.setProperty('--compact-cart-rest-height', `${restHeight}px`);
     drawer.style.setProperty('--compact-cart-shift', `${window.innerWidth / 2 - 12 - restWidth / 2}px`);
     drawer.style.setProperty('--compact-cart-expand-shift', `${-(width - restWidth) / 2}px`);
+    drawer.style.setProperty('--compact-cart-origin-width', `${bounds.width || restWidth}px`);
+    drawer.style.setProperty('--compact-cart-origin-height', `${bounds.height || restHeight}px`);
+    drawer.style.setProperty('--compact-cart-origin-shift', `${(restWidth - (bounds.width || restWidth)) / 2}px`);
+    drawer.style.setProperty('--compact-cart-background', style.backgroundColor);
+    drawer.style.setProperty('--compact-cart-border', style.border);
+    drawer.style.setProperty('--compact-cart-shadow', style.boxShadow);
+    drawer.style.setProperty('--compact-cart-blur', style.backdropFilter);
   };
   window.addEventListener('resize', () => {
     if (state.drawer && state.overlay?.isOpen()) prepareCompactMotion(state.drawer);
@@ -857,6 +904,7 @@
     if (!shouldOpen) return;
     const opener = state.editorSelected ? null : (state.opener || document.activeElement);
     prepareCompactMotion(drawer);
+    prepareCompactBar(drawer);
     drawer.classList.remove('is-closing');
     drawer.classList.add('is-open');
     state.overlay?.open({ opener, focus: !state.editorSelected, restoreFocus: !state.editorSelected, defer: true });
