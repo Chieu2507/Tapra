@@ -62,15 +62,6 @@
     pointer-events: none;
   }
 
-  .cart-drawer__backdrop {
-    background-color: transparent;
-    transition:
-      background-color var(--overlay-backdrop-duration, var(--motion-duration-standard)) var(--overlay-backdrop-ease, var(--motion-ease-standard)),
-      opacity var(--overlay-backdrop-duration, var(--motion-duration-standard)) var(--overlay-backdrop-ease, var(--motion-ease-standard)),
-      -webkit-backdrop-filter var(--overlay-backdrop-duration, var(--motion-duration-standard)) var(--overlay-backdrop-ease, var(--motion-ease-standard)),
-      backdrop-filter var(--overlay-backdrop-duration, var(--motion-duration-standard)) var(--overlay-backdrop-ease, var(--motion-ease-standard));
-  }
-
   .cart-drawer__panel {
     display: flex;
     box-sizing: border-box;
