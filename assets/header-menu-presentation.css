@@ -66,6 +66,8 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   .header-top .header__mobile-drawer-details > .header__mobile-drawer-submenu,
   .header-top .header__mobile-drawer-submenu-details > .header__mobile-drawer-tertiary-panel { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; box-sizing: border-box; padding: 16px 20px max(24px, env(safe-area-inset-bottom, 0px)); overflow-x: hidden; overflow-y: auto; background: var(--background-color); opacity: 1; visibility: hidden; pointer-events: none; transform: translateX(100%); animation: none; transition: transform 300ms var(--compact-ease), visibility 0s 300ms; }
   .header-top .header__mobile-drawer-submenu-details > .header__mobile-drawer-tertiary-panel { z-index: 3; }
+  /* Compact owns one glass surface and spotlight across all drill-down levels. */
+  .header-top.header-top--compact .header__mobile-drawer :is(.header__mobile-drawer-submenu, .header__mobile-drawer-tertiary-panel) { background: transparent; }
   .header-top .header__mobile-drawer-details[open] > .header__mobile-drawer-submenu { animation: none; }
   .header-top .header__mobile-drawer-submenu:has(.header__mobile-drawer-submenu-details:is(.is-mobile-submenu-active, .is-mobile-submenu-closing)) :is(.header__mobile-drawer-submenu-details > summary, .header__mobile-drawer-mega-slot, .header__mobile-drawer-mega-featured-slot) { visibility: hidden; }
   .header-top .header__mobile-drawer-mega-slot .header-mega-menu { visibility: inherit; }
