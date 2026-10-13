@@ -113,6 +113,10 @@
     position: absolute;
     top: 64px;
     width: var(--compact-cart-origin-width);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
     transform: none;
     pointer-events: none;
     transition: opacity 250ms;
