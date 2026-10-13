@@ -347,5 +347,5 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
   .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > ul { grid-column: 1; }
   .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > .header__mobile-drawer-mega-slot { grid-column: 2; }
   .header-top.header-top--compact .header__mobile-drawer-submenu:has(.header-mega-menu--horizontal) > .header__mobile-drawer-mega-featured-slot:not(:empty) { grid-column: 1 / -1; }
-  .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu--horizontal .header-mega-menu__banners { width: 100%; margin-block-start: 0; }
+  .header-top.header-top--compact .header__mobile-drawer-mega-slot .header-mega-menu--horizontal .header-mega-menu__banners { width: 100%; grid-template-columns: minmax(0, 1fr); margin-block-start: 0; }
 }
