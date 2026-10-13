@@ -63,6 +63,9 @@
 
   assign button_class = 'button-block size-style button-block--width-' | append: button_width
   assign button_class = button_class | append: ' button-block--width-mobile-' | append: button_width_mobile
+  if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit'
+    assign button_class = button_class | append: ' button-block--custom-radius'
+  endif
   if block.settings.color_scheme != blank
     assign button_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | handleize
     assign button_class = button_class | append: ' color-scheme ' | append: button_scheme
@@ -121,7 +124,7 @@
 {% endif %}
 
 {% stylesheet %}
-  .button-block .btn { border-radius: var(--button-block-radius, var(--button-radius)); }
+  .button-block--custom-radius .btn { border-radius: var(--button-block-radius); }
   .button-block--icon-background .btn__icon {
     width: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
     height: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
