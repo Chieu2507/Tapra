@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "overlay_drawer_width_mobile": "full",
     "logo": "",
     "logo_width": 92,
     "logo_width_mobile": 92,
@@ -114,8 +115,6 @@
     "product_card_alignment": "center",
     "product_card_title_line_limit": "1",
     "product_card_ratio": "square",
-    "product_card_media_inset": 0,
-    "product_card_media_corner_radius": "radius_12",
     "product_card_gap_device": "desktop",
     "product_card_content_spacing_desktop": 20,
     "product_card_content_gap_desktop": 8,
@@ -195,17 +194,6 @@
     "overlay_z_modal": 1000,
     "social_new_tab": true,
     "product_card_gap": "standard",
-    "glass_opacity": 55,
-    "glass_blur": 14,
-    "button_hover_lift": 2,
-    "button_hover_duration": 250,
-    "button_hover_easing": "ease",
-    "button_shadow_y": 10,
-    "button_shadow_blur": 30,
-    "button_shadow_opacity": 30,
-    "button_spotlight": true,
-    "button_spotlight_radius": 90,
-    "button_icon_nudge": 4,
     "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
@@ -234,7 +222,8 @@
           "button_secondary_hover_text": "#FFFFFF",
           "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "rgba(10,21,48,0.6)"
+          "button_tertiary_hover_text": "rgba(10,21,48,0.6)",
+          "text_muted": "rgba(10,21,48,0.65)"
         }
       },
       "scheme-2": {
@@ -263,7 +252,8 @@
           "button_secondary_hover_text": "#FFFFFF",
           "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "rgba(10,21,48,0.6)"
+          "button_tertiary_hover_text": "rgba(10,21,48,0.6)",
+          "text_muted": "rgba(10,21,48,0.65)"
         }
       },
       "scheme-3": {
@@ -292,7 +282,8 @@
           "button_secondary_hover_text": "#050D24",
           "button_secondary_hover_border": "#FFFFFF",
           "button_tertiary_text": "#FFFFFF",
-          "button_tertiary_hover_text": "rgba(255,255,255,0.6)"
+          "button_tertiary_hover_text": "rgba(255,255,255,0.6)",
+          "text_muted": "rgba(191,227,255,0.72)"
         }
       },
       "scheme-4": {
@@ -321,7 +312,8 @@
           "button_secondary_hover_text": "#BFE3FF",
           "button_secondary_hover_border": "#0A1530",
           "button_tertiary_text": "#0A1530",
-          "button_tertiary_hover_text": "rgba(10,21,48,0.6)"
+          "button_tertiary_hover_text": "rgba(10,21,48,0.6)",
+          "text_muted": "rgba(10,21,48,0.7)"
         }
       },
       "scheme-5": {
@@ -350,10 +342,24 @@
           "button_secondary_hover_text": "#050D24",
           "button_secondary_hover_border": "#BFE3FF",
           "button_tertiary_text": "#BFE3FF",
-          "button_tertiary_hover_text": "rgba(191,227,255,0.6)"
+          "button_tertiary_hover_text": "rgba(191,227,255,0.6)",
+          "text_muted": "rgba(191,227,255,0.72)"
         }
       }
-    }
+    },
+    "product_card_media_inset": 0,
+    "product_card_media_corner_radius": "radius_12",
+    "glass_opacity": 55,
+    "glass_blur": 14,
+    "button_hover_lift": 2,
+    "button_hover_duration": 250,
+    "button_hover_easing": "ease",
+    "button_shadow_y": 10,
+    "button_shadow_blur": 30,
+    "button_shadow_opacity": 30,
+    "button_spotlight": true,
+    "button_spotlight_radius": 90,
+    "button_icon_nudge": 4
   },
   "presets": {
     "Perky": {
