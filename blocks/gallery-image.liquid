@@ -143,32 +143,32 @@
     {
       "type": "select",
       "id": "image_ratio",
-      "label": "Image ratio",
+      "label": "t:gallery_extension.label_image_ratio",
       "default": "1 / 1",
       "options": [
         {
           "value": "1 / 1",
-          "label": "Square"
+          "label": "t:gallery_extension.label_square"
         },
         {
           "value": "3 / 4",
-          "label": "Portrait 3:4"
+          "label": "t:gallery_extension.label_portrait_3_4"
         },
         {
           "value": "4 / 5",
-          "label": "Portrait 4:5"
+          "label": "t:gallery_extension.label_portrait_4_5"
         },
         {
           "value": "2 / 3",
-          "label": "Portrait 2:3"
+          "label": "t:gallery_extension.label_portrait_2_3"
         },
         {
           "value": "4 / 3",
-          "label": "Landscape 4:3"
+          "label": "t:gallery_extension.label_landscape_4_3"
         },
         {
           "value": "16 / 9",
-          "label": "Landscape 16:9"
+          "label": "t:gallery_extension.label_landscape_16_9"
         }
       ]
     },
@@ -203,7 +203,7 @@
         },
         {
           "value": "custom",
-          "label": "Custom"
+          "label": "t:gallery_extension.label_custom"
         }
       ],
       "default": "media"
@@ -211,7 +211,7 @@
     {
       "type": "range",
       "id": "custom_corner_radius",
-      "label": "Custom corner radius",
+      "label": "t:gallery_extension.label_custom_corner_radius",
       "min": 0,
       "max": 40,
       "step": 1,
@@ -238,7 +238,7 @@
         },
         {
           "value": "post",
-          "label": "Post"
+          "label": "t:gallery_extension.label_post"
         }
       ],
       "default": "button"
@@ -401,46 +401,46 @@
     {
       "type": "image_picker",
       "id": "avatar_image",
-      "label": "Avatar image",
+      "label": "t:gallery_extension.label_avatar_image",
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "text",
       "id": "avatar_initials",
-      "label": "Avatar initials",
+      "label": "t:gallery_extension.label_avatar_initials",
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "text",
       "id": "badge_left",
-      "label": "Left badge",
+      "label": "t:gallery_extension.label_left_badge",
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "text",
       "id": "badge_right",
-      "label": "Right badge",
+      "label": "t:gallery_extension.label_right_badge",
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "checkbox",
       "id": "show_likes",
-      "label": "Show likes",
+      "label": "t:gallery_extension.label_show_likes",
       "default": false,
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "text",
       "id": "likes_count",
-      "label": "Likes count",
+      "label": "t:gallery_extension.label_likes_count",
       "default": "0",
       "visible_if": "{{ block.settings.overlay_style == 'post' and block.settings.show_likes }}",
-      "info": "Display only. This value does not sync with Instagram."
+      "info": "t:gallery_extension.label_display_only__this_value_does_not_sync_with_instagram"
     },
     {
       "type": "range",
       "id": "card_padding",
-      "label": "Card padding",
+      "label": "t:gallery_extension.label_card_padding",
       "min": 0,
       "max": 24,
       "step": 1,
@@ -451,7 +451,7 @@
     {
       "type": "range",
       "id": "media_radius",
-      "label": "Image corner radius",
+      "label": "t:gallery_extension.label_image_corner_radius",
       "min": 0,
       "max": 40,
       "step": 1,
@@ -462,7 +462,7 @@
     {
       "type": "range",
       "id": "border_width",
-      "label": "Border width",
+      "label": "t:gallery_extension.label_border_width",
       "min": 0,
       "max": 4,
       "step": 1,
@@ -480,7 +480,7 @@
     {
       "type": "color",
       "id": "border_color",
-      "label": "Border color",
+      "label": "t:gallery_extension.label_border_color",
       "alpha": true,
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
@@ -494,13 +494,13 @@
     {
       "type": "color",
       "id": "likes_hover_color",
-      "label": "Likes hover color",
+      "label": "t:gallery_extension.label_likes_hover_color",
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },
     {
       "type": "color",
       "id": "likes_hover_background",
-      "label": "Likes hover background",
+      "label": "t:gallery_extension.label_likes_hover_background",
       "alpha": true,
       "visible_if": "{{ block.settings.overlay_style == 'post' }}"
     },

@@ -46,6 +46,8 @@
   assign background_color = section.settings.background_color
 %}
 
+{% assign effective_background = background_color | default: section.settings.color_scheme.settings.background %}
+{% if effective_background != blank %}{% style %}#shopify-section-{{ section.id }} { background-color: {{ effective_background }}; }{% endstyle %}{% endif %}
 <div class="gallery-image-grid gallery-image-grid--{{ section_width }}">
   <div class="section-spacing gallery-image-grid__spacing color-scheme section-color-scope {{ color_scheme | handleize }}" style="--gallery-section-padding-top: {{ padding_top }}px; --gallery-section-padding-bottom: {{ padding_bottom }}px; --gallery-section-padding-top-mobile: {{ padding_top_mobile }}px; --gallery-section-padding-bottom-mobile: {{ padding_bottom_mobile }}px;{% if background_color != blank %} --gallery-section-background: {{ background_color | escape }};{% endif %}">
     {% if section.settings.background_image != blank %}<div class="media-background-surface gallery-image-grid__background" aria-hidden="true">{{ section.settings.background_image | image_url: width: 2400 | image_tag }}</div>{% endif %}
@@ -76,46 +78,489 @@
 {
   "name": "Gallery Image Grid",
   "class": "section-kernel",
-  "enabled_on": { "templates": ["*"] },
-  "blocks": [{ "type": "gallery-header-group" }, { "type": "gallery-grid" }],
-  "settings": [
-    { "type": "header", "content": "Layout" },
-    { "type": "select", "id": "section_width", "label": "t:labels.section_width", "options": [{ "value": "page_width", "label": "t:options.section_width.page_width" }, { "value": "full_width", "label": "t:options.section_width.full_width" }, { "value": "full_width_no_padding", "label": "Full width (no padding)" }], "default": "page_width" },
-    { "type": "text_alignment", "id": "alignment", "label": "t:labels.alignment", "default": "left" },
-    { "type": "checkbox", "id": "customize_mobile_alignment", "label": "t:labels.customize_mobile_alignment", "default": false },
-    { "type": "text_alignment", "id": "alignment_mobile", "label": "t:labels.mobile_alignment", "default": "left", "visible_if": "{{ section.settings.customize_mobile_alignment }}" },
-    { "type": "header", "content": "Gap" },
-    { "type": "range", "id": "content_gap", "label": "Content gap", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 40 },
-    { "type": "checkbox", "id": "customize_mobile_gap", "label": "t:labels.customize_mobile_layout", "default": false },
-    { "type": "range", "id": "content_gap_mobile", "label": "Mobile content gap", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 32, "visible_if": "{{ section.settings.customize_mobile_gap }}" },
-    { "type": "header", "content": "Appearance" },
-    { "type": "color_scheme", "id": "color_scheme", "label": "t:labels.color_scheme", "default": "scheme-1" },
-    { "type": "color", "alpha": true, "id": "background_color", "label": "Background" },
-    { "type": "image_picker", "id": "background_image", "label": "Background image" },
-    { "type": "header", "content": "t:general.padding" },
-    { "type": "range", "id": "padding_top", "label": "t:labels.top_padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
-    { "type": "range", "id": "padding_bottom", "label": "t:labels.bottom_padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
-    { "type": "checkbox", "id": "customize_mobile_padding", "label": "t:labels.customize_mobile_padding", "default": false },
-    { "type": "range", "id": "padding_top_mobile", "label": "t:labels.mobile_top_padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0, "visible_if": "{{ section.settings.customize_mobile_padding }}" },
-    { "type": "range", "id": "padding_bottom_mobile", "label": "t:labels.mobile_bottom_padding", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0, "visible_if": "{{ section.settings.customize_mobile_padding }}" }
-  ],
-  "presets": [{
-    "name": "Gallery image grid",
-    "category": "Storytelling",
-    "settings": { "section_width": "page_width", "alignment": "left", "content_gap": 40, "customize_mobile_gap": true, "content_gap_mobile": 32, "color_scheme": "scheme-1", "customize_mobile_padding": false },
-    "blocks": [
-      { "type": "gallery-header-group", "blocks": [
-        { "type": "eyebrow", "settings": { "text": "<p>Section TAG</p>" } },
-        { "type": "heading", "settings": { "text": "<p>Follow Us On Instagram</p>", "html_tag": "h2" } },
-        { "type": "text", "settings": { "text": "<p>@pam_sam</p>" } }
-      ] },
-      { "type": "gallery-grid", "settings": { "columns_desktop": 4, "columns_mobile": "1", "gap": 32, "gap_mobile": 24, "width": "fill" }, "blocks": [
-        { "type": "gallery-image", "settings": { "tag": "@pam_sam", "social_network": "instagram", "show_overlay": "always" } },
-        { "type": "gallery-image", "settings": { "tag": "@pam_sam", "social_network": "instagram", "show_overlay": "always" } },
-        { "type": "gallery-image", "settings": { "tag": "@pam_sam", "social_network": "instagram", "show_overlay": "always" } },
-        { "type": "gallery-image", "settings": { "tag": "@pam_sam", "social_network": "instagram", "show_overlay": "always" } }
-      ] }
+  "enabled_on": {
+    "templates": [
+      "*"
     ]
-  }]
+  },
+  "blocks": [
+    {
+      "type": "gallery-header-group"
+    },
+    {
+      "type": "gallery-grid"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "t:options.section_width.page_width"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.section_width.full_width"
+        },
+        {
+          "value": "full_width_no_padding",
+          "label": "Full width (no padding)"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:labels.alignment",
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_alignment",
+      "label": "t:labels.customize_mobile_alignment",
+      "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment_mobile",
+      "label": "t:labels.mobile_alignment",
+      "default": "left",
+      "visible_if": "{{ section.settings.customize_mobile_alignment }}"
+    },
+    {
+      "type": "header",
+      "content": "Gap"
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_gap",
+      "label": "t:labels.customize_mobile_layout",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "content_gap_mobile",
+      "label": "Mobile content gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ section.settings.customize_mobile_gap }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery image grid",
+      "category": "Storytelling",
+      "settings": {
+        "section_width": "page_width",
+        "alignment": "left",
+        "content_gap": 40,
+        "customize_mobile_gap": true,
+        "content_gap_mobile": 32,
+        "color_scheme": "scheme-1",
+        "customize_mobile_padding": false
+      },
+      "blocks": [
+        {
+          "type": "gallery-header-group",
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Section TAG</p>"
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Follow Us On Instagram</p>",
+                "html_tag": "h2"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>@pam_sam</p>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "gallery-grid",
+          "settings": {
+            "columns_desktop": 4,
+            "columns_mobile": "1",
+            "gap": 32,
+            "gap_mobile": 24,
+            "width": "fill"
+          },
+          "blocks": [
+            {
+              "type": "gallery-image",
+              "settings": {
+                "tag": "@pam_sam",
+                "social_network": "instagram",
+                "show_overlay": "always"
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "tag": "@pam_sam",
+                "social_network": "instagram",
+                "show_overlay": "always"
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "tag": "@pam_sam",
+                "social_network": "instagram",
+                "show_overlay": "always"
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "tag": "@pam_sam",
+                "social_network": "instagram",
+                "show_overlay": "always"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "t:gallery_extension.label_gallery_parallax",
+      "category": "Storytelling",
+      "settings": {
+        "section_width": "page_width",
+        "alignment": "left",
+        "content_gap": 40,
+        "customize_mobile_gap": true,
+        "content_gap_mobile": 32,
+        "color_scheme": "scheme-1",
+        "customize_mobile_padding": false
+      },
+      "blocks": [
+        {
+          "type": "gallery-header-group",
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Section TAG</p>"
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Follow Us On Instagram</p>",
+                "html_tag": "h2"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>@pam_sam</p>"
+              }
+            }
+          ]
+        },
+        {
+          "type": "gallery-grid",
+          "settings": {
+            "columns_desktop": 5,
+            "columns_mobile": "2",
+            "gap": 14,
+            "gap_mobile": 14,
+            "width": "fill",
+            "layout": "parallax",
+            "parallax_height": 820,
+            "parallax_height_mobile": 640,
+            "parallax_distance": 130,
+            "edge_fade": 7,
+            "background_color": "#ffffff00"
+          },
+          "blocks": [
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "3 / 4",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "1 / 1",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            },
+            {
+              "type": "gallery-image",
+              "settings": {
+                "overlay_style": "post",
+                "image_ratio": "4 / 5",
+                "tag": "",
+                "corner_radius": "custom",
+                "custom_corner_radius": 18,
+                "card_padding": 6,
+                "media_radius": 12
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

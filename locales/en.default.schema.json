@@ -787,8 +787,15 @@
     "use_nested_hotspots": "Use multiple hotspots"
   },
   "options": {
-    "compact_search_type": { "icon": "Icon", "text": "Text", "icon_with_text": "Text with icon" },
-    "header_style": { "classic": "Classic", "compact": "Compact" },
+    "compact_search_type": {
+      "icon": "Icon",
+      "text": "Text",
+      "icon_with_text": "Text with icon"
+    },
+    "header_style": {
+      "classic": "Classic",
+      "compact": "Compact"
+    },
     "overlay_style": {
       "solid": "Solid",
       "gradient": "Gradient"
@@ -1639,5 +1646,46 @@
     "background_below": "Below",
     "background_stack": "Stack",
     "custom_height_px": "Custom height (px)"
+  },
+  "gallery_extension": {
+    "label_gallery_layout": "Gallery layout",
+    "label_grid": "Grid",
+    "label_parallax": "Parallax",
+    "label_desktop_gallery_height": "Desktop gallery height",
+    "label_mobile_gallery_height": "Mobile gallery height",
+    "label_movement_distance": "Movement distance",
+    "label_column_movement": "Column movement",
+    "label_alternating": "Alternating",
+    "label_up": "Up",
+    "label_down": "Down",
+    "label_column_stagger": "Column stagger",
+    "label_edge_fade": "Edge fade",
+    "label_mobile_items": "Mobile items",
+    "label_all_items": "All items",
+    "label_first_desktop_columns": "First desktop columns",
+    "label_image_ratio": "Image ratio",
+    "label_square": "Square",
+    "label_portrait_3_4": "Portrait 3:4",
+    "label_portrait_4_5": "Portrait 4:5",
+    "label_portrait_2_3": "Portrait 2:3",
+    "label_landscape_4_3": "Landscape 4:3",
+    "label_landscape_16_9": "Landscape 16:9",
+    "label_custom": "Custom",
+    "label_custom_corner_radius": "Custom corner radius",
+    "label_post": "Post",
+    "label_avatar_image": "Avatar image",
+    "label_avatar_initials": "Avatar initials",
+    "label_left_badge": "Left badge",
+    "label_right_badge": "Right badge",
+    "label_show_likes": "Show likes",
+    "label_likes_count": "Likes count",
+    "label_display_only__this_value_does_not_sync_with_instagram": "Display only. This value does not sync with Instagram.",
+    "label_card_padding": "Card padding",
+    "label_image_corner_radius": "Image corner radius",
+    "label_border_width": "Border width",
+    "label_border_color": "Border color",
+    "label_likes_hover_color": "Likes hover color",
+    "label_likes_hover_background": "Likes hover background",
+    "label_gallery_parallax": "Gallery parallax"
   }
 }

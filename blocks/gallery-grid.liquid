@@ -67,16 +67,16 @@
     {
       "type": "select",
       "id": "layout",
-      "label": "Gallery layout",
+      "label": "t:gallery_extension.label_gallery_layout",
       "default": "grid",
       "options": [
         {
           "value": "grid",
-          "label": "Grid"
+          "label": "t:gallery_extension.label_grid"
         },
         {
           "value": "parallax",
-          "label": "Parallax"
+          "label": "t:gallery_extension.label_parallax"
         }
       ]
     },
@@ -158,7 +158,7 @@
     {
       "type": "range",
       "id": "parallax_height",
-      "label": "Desktop gallery height",
+      "label": "t:gallery_extension.label_desktop_gallery_height",
       "min": 200,
       "max": 1200,
       "step": 10,
@@ -169,7 +169,7 @@
     {
       "type": "range",
       "id": "parallax_height_mobile",
-      "label": "Mobile gallery height",
+      "label": "t:gallery_extension.label_mobile_gallery_height",
       "min": 200,
       "max": 1000,
       "step": 10,
@@ -180,7 +180,7 @@
     {
       "type": "range",
       "id": "parallax_distance",
-      "label": "Movement distance",
+      "label": "t:gallery_extension.label_movement_distance",
       "min": 0,
       "max": 300,
       "step": 5,
@@ -191,20 +191,20 @@
     {
       "type": "select",
       "id": "parallax_direction",
-      "label": "Column movement",
+      "label": "t:gallery_extension.label_column_movement",
       "default": "alternating",
       "options": [
         {
           "value": "alternating",
-          "label": "Alternating"
+          "label": "t:gallery_extension.label_alternating"
         },
         {
           "value": "up",
-          "label": "Up"
+          "label": "t:gallery_extension.label_up"
         },
         {
           "value": "down",
-          "label": "Down"
+          "label": "t:gallery_extension.label_down"
         }
       ],
       "visible_if": "{{ block.settings.layout == 'parallax' }}"
@@ -212,7 +212,7 @@
     {
       "type": "range",
       "id": "column_stagger",
-      "label": "Column stagger",
+      "label": "t:gallery_extension.label_column_stagger",
       "min": 0,
       "max": 200,
       "step": 2,
@@ -223,7 +223,7 @@
     {
       "type": "range",
       "id": "edge_fade",
-      "label": "Edge fade",
+      "label": "t:gallery_extension.label_edge_fade",
       "min": 0,
       "max": 30,
       "step": 1,
@@ -234,16 +234,16 @@
     {
       "type": "select",
       "id": "mobile_columns_mode",
-      "label": "Mobile items",
+      "label": "t:gallery_extension.label_mobile_items",
       "default": "redistribute",
       "options": [
         {
           "value": "redistribute",
-          "label": "All items"
+          "label": "t:gallery_extension.label_all_items"
         },
         {
           "value": "first_columns",
-          "label": "First desktop columns"
+          "label": "t:gallery_extension.label_first_desktop_columns"
         }
       ],
       "visible_if": "{{ block.settings.layout == 'parallax' }}"

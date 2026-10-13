@@ -1,0 +1,33 @@
+/* Gallery layout behavior. All variable values are owned by Gallery settings. */
+.gallery-grid[data-gallery-layout='parallax'].is-parallax-ready {
+  height: var(--gallery-parallax-height);
+  align-items: start;
+  overflow: clip;
+  background-color: var(--gallery-parallax-background, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--gallery-parallax-fade), #000 calc(100% - var(--gallery-parallax-fade)), transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 var(--gallery-parallax-fade), #000 calc(100% - var(--gallery-parallax-fade)), transparent);
+}
+.gallery-parallax__column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gallery-grid-gap);
+  min-width: 0;
+  margin-top: calc(var(--gallery-parallax-distance) * -1px - var(--gallery-parallax-column-stagger, 0px));
+}
+.gallery-parallax__column > .gallery-image { flex: none; }
+.gallery-parallax__column[hidden] { display: none; }
+.gallery-grid[data-gallery-layout='parallax'][data-gallery-accessible='true'] {
+  height: auto;
+  overflow: visible;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.gallery-grid[data-gallery-accessible='true'] .gallery-parallax__column { margin-top: 0; }
+@media (max-width: 767.98px) {
+  .gallery-grid[data-gallery-layout='parallax'].is-parallax-ready { height: var(--gallery-parallax-height-mobile); }
+  .gallery-grid[data-gallery-accessible='true'].is-parallax-ready { height: auto; }
+  .gallery-parallax__column { gap: var(--gallery-grid-gap-mobile); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-parallax__column { transform: none !important; }
+}
