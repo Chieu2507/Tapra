@@ -25,7 +25,7 @@
 /* Basic keeps top-level links still; only submenu links travel on hover. */
 .header-top:not(.header-top--compact) .header-menu { --link-underline-display: none; }
 .header-top:not(.header-top--compact) .header-menu__top-link-label { transition: color 250ms var(--motion-ease-standard); }
-.header-top:not(.header-top--compact) .header-menu__item > :is(a, details) :is(.header-menu__top-link-label) { color: var(--body-color); }
+.header-top:not(.header-top--compact) .header-menu__item > :is(a, details) :is(.header-menu__top-link-label) { color: var(--header-menu-color, var(--body-color)); }
 .header-top:not(.header-top--compact) .header-menu__item:is(:hover, :focus-within) .header-menu__top-link-label { color: var(--heading-color); }
 .header-top:not(.header-top--compact) .header-mega-menu { border-radius: 0; border-block: 1px solid var(--border-color); padding-block: 24px; }
 /* Group layout controls banner placement; card layout controls image/content. */

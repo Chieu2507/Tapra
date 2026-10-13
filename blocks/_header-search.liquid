@@ -396,7 +396,8 @@
     },
     {
       "type": "header",
-      "content": "Search bar"
+      "content": "Search bar",
+      "visible_if": "{{ section.settings.header_style != 'compact' and block.settings.type == 'search_bar' }}"
     },
     {
       "type": "text",
