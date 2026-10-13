@@ -297,13 +297,18 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
 @media (max-width: 767.98px) {
   .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__container { padding: 12px 16px 20px; }
 }
-/* Mobile Compact uses the existing drawer drill-down on a full-height shell. */
+/* Mobile header drawers consume the same Auto / Full geometry as overlays. */
 @media (max-width: 767.98px) {
   .shopify-section.section-header:has(.header-top.header-top--compact[data-header-root]) { transition: top 600ms var(--motion-ease-standard), left 600ms var(--motion-ease-standard), right 600ms var(--motion-ease-standard); }
-  .shopify-section.section-header:has(.header-top.header-top--compact.header-top--menu-open[data-header-root]) { inset: 0 0 auto; }
-  .header-top.header-top--compact.header-top--menu-open { display: flex; flex-direction: column; width: 100%; height: 100dvh; border: 0; border-radius: 0; background: var(--background-color); box-shadow: none; }
-  .header-top.header-top--compact.header-top--menu-open .header__container { flex: 0 0 auto; padding: env(safe-area-inset-top, 0px) 14px 0 20px; }
+  .shopify-section.section-header:has(.header-top.header-top--compact.header-top--menu-open[data-header-root]) { inset: var(--drawer-mobile-top, 16px) var(--drawer-mobile-gutter, 12px) auto; }
+  .header-top.header-top--compact[data-header-root] { transform: translateX(0); }
+  .header-top.header-top--compact.header-top--menu-open { display: flex; flex-direction: column; width: var(--drawer-mobile-width); height: var(--drawer-mobile-height); border-radius: var(--drawer-mobile-radius); transform: translateX(var(--drawer-mobile-center-shift)); transition: width 600ms var(--compact-ease), height 350ms var(--compact-ease), border-radius 600ms var(--compact-ease), transform 600ms var(--compact-ease); }
+  .header-top.header-top--compact.header-top--menu-open .header__container { flex: 0 0 auto; padding: var(--drawer-mobile-safe-top, 0px) 14px 0 20px; }
   .header-top.header-top--compact .header__mobile-drawer.component-overlay { flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; }
+  body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'])) .shopify-section.section-header:has(.header-top--compact[data-header-root]) { inset: var(--drawer-mobile-top) var(--drawer-mobile-gutter) auto; }
+  body:has(.search-overlay--compact:is([data-state='opening'], [data-state='open'])) .header-top.header-top--compact[data-header-root] { width: var(--drawer-mobile-width); height: var(--drawer-mobile-height); border-radius: var(--drawer-mobile-radius); transform: translateX(var(--drawer-mobile-center-shift)); }
+  .search-overlay.search-overlay--compact[data-search-overlay] .search-overlay__panel { height: calc(var(--drawer-mobile-height) - 64px); max-height: calc(var(--drawer-mobile-height) - 64px); overflow-y: auto; }
+
   .header-top.header-top--compact.header-top--menu-open :is(.header-search, .header-account) { display: none; }
   .header-top.header-top--compact:has(.header__mobile-drawer:is(.header__mobile-drawer--submenu-active, .header__mobile-drawer--submenu-closing)) .header-logo { visibility: hidden; }
   .header-top.header-top--compact .header__mobile-drawer.component-overlay .header__mobile-drawer-surface { height: 100%; max-height: none; overflow: visible; border-radius: 0; }
