@@ -63,12 +63,23 @@
 
   assign button_class = 'button-block size-style button-block--width-' | append: button_width
   assign button_class = button_class | append: ' button-block--width-mobile-' | append: button_width_mobile
+  if block.settings.color_scheme != blank
+    assign button_scheme = block.settings.color_scheme.id | default: block.settings.color_scheme | handleize
+    assign button_class = button_class | append: ' color-scheme ' | append: button_scheme
+  endif
+  if block.settings.icon_background_color != blank and block.settings.show_icon
+    assign button_class = button_class | append: ' button-block--icon-background'
+  endif
   if button_label == blank
     assign button_class = button_class | append: ' button-block--empty'
   endif
 %}
 
 {% capture button_style_attribute %}
+  {% if block.settings.corner_radius != blank and block.settings.corner_radius != 'inherit' %}
+    --button-block-radius: {% case block.settings.corner_radius %}{% when 'pill' %}var(--radius-pill){% when 'rounded' %}var(--radius-rounded){% else %}var(--radius-square){% endcase %};
+  {% endif %}
+  {% if block.settings.icon_background_color != blank %}--button-icon-background: {{ block.settings.icon_background_color }}; --button-icon-padding: {{ block.settings.icon_padding | default: 0 }}px;{% endif %}
   {% render 'size-style',
     width: button_size_width,
     width_mobile: button_size_width_mobile
@@ -110,6 +121,12 @@
 {% endif %}
 
 {% stylesheet %}
+  .button-block .btn { border-radius: var(--button-block-radius, var(--button-radius)); }
+  .button-block--icon-background .btn__icon {
+    width: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
+    height: calc(var(--button-icon-size, var(--icon-size-medium)) + var(--button-icon-padding) * 2);
+    padding: var(--button-icon-padding); background: var(--button-icon-background); border-radius: var(--radius-pill);
+  }
   .button-block {
     display: block;
     min-width: 0;
@@ -297,6 +314,57 @@
     {
       "type": "header",
       "content": "t:general.size"
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme"
+    },
+    {
+      "type": "select",
+      "id": "corner_radius",
+      "label": "t:labels.corner_radius",
+      "default": "inherit",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:gallery_header_controls.option_inherit"
+        },
+        {
+          "value": "square",
+          "label": "t:gallery_header_controls.option_square"
+        },
+        {
+          "value": "rounded",
+          "label": "t:gallery_header_controls.option_rounded"
+        },
+        {
+          "value": "pill",
+          "label": "t:gallery_header_controls.option_pill"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "icon_background_color",
+      "label": "t:gallery_header_controls.icon_background_color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.show_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_padding",
+      "label": "t:gallery_header_controls.icon_padding",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.show_icon }}"
     },
     {
       "type": "select",

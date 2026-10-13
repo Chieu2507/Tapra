@@ -1694,5 +1694,24 @@
     "scale_info": "Font size as a percentage of the block width.",
     "weight": "Font weight",
     "gradient": "Text gradient"
+  },
+  "gallery_header_controls": {
+    "customize_typography": "Customize typography",
+    "font_size": "Font size",
+    "font_role": "Font family",
+    "option_accent": "Accent",
+    "option_body": "Body",
+    "option_monospace": "Monospace",
+    "text_transform": "Text case",
+    "option_none": "Original",
+    "option_uppercase": "Uppercase",
+    "letter_spacing": "Letter spacing",
+    "border_color": "Border color",
+    "option_inherit": "Inherit",
+    "option_square": "Square",
+    "option_rounded": "Rounded",
+    "option_pill": "Pill",
+    "icon_background_color": "Icon background color",
+    "icon_padding": "Icon padding"
   }
 }
