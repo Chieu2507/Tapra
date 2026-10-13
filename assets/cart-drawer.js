@@ -885,7 +885,11 @@
     const style = getComputedStyle(header);
     const bounds = header.getBoundingClientRect();
     const restWidth = Math.min(parseFloat(style.getPropertyValue('--compact-width')) || 288, window.innerWidth - 24);
-    const width = Math.min(410, window.innerWidth - 24);
+    const mobileDrawer = window.innerWidth < 768;
+    const fullMobile = mobileDrawer && style.getPropertyValue('--drawer-mobile-mode').trim() === 'full';
+    const gutter = mobileDrawer ? (parseFloat(style.getPropertyValue('--drawer-mobile-gutter')) || (fullMobile ? 0 : 12)) : 12;
+    const maxWidth = mobileDrawer ? (parseFloat(style.getPropertyValue('--drawer-mobile-max-width')) || 410) : 410;
+    const width = fullMobile ? window.innerWidth : Math.min(maxWidth, window.innerWidth - gutter * 2);
     const restHeight = parseFloat(style.getPropertyValue('--compact-rest-height')) ||
       50 + parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
     const fromMobileMenu = window.innerWidth < 768 && header.classList.contains('header-top--menu-open');
@@ -896,8 +900,9 @@
     drawer.style.setProperty('--compact-cart-origin-radius', style.borderRadius);
     drawer.style.setProperty('--compact-cart-rest-width', `${restWidth}px`);
     drawer.style.setProperty('--compact-cart-rest-height', `${restHeight}px`);
-    drawer.style.setProperty('--compact-cart-shift', `${window.innerWidth / 2 - 12 - restWidth / 2}px`);
+    drawer.style.setProperty('--compact-cart-shift', `${fullMobile ? 0 : window.innerWidth / 2 - gutter - restWidth / 2}px`);
     drawer.style.setProperty('--compact-cart-expand-shift', `${-(width - restWidth) / 2}px`);
+    drawer.style.setProperty('--compact-cart-open-translate', `${-(width - restWidth) / (fullMobile ? 2 : 1)}px`);
     drawer.style.setProperty('--compact-cart-origin-width', `${bounds.width || restWidth}px`);
     drawer.style.setProperty('--compact-cart-origin-height', `${bounds.height || restHeight}px`);
     drawer.style.setProperty('--compact-cart-origin-shift', `${(restWidth - (bounds.width || restWidth)) / 2}px`);

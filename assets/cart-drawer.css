@@ -78,7 +78,7 @@
     border-radius: 26px;
     transform: translateX(var(--compact-cart-shift, 0px));
     /* The demo's flex centering contributes the other half of this offset. */
-    translate: calc(var(--compact-cart-expand-shift, 0px) * 2) 0;
+    translate: var(--compact-cart-open-translate, calc(var(--compact-cart-expand-shift, 0px) * 2)) 0;
     transition: transform 550ms var(--header-motion-ease), top 600ms 300ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__inner {
@@ -130,6 +130,18 @@
   }
   .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__menu-residue { opacity: 0 !important; }
   .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__menu-residue { display: none; }
+  @media (max-width: 767.98px) {
+    .cart-drawer.cart-drawer--compact.component-overlay[data-state='open'] .cart-drawer__panel {
+      top: var(--drawer-mobile-top, 16px);
+      width: var(--drawer-mobile-width, calc(100vw - 24px));
+      height: var(--drawer-mobile-height, min(680px, calc(100dvh - 28px)));
+      border-radius: var(--drawer-mobile-radius, 26px);
+    }
+    .cart-drawer.cart-drawer--compact .cart-drawer__header {
+      min-height: calc(64px + var(--drawer-mobile-safe-top, 0px));
+      padding-block-start: var(--drawer-mobile-safe-top, 0px);
+    }
+  }
   body:has(.cart-drawer--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])) .header-top--compact[data-header-root] {
     opacity: 0;
     pointer-events: none;
@@ -1168,7 +1180,7 @@ html[data-surface-light-enabled] .cart-drawer__panel.surface-light::before {
   mix-blend-mode: screen;
 }
 @media (max-width: 767.98px) {
-  .cart-drawer.component-overlay:not(.cart-drawer--compact)[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: 0; }
+  .cart-drawer.component-overlay:not(.cart-drawer--compact)[data-mobile-layout='drawer'] .cart-drawer__panel { border-radius: var(--drawer-mobile-radius, 26px); }
   .cart-drawer__footer { padding-block-start: 0; }
   .cart-drawer__header { min-height: 64px; }
   .cart-drawer__item { grid-template-columns: 64px minmax(0, 1fr) auto; column-gap: 12px; }
