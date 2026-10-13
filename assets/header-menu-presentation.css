@@ -84,3 +84,6 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   .header-top:not(.header-top--compact) .header__mobile-drawer-title { order: 0; }
   .header-top:not(.header-top--compact) .header__mobile-drawer-close { order: 1; }
 }
+@media (max-width: 767.98px) {
+  .header-top .header__mobile-drawer { --background-color: inherit; --body-color: inherit; --heading-color: inherit; --border-color: inherit; }
+}
