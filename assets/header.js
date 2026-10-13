@@ -397,7 +397,7 @@
       const isScrolled = isSticky && scrollY > 8;
       const isSubmenuOpen = hasOpenHeaderSubmenu(header);
       const isMegaMenuOpen = hasOpenMegaMenu(header);
-      if (isSubmenuOpen) synchronizeSubmenuOffsets(header);
+      if (isSubmenuOpen && !header.querySelector('.header-top--compact')) synchronizeSubmenuOffsets(header);
       const isSearchOpen = header.classList.contains('header--search-open');
       const isCartOpen = header.classList.contains('header--cart-open');
       const headerTop = header.querySelector('.header-top');
@@ -556,6 +556,8 @@
     updateHeaderHeight(header, stickyType);
     if ('ResizeObserver' in window) {
       const observer = new ResizeObserver(() => {
+        // Compact owns its animated shell; do not remeasure every menu frame.
+        if (headerTop.dataset.headerStyle === 'compact') return;
         const headerState = headerStates.get(header);
         const currentStickyType = headerState
           ? synchronizeStickyType(header, headerState)

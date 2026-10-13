@@ -30,8 +30,23 @@
         panel.style.setProperty('--compact-stagger-fade-delay', `${exitDuration - 200}ms`);
       });
       let columnsVisible = window.innerWidth >= 768;
-      let fastTimer;
+      let fastTimer, measureFrame = 0, footerFrame = 0, openingUntil = 0;
+      const setVariable = (element, name, value) => {
+        if (element.style.getPropertyValue(name) !== value) element.style.setProperty(name, value);
+      };
+      const synchronizeFooter = () => {
+        footerFrame = 0;
+        if (drawer.dataset.state === 'closing' || !root.classList.contains('header-top--menu-open')) return;
+        const targetHeight = parseFloat(root.style.getPropertyValue('--compact-shell-height')) || 0;
+        const shift = window.innerWidth >= 768 && targetHeight ? root.getBoundingClientRect().height - targetHeight : 0;
+        setVariable(root, '--compact-footer-shift', `${shift}px`);
+        root.classList.toggle('header-compact--resizing', Math.abs(shift) > 0.5);
+      };
+      const scheduleFooter = () => { if (!footerFrame) footerFrame = requestAnimationFrame(synchronizeFooter); };
+      const scheduleMeasure = () => { if (!measureFrame) measureFrame = requestAnimationFrame(() => { measureFrame = 0; measure(); }); };
       const followPanel = () => {
+        // Keep the opening curve intact; fast sizing is only for later panel changes.
+        if (performance.now() < openingUntil) return;
         root.classList.add('header-compact--fast');
         clearTimeout(fastTimer);
         fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
@@ -41,7 +56,7 @@
         if (drawer.dataset.state === 'closing') return;
         if (!root.classList.contains('header-top--menu-open')) {
           if (document.querySelector(".search-overlay--compact:is([data-state='opening'], [data-state='open'], [data-state='closing'])")) return;
-          root.style.setProperty('--compact-footer-shift', '0px');
+          setVariable(root, '--compact-footer-shift', '0px');
           root.classList.remove('header-compact--resizing');
           return;
         }
@@ -57,24 +72,20 @@
         if (showColumns) {
           const mega = active?.querySelector('[data-header-mega-menu]');
           const megaStyle = mega && getComputedStyle(mega);
-          active?.style.setProperty('--compact-banner-width', megaStyle?.getPropertyValue('--mega-banner-width') || '40%');
-          active?.style.setProperty('--compact-banner-gap', megaStyle?.getPropertyValue('--mega-menu-gap') || '12px');
-          root.style.setProperty('--compact-menu-columns', Number(megaStyle?.getPropertyValue('--mega-menu-columns')) || active?.querySelector(':scope > ul')?.children.length || 4);
-          active?.style.setProperty('--compact-submenu-max-width', mega?.classList.contains('header-mega-menu--submenu-limited') ? megaStyle.getPropertyValue('--mega-menu-max-width') : 'none');
-          active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { details.open = true; });
+          if (active) setVariable(active, '--compact-banner-width', megaStyle?.getPropertyValue('--mega-banner-width') || '40%');
+          if (active) setVariable(active, '--compact-banner-gap', megaStyle?.getPropertyValue('--mega-menu-gap') || '12px');
+          setVariable(root, '--compact-menu-columns', String(Number(megaStyle?.getPropertyValue('--mega-menu-columns')) || active?.querySelector(':scope > ul')?.children.length || 4));
+          if (active) setVariable(active, '--compact-submenu-max-width', mega?.classList.contains('header-mega-menu--submenu-limited') ? megaStyle.getPropertyValue('--mega-menu-max-width') : 'none');
+          active?.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach(details => { if (!details.open) details.open = true; });
           const height = Math.max(summaries.length * 52, active?.scrollHeight || 0, 180);
-          root.style.setProperty('--compact-menu-height', `${height}px`);
+          setVariable(root, '--compact-menu-height', `${height}px`);
         }
         const surface = drawer.querySelector('.header__mobile-drawer-surface');
         if (surface) {
           const shellStyle = getComputedStyle(root);
           const targetHeight = 64 + surface.offsetHeight + parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom) + parseFloat(shellStyle.borderTopWidth) + parseFloat(shellStyle.borderBottomWidth);
-          root.style.setProperty('--compact-shell-height', `${targetHeight}px`);
-          // The content adopts its new height immediately; the shell animates.
-          // Keep utilities at the animated bottom rather than the target bottom.
-          const footerShift = showColumns ? root.getBoundingClientRect().height - targetHeight : 0;
-          root.style.setProperty('--compact-footer-shift', `${footerShift}px`);
-          root.classList.toggle('header-compact--resizing', Math.abs(footerShift) > 0.5);
+          setVariable(root, '--compact-shell-height', `${targetHeight}px`);
+          synchronizeFooter();
         }
       };
       const choose = summary => {
@@ -86,14 +97,14 @@
           followPanel();
           summaries.forEach(control => { control.parentElement.open = false; });
         }
-        measure();
+        scheduleMeasure();
       };
       navigation.forEach(summary => {
         if (drawer.dataset.dropdownTrigger !== 'click') summary.addEventListener('pointerenter', () => choose(summary), options);
         summary.addEventListener('focus', () => choose(summary), options);
       });
-      drawer.addEventListener('toggle', measure, { ...options, capture: true });
-      drawer.addEventListener('click', () => { followPanel(); requestAnimationFrame(measure); }, options);
+      drawer.addEventListener('toggle', scheduleMeasure, { ...options, capture: true });
+      drawer.addEventListener('click', () => { followPanel(); scheduleMeasure(); }, options);
       drawer.addEventListener('click', event => {
         if (window.innerWidth < 768 || !event.target.closest('[data-mobile-drawer-submenu-details] > summary')) return;
         if (event.target.closest('a')) return;
@@ -101,9 +112,12 @@
         event.stopPropagation();
       }, { ...options, capture: true });
       drawer.addEventListener('open', () => {
+        openingUntil = performance.now() + 600;
+        clearTimeout(fastTimer);
+        root.classList.remove('header-compact--fast');
         navigation.forEach(control => control.classList.remove('is-compact-menu-active'));
         if (window.innerWidth >= 768 && summaries[0]) choose(summaries[0]);
-        measure();
+        scheduleMeasure();
       }, options);
       document.addEventListener('pointerdown', event => {
         const insideLocalization = [...drawer.querySelectorAll('[data-localization-dialog-id]')].some(details => {
@@ -119,12 +133,16 @@
         if (!root.contains(event.target) || event.target.closest('.header-logo, .header-cart, .header-menu-toggle')) return;
         if (!root.classList.contains('header-top--menu-open')) root.querySelector('.header-menu-toggle')?.click();
       }, options);
-      window.addEventListener('resize', measure, options);
-      const observer = new ResizeObserver(measure);
+      drawer.addEventListener('close', () => { openingUntil = 0; clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); scheduleMeasure(); }, options);
+      window.addEventListener('resize', scheduleMeasure, options);
+      drawer.addEventListener('load', scheduleMeasure, { ...options, capture: true });
+      document.fonts?.ready.then(() => { if (!controller.signal.aborted) scheduleMeasure(); });
+      const observer = new ResizeObserver(scheduleMeasure);
+      const shellObserver = new ResizeObserver(scheduleFooter);
       drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => observer.observe(panel));
       observer.observe(drawer.querySelector('.header__mobile-drawer-surface'));
-      observer.observe(root);
-      instances.set(root, { controller, observer, clearTimer: () => { clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
+      shellObserver.observe(root);
+      instances.set(root, { controller, observer, shellObserver, clearTimer: () => { cancelAnimationFrame(measureFrame); cancelAnimationFrame(footerFrame); clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
     });
   };
   document.addEventListener('shopify:section:load', event => initialize(event.target));
@@ -133,6 +151,7 @@
       if (!event.target.contains(root)) return;
       instance.controller.abort();
       instance.observer.disconnect();
+      instance.shellObserver.disconnect();
       instance.clearTimer();
       instances.delete(root);
     });
