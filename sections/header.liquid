@@ -1,6 +1,7 @@
 {% liquid
   assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1' | handleize
 %}
+{{ 'header-menu-presentation.css' | asset_url | stylesheet_tag }}
 {% if section.settings.header_style == 'compact' %}
 {{ 'header-compact.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'header-compact.js' | asset_url }}" defer></script>
