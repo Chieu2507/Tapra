@@ -14,9 +14,10 @@
     function group() {
       const current = [...root.querySelectorAll('.gallery-image')];
       const style = getComputedStyle(root);
-      const nextCount = Math.max(1, parseInt(style.getPropertyValue(mobile.matches ? '--gallery-grid-columns-mobile' : '--gallery-grid-columns'), 10) || 1);
+      const nextCount = Math.min(Math.max(1, current.length), Math.max(1, parseInt(style.getPropertyValue(mobile.matches ? '--gallery-grid-columns-mobile' : '--gallery-grid-columns'), 10) || 1));
       const nextFirst = mobile.matches && root.dataset.mobileColumnsMode === 'first_columns' && !isEditor();
       if (nextCount === count && nextFirst === firstColumns && current.length === items.length && current.every(item => items.includes(item))) return;
+      const focused = root.contains(document.activeElement) ? document.activeElement : null;
       items = current.sort((a, b) => (Number(a.dataset.galleryOrder) || 0) - (Number(b.dataset.galleryOrder) || 0));
       items.forEach((item, index) => { if (!item.hasAttribute('data-gallery-order')) item.dataset.galleryOrder = String(index); });
       columns.forEach(column => column.remove());
@@ -31,16 +32,28 @@
         root.append(column); return column;
       });
       items.forEach((item, index) => columns[index % actualCount].append(item));
-      root.classList.add('is-parallax-ready');
+      root.classList.toggle('is-parallax-ready', items.length > 0);
+      root.style.setProperty('--gallery-parallax-visible-columns', count);
+      if (focused?.isConnected) focused.focus({ preventScroll: true });
     }
     function update() {
       frame = 0;
       group();
       const accessible = isEditor() || root.contains(document.activeElement);
       root.dataset.galleryAccessible = String(accessible);
+      const style = getComputedStyle(root);
+      const configuredHeight = parseFloat(style.getPropertyValue(mobile.matches ? '--gallery-parallax-height-mobile' : '--gallery-parallax-height')) || 640;
+      const visibleColumns = columns.filter(column => !column.hidden && column.children.length);
+      const shortest = visibleColumns.length ? Math.min(...visibleColumns.map(column => column.offsetHeight)) : 0;
+      const viewportHeight = Math.min(configuredHeight, shortest);
+      const requestedDistance = parseFloat(style.getPropertyValue('--gallery-parallax-distance')) || 0;
+      const distance = Math.min(requestedDistance, Math.max(0, (shortest - viewportHeight) / 2));
+      const stagger = Math.min(parseFloat(style.getPropertyValue('--gallery-parallax-stagger')) || 0, Math.max(0, (shortest - viewportHeight) / 2 - distance));
+      root.style.setProperty('--gallery-parallax-effective-distance', distance + 'px');
+      root.style.setProperty('--gallery-parallax-rendered-height', viewportHeight + 'px');
+      columns.forEach((column, index) => column.style.setProperty('--gallery-parallax-column-stagger', (index % 2 ? stagger : 0) + 'px'));
       const rect = root.getBoundingClientRect();
       const progress = clamp((window.innerHeight - rect.top) / (window.innerHeight + rect.height));
-      const distance = parseFloat(getComputedStyle(root).getPropertyValue('--gallery-parallax-distance')) || 0;
       columns.forEach((column, index) => {
         const direction = root.dataset.parallaxDirection === 'down' ? 1 : root.dataset.parallaxDirection === 'up' ? -1 : index % 2 ? 1 : -1;
         column.style.transform = accessible || motion.matches ? '' : `translate3d(0, ${((progress * 2 - 1) * distance * direction).toFixed(2)}px, 0)`;
@@ -63,6 +76,7 @@
       items.forEach(item => { root.append(item); delete item.dataset.galleryOrder; });
       columns.forEach(column => column.remove());
       root.classList.remove('is-parallax-ready'); delete root.dataset.galleryAccessible;
+      for (const key of ['--gallery-parallax-visible-columns', '--gallery-parallax-rendered-height', '--gallery-parallax-effective-distance']) root.style.removeProperty(key);
       states.delete(root);
     });
   }

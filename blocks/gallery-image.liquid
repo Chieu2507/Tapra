@@ -74,6 +74,7 @@
   {% endif %}
   </div>
   {% if overlay_style == 'post' %}
+    {% if tag != blank or block.settings.avatar_image != blank or block.settings.avatar_initials != blank or block.settings.show_likes %}
     <div class="gallery-image__profile">
       {% if block.settings.avatar_image != blank %}
         {{ block.settings.avatar_image | image_url: width: 80 | image_tag: class: 'gallery-image__avatar', loading: 'lazy', alt: '' }}
@@ -90,6 +91,7 @@
         </span>
       {% endif %}
     </div>
+    {% endif %}
   {% else %}
   <div class="gallery-image__overlay">
     {% unless social_network == 'none' %}
