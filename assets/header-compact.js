@@ -45,7 +45,8 @@
           if (logo && actions && container) {
             const spacing = getComputedStyle(container);
             const shell = getComputedStyle(root);
-            const width = logo.getBoundingClientRect().width + actions.scrollWidth + parseFloat(getComputedStyle(row).columnGap) + parseFloat(spacing.paddingLeft) + parseFloat(spacing.paddingRight) + parseFloat(shell.borderLeftWidth) + parseFloat(shell.borderRightWidth);
+            const logoWidth = logo.querySelector('img') ? Math.min(parseFloat(getComputedStyle(logo).getPropertyValue('--logo-width')) || 120, 120) : (logo.querySelector('.site-logo__fallback')?.scrollWidth || logo.scrollWidth);
+            const width = logoWidth + actions.scrollWidth + parseFloat(getComputedStyle(row).columnGap) + parseFloat(spacing.paddingLeft) + parseFloat(spacing.paddingRight) + parseFloat(shell.borderLeftWidth) + parseFloat(shell.borderRightWidth);
             root.style.setProperty('--compact-width', `${Math.ceil(width)}px`);
           }
           root.style.setProperty('--compact-footer-shift', '0px');
