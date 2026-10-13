@@ -43,4 +43,4 @@
 }
 
 /* Clip only during editor layout transitions while the viewport animates. */
-.gallery-grid[data-gallery-transition='true'].is-parallax-ready { overflow: clip; }
+.gallery-grid[data-gallery-layout='parallax'][data-gallery-transition='true'].is-parallax-ready { overflow: clip; }
