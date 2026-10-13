@@ -1223,6 +1223,16 @@
     scheduleUpdate();
   });
 
+  // Desktop header popovers close independently of the surrounding menu.
+  document.addEventListener('pointerdown', (event) => {
+    document.querySelectorAll('.header-top .header-localization__details[open]').forEach((details) => {
+      if (details.contains(event.target)) return;
+      const dialog = getLocalizationDialog(details);
+      if (dialog && !dialog.hidden && dialog.contains(event.target)) return;
+      closeHeaderDetails(details);
+    });
+  }, { capture: true });
+
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     const header = event.target.closest?.('.shopify-section.header');
