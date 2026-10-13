@@ -37,6 +37,8 @@
     <link rel="stylesheet" href="{{ 'component-overlay.css' | asset_url }}" media="print" onload="this.media='all'">
     <noscript>{{ 'component-overlay.css' | asset_url | stylesheet_tag }}</noscript>
     <script src="{{ 'component-overlay.js' | asset_url }}" defer></script>
+    {% render 'deferred-stylesheet', filename: 'surface-light.css' %}
+    <script src="{{ 'surface-light.js' | asset_url }}" defer></script>
     {% comment %} Disclosure geometry must be styled before first paint. {% endcomment %}
     {% render 'swiper-stylesheet' %}
     <script src="{{ 'block-animations.js' | asset_url }}" defer></script>

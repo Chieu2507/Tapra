@@ -1,0 +1,40 @@
+/* Add surface-light to a box/panel with its own background and border radius.
+   Optional overrides: --surface-light-edge, --surface-light-glow,
+   --surface-light-border-width. Reserve ::before / ::after for the effect. */
+:where(.surface-light) { position: relative; }
+.surface-light {
+  --surface-light-x: 50%;
+  --surface-light-y: 50%;
+  --surface-light-opacity: 0;
+  --surface-light-edge: color-mix(in srgb, var(--heading-color, #cde6ff) 75%, var(--accent-color, #8cb9ff));
+  --surface-light-glow: color-mix(in srgb, var(--accent-color, #8cb9ff) 18%, transparent);
+  isolation: isolate;
+}
+.surface-light::before,
+.surface-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--surface-light-opacity);
+  transition: opacity 250ms ease;
+}
+.surface-light::before {
+  z-index: -1;
+  background: radial-gradient(circle 230px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), transparent 72%);
+}
+.surface-light::after {
+  z-index: 2;
+  padding: var(--surface-light-border-width, 1px);
+  background: radial-gradient(circle 150px at var(--surface-light-x) var(--surface-light-y), var(--surface-light-edge), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+@media (hover: none) {
+  .surface-light::before, .surface-light::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .surface-light::before, .surface-light::after { transition: none; }
+}
