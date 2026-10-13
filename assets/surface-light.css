@@ -5,7 +5,7 @@
    3. Reserve ::before / ::after for glow and the masked 1px edge. Both inherit
       the owner's radius and never intercept pointer input.
    4. Only the Compact header shell adds surface-light--header: its glow/edge
-      shrink from 190/140px to 75/50px over open menu/localization controls. Other boxes
+      shrink from 190/140px to 75/50px over open menu controls. Other boxes
       keep 230/150px; they do not change size when a child link is hovered.
    5. Motion > Enable pointer light on bordered boxes controls everything.
       Off removes both generated layers; touch/reduced motion disable light.
@@ -48,9 +48,6 @@ html[data-surface-light-enabled] .surface-light--header {
   --surface-light-edge-radius: 140px;
   --surface-light-strength: .36;
 }
-/* The shell light crosses nested boxes instead of disappearing behind them. */
-html[data-surface-light-enabled] .surface-light--header::before { z-index: 3; mix-blend-mode: screen; }
-html[data-surface-light-enabled] .surface-light--header::after { z-index: 4; }
 @media (hover: none) {
   html[data-surface-light-enabled] .surface-light::before, html[data-surface-light-enabled] .surface-light::after { display: none; }
 }
