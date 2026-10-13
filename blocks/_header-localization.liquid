@@ -196,7 +196,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    min-height: var(--button-height);
+    min-height: auto;
     color: inherit;
     cursor: pointer;
     list-style: none;
@@ -359,7 +359,10 @@
   }
 
   @media (max-width: 767.98px) {
-    .header-localization__summary,
+    .header-localization__summary {
+      min-height: auto;
+    }
+
     .header-localization__placeholder {
       min-height: var(--button-height-mobile);
     }
