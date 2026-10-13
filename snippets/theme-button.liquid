@@ -71,7 +71,7 @@
     else
       assign button_motion_speed = 'standard'
   endcase
-  assign button_motion_duration = 'var(--motion-duration-standard)'
+  assign button_motion_duration = 'var(--button-hover-duration, 250ms)'
   if button_motion_speed == 'fast'
     assign button_motion_duration = 'var(--motion-duration-fast)'
   elsif button_motion_speed == 'slow'
@@ -80,6 +80,12 @@
   assign button_motion_style = '--button-motion-duration: ' | append: button_motion_duration | append: ';'
 
   assign button_class = 'btn btn-' | append: button_variant | append: ' btn--' | append: button_variant
+  if button_variant != 'tertiary'
+    assign button_class = button_class | append: ' button-light'
+    if icon_only
+      assign button_class = button_class | append: ' button-light--icon'
+    endif
+  endif
   assign button_underline_attribute = blank
   if button_variant == 'tertiary'
     assign button_class = button_class | append: ' link-underline'

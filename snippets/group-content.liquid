@@ -259,6 +259,9 @@
   if group_vertical_on_mobile
     assign group_class = group_class | append: ' group--mobile-vertical'
   endif
+  if block.settings.use_theme_glass
+    assign group_class = group_class | append: ' theme-glass'
+  endif
   if group_backdrop_blur > 0
     assign group_class = group_class | append: ' backdrop-blur'
   else

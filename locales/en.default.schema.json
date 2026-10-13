@@ -785,7 +785,21 @@
     "show_header_above": "Show header above",
     "header_above_gap": "Header above gap",
     "use_nested_hotspots": "Use multiple hotspots",
-    "wrap": "Wrap"
+    "wrap": "Wrap",
+    "text_muted": "Text muted",
+    "button_hover_lift": "Hover lift",
+    "button_hover_duration": "Hover duration",
+    "button_hover_easing": "Hover easing",
+    "button_shadow_y": "Shadow vertical offset",
+    "button_shadow_blur": "Shadow blur",
+    "button_shadow_opacity": "Shadow opacity",
+    "button_spotlight": "Show button spotlight",
+    "button_spotlight_radius": "Spotlight radius",
+    "button_icon_nudge": "Icon hover offset",
+    "glass_opacity": "Glass background opacity",
+    "glass_blur": "Glass blur",
+    "use_theme_glass": "Use theme glass",
+    "tapra_glass": "Glass"
   },
   "options": {
     "compact_search_type": {

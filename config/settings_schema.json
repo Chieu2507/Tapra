@@ -92,6 +92,13 @@
           {
             "type": "color",
             "alpha": true,
+            "id": "text_muted",
+            "label": "t:labels.text_muted",
+            "default": "rgba(10,21,48,0.65)"
+          },
+          {
+            "type": "color",
+            "alpha": true,
             "id": "accent",
             "label": "t:labels.accent_color",
             "default": "#0A0A0A"
@@ -794,6 +801,31 @@
     ]
   },
   {
+    "name": "t:labels.tapra_glass",
+    "settings": [
+      {
+        "type": "range",
+        "id": "glass_opacity",
+        "label": "t:labels.glass_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 55,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "glass_blur",
+        "label": "t:labels.glass_blur",
+        "min": 0,
+        "max": 40,
+        "step": 1,
+        "default": 14,
+        "unit": "px"
+      }
+    ]
+  },
+  {
     "name": "t:general.motion_and_reduced_motion",
     "settings": [
       {
@@ -1151,6 +1183,110 @@
         "unit": "px",
         "label": "t:labels.underline_offset",
         "default": 5
+      },
+      {
+        "type": "header",
+        "content": "Hover"
+      },
+      {
+        "type": "range",
+        "id": "button_hover_lift",
+        "label": "t:labels.button_hover_lift",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button_hover_duration",
+        "label": "t:labels.button_hover_duration",
+        "min": 80,
+        "max": 800,
+        "step": 10,
+        "default": 250,
+        "unit": "ms"
+      },
+      {
+        "type": "select",
+        "id": "button_hover_easing",
+        "label": "t:labels.button_hover_easing",
+        "default": "ease",
+        "options": [
+          {
+            "value": "ease",
+            "label": "ease"
+          },
+          {
+            "value": "ease-out",
+            "label": "ease-out"
+          },
+          {
+            "value": "ease-in-out",
+            "label": "ease-in-out"
+          },
+          {
+            "value": "cubic-bezier(.22,1,.36,1)",
+            "label": "cubic-bezier(.22,1,.36,1)"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "button_shadow_y",
+        "label": "t:labels.button_shadow_y",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "default": 10,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button_shadow_blur",
+        "label": "t:labels.button_shadow_blur",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 30,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button_shadow_opacity",
+        "label": "t:labels.button_shadow_opacity",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 30,
+        "unit": "%"
+      },
+      {
+        "type": "checkbox",
+        "id": "button_spotlight",
+        "label": "t:labels.button_spotlight",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "button_spotlight_radius",
+        "label": "t:labels.button_spotlight_radius",
+        "min": 30,
+        "max": 160,
+        "step": 2,
+        "default": 90,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button_icon_nudge",
+        "label": "t:labels.button_icon_nudge",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 4,
+        "unit": "px"
       }
     ]
   },

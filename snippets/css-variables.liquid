@@ -123,10 +123,10 @@
   assign body_lg_size = 18
   assign body_xl_size = 20
   assign body_xxl_size = 24
-  assign body_leading = '1.55'
+  assign body_leading = '1.5'
   case settings.type_body_leading
     when 'normal'
-      assign body_leading = '1.55'
+      assign body_leading = '1.5'
     when 'relaxed'
       assign body_leading = '1.6'
     when 'loose'
@@ -266,12 +266,12 @@
   endif
 
   assign eyebrow_size = settings.type_eyebrow_size | default: 16
-  assign eyebrow_line_height = '1.55'
+  assign eyebrow_line_height = '1.5'
   case settings.type_eyebrow_line_height
     when 'tight'
       assign eyebrow_line_height = '1.3'
     when 'normal'
-      assign eyebrow_line_height = '1.55'
+      assign eyebrow_line_height = '1.5'
     when 'relaxed'
       assign eyebrow_line_height = '1.6'
   endcase
@@ -952,6 +952,8 @@
     --heading-color: {{ default_heading }};
     --heading-highlight-color: {{ default_heading_highlight }};
     --body-color: {{ default_body }};
+    --text-muted-color: color-mix(in srgb, var(--body-color) 65%, transparent);
+    --button-shadow-color: {{ default_accent }};
     --color-foreground-rgb: {{ default_body_rgb }};
     --accent-color: {{ default_accent }};
     --border-color: {{ default_border }};
@@ -1030,7 +1032,17 @@
     --motion-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
     --motion-ease-emphasized: cubic-bezier(0.2, 0.7, 0, 1);
     --motion-ease-linear: linear;
-    --motion-distance-hover: -2px;
+    --motion-distance-hover: -{{ settings.button_hover_lift | default: 2 }}px;
+    --button-hover-duration: {{ settings.button_hover_duration | default: 250 }}ms;
+    --button-motion-duration: var(--button-hover-duration);
+    --button-motion-ease: {{ settings.button_hover_easing | default: 'ease' }};
+    --button-shadow-y: {{ settings.button_shadow_y | default: 10 }}px;
+    --button-shadow-blur: {{ settings.button_shadow_blur | default: 30 }}px;
+    --button-shadow-opacity: {{ settings.button_shadow_opacity | default: 30 }}%;
+    --button-spotlight-radius: {{ settings.button_spotlight_radius | default: 90 }}px;
+    --button-icon-nudge: {{ settings.button_icon_nudge | default: 4 }}px;
+    --glass-opacity: {{ settings.glass_opacity | default: 55 }}%;
+    --glass-blur: {{ settings.glass_blur | default: 14 }}px;
     --motion-distance-block: 1rem;
     --motion-image-zoom: {{ motion_image_zoom }};
     --product-card-image-zoom: {{ product_card_image_zoom }};
@@ -1142,9 +1154,9 @@
     {% if settings.input_background_color != blank %}
       --input-background-color-override: {{ settings.input_background_color }};
     {% endif %}
-    --input-background-color-solid: color-mix(in srgb, var(--body-color) 6%, transparent);
+    --input-background-color-solid: var(--background-component-color, var(--background-color));
     --input-background-color: var(--input-background-color-solid);
-    --input-border-color: var(--border-color);
+    --input-border-color: color-mix(in srgb, var(--heading-color) 35%, transparent);
     --input-focus-color: var(--accent-color);
     --input-error-color: var(--sale-price-color);
     --input-text-color: var(--body-color);
@@ -1337,6 +1349,7 @@
     {% assign scheme_variant_overlay = scheme.settings.variant_overlay | default: 'rgba(0,0,0,0.2)' %}
     {% assign scheme_background_bar = scheme.settings.background_bar | default: scheme_border %}
     {% assign scheme_background_component = scheme.settings.background_component | default: 'color-mix(in srgb, var(--background-color) 94%, var(--body-color))' %}
+    {% assign scheme_text_muted = scheme.settings.text_muted | default: scheme_body %}
     {% assign scheme_body_rgb = scheme_body | color_to_rgb | remove: 'rgba(' | remove: 'rgb(' | remove: ')' | split: ',' | slice: 0, 3 | join: ' ' | strip %}
     .{{ scheme.id }},
     .section-icon-text-cards:has(> .icon-text-cards > .icon-text-cards__spacing.{{ scheme.id }}) {
@@ -1344,6 +1357,8 @@
       --heading-color: {{ scheme_heading }};
       --heading-highlight-color: {{ scheme_heading_highlight }};
       --body-color: {{ scheme_body }};
+      --text-muted-color: {{ scheme_text_muted }};
+      --button-shadow-color: {{ scheme_accent }};
       --color-foreground-rgb: {{ scheme_body_rgb }};
       --accent-color: {{ scheme_accent }};
       --input-focus-color: var(--accent-color);
@@ -1352,7 +1367,7 @@
       --price-compare-color: var(--body-color);
       --price-unit-color: var(--body-color);
       --border-color: {{ scheme_border }};
-      --input-border-color: var(--border-color);
+      --input-border-color: color-mix(in srgb, var(--heading-color) 35%, transparent);
       --shadow-color: {{ scheme_shadow }};
       --sale-price-color: {{ scheme_sale_price }};
       --price-sale-color: var(--sale-price-color);

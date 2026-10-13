@@ -64,3 +64,22 @@ html[data-surface-light-enabled] .search-overlay__form.surface-light::before { z
 
 /* Basic header owns a spotlight across the full top bar. */
 html[data-surface-light-enabled] .header-top:not(.header-top--compact).surface-light--header::before { z-index: 1; mix-blend-mode: screen; }
+
+/* Buttons share the proximity controller, with their own Theme setting. */
+html[data-button-light-enabled] .button-light {
+  isolation: isolate;
+  overflow: hidden;
+}
+html[data-button-light-enabled] .button-light::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: var(--surface-light-opacity, 0);
+  background: radial-gradient(circle var(--button-spotlight-radius) at var(--surface-light-x, 50%) var(--surface-light-y, 50%), color-mix(in srgb, var(--button-hover-background) 70%, transparent), transparent 72%);
+}
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  html[data-button-light-enabled] .button-light::before { content: none; }
+}

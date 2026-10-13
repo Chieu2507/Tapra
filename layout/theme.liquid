@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}"{% if settings.motion_pointer_light %} data-surface-light-enabled{% endif %}>
+<html lang="{{ request.locale.iso_code }}"{% if settings.motion_pointer_light %} data-surface-light-enabled{% endif %}{% if settings.button_spotlight %} data-button-light-enabled{% endif %}>
   <head>
     {% # Establish the viewport before evaluating responsive image hints. %}
     {% render 'meta-tags' %}
