@@ -192,8 +192,6 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact shopify-account.header-account::part(signed-out-avatar) { box-sizing: border-box; width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: var(--radius-pill); }
 
 /* Utility controls deliberately use a quiet surface instead of a filled CTA. */
-.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle) { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
-.header-top.header-top--compact .header__column--right > :is(.header-search, .header-account, .header-cart, .header-menu-toggle):is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
 .header-top.header-top--compact .header__mobile-drawer-submenu a,
 .header-top.header-top--compact .header__mobile-drawer-list > li > a,
 .header-top.header-top--compact .header__mobile-drawer-details > summary { transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); border-radius: var(--radius-8); }
@@ -337,3 +335,6 @@ body:has(.search-overlay--compact[data-state='closing']) .header-top--compact .h
     transition-timing-function: ease;
   }
 }
+
+.header-top.header-top--compact .header__column--right > .header-menu-toggle { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
+.header-top.header-top--compact .header__column--right > .header-menu-toggle:is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }

@@ -90,3 +90,9 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 @media (max-width: 767.98px) {
   .header-top .header__mobile-drawer:has(.header__mobile-drawer-submenu-details:is(.is-mobile-submenu-active, .is-mobile-submenu-closing)) .header-mega-menu__banners { visibility: hidden; }
 }
+
+/* Search, account and cart share the same hover surface in both layouts. */
+.header-top .header__column--right > :is(.header-search:not(.header-search--type-search_bar), .header-account, .header-cart) { border-radius: var(--radius-pill); transition: color var(--motion-duration-fast), background-color var(--motion-duration-fast); }
+.header-top .header__column--right > :is(.header-search:not(.header-search--type-search_bar), .header-account, .header-cart):is(:hover, :focus-visible) { background: color-mix(in srgb, var(--heading-color) 12%, transparent); color: var(--heading-color); }
+.header-top .header__column--right > :is(.header-search--type-icon, .header-account, .header-cart--type-icon) { display: inline-flex; width: 44px; min-width: 44px; height: 44px; min-height: 44px; align-items: center; justify-content: center; }
+.header-top shopify-account.header-account::part(signed-out-avatar) { box-sizing: border-box; width: 44px; height: 44px; min-height: 44px; padding: 0; border-radius: var(--radius-pill); }
