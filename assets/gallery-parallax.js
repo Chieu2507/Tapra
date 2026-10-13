@@ -18,8 +18,9 @@
       const nextFirst = mobile.matches && root.dataset.mobileColumnsMode === 'first_columns' && !isEditor();
       if (nextCount === count && nextFirst === firstColumns && current.length === items.length && current.every(item => items.includes(item))) return;
       const focused = root.contains(document.activeElement) ? document.activeElement : null;
-      items = current.sort((a, b) => (Number(a.dataset.galleryOrder) || 0) - (Number(b.dataset.galleryOrder) || 0));
-      items.forEach((item, index) => { if (!item.hasAttribute('data-gallery-order')) item.dataset.galleryOrder = String(index); });
+      let nextOrder = Math.max(-1, ...current.filter(item => item.hasAttribute('data-gallery-order')).map(item => Number(item.dataset.galleryOrder))) + 1;
+      current.forEach(item => { if (!item.hasAttribute('data-gallery-order')) item.dataset.galleryOrder = String(nextOrder++); });
+      items = current.sort((a, b) => Number(a.dataset.galleryOrder) - Number(b.dataset.galleryOrder));
       columns.forEach(column => column.remove());
       count = nextCount; firstColumns = nextFirst;
       const desktopCount = Math.max(1, parseInt(style.getPropertyValue('--gallery-grid-columns'), 10) || count);

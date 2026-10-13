@@ -125,7 +125,38 @@
       "step": 4,
       "unit": "px",
       "default": 256,
-      "visible_if": "{{ block.settings.scroll_on_small_screens }}"
+      "visible_if": "{{ block.settings.layout != 'parallax' and block.settings.scroll_on_small_screens }}"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Size",
+      "options": [
+        {
+          "value": "fit",
+          "label": "Fit"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 320,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1600,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
     },
     {
       "type": "header",
@@ -263,37 +294,6 @@
       "id": "background_color",
       "label": "t:labels.background_color",
       "alpha": true
-    },
-    {
-      "type": "select",
-      "id": "width",
-      "label": "Size",
-      "options": [
-        {
-          "value": "fit",
-          "label": "Fit"
-        },
-        {
-          "value": "fill",
-          "label": "Fill"
-        },
-        {
-          "value": "custom",
-          "label": "Custom"
-        }
-      ],
-      "default": "fill"
-    },
-    {
-      "type": "range",
-      "id": "max_width",
-      "label": "Maximum width",
-      "min": 320,
-      "max": 1600,
-      "step": 20,
-      "unit": "px",
-      "default": 1600,
-      "visible_if": "{{ block.settings.width == 'custom' }}"
     },
     {
       "type": "header",
