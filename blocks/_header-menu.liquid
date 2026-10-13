@@ -68,9 +68,9 @@
   assign submenu_typography_class = 'body-text body-' | append: submenu_font_size | append: ' font-' | append: submenu_font | append: ' tracking-' | append: menu_letter_spacing | append: ' text-case-' | append: submenu_text_case
   assign menu_class = 'header-menu header-menu--trigger-' | append: dropdown_trigger
   assign mobile_drawer_class = 'header__mobile-drawer'
-  assign mobile_drawer_scheme = settings.overlay_color_scheme | default: settings.color_schemes.first.id
-  if settings.overlay_color_scheme.id != blank
-    assign mobile_drawer_scheme = settings.overlay_color_scheme.id
+  assign mobile_drawer_scheme = section.settings.color_scheme | default: settings.color_schemes.first.id
+  if section.settings.color_scheme.id != blank
+    assign mobile_drawer_scheme = section.settings.color_scheme.id
   endif
   assign mobile_drawer_scheme = mobile_drawer_scheme | default: 'scheme-1' | handleize
   assign header_menu = block.settings.menu
@@ -155,7 +155,7 @@
     <button class="component-overlay__backdrop backdrop-blur header__mobile-drawer-backdrop" type="button" tabindex="-1" aria-label="Close menu" data-component-overlay-backdrop data-header-menu-backdrop></button>
     <div class="component-overlay__panel header__mobile-drawer-surface">
       <header class="component-overlay__header header__mobile-drawer-header">
-        <span class="header__mobile-drawer-title heading-text heading-sm" id="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}">{{ shop.name | escape }}</span>
+        <span class="header__mobile-drawer-title heading-text heading-sm" id="HeaderMobileDrawerHeading-{{ section.id }}-{{ block.id }}">{% if settings.logo != blank %}{{ settings.logo | image_url: width: 240 | image_tag: class: 'header__mobile-drawer-logo', widths: '120, 240', sizes: '120px', alt: shop.name }}{% else %}{{ shop.name | escape }}{% endif %}</span>
         <button class="overlay-close component-overlay__close header__mobile-drawer-close" type="button" aria-label="Close menu" aria-controls="HeaderMobileDrawer-{{ section.id }}-{{ block.id }}" data-overlay-close data-header-menu-toggle>{% render 'icon', icon: 'x-mark', bare: true, class: 'overlay-close__icon' %}</button>
         <button class="header__mobile-drawer-back heading-text heading-sm" type="button" hidden data-header-menu-back>
           {% render 'icon', icon: 'chevron-left', class: 'header__mobile-drawer-back-icon' %}<span data-header-menu-back-label data-header-menu-back-default-label="{{ 'accessibility.menu' | t }}">{{ 'accessibility.menu' | t }}</span>

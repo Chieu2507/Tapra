@@ -786,7 +786,7 @@
           label.textContent = label.dataset.headerMenuBackDefaultLabel || 'Menu';
         });
       };
-      const deferBack = animate && container.classList.contains('header-top--compact') && window.innerWidth < 768;
+      const deferBack = animate && window.innerWidth < 768;
       if (deferBack) {
         drawer.classList.add('header__mobile-drawer--submenu-closing');
         drawer.querySelectorAll('[data-mobile-drawer-submenu-details]').forEach((details) => {
@@ -810,7 +810,7 @@
       }
 
       activeNestedDetails.classList.remove('is-mobile-submenu-active');
-      if (container.classList.contains('header-top--compact') && window.innerWidth < 768) {
+      if (window.innerWidth < 768) {
         activeNestedDetails.classList.add('is-mobile-submenu-closing');
         window.setTimeout(() => {
           if (!activeNestedDetails.classList.contains('is-mobile-submenu-active')) {
