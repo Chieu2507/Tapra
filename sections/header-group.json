@@ -76,8 +76,8 @@
             "padding_top_compact": 0,
             "padding_bottom_compact": 0,
             "customize_mobile_padding_compact": true,
-            "padding_top_mobile_compact": 12,
-            "padding_bottom_mobile_compact": 12
+            "padding_top_mobile_compact": 0,
+            "padding_bottom_mobile_compact": 0
           },
           "blocks": {
             "header-menu": {
