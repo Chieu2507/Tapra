@@ -842,6 +842,7 @@
     visual.className = 'header-top header-top--compact cart-drawer__pill';
     visual.style.paddingTop = getComputedStyle(header).paddingTop;
     visual.style.paddingBottom = getComputedStyle(header).paddingBottom;
+    visual.style.setProperty('--compact-cart-row-height', `${header.querySelector('.header__row')?.getBoundingClientRect().height || 48}px`);
     visual.append(container.cloneNode(true));
     // Freeze the rendered state, including an in-flight drill-down transition.
     const freezeVisual = (source, copy) => {

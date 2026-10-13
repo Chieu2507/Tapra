@@ -115,7 +115,8 @@
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__container { opacity: 1; transition: padding 600ms var(--header-motion-ease), opacity 300ms 450ms; }
   .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__pill .header__container { opacity: 0; padding: 0 14px 0 26px; transition: padding 600ms var(--header-motion-ease), opacity 200ms; }
-  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__pill .header__row { height: 64px; }
+  .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__row { height: var(--compact-cart-row-height, 48px); min-height: 0; transition: none; }
+  .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__pill .header__row { height: 48px; }
   .cart-drawer.cart-drawer--compact .cart-drawer__menu-residue {
     position: absolute;
     top: 64px;
