@@ -30,12 +30,12 @@
 .header-top:not(.header-top--compact) .header-mega-menu__navigation .header-menu__link-label { text-transform: uppercase; font-size: var(--font-body-xs); letter-spacing: .08em; }
 .header-top:not(.header-top--compact) .header-mega-menu__navigation .header-menu__submenu-item > .header-menu__link { min-height: 0; padding: 0; font-weight: 500; color: var(--body-color); }
 .header-top:not(.header-top--compact) .header-mega-menu__navigation .header-menu__tertiary { display: grid; gap: 8px; margin-block-start: 12px; }
-.header-top:not(.header-top--compact) .header-menu__tertiary-link { min-height: 0; font-size: var(--font-body-sm); line-height: 1.5; color: color-mix(in srgb, var(--heading-color) 60%, var(--body-color)); }
+.header-top:not(.header-top--compact) .header-mega-menu__navigation .header-menu__tertiary-link { min-height: 0; font-size: var(--font-body-sm); line-height: 1.5; color: color-mix(in srgb, var(--heading-color) 60%, var(--body-color)); }
 .header-top:not(.header-top--compact) .header-menu__submenu a { transform: translateX(0); transition: color 200ms, transform 300ms var(--motion-ease-standard); text-decoration: none; }
 .header-top:not(.header-top--compact) .header-menu__submenu a:is(:hover, :focus-visible) { color: var(--heading-color); transform: translateX(4px); }
 html[data-surface-light-enabled] .header-top .header-mega-menu__banner.surface-light::after { display: block; }
 html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-mega-menu.surface-light::before { z-index: 1; mix-blend-mode: screen; }
-.header-top:not(.header-top--compact) .header-menu__tertiary-link { padding-block: 0; }
+.header-top:not(.header-top--compact) .header-mega-menu__navigation .header-menu__tertiary-link { padding-block: 0; }
 
 /* Both header layouts share the mobile drill-down presentation. */
 @media (max-width: 767.98px) {
@@ -115,3 +115,24 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   inset-inline-end: 100%;
   width: 12px;
 }
+
+/* Ordinary submenu levels share the same row and panel spacing. */
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 10px 8px;
+}
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary > li {
+  padding: 0.45rem 0.5rem;
+}
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary-link {
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0 0.5rem;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--body-color);
+}
+.header-top .header-menu__details:not(.header-menu__details--mega) .header-menu__tertiary-link:is(:hover, :focus-visible) { color: var(--heading-color); }
