@@ -150,3 +150,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 @media (max-width: 767.98px) {
   .header-top[data-header-root] .header__column--right > .header-account { display: none; }
 }
+
+@media (max-width: 767.98px) {
+  .header-top:not(.header-top--compact) .header__mobile-drawer-close { margin-inline-end: -8px; }
+}
