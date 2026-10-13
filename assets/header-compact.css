@@ -30,7 +30,7 @@ body:has(.header-top.header-top--compact:not([data-header-overlap-first-section]
 .header-top.header-top--compact.header-top--menu-open .header__container { padding: 0 14px 0 26px; }
 .header-top.header-top--compact.header-top--menu-open .header__row { height: 64px; }
 .header-top.header-top--compact .header__column--left { display: flex; flex: 1; min-width: 0; }
-.header-top.header-top--compact .header__column--right { display: flex; flex-direction: row; gap: 0; }
+.header-top.header-top--compact .header__column--right { display: flex; flex-direction: row; gap: var(--header-top-gap, 16px); }
 .header-top.header-top--compact .header__column--center { display: none; }
 .header-top.header-top--compact .header-logo { margin: 0; }
 .header-top.header-top--compact .site-logo { width: min(var(--logo-width), 120px); max-width: 100%; }

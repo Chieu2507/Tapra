@@ -84,7 +84,7 @@
 
 {% capture header_top_style %}
   {% if header_icon_size != 20 %}--header-icon-size: {{ header_icon_size }}px;{% endif %}
-  {% if header_top_gap != 16 %}--header-top-gap: {{ header_top_gap }}px;{% endif %}
+  --header-top-gap: {{ header_top_gap }}px;
   {% if header_top_padding_top != 12 %}--header-top-padding-top: {{ header_top_padding_top }}px;{% endif %}
   {% if header_top_padding_bottom != 12 %}--header-top-padding-bottom: {{ header_top_padding_bottom }}px;{% endif %}
   {% if header_top_customize_mobile_padding %}--header-top-padding-top-mobile: {{ header_top_padding_top_mobile }}px;--header-top-padding-bottom-mobile: {{ header_top_padding_bottom_mobile }}px;{% endif %}
