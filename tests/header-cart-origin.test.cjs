@@ -11,7 +11,7 @@ test('cart handoff preserves hidden parent navigation and the current submenu sl
   const originalNodes = [
     { opacity: '1', visibility: 'visible', transform: 'none' },
     { opacity: '1', visibility: 'hidden', transform: 'none' },
-    { opacity: '1', visibility: 'visible', transform: 'matrix(1, 0, 0, 1, 37, 0)' },
+    { opacity: '1', visibility: 'visible', transform: 'matrix(1, 0, 0, 1, 37, 0)', translate: '0px 4px' },
     { opacity: '1', visibility: 'visible', transform: 'matrix(.707, .707, -.707, .707, 0, 0)', top: '5px', right: '.8px', width: '20px' },
   ];
   const copies = originalNodes.map((_node, index) => ({ style: {}, matches: () => index === 3 }));
@@ -24,6 +24,7 @@ test('cart handoff preserves hidden parent navigation and the current submenu sl
   context.freeze(original, copy);
   assert.equal(copies[1].style.visibility, 'hidden');
   assert.equal(copies[2].style.transform, 'matrix(1, 0, 0, 1, 37, 0)');
+  assert.equal(copies[2].style.translate, '0px 4px');
   assert.equal(copies[2].style.animation, 'none');
   assert.equal(copies[2].style.transition, 'none');
   assert.equal(copies[3].style.top, '5px');

@@ -200,13 +200,15 @@
         };
         toggle.addEventListener('keydown', state.compactToggleKeyHandler);
       }
-      const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
       const shellStyle = getComputedStyle(headerTop);
+      const borderTop = parseFloat(shellStyle.borderTopWidth) || 0;
       const borderLeft = parseFloat(shellStyle.borderLeftWidth) || 0;
       const borderRight = parseFloat(shellStyle.borderRightWidth) || 0;
       const borderBottom = parseFloat(shellStyle.borderBottomWidth) || 0;
-      const panelTop = row.getBoundingClientRect().bottom;
+      // Anchor to the expanded row, not its animated 48px → 64px height.
+      // Otherwise the input drifts down while the shell is opening/reopening.
+      const panelTop = rect.top + borderTop + (parseFloat(shellStyle.paddingTop) || 0) + 64;
       overlay.style.setProperty('--compact-search-width', `${Math.max(0, rect.width - borderLeft - borderRight)}px`);
       overlay.style.setProperty('--search-overlay-top', `${panelTop}px`);
       overlay.style.setProperty('--compact-search-left', `${rect.left + borderLeft}px`);

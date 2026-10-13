@@ -5,6 +5,8 @@
 .header-top .header-mega-menu__banners:has(> .header-mega-menu__banner:only-child) { grid-template-columns: minmax(0, 1fr); }
 .header-top .header-mega-menu__banner--inline { display: grid; grid-template-columns: minmax(0, min(116px, 30%)) minmax(0, 1fr); align-items: center; gap: 14px; padding: var(--mega-banner-padding-top) var(--mega-banner-padding-right) var(--mega-banner-padding-bottom) var(--mega-banner-padding-left); max-width: none; border: 1px solid var(--border-color); border-radius: var(--radius-16); }
 .header-top .header-mega-menu__banner--inline::after { display: none; }
+/* A translucent card keeps the header glass visible beneath its scheme tint. */
+.header-top .header-mega-menu__banner--inline { background: color-mix(in srgb, var(--body-color) 6%, transparent); }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-media { --media-radius: var(--radius-4); grid-area: auto; border-radius: var(--media-radius); overflow: hidden; }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-image { min-height: 0; height: 76px; aspect-ratio: auto; border-radius: inherit; }
 .header-top .header-mega-menu__banner--inline .header-mega-menu__banner-content { grid-area: auto; padding: 0; }
@@ -98,7 +100,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   .header-top .header__mobile-drawer * { transition: none !important; animation: none !important; }
 }
 @media (max-width: 767.98px) {
-  .header-top .header__mobile-drawer-surface { background: var(--background-color); }
+  .header-top:not(.header-top--compact) .header__mobile-drawer-surface { background: var(--overlay-surface-background); }
   .header-top:not(.header-top--compact) .header__mobile-drawer-back { order: 0; }
   .header-top:not(.header-top--compact) .header__mobile-drawer-title { order: 0; }
   .header-top:not(.header-top--compact) .header__mobile-drawer-close { order: 1; }
@@ -179,6 +181,9 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   --header-motion-duration: 600ms;
   --header-motion-exit-duration: 550ms;
   --header-motion-ease: cubic-bezier(.76, 0, .24, 1);
+  --header-menu-content-enter-duration: 700ms;
+  --header-menu-content-exit-duration: 300ms;
+  --header-menu-content-ease: cubic-bezier(.25, .8, .25, 1);
 }
 .header-top shopify-account::part(dialog) {
   animation-duration: var(--header-motion-duration);
@@ -218,19 +223,19 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
     animation: none;
     transform: none;
     opacity: 0;
-    transition: opacity 200ms ease-out;
+    transition: opacity var(--header-menu-content-exit-duration) ease-out;
   }
-  /* Animate leaf wrappers, leaving columns and hover transforms stationary.
-   * Keep the reveal attached through closing so items cannot reset mid-exit. */
-  .header-top:not(.header-top--compact) .header-menu__details--mega[open] .header-mega-menu__navigation .header-menu__submenu-item > .header-menu__link,
-  .header-top:not(.header-top--compact) .header-menu__details--mega[open] .header-mega-menu__navigation .header-menu__tertiary > li {
-    animation: header-menu-content-reveal 620ms cubic-bezier(.25, .8, .25, 1) both;
-    animation-delay: calc(90ms + min(var(--header-column-index, 0), 7) * 75ms + min(var(--header-item-index, 0), 8) * 45ms);
+  .header-top:not(.header-top--compact) .header-menu__details--mega::details-content { content-visibility: visible; }
+  .header-top:not(.header-top--compact) .header-menu__details--mega .header-mega-menu__layout {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--header-menu-content-exit-duration) var(--header-menu-content-ease), transform var(--header-menu-content-exit-duration) var(--header-menu-content-ease);
   }
-}
-@keyframes header-menu-content-reveal {
-  from { opacity: 0; translate: 0 8px; }
-  to { opacity: 1; translate: 0 0; }
+  .header-top:not(.header-top--compact) .header-menu__details--mega[open]:not(.is-submenu-closing) .header-mega-menu__layout {
+    opacity: 1;
+    transform: translateY(0);
+    transition-duration: var(--header-menu-content-enter-duration);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .header-top shopify-account::part(dialog) { animation: none; }

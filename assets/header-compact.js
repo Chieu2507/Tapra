@@ -12,25 +12,9 @@
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
       const navigation = [...drawer.querySelectorAll('.header__mobile-drawer-item > a, .header__mobile-drawer-item > details > summary')];
       drawer.querySelectorAll('.header__mobile-drawer-list > li').forEach((item, index) => item.style.setProperty('--compact-item-index', index));
-      drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => {
-        const columns = [...panel.querySelectorAll(':scope > ul > li')];
-        let exitDuration = 300;
-        columns.forEach((column, index) => {
-          const reverseIndex = columns.length - index - 1;
-          column.style.setProperty('--compact-column-index', index);
-          column.style.setProperty('--compact-column-exit-index', reverseIndex);
-          const rows = [...column.querySelectorAll('.header__mobile-drawer-tertiary > li')];
-          rows.forEach((row, rowIndex) => {
-            row.style.setProperty('--compact-child-index', rowIndex);
-            row.style.setProperty('--compact-child-exit-index', rows.length - rowIndex - 1);
-          });
-          exitDuration = Math.max(exitDuration, 200 + reverseIndex * 25 + Math.max(0, rows.length - 1) * 20);
-        });
-        panel.style.setProperty('--compact-stagger-exit-duration', `${exitDuration}ms`);
-        panel.style.setProperty('--compact-stagger-fade-delay', `${exitDuration - 200}ms`);
-      });
       let columnsVisible = window.innerWidth >= 768;
-      let fastTimer, measureFrame = 0, footerFrame = 0, openingUntil = 0;
+      let fastTimer, hoverTimer, measureFrame = 0, footerFrame = 0, openingUntil = 0;
+      const cancelHover = () => { clearTimeout(hoverTimer); hoverTimer = null; };
       const setVariable = (element, name, value) => {
         if (element.style.getPropertyValue(name) !== value) element.style.setProperty(name, value);
       };
@@ -100,8 +84,16 @@
         scheduleMeasure();
       };
       navigation.forEach(summary => {
-        if (drawer.dataset.dropdownTrigger !== 'click') summary.addEventListener('pointerenter', () => choose(summary), options);
-        summary.addEventListener('focus', () => choose(summary), options);
+        if (drawer.dataset.dropdownTrigger !== 'click') {
+          summary.addEventListener('pointerenter', () => {
+            cancelHover();
+            // Keep the current panel while the pointer crosses nearby rows.
+            hoverTimer = setTimeout(() => { hoverTimer = null; choose(summary); }, 160);
+          }, options);
+          summary.addEventListener('pointerleave', cancelHover, options);
+        }
+        summary.addEventListener('focus', () => { cancelHover(); choose(summary); }, options);
+        summary.addEventListener('click', cancelHover, options);
       });
       drawer.addEventListener('toggle', scheduleMeasure, { ...options, capture: true });
       drawer.addEventListener('click', () => { followPanel(); scheduleMeasure(); }, options);
@@ -112,6 +104,7 @@
         event.stopPropagation();
       }, { ...options, capture: true });
       const synchronizeOpenMenu = (preserveSelection = false) => {
+        cancelHover();
         openingUntil = performance.now() + 600;
         clearTimeout(fastTimer);
         root.classList.remove('header-compact--fast');
@@ -123,6 +116,7 @@
         scheduleMeasure();
       };
       drawer.addEventListener('open', () => synchronizeOpenMenu(), options);
+      drawer.addEventListener('closing', cancelHover, options);
       document.addEventListener('pointerdown', event => {
         const insideLocalization = [...drawer.querySelectorAll('[data-localization-dialog-id]')].some(details => {
           const dialog = document.getElementById(details.dataset.localizationDialogId);
@@ -130,7 +124,7 @@
         });
         if (insideLocalization) return;
         if (root.classList.contains('header-top--menu-open') && !root.contains(event.target)) {
-          window.ThemeOverlay?.get(drawer)?.close({ restoreFocus: true });
+          window.ThemeOverlay?.get(drawer)?.close({ restoreFocus: false });
         }
       }, options);
       document.addEventListener('shopify:block:select', event => {
@@ -146,7 +140,7 @@
       drawer.querySelectorAll('.header__mobile-drawer-submenu').forEach(panel => observer.observe(panel));
       observer.observe(drawer.querySelector('.header__mobile-drawer-surface'));
       shellObserver.observe(root);
-      instances.set(root, { controller, observer, shellObserver, clearTimer: () => { cancelAnimationFrame(measureFrame); cancelAnimationFrame(footerFrame); clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
+      instances.set(root, { controller, observer, shellObserver, clearTimer: () => { cancelAnimationFrame(measureFrame); cancelAnimationFrame(footerFrame); cancelHover(); clearTimeout(fastTimer); root.classList.remove('header-compact--fast'); } });
       // Catch an open event that happened before this deferred script was ready.
       if (root.classList.contains('header-top--menu-open') && ['opening', 'open'].includes(drawer.dataset.state)) synchronizeOpenMenu(true);
     });

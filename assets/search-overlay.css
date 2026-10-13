@@ -26,14 +26,14 @@
   body:has(.section-header .header__container.full-width) .search-overlay__container { max-width: none; }
   .search-overlay--scheme { color: var(--body-color); }
   .search-overlay__container { padding-block: 1rem; }
-  .search-overlay__panel { background: var(--overlay-background-color); }
+  .search-overlay__panel { background: var(--overlay-surface-background); }
   .search-overlay--has-results .search-overlay__panel {
-    background: var(--overlay-background-color);
+    background: var(--overlay-surface-background);
     border-bottom: 1px solid color-mix(in srgb, var(--border-color) 55%, transparent);
     box-shadow: none;
   }
-  .search-overlay--scheme.search-overlay--has-results .search-overlay__panel { background: var(--background-color); }
-  .search-overlay--scheme .search-overlay__panel { background: var(--background-color); }
+  .search-overlay--scheme.search-overlay--has-results .search-overlay__panel { background: var(--overlay-surface-background); }
+  .search-overlay--scheme .search-overlay__panel { background: var(--overlay-surface-background); }
 
   /* Search sits below the header stack so the announcement bar and header stay
    * visible and unblurred. Keep this elevation scoped to Search; other overlays

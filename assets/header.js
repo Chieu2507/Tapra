@@ -742,6 +742,9 @@
     drawer.dataset.ready = 'true';
     container.querySelectorAll('[data-header-menu-toggle]').forEach(toggle => toggle.setAttribute('aria-controls', drawer.id));
     window.ThemeOverlay?.get(drawer);
+    // Backdrop, Escape and external dismissals must collapse the shell/toggle
+    // at the start of the fade, just like clicking the menu toggle itself.
+    drawer.addEventListener('closing', () => setHeaderMenuState(header, false, { syncOverlay: false }));
     drawer.addEventListener('close', () => setHeaderMenuState(header, false, { syncOverlay: false }));
 
     const cursorBinding = window.ThemeOverlay?.bindBackdropCursor({

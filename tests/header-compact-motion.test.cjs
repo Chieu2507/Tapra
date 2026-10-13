@@ -1,6 +1,6 @@
 const test=require('node:test');const assert=require('node:assert/strict');const fs=require('node:fs');const vm=require('node:vm');
 function fixture({hasSummary=false,initialActive=false}={}){
- const frames=new Map(),observers=[];let id=0,now=0,reads=0,writes=0,height=50;
+ const frames=new Map(),timers=new Map(),observers=[];let id=0,now=0,reads=0,writes=0,height=50;
  class Node{
   constructor(){this.listeners=new Map();this.dataset={};this.values={};this.style={getPropertyValue:k=>this.values[k]||'',setProperty:(k,v)=>{writes++;this.values[k]=String(v);}};const classes=new Set();this.classList={add:k=>classes.add(k),remove:k=>classes.delete(k),contains:k=>classes.has(k),toggle:(k,v)=>v?classes.add(k):classes.delete(k)};}
   addEventListener(k,f){const a=this.listeners.get(k)||[];a.push(f);this.listeners.set(k,a);}
@@ -14,10 +14,25 @@ function fixture({hasSummary=false,initialActive=false}={}){
  const document=new Node();document.readyState='complete';document.querySelectorAll=()=>[root];document.querySelector=()=>null;
  const window=new Node();window.innerWidth=1200;
  class Observer{constructor(callback){this.callback=callback;this.targets=[];observers.push(this);}observe(n){this.targets.push(n);}disconnect(){this.disconnected=true;}}
- vm.runInNewContext(fs.readFileSync('assets/header-compact.js','utf8'),{document,window,AbortController,ResizeObserver:Observer,requestAnimationFrame:f=>{frames.set(++id,f);return id;},cancelAnimationFrame:i=>frames.delete(i),setTimeout:()=>++id,clearTimeout(){},performance:{now:()=>now},getComputedStyle:()=>({paddingTop:'0px',paddingBottom:'0px',borderTopWidth:'0px',borderBottomWidth:'0px'})});
+ vm.runInNewContext(fs.readFileSync('assets/header-compact.js','utf8'),{document,window,AbortController,ResizeObserver:Observer,requestAnimationFrame:f=>{frames.set(++id,f);return id;},cancelAnimationFrame:i=>frames.delete(i),setTimeout:(f,delay)=>{timers.set(++id,{f,delay});return id;},clearTimeout:i=>timers.delete(i),performance:{now:()=>now},getComputedStyle:()=>({paddingTop:'0px',paddingBottom:'0px',borderTopWidth:'0px',borderBottomWidth:'0px'})});
  const flush=()=>{const pending=[...frames.values()];frames.clear();pending.forEach(f=>f());};
- return {root,drawer,document,observers,flush,summary,clicks:()=>clicks,setNow:v=>now=v,setHeight:v=>height=v,reads:()=>reads,writes:()=>writes,frames};
+ return {root,drawer,document,observers,flush,summary,timers,flushTimers:()=>{const pending=[...timers.values()];timers.clear();pending.forEach(t=>t.f());},clicks:()=>clicks,setNow:v=>now=v,setHeight:v=>height=v,reads:()=>reads,writes:()=>writes,frames};
 }
+test('quick pointer crossings retain the active panel; dwelling selects after 160ms',()=>{
+ const f=fixture({hasSummary:true,initialActive:true});f.flush();f.summary.parentElement.open=false;
+ f.summary.emit('pointerenter');assert.equal(f.clicks(),0);assert.equal([...f.timers.values()][0].delay,160);
+ f.summary.emit('pointerleave');f.flushTimers();assert.equal(f.clicks(),0);
+ f.summary.emit('pointerenter');f.flushTimers();assert.equal(f.clicks(),1);
+});
+test('closing or unloading cancels pending hover, while keyboard focus selects immediately',()=>{
+ for(const action of ['closing','unload','focus']){
+  const f=fixture({hasSummary:true,initialActive:true});f.flush();f.summary.parentElement.open=false;f.summary.emit('pointerenter');
+  if(action==='closing')f.drawer.emit('closing');
+  else if(action==='unload')f.document.emit('shopify:section:unload',{target:{contains:n=>n===f.root}});
+  else f.summary.emit('focus');
+  f.flushTimers();assert.equal(f.clicks(),action==='focus'?1:0);
+ }
+});
 test('content measurement is coalesced and repeated unchanged writes are avoided',()=>{
  const f=fixture();f.drawer.emit('open');for(let i=0;i<20;i++)f.observers[0].callback();assert.equal(f.frames.size,1);f.flush();assert.equal(f.reads(),1);
  const writes=f.writes();f.observers[0].callback();f.flush();assert.equal(f.writes(),writes);

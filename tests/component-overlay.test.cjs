@@ -275,6 +275,29 @@ test('close waits for the slower panel or backdrop timeline', () => {
   assert.equal(f.timerDelays.at(-1), 716);
 });
 
+test('toggle, backdrop and Escape notify closing before the exit timer finishes', () => {
+  for (const action of ['toggle', 'backdrop', 'escape']) {
+    const f = fixture();
+    const overlay = f.api.get(f.dialog);
+    const events = [];
+    f.dialog.addEventListener('closing', () => events.push(f.dialog.dataset.state));
+    f.dialog.addEventListener('close', () => events.push('closed'));
+    overlay.open();
+    if (action === 'toggle') overlay.close();
+    else if (action === 'backdrop') f.backdrop.dispatchEvent(new Event('click'));
+    else {
+      const event = new Event('keydown', { cancelable: true });
+      Object.assign(event, { key: 'Escape' });
+      f.dialog.dispatchEvent(event);
+    }
+    assert.deepEqual(events, ['closing']);
+    assert.equal(f.dialog.hidden, false);
+    f.flushTimers();
+    f.flushNative();
+    assert.deepEqual(events, ['closing', 'closed']);
+  }
+});
+
 test('pointer-triggered close clears native focus without restoring it to the opener', () => {
   const f = fixture();
   f.overlay.open({ opener: f.opener, restoreFocus: false });

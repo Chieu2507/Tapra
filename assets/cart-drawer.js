@@ -852,6 +852,7 @@
         node.style.opacity = style.opacity;
         node.style.visibility = style.visibility;
         node.style.transform = style.transform;
+        node.style.translate = style.translate;
         node.style.animation = 'none';
         node.style.transition = 'none';
         if (node.matches('.header-menu-toggle__compact-icon i')) {

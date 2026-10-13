@@ -1,4 +1,5 @@
   .cart-drawer {
+    --overlay-surface-opacity: 80%;
     --overlay-background-color: var(--background-color);
     --overlay-text-color: var(--body-color);
     --overlay-border-color: var(--border-color);
@@ -55,10 +56,11 @@
     height: var(--compact-cart-rest-height, 50px);
     max-height: none;
     border-radius: 24px;
-    background: var(--compact-cart-background, var(--background-color));
+    background: var(--compact-cart-background, var(--overlay-surface-background));
     border: var(--compact-cart-border, 0);
     box-shadow: var(--compact-cart-shadow, none);
-    backdrop-filter: var(--compact-cart-blur, blur(16px));
+    -webkit-backdrop-filter: var(--compact-cart-blur, var(--overlay-surface-blur));
+    backdrop-filter: var(--compact-cart-blur, var(--overlay-surface-blur));
     opacity: 1;
     transform: translateX(0);
     translate: 0 0;
@@ -73,6 +75,9 @@
     transition: none;
   }
   .cart-drawer.cart-drawer--compact.component-overlay[data-state='open'] .cart-drawer__panel {
+    background: var(--overlay-surface-background);
+    -webkit-backdrop-filter: var(--overlay-surface-blur);
+    backdrop-filter: var(--overlay-surface-blur);
     width: min(410px, calc(100vw - 24px));
     height: min(680px, calc(100dvh - var(--compact-cart-top, 16px) - 12px - env(safe-area-inset-bottom, 0px)));
     border-radius: 26px;

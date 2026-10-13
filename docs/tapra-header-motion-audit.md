@@ -1,5 +1,90 @@
 # Tapra header motion audit — 2026-10-13
 
+## Final whole-group child-menu motion — 2026-10-14
+
+The user's final direction supersedes per-column/per-item reveal: the complete
+child-menu group, including banners, fades and translates Y20→0 on opening
+(700ms) and Y0→20 on closing (300ms). Basic animates its layout wrapper; Compact
+animates its submenu wrapper. Both share duration/easing tokens. Removed child
+keyframes, stagger variables and index markup/controller setup. Compact closing
+keeps the group rendered through the 300ms exit; opening establishes the Y20
+state before the shared overlay reveals it. Mobile retains horizontal drill-down.
+
+Single Compact banner fills the content width (observed608px); two banners keep
+two columns (298px each). Local Compact open/close inspection confirmed a 500ms
+group entrance, 300ms exit approaching Y20/opacity0, and no child animations.
+55 related tests pass; syntax/whitespace pass; Theme Check 0 errors/45 warnings.
+Basic group motion was source-reviewed; live Basic mode not retested in this
+pass. Evidence: `output/header-motion-audit/menu-whole-group-motion.png`.
+
+## Compact category hover intent — 2026-10-14
+
+Compact category hover now waits 160ms before selecting a new panel. Pointer
+leave cancels the pending selection, so rapid crossings keep the current panel
+instead of repeatedly restarting its reveal. Keyboard focus and clicks remain
+immediate. Opening, closing and section unload clear pending hover work.
+
+Regression tests cover a quick crossing, deliberate dwell, close/unload
+cancellation and immediate keyboard selection. Native Chrome pointer movement
+confirmed Collections activates without navigating. Evidence:
+`output/header-motion-audit/compact-hover-intent.png`.
+
+## Menu → Search shell handoff — 2026-10-14
+
+Reproduced a separate drift in the exact menu-to-search sequence: desktop menu
+closing selectors overrode the active Search geometry, shrinking the header row
+from 64px toward 48px before it returned. The shell/row/container closing rules
+now apply only when Compact Search is not opening or open. The outgoing menu
+still fades while the existing expanded bar remains in place.
+
+After correction, 35 consecutive local DOM observations during the handoff
+reported row 64px, logo top37, panel top81 and shell width900 without variation.
+Before correction the same sequence showed row64→approximately50 and logo37→30.
+34 related tests pass; Theme Check 0 errors/45 warnings; diff whitespace passes.
+Evidence: `output/header-motion-audit/menu-to-search-no-collapse.png`.
+
+## Shared Basic/Compact child-menu reveal — 2026-10-14
+
+Desktop Compact child menus now use Basic's shared reveal tokens and keyframe:
+620ms duration, cubic-bezier(.25,.8,.25,1), 90ms initial delay, 75ms per column,
+45ms per row and 8px upward translation. Titles and row wrappers animate;
+columns and the panel stay stationary, with a 260ms surface fade. Mobile
+drill-down retains its horizontal slide. Liquid emits Compact indices before
+the deferred controller loads. Cart snapshots now also freeze computed
+`translate` so a mid-reveal handoff retains the current visual position.
+
+Local computed-style QA confirmed matching duration/easing/delays on all four
+Shop columns. 21 related Compact/cart tests pass; JS syntax and whitespace
+checks pass. Theme Check: 0 errors, 45 warnings. Evidence:
+`output/header-motion-audit/compact-menu-reveal-synced.png`.
+
+## Stable Compact Search anchor — 2026-10-14
+
+Search previously measured the animated header row's bottom, so its panel moved
+from about y67 to y81 as the row grew from 48px to 64px. The panel now anchors
+to the expanded row's 64px height plus the current shell top, border and padding.
+Header expansion and input fade remain intact; Classic Search is unaffected.
+Local desktop and Auto390 mobile inspection confirmed panel top y81 both during
+opening (row approximately 50px) and after completion (row 64px), with transform
+none. 34 related tests pass, including anchor regressions for intermediate row
+heights and safe-area padding; syntax and whitespace checks pass. Theme Check:
+0 errors, 45 warnings. Evidence: `output/header-motion-audit/search-position-stable-desktop.png`.
+
+## Menu dismissal synchronization — 2026-10-14
+
+The shared overlay now emits `closing` immediately after entering its closing
+state. The header synchronizes its shell and toggle at that event, rather than
+waiting for `close` after the fade finishes. Button, outside dismissal and Escape
+within the menu now start the same icon/shell transition. Outside pointer
+dismissal does not restore opener focus.
+
+Local desktop QA confirmed `drawer: closing`, shell open false and toggle
+expanded false immediately after either the toggle or an outside click. Mobile
+Escape within the menu produced the same state. 49 related tests pass, including
+the new notification-timing regression; JS syntax and diff whitespace pass.
+Theme Check: 0 errors, 45 warnings. Screen evidence:
+`output/header-motion-audit/menu-backdrop-close-synced.png`.
+
 ## Final pre-commit verification — 2026-10-14
 
 - Final selection: Compact header, Cart Drawer presentation, Auto mobile width.
