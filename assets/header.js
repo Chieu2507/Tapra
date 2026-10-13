@@ -83,7 +83,9 @@
   const closeSearchOverlay = () => {
     const overlay = document.querySelector('[data-search-overlay]');
     if (!overlay || overlay.hasAttribute('hidden')) return;
-    overlay.querySelector('[data-search-overlay-close]')?.click();
+    const presentation = window.ThemeOverlay?.get(overlay);
+    if (presentation) presentation.close({ restoreFocus: false });
+    else overlay.querySelector('[data-search-overlay-close]')?.click();
   };
 
   const closeCartDrawer = () => {
@@ -1136,6 +1138,7 @@
           syncMotion();
         }
         openAccountSheets.add(account);
+        account.setAttribute('data-account-open', '');
         const headerTop = header.querySelector('.header-top') || header;
         const keepMobileMenuOpen =
           isMobileMenuViewport() && headerTop.classList.contains('header-top--menu-open');
@@ -1145,6 +1148,7 @@
       });
       account.addEventListener('close', () => {
         openAccountSheets.delete(account);
+        account.removeAttribute('data-account-open');
         scheduleUpdate();
       });
     });
