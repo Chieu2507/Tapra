@@ -200,19 +200,26 @@
         };
         toggle.addEventListener('keydown', state.compactToggleKeyHandler);
       }
-      const row = headerTop.querySelector('.header__row') || headerTop;
       const rect = headerTop.getBoundingClientRect();
-      overlay.style.setProperty('--compact-search-width', `${Math.max(0, rect.width - 2)}px`);
-      overlay.style.setProperty('--search-overlay-top', `${row.getBoundingClientRect().bottom}px`);
-      overlay.style.setProperty('--compact-search-left', `${rect.left + 1}px`);
+      const shellStyle = getComputedStyle(headerTop);
+      const borderTop = parseFloat(shellStyle.borderTopWidth) || 0;
+      const borderLeft = parseFloat(shellStyle.borderLeftWidth) || 0;
+      const borderRight = parseFloat(shellStyle.borderRightWidth) || 0;
+      const borderBottom = parseFloat(shellStyle.borderBottomWidth) || 0;
+      // Anchor to the expanded row, not its animated 48px → 64px height.
+      // Otherwise the input drifts down while the shell is opening/reopening.
+      const panelTop = rect.top + borderTop + (parseFloat(shellStyle.paddingTop) || 0) + 64;
+      overlay.style.setProperty('--compact-search-width', `${Math.max(0, rect.width - borderLeft - borderRight)}px`);
+      overlay.style.setProperty('--search-overlay-top', `${panelTop}px`);
+      overlay.style.setProperty('--compact-search-left', `${rect.left + borderLeft}px`);
+      if (window.innerWidth < 768) overlay.style.setProperty('--compact-search-panel-height', `${Math.max(0, rect.bottom - borderBottom - panelTop)}px`);
       const panel = overlay.querySelector('.search-overlay__panel');
       if (panel && !overlay.hidden) {
         const panelRect = panel.getBoundingClientRect();
-        const shellStyle = getComputedStyle(headerTop);
         const shellPadding = parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom);
-        headerTop.style.setProperty('--compact-search-height', `${64 + panelRect.height + shellPadding + 1}px`);
-        overlay.style.setProperty('--compact-search-clip-right', `${Math.max(0, panelRect.width - rect.width + 2)}px`);
-        overlay.style.setProperty('--compact-search-clip-bottom', `${Math.max(0, panelRect.bottom - rect.bottom + 1)}px`);
+        if (window.innerWidth >= 768) headerTop.style.setProperty('--compact-search-height', `${64 + panelRect.height + shellPadding + borderBottom}px`);
+        overlay.style.setProperty('--compact-search-clip-right', `${Math.max(0, panelRect.right - rect.right + borderRight)}px`);
+        overlay.style.setProperty('--compact-search-clip-bottom', `${Math.max(0, panelRect.bottom - rect.bottom + borderBottom)}px`);
       }
     }
     const headerStyles = window.getComputedStyle(headerTop);

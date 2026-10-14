@@ -874,7 +874,7 @@
     assign overlay_drawer_edge_radius_mobile = 'var(--drawer-radius)'
   endif
   assign overlay_drawer_content_padding_desktop = '1.5rem'
-  assign overlay_drawer_content_padding_mobile = '1rem'
+  assign overlay_drawer_content_padding_mobile = '20px'
 
   assign overlay_opacity = settings.overlay_opacity
   if overlay_opacity == blank
@@ -1289,6 +1289,27 @@
     --overlay-drawer-edge-radius-mobile: {{ overlay_drawer_edge_radius_mobile }};
     --overlay-drawer-content-padding-desktop: {{ overlay_drawer_content_padding_desktop }};
     --overlay-drawer-content-padding-mobile: {{ overlay_drawer_content_padding_mobile }};
+    /* One mobile drawer geometry for every consumer, including header shells. */
+    --drawer-mobile-mode: {{ settings.overlay_drawer_width_mobile | default: 'auto' }};
+    --drawer-mobile-max-width: 410px;
+    --drawer-mobile-max-height: 680px;
+    {% if settings.overlay_drawer_width_mobile == 'full' %}
+      --drawer-mobile-gutter: 0px;
+      --drawer-mobile-top: 0px;
+      --drawer-mobile-width: 100vw;
+      --drawer-mobile-height: 100dvh;
+      --drawer-mobile-radius: 0px;
+      --drawer-mobile-center-shift: 0px;
+      --drawer-mobile-safe-top: env(safe-area-inset-top, 0px);
+    {% else %}
+      --drawer-mobile-gutter: {% if settings.overlay_drawer_padding_mobile %}24px{% else %}12px{% endif %};
+      --drawer-mobile-top: calc(max({% if settings.overlay_drawer_padding_mobile %}24px{% else %}16px{% endif %}, var(--header-compact-top, 16px)) + env(safe-area-inset-top, 0px));
+      --drawer-mobile-width: min(var(--drawer-mobile-max-width), calc(100vw - var(--drawer-mobile-gutter) * 2));
+      --drawer-mobile-height: min(var(--drawer-mobile-max-height), calc(100dvh - var(--drawer-mobile-top) - var(--drawer-mobile-gutter) - env(safe-area-inset-bottom, 0px)));
+      --drawer-mobile-radius: 26px;
+      --drawer-mobile-center-shift: max(0px, calc((100vw - var(--drawer-mobile-max-width)) / 2 - var(--drawer-mobile-gutter)));
+      --drawer-mobile-safe-top: 0px;
+    {% endif %}
     --z-base: {{ overlay_z_base | default: 10 }};
     --z-drawer: {{ overlay_z_drawer | default: 200 }};
     --z-modal: {{ overlay_z_modal | default: 1000 }};

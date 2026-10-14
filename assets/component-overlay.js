@@ -404,6 +404,7 @@
       this.restoreFocus = restoreFocus;
       if (!fromGesture) this.gesture.reset();
       this.dialog.dataset.state = 'closing';
+      this.dialog.dispatchEvent?.(new Event('closing'));
       const finish = () => {
         if (!this.isOpen()) return;
         this.finishClose();
