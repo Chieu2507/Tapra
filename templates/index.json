@@ -1187,60 +1187,6 @@
         "padding_bottom_mobile": 64
       }
     },
-    "tapra_story": {
-      "type": "rich-text",
-      "blocks": {
-        "eyebrow": {
-          "type": "eyebrow",
-          "static": true,
-          "settings": {
-            "text": "<p>About Tapra</p>"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "disabled": true,
-          "static": true,
-          "settings": {
-            "text": "<p>About Tapra</p>"
-          }
-        },
-        "text": {
-          "type": "text",
-          "disabled": true,
-          "static": true,
-          "settings": {
-            "text": "<p>Our story</p>"
-          }
-        },
-        "block_4": {
-          "type": "editorial-text",
-          "settings": {
-            "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
-            "size": "lg",
-            "width": "custom",
-            "max_width": 820,
-            "enable_scroll_reveal": true,
-            "reveal_unit": "word",
-            "start_opacity": 28
-          }
-        }
-      },
-      "block_order": [
-        "block_4"
-      ],
-      "settings": {
-        "alignment": "center",
-        "gap_desktop": 24,
-        "gap_mobile": 20,
-        "color_scheme": "scheme-2",
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 64,
-        "padding_bottom_mobile": 0
-      }
-    },
     "tapra_media": {
       "type": "interactive-media",
       "blocks": {
@@ -1354,6 +1300,42 @@
             "child_1",
             "child_2"
           ]
+        },
+        "header": {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "custom",
+            "max_width": 820,
+            "inherit_alignment": false,
+            "alignment": "center",
+            "gap_desktop": 24,
+            "gap_mobile": 20
+          },
+          "blocks": {
+            "eyebrow": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>About Tapra</p>"
+              }
+            },
+            "editorial": {
+              "type": "editorial-text",
+              "settings": {
+                "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+                "size": "lg",
+                "width": "custom",
+                "max_width": 820,
+                "enable_scroll_reveal": true,
+                "reveal_unit": "word",
+                "start_opacity": 28
+              }
+            }
+          },
+          "block_order": [
+            "eyebrow",
+            "editorial"
+          ]
         }
       },
       "block_order": [
@@ -1372,7 +1354,6 @@
   },
   "order": [
     "slideshow",
-    "tapra_story",
     "tapra_media",
     "tapra_faq",
     "instagram_gallery"

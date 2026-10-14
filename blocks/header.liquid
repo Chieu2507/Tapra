@@ -1,6 +1,6 @@
 {% doc %}
-  Renders a compound header block that stacks optional Eyebrow, Heading, and
-  Text child blocks.
+  Renders a compound header block that stacks optional Eyebrow, Heading, Editorial text,
+  and Text child blocks.
 
   This block owns its child flow, optional max width, gaps, and padding without
   overriding child typography. Alignment can inherit from the parent layout.
@@ -194,7 +194,7 @@
     min-width: 0;
   }
 
-  .block-header > :is(.heading-block, .text-block, .eyebrow-block) {
+  .block-header > :is(.heading-block, .text-block, .eyebrow-block, .editorial-text-block) {
     text-align: var(--header-text-align, inherit);
   }
 
@@ -207,7 +207,7 @@
       padding-left: var(--header-padding-left-mobile, var(--header-padding-left, 0px));
     }
 
-    .block-header > :is(.heading-block, .text-block, .eyebrow-block) {
+    .block-header > :is(.heading-block, .text-block, .eyebrow-block, .editorial-text-block) {
       text-align: var(--header-text-align-mobile, var(--header-text-align, inherit));
     }
   }
