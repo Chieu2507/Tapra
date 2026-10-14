@@ -51,7 +51,7 @@
   {% if section.settings.background_color != blank %}--faq-section-background: {{ section.settings.background_color | escape }};{% endif %}
 {% endcapture %}
 
-<div class="section-spacing faq-section faq-section--{{ faq_section_layout }} faq-section--align-{{ faq_section_alignment }} faq-section--position-{{ faq_section_position }}{% if section.settings.vertical_on_mobile %} faq-section--vertical-mobile faq-section--mobile-align-{{ faq_section_mobile_alignment }}{% endif %} color-scheme section-color-scope {{ faq_section_scheme }}" style="{{ faq_section_style | strip }}">
+<div{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | handleize }}"{% endif %} class="section-spacing faq-section faq-section--{{ faq_section_layout }} faq-section--align-{{ faq_section_alignment }} faq-section--position-{{ faq_section_position }}{% if section.settings.vertical_on_mobile %} faq-section--vertical-mobile faq-section--mobile-align-{{ faq_section_mobile_alignment }}{% endif %} color-scheme section-color-scope {{ faq_section_scheme }}" style="{{ faq_section_style | strip }}">
     <div class="container {{ faq_section_container_width }} faq-section__container">
       <div class="faq-section__content">
         {% content_for 'blocks' %}
@@ -114,6 +114,7 @@
   "blocks": [{ "type": "group" }, { "type": "faq_accordion" }],
   "settings": [
     { "type": "header", "content": "Layout" },
+    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "info": "Optional link target, for example faq." },
     { "type": "select", "id": "section_width", "label": "t:labels.section_width", "options": [{ "value": "page_width", "label": "t:options.section_width.page_width" }, { "value": "full_width", "label": "t:options.section_width.full_width" }, { "value": "full_width_no_padding", "label": "t:options.section_width.full_width_no_padding" }], "default": "page_width" },
     { "type": "checkbox", "id": "limit_width", "label": "t:labels.limit_width", "default": false },
     { "type": "range", "id": "max_width", "label": "t:labels.max_width", "min": 320, "max": 1280, "step": 16, "unit": "px", "default": 768, "visible_if": "{{ section.settings.limit_width }}" },
@@ -152,6 +153,164 @@
         { "type": "faq_item", "settings": { "question": "How can I contact support?", "show_question_icon": true, "question_icon": "share" } }
       ] }
     ]
-  }]
+  },
+{
+  "name": "FAQ cards",
+  "category": "Text",
+  "settings": {
+    "section_width": "page_width",
+    "layout": "horizontal",
+    "position": "top",
+    "horizontal_alignment": "left",
+    "vertical_on_mobile": true,
+    "gap_desktop": 40,
+    "gap_mobile": 32,
+    "color_scheme": "scheme-3",
+    "padding_top": 96,
+    "padding_bottom": 96,
+    "customize_mobile_padding": true,
+    "padding_top_mobile": 64,
+    "padding_bottom_mobile": 64,
+    "anchor_id": "faq"
+  },
+  "blocks": [
+    {
+      "type": "group",
+      "settings": {
+        "width": "fill",
+        "gap_desktop": 16,
+        "gap_mobile": 16,
+        "alignment": "left"
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "text": "<p>A few things you might be wondering.</p>",
+            "heading_size": "xl",
+            "html_tag": "h2",
+            "width": "fill"
+          }
+        }
+      ]
+    },
+    {
+      "type": "faq_accordion",
+      "settings": {
+        "use_elara_layout": true,
+        "style": "boxed",
+        "icon": "plus",
+        "dividers": false,
+        "question_font": "body",
+        "question_body_font_size": "md",
+        "answer_font_size": "md",
+        "border_thickness": 0,
+        "shadow": "none",
+        "padding": "custom",
+        "padding_top": 18,
+        "padding_right": 22,
+        "padding_bottom": 18,
+        "padding_left": 22,
+        "gap_desktop": 10,
+        "gap_mobile": 10,
+        "width": "custom",
+        "custom_width": 57,
+        "width_mobile": "fill",
+        "device": "desktop",
+        "color_type": "inherit",
+        "single_open": true,
+        "item_background": "#ffffff0f",
+        "corner_radius": "radius_16"
+      },
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "use_elara_layout": true,
+            "question": "How long is the warranty?",
+            "show_question_icon": false,
+            "initially_open": true,
+            "pointer_light": true
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>12 months on the board and PCB. Manufacturing faults are replaced within the first 30 days.</p>",
+                "text_size": "md",
+                "text_color": "#bfe3ffb8",
+                "width": "fill"
+              }
+            }
+          ]
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "use_elara_layout": true,
+            "question": "Can I change switches myself?",
+            "show_question_icon": false,
+            "initially_open": false,
+            "pointer_light": true
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Yes. The hot-swap PCB lets you pull out switches and press in new ones, no soldering.</p>",
+                "text_size": "md",
+                "text_color": "#bfe3ffb8",
+                "width": "fill"
+              }
+            }
+          ]
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "use_elara_layout": true,
+            "question": "Does it work with Mac and Windows?",
+            "show_question_icon": false,
+            "initially_open": false,
+            "pointer_light": true
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Yes. The board detects your system and remaps modifier keys with one shortcut.</p>",
+                "text_size": "md",
+                "text_color": "#bfe3ffb8",
+                "width": "fill"
+              }
+            }
+          ]
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "use_elara_layout": true,
+            "question": "How fast is shipping?",
+            "show_question_icon": false,
+            "initially_open": false,
+            "pointer_light": true
+          },
+          "blocks": [
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
+                "text_size": "md",
+                "text_color": "#bfe3ffb8",
+                "width": "fill"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+  ]
 }
 {% endschema %}
