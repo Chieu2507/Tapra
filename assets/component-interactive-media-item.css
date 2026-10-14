@@ -123,16 +123,12 @@
 .interactive-media-item__overlay.is-scroll-copy .interactive-media-item__content {
   transform: translateY(var(--media-scroll-copy-travel, 0px));
 }
-.interactive-media-item__overlay.is-scroll-copy.is-scroll-hiding { transition: opacity var(--motion-duration-surface) var(--motion-ease-reveal); }
-.interactive-media-item__overlay.is-scroll-hiding .interactive-media-item__content { transition: transform var(--motion-duration-surface) var(--motion-ease-reveal); }
 .interactive-media-item__overlay.is-player-transition { transition: opacity var(--motion-duration-reveal) var(--motion-ease-reveal), visibility var(--motion-duration-reveal) var(--motion-ease-reveal); }
 .interactive-media-item__overlay.is-player-transition .interactive-media-item__content { transition: transform var(--motion-duration-reveal) var(--motion-ease-reveal); }
 .interactive-media-expansion.is-collapsing .interactive-media-item__overlay.is-player-transition,
 .interactive-media-expansion.is-collapsing .is-player-transition .interactive-media-item__content { transition-duration: var(--motion-duration-surface); }
 @media (prefers-reduced-motion: reduce) {
   .interactive-media-item__overlay.is-player-transition,
-  .interactive-media-item__overlay.is-player-transition .interactive-media-item__content,
-  .interactive-media-item__overlay.is-scroll-hiding,
-  .interactive-media-item__overlay.is-scroll-hiding .interactive-media-item__content { transition: none; }
+  .interactive-media-item__overlay.is-player-transition .interactive-media-item__content { transition: none; }
 }
 .interactive-media-item .video.is-scroll-autoplay > .video__play { visibility: hidden; opacity: 0; pointer-events: none; }
