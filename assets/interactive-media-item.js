@@ -268,6 +268,7 @@
     collapse({ animate = true, restoreFocus = true } = {}) {
       const player = this.activePlayer;
       if (!player) return;
+      console.warn('media-collapse-debug', new Error().stack);
       this.activePlayer = null;
       this.setFullContent(false);
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
