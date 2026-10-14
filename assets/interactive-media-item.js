@@ -204,7 +204,13 @@
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
       const playerTransition = this.fullContent.classList.contains('is-player-transition');
-      const hiding = !playerTransition && !this.motion.matches && (opacity < (this.scrollCopyTargetOpacity || 0) || this.fullContent.classList.contains('is-scroll-hiding'));
+      const now = Date.now();
+      const previousOpacity = this.scrollCopyTargetOpacity || 0;
+      const speed = Math.abs(progress - (this.scrollContentSampleProgress ?? progress)) / Math.max(1, now - (this.scrollContentSampleTime ?? now));
+      const fastScroll = speed > .0008;
+      const hiding = !playerTransition && !this.motion.matches && ((opacity < previousOpacity && fastScroll) || (this.fullContent.classList.contains('is-scroll-hiding') && (fastScroll || opacity === previousOpacity)));
+      this.scrollContentSampleProgress = progress;
+      this.scrollContentSampleTime = now;
       clearTimeout(this.scrollContentHideTimer);
       this.scrollCopyTargetOpacity = opacity;
       if (hiding) this.fullContent.classList.add('is-scroll-hiding');
