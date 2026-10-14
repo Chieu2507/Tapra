@@ -20,7 +20,7 @@ lh-interactive-media-scroll.is-scroll-ready {
   width: 100%; height: 100% !important; object-fit: cover;
 }
 .is-scroll-ready .interactive-media-scroll-target > :is(.video-block__media, .image-block__media)::after {
-  opacity: var(--scroll-blend, 1);
+  opacity: 1;
 }
 .is-scroll-ready .interactive-media-scroll-target::before { border-radius: var(--scroll-radius); }
 .is-scroll-ready .interactive-media__content > .block-header {
@@ -38,6 +38,6 @@ lh-interactive-media-scroll.is-scroll-ready {
   position: absolute; inset: 0; width: 100% !important; max-width: none !important; height: 100%; margin: 0; padding: 0;
 }
 .is-scroll-ready .interactive-media-scroll-cover > :is(.video-block__media, .image-block__media) { border-radius: 0; }
-.is-scroll-ready .interactive-media-scroll-cover > :is(.video-block__media, .image-block__media)::after { opacity: 0; }
+.is-scroll-ready .interactive-media-scroll-cover { --scroll-blend: 0; }
 .is-scroll-ready .interactive-media-scroll-layer::before { display: none; }
 .is-scroll-ready .interactive-media-expansion { z-index: 20; }
