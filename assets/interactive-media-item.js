@@ -281,7 +281,7 @@
         if (this.activePlayer === player && this.expansionEpoch === epoch) this.closeButton.focus({ preventScroll: true });
       };
       if (!this.motion.matches) {
-        this.expansionAnimation = this.expansion.animate(frames, { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
+        this.expansionAnimation = this.expansion.animate(frames, { duration: 600, easing: 'cubic-bezier(.4,0,.2,1)' });
         this.expansionAnimation.finished.then(() => { settled = true; reveal(); focusClose(); }, () => {});
       } else queueMicrotask(focusClose);
       clone.play?.()?.catch(() => {});
@@ -309,11 +309,15 @@
     collapse({ animate = true, restoreFocus = true, resumeScroll = false } = {}) {
       const player = this.activePlayer;
       if (!player) return;
+      const visualBounds = this.expansion.getBoundingClientRect?.();
+      const visualRadius = visualBounds ? getComputedStyle(this.expansion).borderRadius : null;
       clearTimeout(this.contentTransitionTimer);
       this.fullContent?.classList.add('is-player-transition');
-      if (restoreFocus) this.scrollOwner?.restorePosition?.(this.scrollBeforeOpen);
       this.activePlayer = null;
       this.closingPlayer = player;
+      // Restoring scroll updates the scene synchronously. Mark closing first
+      // so reverse-scroll handoff cannot recursively dismiss this animation.
+      if (restoreFocus) this.scrollOwner?.restorePosition?.(this.scrollBeforeOpen);
       if (this.fullContent) this.renderScrollContent(this.scrollProgress ?? 0, this.expansion);
       else this.setFullContent(false);
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
@@ -342,7 +346,11 @@
       };
       if (animate && !this.motion.matches) {
         const frames = this.expansionFrames(player).reverse();
-        this.expansionAnimation = this.expansion.animate(frames, { duration: 400, easing: 'cubic-bezier(.22,1,.36,1)' });
+        if (visualBounds?.width > 0) {
+          const section = this.sectionRoot.getBoundingClientRect();
+          frames[0] = { left: `${visualBounds.left - section.left}px`, top: `${visualBounds.top - section.top}px`, width: `${visualBounds.width}px`, height: `${visualBounds.height}px`, borderRadius: visualRadius };
+        }
+        this.expansionAnimation = this.expansion.animate(frames, { duration: 600, easing: 'cubic-bezier(.4,0,.2,1)' });
         this.expansionAnimation.finished.then(finish, finish);
       } else finish();
     }
