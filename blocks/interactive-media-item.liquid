@@ -1,0 +1,91 @@
+{% doc %}
+  One media story. Shared Marquee children form its background layer; Video/Image
+  and optional Heading/Text/Button blocks stay editable in the foreground.
+  The parent section owns spacing, appearance and placement. Repeated items stack.
+{% enddoc %}
+<lh-interactive-media-item class="interactive-media-item" data-playback="{{ block.settings.playback_mode | default: 'inline' }}" data-glow="{{ block.settings.poster_glow }}" data-blend="{{ block.settings.blend_edges }}" data-magnetic="{{ block.settings.magnetic_play }}" data-play-label="{{ 'video.play' | t | escape }}" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+  {% if block.settings.playback_mode == 'full_section' %}
+    {% assign expansion_id = 'MediaExpansion-' | append: section.id | append: '-' | append: block.id %}
+    <div id="{{ expansion_id }}" class="interactive-media-expansion" data-media-expansion role="region" aria-label="{{ 'video.play' | t | escape }}" hidden>
+      <div class="interactive-media-expansion__mount" data-full-media-mount></div>
+      <button class="overlay-close interactive-media-expansion__close" type="button" data-media-collapse aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'x-mark', bare: true %}</button>
+    </div>
+    <template data-item-external-play><button class="video__play" type="button" aria-expanded="false" aria-controls="{{ expansion_id }}" aria-label="{{ 'video.play' | t | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
+  {% endif %}
+</lh-interactive-media-item>
+{{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'interactive-media-item.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Media item",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "marquee"
+    },
+    {
+      "type": "video"
+    },
+    {
+      "type": "image"
+    },
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "buttons"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "playback_mode",
+      "label": "Video playback",
+      "options": [
+        {
+          "value": "inline",
+          "label": "Inline"
+        },
+        {
+          "value": "full_section",
+          "label": "Expand to section"
+        }
+      ],
+      "default": "inline",
+      "info": "Expand the media to fill this section when clicked."
+    },
+    {
+      "type": "header",
+      "content": "Media effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "poster_glow",
+      "label": "Show hover glow",
+      "default": false,
+      "info": "Applies to the image, video and marquee in this item."
+    },
+    {
+      "type": "checkbox",
+      "id": "blend_edges",
+      "label": "Blend edges",
+      "default": false,
+      "info": "Fades marquee edges and blends image/video edges into the section background."
+    },
+    {
+      "type": "checkbox",
+      "id": "magnetic_play",
+      "label": "Magnetic play button",
+      "default": false,
+      "info": "Mouse only. Disabled when reduced motion is preferred."
+    }
+  ]
+}
+{% endschema %}

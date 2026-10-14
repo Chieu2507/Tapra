@@ -78,7 +78,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   .header-top .header__mobile-drawer-submenu-details.is-mobile-submenu-active > .header__mobile-drawer-tertiary-panel { opacity: 1; visibility: visible; pointer-events: auto; transform: none; transition-delay: 0s; }
 }
 @media (max-width: 767.98px) {
-  .header-top { --compact-ease: cubic-bezier(.76, 0, .24, 1); }
+  .header-top { --compact-ease: var(--motion-ease-surface); }
   .header-top .header__mobile-drawer-logo { display: block; width: 120px; height: auto; }
   .header-top .header__mobile-drawer.scheme-3 .header__mobile-drawer-logo { filter: brightness(0) invert(1); }
   .header-top .header__mobile-drawer { --overlay-background-color: var(--background-color); --overlay-text-color: var(--body-color); --overlay-border-color: var(--border-color); }
@@ -177,14 +177,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 }
 
 /* Header-owned surfaces use one motion rhythm in Basic and Compact. */
-:root {
-  --header-motion-duration: 600ms;
-  --header-motion-exit-duration: 550ms;
-  --header-motion-ease: cubic-bezier(.76, 0, .24, 1);
-  --header-menu-content-enter-duration: 700ms;
-  --header-menu-content-exit-duration: 300ms;
-  --header-menu-content-ease: cubic-bezier(.25, .8, .25, 1);
-}
+
 .header-top shopify-account::part(dialog) {
   animation-duration: var(--header-motion-duration);
   animation-timing-function: var(--header-motion-ease);
@@ -194,8 +187,8 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
   --overlay-motion-duration: var(--header-motion-duration);
   --overlay-exit-duration: var(--header-motion-exit-duration);
   --overlay-motion-ease: var(--header-motion-ease);
-  --overlay-exit-ease: cubic-bezier(.4, 0, .2, 1);
-  --overlay-backdrop-duration: 250ms;
+  --overlay-exit-ease: var(--motion-ease-surface);
+  --overlay-backdrop-duration: var(--motion-duration-backdrop);
 }
 .header-top:not(.header-top--compact) :is(.header-mega-menu, .header-menu__submenu, .header-menu__tertiary) {
   --motion-duration-slow: var(--header-motion-duration);
@@ -203,7 +196,7 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 }
 .header-top:not(.header-top--compact) .header-menu__details.is-submenu-closing > :is(.header-mega-menu, .header-menu__submenu) {
   animation-duration: var(--header-motion-exit-duration);
-  animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+  animation-timing-function: var(--motion-ease-surface);
 }
 @media (prefers-reduced-motion: no-preference) and (min-width: 992px) {
   /* The surface only fades. Moving both the surface and its children in
@@ -244,8 +237,8 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 /* Native Account removes its dialog after its own close timer. Finish the
    fade within that timer instead of stretching it past the removal. */
 .header-top shopify-account[data-account-closing]::part(dialog) {
-  animation-duration: var(--account-native-close-duration, 240ms);
-  animation-timing-function: ease;
+  animation-duration: var(--account-native-close-duration, var(--motion-duration-surface));
+  animation-timing-function: var(--motion-ease-surface);
 }
 
 .header-top .header-mega-menu__banner-content--top { justify-content: flex-start; }

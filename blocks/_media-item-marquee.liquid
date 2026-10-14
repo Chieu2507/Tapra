@@ -1,0 +1,280 @@
+{% doc %}
+  The fixed Marquee slot in a Media item. Reuses the common Marquee renderer and
+  runtime. Composition effects are injected by the owning Media item.
+{% enddoc %}
+{% capture marquee_child_blocks %}{% content_for 'blocks' %}{% endcapture %}
+{% render 'marquee-content', marquee_settings: block.settings, children: marquee_child_blocks, attributes: block.shopify_attributes, enable_parallax: false, media_item: true %}
+{{ 'component-marquee.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'marquee.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Marquee",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "_marquee-heading"
+    },
+    {
+      "type": "_marquee-text"
+    },
+    {
+      "type": "_marquee-image"
+    },
+    {
+      "type": "_marquee-icon"
+    },
+    {
+      "type": "_marquee-button"
+    },
+    {
+      "type": "_marquee-countdown-timer"
+    },
+    {
+      "type": "_marquee-coupon-code"
+    },
+    {
+      "type": "_marquee-divider"
+    },
+    {
+      "type": "_marquee-group"
+    },
+    {
+      "type": "marquee-item"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        {
+          "value": "top",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Motion"
+    },
+    {
+      "type": "range",
+      "id": "animation_speed",
+      "label": "Speed",
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "default": 1,
+      "unit": "x"
+    },
+    {
+      "type": "select",
+      "id": "animation_direction",
+      "label": "Motion direction",
+      "options": [
+        {
+          "value": "backward",
+          "label": "Left"
+        },
+        {
+          "value": "forward",
+          "label": "Right"
+        }
+      ],
+      "default": "backward"
+    },
+    {
+      "type": "header",
+      "content": "Gap"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Desktop",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Desktop width",
+      "options": [
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "fill"
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "select",
+      "id": "color_type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.appearance_type.inherit"
+        },
+        {
+          "value": "scheme",
+          "label": "t:options.appearance_type.scheme"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1",
+      "visible_if": "{{ block.settings.color_type == 'scheme' }}"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "Custom for mobile",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "t:labels.background"
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "Left padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "Right padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "label": "Mobile left padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "label": "Mobile right padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    }
+  ]
+}
+{% endschema %}

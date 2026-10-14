@@ -1,0 +1,301 @@
+{% doc %}
+  Typed media story: one static media slot, one static Marquee slot, and editable
+  Heading/Text/Button content shown only in the full media state.
+{% enddoc %}
+{% capture item_marquee %}{% content_for 'block', type: '_media-item-marquee', id: 'marquee' %}{% endcapture %}
+{% capture item_media %}{% content_for 'block', type: 'video', id: 'media' %}{% endcapture %}
+{% capture item_content %}{% content_for 'blocks' %}{% endcapture %}
+{% render 'interactive-media-item', item_block: block, media_kind: 'video', marquee: item_marquee, media: item_media, content: item_content %}
+{% schema %}
+{
+  "name": "Media item video",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "buttons"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "playback_mode",
+      "label": "Video playback",
+      "options": [
+        {
+          "value": "inline",
+          "label": "Inline"
+        },
+        {
+          "value": "full_section",
+          "label": "Expand to section"
+        }
+      ],
+      "default": "inline",
+      "info": "Expand the media to fill this section when clicked."
+    },
+    {
+      "type": "header",
+      "content": "Media effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "poster_glow",
+      "label": "Show hover glow",
+      "default": false,
+      "info": "Applies to the image, video and marquee in this item."
+    },
+    {
+      "type": "checkbox",
+      "id": "blend_edges",
+      "label": "Blend edges",
+      "default": false,
+      "info": "Fades marquee edges and blends image/video edges into the section background."
+    },
+    {
+      "type": "checkbox",
+      "id": "magnetic_play",
+      "label": "Magnetic play button",
+      "default": false,
+      "info": "Mouse only. Disabled when reduced motion is preferred."
+    },
+    {
+      "type": "header",
+      "content": "Marquee effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_parallax",
+      "label": "Enable parallax effect",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Content scheme"
+    },
+    {
+      "type": "color_scheme",
+      "id": "content_color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "t:labels.left_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "t:labels.right_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "label": "t:labels.mobile_left_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "label": "t:labels.mobile_right_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media item video",
+      "blocks": [
+        {
+          "type": "_media-item-marquee",
+          "settings": {
+            "animation_speed": 0.6,
+            "animation_direction": "backward",
+            "gap_desktop": 72,
+            "gap_mobile": 40,
+            "color_type": "inherit",
+            "padding_top": 0,
+            "padding_bottom": 0
+          },
+          "blocks": [
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>4.9</strong> Average rating",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>30</strong> Day returns",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>9</strong> Switch types",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>50+</strong> Hours tested",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            }
+          ],
+          "id": "marquee",
+          "static": true
+        },
+        {
+          "type": "video",
+          "settings": {
+            "video_source": "uploaded",
+            "aspect_ratio_desktop": "custom",
+            "custom_aspect_ratio_desktop": 1.5,
+            "aspect_ratio_mobile": "custom",
+            "custom_aspect_ratio_mobile": 1.5,
+            "width_desktop": "custom",
+            "width_custom_desktop": 40,
+            "limit_width_desktop": true,
+            "max_width_desktop": 576,
+            "width_mobile": "custom",
+            "width_custom_mobile": 86,
+            "corner_radius": "radius_32",
+            "play_button_size_desktop": 64,
+            "play_button_size_mobile": 56,
+            "play_button_background_color": "#ffffffb3"
+          },
+          "id": "media",
+          "static": true
+        }
+      ],
+      "settings": {
+        "blend_edges": true,
+        "playback_mode": "full_section",
+        "poster_glow": true,
+        "magnetic_play": true
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1006,10 +1006,402 @@
         "insta_1",
         "insta_2"
       ]
+    },
+    "tapra_faq": {
+      "type": "faq-accordion",
+      "settings": {
+        "section_width": "page_width",
+        "layout": "horizontal",
+        "position": "top",
+        "horizontal_alignment": "left",
+        "vertical_on_mobile": true,
+        "gap_desktop": 40,
+        "gap_mobile": 32,
+        "color_scheme": "scheme-3",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      },
+      "blocks": {
+        "header": {
+          "type": "group",
+          "settings": {
+            "width": "fill",
+            "gap_desktop": 16,
+            "gap_mobile": 16,
+            "alignment": "left"
+          },
+          "blocks": {
+            "faq_header_1": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>A few things you might be wondering.</p>",
+                "heading_size": "xl",
+                "html_tag": "h2",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "faq_header_1"
+          ]
+        },
+        "questions": {
+          "type": "faq_accordion",
+          "settings": {
+            "use_elara_layout": true,
+            "style": "boxed",
+            "icon": "plus",
+            "dividers": false,
+            "question_font": "body",
+            "question_body_font_size": "md",
+            "answer_font_size": "md",
+            "border_thickness": 0,
+            "shadow": "none",
+            "padding": "custom",
+            "padding_top": 18,
+            "padding_right": 22,
+            "padding_bottom": 18,
+            "padding_left": 22,
+            "gap_desktop": 10,
+            "gap_mobile": 10,
+            "width": "custom",
+            "custom_width": 57,
+            "width_mobile": "fill",
+            "device": "desktop",
+            "color_type": "inherit",
+            "single_open": true,
+            "item_background": "#ffffff0f",
+            "corner_radius": "radius_16"
+          },
+          "blocks": {
+            "faq_question_1": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "How long is the warranty?",
+                "show_question_icon": false,
+                "initially_open": true,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_1_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>12 months on the board and PCB. Manufacturing faults are replaced within the first 30 days.</p>",
+                    "text_size": "md",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "faq_question_1_1"
+              ]
+            },
+            "faq_question_2": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "Can I change switches myself?",
+                "show_question_icon": false,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_2_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes. The hot-swap PCB lets you pull out switches and press in new ones, no soldering.</p>",
+                    "text_size": "md",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "faq_question_2_1"
+              ]
+            },
+            "faq_question_3": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "Does it work with Mac and Windows?",
+                "show_question_icon": false,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_3_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes. The board detects your system and remaps modifier keys with one shortcut.</p>",
+                    "text_size": "md",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "faq_question_3_1"
+              ]
+            },
+            "faq_question_4": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "How fast is shipping?",
+                "show_question_icon": false,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_4_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
+                    "text_size": "md",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "faq_question_4_1"
+              ]
+            }
+          },
+          "block_order": [
+            "faq_question_1",
+            "faq_question_2",
+            "faq_question_3",
+            "faq_question_4"
+          ]
+        }
+      },
+      "block_order": [
+        "header",
+        "questions"
+      ]
+    },
+    "tapra_media": {
+      "type": "interactive-media",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "section_width": "full_width",
+        "sticky_scroll": true,
+        "scroll_distance": 150,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "gap_desktop": 100,
+        "gap_mobile": 64,
+        "alignment": "center",
+        "customize_mobile_alignment": false,
+        "alignment_mobile": "left"
+      },
+      "blocks": {
+        "block_1": {
+          "type": "media-item-video",
+          "blocks": {
+            "marquee": {
+              "type": "_media-item-marquee",
+              "settings": {
+                "animation_speed": 0.6,
+                "animation_direction": "backward",
+                "gap_desktop": 72,
+                "gap_mobile": 40,
+                "color_type": "inherit",
+                "padding_top": 0,
+                "padding_bottom": 0
+              },
+              "blocks": {
+                "child_1": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>4.9</strong> Average rating",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                "child_2": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>30</strong> Day returns",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                "child_3": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>9</strong> Switch types",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                "child_4": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>50+</strong> Hours tested",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                }
+              },
+              "block_order": [
+                "child_1",
+                "child_2",
+                "child_3",
+                "child_4"
+              ],
+              "static": true
+            },
+            "media": {
+              "type": "video",
+              "settings": {
+                "video_source": "uploaded",
+                "aspect_ratio_desktop": "custom",
+                "custom_aspect_ratio_desktop": 1.5,
+                "aspect_ratio_mobile": "custom",
+                "custom_aspect_ratio_mobile": 1.5,
+                "width_desktop": "custom",
+                "width_custom_desktop": 40,
+                "limit_width_desktop": true,
+                "max_width_desktop": 576,
+                "width_mobile": "custom",
+                "width_custom_mobile": 86,
+                "corner_radius": "radius_32",
+                "play_button_size_desktop": 64,
+                "play_button_size_mobile": 56,
+                "play_button_background_color": "#ffffffb3"
+              },
+              "static": true
+            },
+            "full_heading": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Built for your everyday.</p>",
+                "heading_size": "display",
+                "html_tag": "h2",
+                "width": "custom",
+                "max_width": 820
+              }
+            },
+            "full_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Thoughtful keyboards, made to feel right from the first word.</p>",
+                "text_size": "md",
+                "width": "custom",
+                "max_width": 640
+              }
+            },
+            "full_button": {
+              "type": "button",
+              "settings": {
+                "button_label": "Explore keyboards",
+                "button_link": "shopify://collections/all",
+                "button_style": "primary",
+                "color_scheme": "scheme-3"
+              }
+            }
+          },
+          "block_order": [
+            "full_heading",
+            "full_text",
+            "full_button"
+          ],
+          "settings": {
+            "blend_edges": true,
+            "playback_mode": "full_section",
+            "poster_glow": true,
+            "magnetic_play": true,
+            "content_color_scheme": "scheme-3",
+            "marquee_top_divider": false,
+            "marquee_bottom_divider": false,
+            "marquee_parallax": false
+          }
+        },
+        "header": {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "custom",
+            "max_width": 820,
+            "inherit_alignment": true,
+            "alignment": "center",
+            "gap_desktop": 24,
+            "gap_mobile": 20
+          },
+          "blocks": {
+            "eyebrow": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>About Tapra</p>",
+                "show_background": true,
+                "color": "#536078",
+                "background_color": "#e5e9ef",
+                "corner_radius": "radius_6",
+                "padding_top": 6,
+                "padding_bottom": 6,
+                "padding_left": 14,
+                "padding_right": 14
+              }
+            },
+            "editorial": {
+              "type": "editorial-text",
+              "settings": {
+                "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+                "size": "lg",
+                "width": "custom",
+                "max_width": 820,
+                "enable_scroll_reveal": true,
+                "reveal_unit": "word",
+                "start_opacity": 28
+              }
+            }
+          },
+          "block_order": [
+            "eyebrow",
+            "editorial"
+          ]
+        }
+      },
+      "block_order": [
+        "block_1"
+      ]
     }
   },
   "order": [
     "slideshow",
+    "tapra_media",
+    "tapra_faq",
     "instagram_gallery"
   ]
 }

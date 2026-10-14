@@ -1,0 +1,43 @@
+lh-interactive-media-scroll { display: block; }
+lh-interactive-media-scroll.is-scroll-ready {
+  position: relative;
+  height: calc(100svh + var(--media-scroll-distance, 150) * var(--media-scroll-count, 1) * 1svh);
+}
+.is-scroll-ready > .interactive-media {
+  position: sticky; top: 0; height: 100svh; box-sizing: border-box; isolation: isolate;
+}
+.is-scroll-ready .interactive-media-item { isolation: auto; }
+.interactive-media-scroll-slot { position: relative; flex: 0 0 auto; }
+.is-scroll-ready .interactive-media-scroll-target {
+  position: absolute; left: var(--scroll-left, 0px); top: var(--scroll-top, 0px); z-index: 1; margin: 0; padding: 0;
+  width: var(--scroll-width) !important; max-width: none !important;
+  height: var(--scroll-height); transform: translate(var(--scroll-x, 0px), var(--scroll-y, 0px));
+}
+.is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) > :is(.video-block__media, .image-block__media) {
+  width: 100%; height: 100%; aspect-ratio: auto; border-radius: var(--scroll-radius);
+}
+.is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) :is(video, iframe, picture, picture > img, .image-block__media > img, .video__placeholder, .image__placeholder) {
+  width: 100%; height: 100% !important; object-fit: cover;
+}
+.is-scroll-ready .interactive-media-scroll-target > :is(.video-block__media, .image-block__media)::after {
+  opacity: 1;
+}
+.is-scroll-ready .interactive-media-scroll-target::before { border-radius: var(--scroll-radius); }
+.is-scroll-ready .interactive-media__content > .block-header {
+  opacity: var(--scroll-header-opacity, 1);
+}
+/* The marquee keeps its original poster position while the foreground grows. */
+.is-scroll-ready .interactive-media-item > :is(.marquee, .elara-marquee) { z-index: 0; }
+.interactive-media-item.interactive-media-scroll-layer {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0;
+  z-index: var(--scroll-layer-index); transform: translateY(var(--scroll-layer-y, 100%));
+  background: var(--interactive-media-background);
+}
+.interactive-media-scroll-layer > :is(.marquee, .elara-marquee) { visibility: hidden; }
+.is-scroll-ready .interactive-media-scroll-cover {
+  position: absolute; inset: 0; width: 100% !important; max-width: none !important; height: 100%; margin: 0; padding: 0;
+}
+.is-scroll-ready .interactive-media-scroll-cover > :is(.video-block__media, .image-block__media) { border-radius: 0; }
+.is-scroll-ready .interactive-media-scroll-cover { --scroll-blend: 0; }
+.is-scroll-ready .interactive-media-scroll-layer::before { display: none; }
+.is-scroll-ready .interactive-media-expansion { z-index: 20; }

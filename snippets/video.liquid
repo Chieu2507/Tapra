@@ -92,10 +92,10 @@
         allowfullscreen
       ></iframe>
     {% else %}
-      {{ 'product-1' | placeholder_svg_tag: 'video__placeholder' }}
+      {{ 'image' | placeholder_svg_tag: 'video__placeholder' }}
     {% endif %}
   {% else %}
-    {{ 'product-1' | placeholder_svg_tag: 'video__placeholder' }}
+    {{ 'image' | placeholder_svg_tag: 'video__placeholder' }}
   {% endif %}
 </theme-video>
 
@@ -221,7 +221,6 @@
 
   .video__placeholder {
     height: var(--video-block-height, auto);
-    background-color: var(--background-color);
   }
 
   @media (max-width: 767.98px) {

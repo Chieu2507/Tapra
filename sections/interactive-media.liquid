@@ -1,0 +1,389 @@
+{% liquid
+  assign media_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
+  assign media_background = section.settings.background_color | default: section.settings.color_scheme.settings.background | default: settings.color_schemes[media_scheme].settings.background
+  assign media_alignment = section.settings.alignment | default: 'left'
+  assign media_alignment_mobile = media_alignment
+  if section.settings.customize_mobile_alignment
+    assign media_alignment_mobile = section.settings.alignment_mobile | default: media_alignment
+  endif
+  assign media_align = 'flex-start'
+  if media_alignment == 'center'
+    assign media_align = 'center'
+  elsif media_alignment == 'right'
+    assign media_align = 'flex-end'
+  endif
+  assign media_align_mobile = 'flex-start'
+  if media_alignment_mobile == 'center'
+    assign media_align_mobile = 'center'
+  elsif media_alignment_mobile == 'right'
+    assign media_align_mobile = 'flex-end'
+  endif
+  assign media_width = 'page-width'
+  if section.settings.section_width == 'full_width'
+    assign media_width = 'full-width'
+  endif
+%}
+{% style %}
+  #shopify-section-{{ section.id }} { background: {{ media_background }}; }
+{% endstyle %}
+<lh-interactive-media-scroll data-enabled="{{ section.settings.sticky_scroll }}" style="--media-scroll-distance: {{ section.settings.scroll_distance | default: 150 }};">
+<div class="section-spacing interactive-media color-scheme section-color-scope {{ media_scheme }}" style="--interactive-media-background: {{ media_background }}; --interactive-media-gap: {{ section.settings.gap_desktop }}px; --interactive-media-gap-mobile: {{ section.settings.gap_mobile }}px; --interactive-media-align: {{ media_align }}; --interactive-media-align-mobile: {{ media_align_mobile }}; --interactive-media-text-align: {{ media_alignment }}; --interactive-media-text-align-mobile: {{ media_alignment_mobile }}; --interactive-media-top: {{ section.settings.padding_top }}px; --interactive-media-bottom: {{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %} --interactive-media-top-mobile: {{ section.settings.padding_top_mobile }}px; --interactive-media-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}">
+  <div class="container {{ media_width }} interactive-media__content">
+    {% content_for 'block', type: 'header', id: 'header' %}
+    <div class="interactive-media__items">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</div>
+</lh-interactive-media-scroll>
+{% if section.settings.sticky_scroll %}
+  {{ 'component-interactive-media-scroll.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'interactive-media-scroll.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+{% stylesheet %}
+  lh-interactive-media-scroll { display: block; }
+  .interactive-media { --flex-align: var(--interactive-media-align, flex-start); --text-align-default: var(--interactive-media-text-align, left); text-align: var(--text-align-default); position: relative; overflow: clip; padding-top: var(--interactive-media-top); padding-bottom: var(--interactive-media-bottom); background: var(--interactive-media-background); }
+  .interactive-media__content { display: flex; flex-direction: column; align-items: var(--flex-align); gap: var(--interactive-media-gap, 16px); }
+  .interactive-media__items { width: 100%; min-width: 0; display: flex; flex-direction: column; gap: var(--interactive-media-gap, 16px); }
+  @media (max-width: 767.98px) {
+    .interactive-media__content, .interactive-media__items { gap: var(--interactive-media-gap-mobile, var(--interactive-media-gap, 16px)); }
+    .interactive-media { --flex-align: var(--interactive-media-align-mobile, var(--interactive-media-align)); --text-align-default: var(--interactive-media-text-align-mobile, var(--interactive-media-text-align)); padding-top: var(--interactive-media-top-mobile, var(--interactive-media-top)); padding-bottom: var(--interactive-media-bottom-mobile, var(--interactive-media-bottom)); }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Interactive media",
+  "class": "section-interactive-media",
+  "enabled_on": {
+    "templates": [
+      "index"
+    ]
+  },
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "media-item-image"
+    },
+    {
+      "type": "media-item-video"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "t:options.section_width.page_width"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.section_width.full_width"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment",
+      "label": "t:labels.alignment",
+      "default": "left"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_alignment",
+      "label": "t:labels.customize_mobile_alignment",
+      "default": false
+    },
+    {
+      "type": "text_alignment",
+      "id": "alignment_mobile",
+      "label": "t:labels.mobile_alignment",
+      "default": "left",
+      "visible_if": "{{ section.settings.customize_mobile_alignment }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "t:labels.desktop_gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "t:labels.mobile_gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Scroll animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_scroll",
+      "label": "Sticky media zoom",
+      "default": false,
+      "info": "Pins the section to one viewport. The first media zooms to full size, then following media slide over it at full size. Scroll distance applies per item. Reduced motion uses the normal layout."
+    },
+    {
+      "type": "range",
+      "id": "scroll_distance",
+      "label": "Scroll distance",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "%",
+      "default": 150,
+      "info": "Percentage of viewport height used to expand the media.",
+      "visible_if": "{{ section.settings.sticky_scroll }}"
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "t:labels.background"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive media",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "section_width": "full_width",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "alignment": "center",
+        "gap_desktop": 100,
+        "gap_mobile": 64,
+        "customize_mobile_alignment": false
+      },
+      "blocks": [
+        {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "custom",
+            "max_width": 820,
+            "inherit_alignment": true,
+            "alignment": "center",
+            "gap_desktop": 24,
+            "gap_mobile": 20
+          },
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>About Tapra</p>",
+                "show_background": true,
+                "color": "#536078",
+                "background_color": "#e5e9ef",
+                "corner_radius": "radius_6",
+                "padding_top": 6,
+                "padding_bottom": 6,
+                "padding_left": 14,
+                "padding_right": 14
+              }
+            },
+            {
+              "type": "editorial-text",
+              "settings": {
+                "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+                "size": "lg",
+                "width": "custom",
+                "max_width": 820,
+                "enable_scroll_reveal": true,
+                "reveal_unit": "word",
+                "start_opacity": 28
+              }
+            }
+          ],
+          "id": "header"
+        },
+        {
+          "type": "media-item-video",
+          "blocks": [
+            {
+              "type": "_media-item-marquee",
+              "settings": {
+                "animation_speed": 0.6,
+                "animation_direction": "backward",
+                "gap_desktop": 72,
+                "gap_mobile": 40,
+                "color_type": "inherit",
+                "padding_top": 0,
+                "padding_bottom": 0
+              },
+              "blocks": [
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>4.9</strong> Average rating",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>30</strong> Day returns",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>9</strong> Switch types",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>50+</strong> Hours tested",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                }
+              ],
+              "id": "marquee",
+              "static": true
+            },
+            {
+              "type": "video",
+              "settings": {
+                "video_source": "uploaded",
+                "aspect_ratio_desktop": "custom",
+                "custom_aspect_ratio_desktop": 1.5,
+                "aspect_ratio_mobile": "custom",
+                "custom_aspect_ratio_mobile": 1.5,
+                "width_desktop": "custom",
+                "width_custom_desktop": 40,
+                "limit_width_desktop": true,
+                "max_width_desktop": 576,
+                "width_mobile": "custom",
+                "width_custom_mobile": 86,
+                "corner_radius": "radius_32",
+                "play_button_size_desktop": 64,
+                "play_button_size_mobile": 56,
+                "play_button_background_color": "#ffffffb3"
+              },
+              "id": "media",
+              "static": true
+            }
+          ],
+          "settings": {
+            "blend_edges": true,
+            "playback_mode": "full_section",
+            "poster_glow": true,
+            "magnetic_play": true,
+            "marquee_top_divider": false,
+            "marquee_bottom_divider": false,
+            "marquee_parallax": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
