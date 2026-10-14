@@ -1,6 +1,7 @@
 lh-interactive-media-scroll { display: block; }
 lh-interactive-media-scroll.is-scroll-ready {
   position: relative;
+  overflow-anchor: none;
   height: calc(100svh + var(--media-scroll-distance, 150) * 1svh);
 }
 .is-scroll-ready > .interactive-media {
