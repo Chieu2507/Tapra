@@ -128,7 +128,7 @@
     }
     setScrollPlayback(progress, active = true) {
       const player = this.players?.[0];
-      if (!player || this.activePlayer) return;
+      if (!player || this.activePlayer || this.closingPlayer) return;
       if (player.inlineManual && !player.scrollAutoplay) {
         if (active) return;
         player.source.pause?.();
@@ -193,7 +193,7 @@
     setScrollProgress(progress) {
       this.scrollProgress = progress;
       if (this.activePlayer) return;
-      this.renderScrollContent(progress);
+      this.renderScrollContent(progress, this.closingPlayer ? this.expansion : undefined);
     }
     renderScrollContent(progress, host) {
       const player = this.players[0];
@@ -233,6 +233,8 @@
       this.stopScrollPlayback();
       expandedSections.get(this.sectionRoot)?.collapse({ animate: false, restoreFocus: false });
       this.expansionEpoch = (this.expansionEpoch || 0) + 1;
+      this.expansionAnimation?.cancel();
+      this.closingPlayer = null;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
       if (this.fullContent) {
@@ -290,6 +292,7 @@
       this.fullContent?.classList.add('is-player-transition');
       if (restoreFocus) this.scrollOwner?.restorePosition?.(this.scrollBeforeOpen);
       this.activePlayer = null;
+      this.closingPlayer = player;
       if (this.fullContent) this.renderScrollContent(this.scrollProgress ?? 0, this.expansion);
       else this.setFullContent(false);
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
@@ -303,6 +306,7 @@
       expandedSections.delete(this.sectionRoot);
       const finish = () => {
         if (this.expansionEpoch !== epoch) return;
+        this.closingPlayer = null;
         this.expansion.hidden = true;
         this.expansion.classList.remove('is-collapsing');
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
