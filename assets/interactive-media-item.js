@@ -28,6 +28,10 @@
           media.setAttribute('data-video-ready', '');
         }
         const button = media.querySelector('.video__play');
+        if (button) {
+          button.dataset.playLabel = this.dataset.playLabel;
+          if (button.getAttribute('aria-pressed') !== 'true') button.setAttribute('aria-label', this.dataset.playLabel);
+        }
         const player = { media, source, button, current: { x: 0, y: 0, scale: 1 }, target: { x: 0, y: 0, scale: 1 }, frame: 0 };
         this.players.push(player);
         if (this.dataset.playback === 'popup' && button) {
