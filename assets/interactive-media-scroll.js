@@ -39,11 +39,11 @@
     reset() {
       this.classList.remove('is-scroll-ready');
       if (this.mediaSlot) {
-        this.mediaSlot.replaceWith(this.media);
+        this.mediaSlot.remove();
         this.mediaSlot = null;
       }
       this.media?.classList.remove('interactive-media-scroll-target');
-      for (const property of ['--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage.style.removeProperty(property);
+      for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage.style.removeProperty(property);
     }
     measure() {
       this.reset();
@@ -67,7 +67,6 @@
       this.mediaSlot.style.width = `${this.initialWidth}px`;
       this.mediaSlot.style.height = `${this.initialHeight}px`;
       this.media.before(this.mediaSlot);
-      this.mediaSlot.append(this.media);
       this.media.classList.add('interactive-media-scroll-target');
       this.stage.style.setProperty('--scroll-width', `${this.initialWidth}px`);
       this.stage.style.setProperty('--scroll-height', `${this.initialHeight}px`);
@@ -82,6 +81,9 @@
       const slot = this.mediaSlot.getBoundingClientRect();
       const distance = Math.max(1, track.height - stage.height);
       const progress = this.editing ? 0 : Math.max(0, Math.min(1, -track.top / distance));
+      const parent = this.media.offsetParent.getBoundingClientRect();
+      this.stage.style.setProperty('--scroll-left', `${slot.left - parent.left}px`);
+      this.stage.style.setProperty('--scroll-top', `${slot.top - parent.top}px`);
       const x = (stage.left - slot.left) * progress;
       const y = (stage.top - slot.top) * progress;
       this.stage.style.setProperty('--scroll-x', `${x}px`);

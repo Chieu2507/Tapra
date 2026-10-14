@@ -9,7 +9,7 @@ lh-interactive-media-scroll.is-scroll-ready {
 .is-scroll-ready .interactive-media-item { isolation: auto; }
 .interactive-media-scroll-slot { position: relative; flex: 0 0 auto; }
 .is-scroll-ready .interactive-media-scroll-target {
-  position: absolute; left: 0; top: 0; z-index: 1; margin: 0; padding: 0;
+  position: absolute; left: var(--scroll-left, 0px); top: var(--scroll-top, 0px); z-index: 1; margin: 0; padding: 0;
   width: var(--scroll-width) !important; max-width: none !important;
   height: var(--scroll-height); transform: translate(var(--scroll-x, 0px), var(--scroll-y, 0px));
 }
