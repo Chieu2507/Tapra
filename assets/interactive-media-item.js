@@ -245,6 +245,14 @@
     expansionFrames(player) {
       const section = this.sectionRoot.getBoundingClientRect();
       const media = player.media.getBoundingClientRect();
+      const reveal = player.media.closest?.('.interactive-media-scroll-target');
+      if (reveal && this.usesScrollPlayback()) {
+        const canvas = { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' };
+        return [
+          { ...canvas, clipPath: getComputedStyle(reveal).clipPath },
+          { ...canvas, clipPath: 'inset(0px 0px 0px 0px round 0px)' },
+        ];
+      }
       return [
         { left: `${media.left - section.left}px`, top: `${media.top - section.top}px`, width: `${media.width}px`, height: `${media.height}px`, borderRadius: getComputedStyle(player.media).borderRadius },
         { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' },
