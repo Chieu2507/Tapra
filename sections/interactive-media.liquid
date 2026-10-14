@@ -26,6 +26,7 @@
 {% style %}
   #shopify-section-{{ section.id }} { background: {{ media_background }}; }
 {% endstyle %}
+<lh-interactive-media-scroll data-enabled="{{ section.settings.sticky_scroll }}" style="--media-scroll-distance: {{ section.settings.scroll_distance | default: 150 }};">
 <div class="section-spacing interactive-media color-scheme section-color-scope {{ media_scheme }}" style="--interactive-media-background: {{ media_background }}; --interactive-media-gap: {{ section.settings.gap_desktop }}px; --interactive-media-gap-mobile: {{ section.settings.gap_mobile }}px; --interactive-media-align: {{ media_align }}; --interactive-media-align-mobile: {{ media_align_mobile }}; --interactive-media-text-align: {{ media_alignment }}; --interactive-media-text-align-mobile: {{ media_alignment_mobile }}; --interactive-media-top: {{ section.settings.padding_top }}px; --interactive-media-bottom: {{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %} --interactive-media-top-mobile: {{ section.settings.padding_top_mobile }}px; --interactive-media-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}">
   <div class="container {{ media_width }} interactive-media__content">
     {% content_for 'block', type: 'header', id: 'header' %}
@@ -34,6 +35,11 @@
     </div>
   </div>
 </div>
+</lh-interactive-media-scroll>
+{% if section.settings.sticky_scroll %}
+  {{ 'component-interactive-media-scroll.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'interactive-media-scroll.js' | asset_url }}" defer="defer"></script>
+{% endif %}
 {% stylesheet %}
   .interactive-media { --flex-align: var(--interactive-media-align, flex-start); --text-align-default: var(--interactive-media-text-align, left); text-align: var(--text-align-default); position: relative; overflow: clip; padding-top: var(--interactive-media-top); padding-bottom: var(--interactive-media-bottom); background: var(--interactive-media-background); }
   .interactive-media__content { display: flex; flex-direction: column; align-items: var(--flex-align); gap: var(--interactive-media-gap, 16px); }
@@ -117,6 +123,29 @@
       "step": 2,
       "unit": "px",
       "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Scroll animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_scroll",
+      "label": "Sticky media zoom",
+      "default": false,
+      "info": "Pins the section to one viewport height and expands the first image or video as you scroll. Reduced motion uses the normal layout."
+    },
+    {
+      "type": "range",
+      "id": "scroll_distance",
+      "label": "Scroll distance",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "%",
+      "default": 150,
+      "info": "Percentage of viewport height used to expand the media.",
+      "visible_if": "{{ section.settings.sticky_scroll }}"
     },
     {
       "type": "header",
