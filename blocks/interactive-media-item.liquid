@@ -107,7 +107,7 @@
           "type": "marquee",
           "settings": {
             "use_elara_layout": true,
-            "show_blurred_edges": true,
+            "show_blurred_edges": false,
             "enable_parallax": false,
             "animation_speed": 0.6,
             "animation_direction": "backward",
@@ -175,7 +175,6 @@
         {
           "type": "video",
           "settings": {
-            "playback_mode": "popup",
             "video_source": "uploaded",
             "aspect_ratio_desktop": "custom",
             "custom_aspect_ratio_desktop": 1.5,
@@ -190,13 +189,16 @@
             "corner_radius": "radius_32",
             "play_button_size_desktop": 64,
             "play_button_size_mobile": 56,
-            "play_button_background_color": "#ffffffb3",
-            "poster_glow": true,
-            "poster_vignette": true,
-            "magnetic_play": true
+            "play_button_background_color": "#ffffffb3"
           }
         }
-      ]
+      ],
+      "settings": {
+        "blend_edges": true,
+        "playback_mode": "popup",
+        "poster_glow": true,
+        "magnetic_play": true
+      }
     }
   ]
 }
