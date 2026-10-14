@@ -44,6 +44,8 @@
 .interactive-media-expansion__mount > :is(video, iframe) { display: block; border: 0; width: 100%; height: 100%; object-fit: cover; }
 .interactive-media-expansion__close { position: absolute; top: var(--media-collapse-top, 16px); right: 16px; z-index: 2; color: #fff; background: #0008; }
 .interactive-media-expansion__close svg { width: 24px; height: 24px; }
+/* A scroll-owned expansion is reversed by scrolling, not a second close path. */
+.is-scroll-ready .interactive-media-expansion__close { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .interactive-media__content { transition: none; }
   .interactive-media-item[data-glow] > :is(.video-block, .image-block)::before,

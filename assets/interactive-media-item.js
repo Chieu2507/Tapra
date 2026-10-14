@@ -28,7 +28,7 @@
       }, { ...options, passive: true });
       window.addEventListener('resize', () => { if (this.activePlayer) this.positionClose(); }, options);
       this.sectionRoot?.addEventListener('keydown', event => {
-        if (event.key === 'Escape' && this.activePlayer) { event.preventDefault(); this.collapse(); }
+        if (event.key === 'Escape' && this.activePlayer && !this.usesScrollPlayback()) { event.preventDefault(); this.collapse(); }
       }, options);
       const externalButton = this.querySelector('[data-item-external-play]');
       this.querySelectorAll(':scope > .video-block > .video').forEach(media => {
@@ -228,7 +228,11 @@
         { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' },
       ];
     }
+    usesScrollPlayback() {
+      return Boolean(this.scrollOwner?.classList?.contains('is-scroll-ready'));
+    }
     positionClose() {
+      if (this.usesScrollPlayback()) return;
       const bounds = this.sectionRoot.getBoundingClientRect();
       this.expansion.style.setProperty('--media-collapse-top', `${Math.max(16, Math.min(bounds.height - 56, 16 - bounds.top))}px`);
     }
@@ -285,7 +289,11 @@
       this.sectionRoot.querySelector('.interactive-media__content').inert = true;
       this.sectionRoot.classList.add('is-media-expanded');
       const focusClose = () => {
-        if (this.activePlayer === player && this.expansionEpoch === epoch) this.closeButton.focus({ preventScroll: true });
+        if (this.activePlayer !== player || this.expansionEpoch !== epoch) return;
+        if (this.usesScrollPlayback()) {
+          clone.tabIndex = 0;
+          clone.focus({ preventScroll: true });
+        } else this.closeButton.focus({ preventScroll: true });
       };
       if (!this.motion.matches) {
         this.expansionAnimation = this.expansion.animate(frames, this.surfaceMotion());
