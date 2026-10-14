@@ -1029,6 +1029,17 @@
     --motion-duration-fast: 160ms;
     --motion-duration-standard: 280ms;
     --motion-duration-slow: 420ms;
+    /* Shared geometry motion for menus, drawers, dialogs and media expansion. */
+    --motion-duration-surface: 600ms;
+    --motion-ease-surface: cubic-bezier(.76, 0, .24, 1);
+    --motion-duration-backdrop: var(--motion-duration-standard);
+    /* Compatibility aliases: header components consume the same root tokens. */
+    --header-motion-duration: var(--motion-duration-surface);
+    --header-motion-exit-duration: var(--motion-duration-surface);
+    --header-motion-ease: var(--motion-ease-surface);
+    --header-menu-content-enter-duration: var(--motion-duration-surface);
+    --header-menu-content-exit-duration: var(--motion-duration-standard);
+    --header-menu-content-ease: var(--motion-ease-surface);
     --motion-ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
     --motion-ease-emphasized: cubic-bezier(0.2, 0.7, 0, 1);
     --motion-ease-linear: linear;

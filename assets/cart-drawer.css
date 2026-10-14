@@ -19,11 +19,11 @@
 
   /* Basic header uses a conventional sliding drawer. Compact overrides below. */
   .cart-drawer {
-    --overlay-motion-duration: var(--header-motion-duration, 600ms);
-    --overlay-motion-ease: var(--header-motion-ease, cubic-bezier(.76, 0, .24, 1));
-    --overlay-exit-duration: 600ms;
+    --overlay-motion-duration: var(--motion-duration-surface);
+    --overlay-motion-ease: var(--motion-ease-surface);
+    --overlay-exit-duration: var(--motion-duration-surface);
     --overlay-enter-delay: 0ms;
-    --overlay-backdrop-duration: 200ms;
+    --overlay-backdrop-duration: var(--motion-duration-backdrop);
     --overlay-backdrop-ease: ease;
   }
   .cart-drawer.component-overlay .cart-drawer__panel {
@@ -41,10 +41,10 @@
     transition-delay: 400ms;
   }
 
-  /* Demo rhythm: slide the pill for 550ms, expand at 300ms for 600ms.
+  /* Demo rhythm: slide the pill for var(--motion-duration-surface), expand at 300ms for var(--motion-duration-surface).
      Closing contracts immediately, then returns to the center at 300ms. */
   .cart-drawer.cart-drawer--compact {
-    --overlay-backdrop-duration: 450ms;
+    --overlay-backdrop-duration: var(--motion-duration-backdrop);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__backdrop { transition-delay: 0ms; }
   .cart-drawer.cart-drawer--compact.component-overlay .cart-drawer__panel {
@@ -64,7 +64,7 @@
     opacity: 1;
     transform: translateX(0);
     translate: 0 0;
-    transition: top 600ms var(--header-motion-ease), width 600ms var(--header-motion-ease), height 600ms var(--header-motion-ease), border-radius 600ms var(--header-motion-ease), translate 600ms var(--header-motion-ease), transform 550ms 300ms var(--header-motion-ease);
+    transition: top var(--motion-duration-surface) var(--header-motion-ease), width var(--motion-duration-surface) var(--header-motion-ease), height var(--motion-duration-surface) var(--header-motion-ease), border-radius var(--motion-duration-surface) var(--header-motion-ease), translate var(--motion-duration-surface) var(--header-motion-ease), transform var(--motion-duration-surface) 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact.component-overlay[data-state='opening'] .cart-drawer__panel {
     top: var(--compact-cart-origin-top, var(--compact-cart-top));
@@ -84,7 +84,7 @@
     transform: translateX(var(--compact-cart-shift, 0px));
     /* The demo's flex centering contributes the other half of this offset. */
     translate: var(--compact-cart-open-translate, calc(var(--compact-cart-expand-shift, 0px) * 2)) 0;
-    transition: transform 550ms var(--header-motion-ease), top 600ms 300ms var(--header-motion-ease), width 600ms 300ms var(--header-motion-ease), height 600ms 300ms var(--header-motion-ease), border-radius 600ms 300ms var(--header-motion-ease), translate 600ms 300ms var(--header-motion-ease);
+    transition: transform var(--motion-duration-surface) var(--header-motion-ease), top var(--motion-duration-surface) 300ms var(--header-motion-ease), width var(--motion-duration-surface) 300ms var(--header-motion-ease), height var(--motion-duration-surface) 300ms var(--header-motion-ease), border-radius var(--motion-duration-surface) 300ms var(--header-motion-ease), translate var(--motion-duration-surface) 300ms var(--header-motion-ease);
   }
   .cart-drawer.cart-drawer--compact .cart-drawer__inner {
     opacity: 1;
@@ -118,8 +118,8 @@
     opacity: 1;
     transition: none;
   }
-  .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__container { opacity: 1; transition: padding 600ms var(--header-motion-ease), opacity 300ms 450ms; }
-  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__pill .header__container { opacity: 0; padding: 0 14px 0 26px; transition: padding 600ms var(--header-motion-ease), opacity 200ms; }
+  .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__container { opacity: 1; transition: padding var(--motion-duration-surface) var(--header-motion-ease), opacity 300ms 450ms; }
+  .cart-drawer.cart-drawer--compact[data-state='open'] .cart-drawer__pill .header__container { opacity: 0; padding: 0 14px 0 26px; transition: padding var(--motion-duration-surface) var(--header-motion-ease), opacity 200ms; }
   .cart-drawer.cart-drawer--compact .cart-drawer__pill .header__row { height: var(--compact-cart-row-height, 48px); min-height: 0; transition: none; }
   .cart-drawer.cart-drawer--compact[data-state='closing'] .cart-drawer__pill .header__row { height: 48px; }
   .cart-drawer.cart-drawer--compact .cart-drawer__menu-residue {
@@ -1115,7 +1115,7 @@
 .cart-drawer.component-overlay[data-cart-presentation='popup'] {
   --overlay-rest-transform: translateY(8px) scale(.96);
   --overlay-enter-delay: 0ms;
-  --overlay-backdrop-duration: 450ms;
+  --overlay-backdrop-duration: var(--motion-duration-backdrop);
 }
 .cart-drawer.component-overlay:not(.cart-drawer--compact)[data-cart-presentation='popup'] .cart-drawer__panel {
   --overlay-rest-transform: translateY(8px) scale(.96);
