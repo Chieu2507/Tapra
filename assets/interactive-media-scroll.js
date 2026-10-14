@@ -143,14 +143,16 @@
       // A segment first reveals the full-size incoming layer, then its copy.
       const activeIndex = Math.min(this.items.length - 1, Math.max(0, Math.ceil(position) - 1));
       this.items.forEach((item, index) => {
-        const local = Math.max(0, Math.min(1, position - index));
+        const local = Math.max(0, position - index);
         if (index > 0) item.style.setProperty('--scroll-layer-y', `${100 * (1 - Math.min(1, local / .6))}%`);
         const active = index === activeIndex;
         if (!active && item.activePlayer) item.collapse({ animate: false, restoreFocus: false });
         if (!active) item.players?.forEach(player => player.source.pause?.());
         item.inert = !active;
         item.setAttribute('aria-hidden', String(!active));
-        item.setScrollProgress?.(active ? local : 0);
+        // Keep outgoing copy tied to the next layer's entrance, even though
+        // its controls are already inert. Reversing scroll reverses the fade.
+        item.setScrollProgress?.(index === this.items.length - 1 ? Math.min(1, local) : local);
       });
     }
     disconnectedCallback() {

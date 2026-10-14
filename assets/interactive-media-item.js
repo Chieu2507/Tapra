@@ -117,7 +117,10 @@
       const player = this.players[0];
       if (this.activePlayer || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
       const fade = Math.max(0, Math.min(1, (progress - .6) / .25));
-      const opacity = fade * fade * (3 - 2 * fade);
+      const enter = fade * fade * (3 - 2 * fade);
+      const exit = Math.max(0, Math.min(1, (progress - 1) / .6));
+      const leave = exit * exit * (3 - 2 * exit);
+      const opacity = enter * (1 - leave);
       if (fade > 0) {
         if (this.dataset.mediaKind === 'video' && player?.button) {
           if (!this.scrollPlay) {
@@ -138,7 +141,7 @@
         }
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
-        this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - opacity)}px`);
+        this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
         this.setFullContent(true, player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
       } else {
         this.resetScrollCopy();
