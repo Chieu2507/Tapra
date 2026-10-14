@@ -172,6 +172,9 @@
         if (index > 0) item.style.setProperty('--scroll-layer-y', `${100 * (1 - Math.min(1, local / .6))}%`);
         const active = index === activeIndex;
         if (!active && item.activePlayer) item.collapse({ animate: false, restoreFocus: false });
+        // Manual expansion completed the segment. Reverse scrolling hands the
+        // player back to the same scroll geometry instead of keeping it full.
+        if (active && item.activePlayer && local < 1) item.collapse({ animate: false, restoreFocus: false, resumeScroll: true });
         item.inert = !active;
         item.setAttribute('aria-hidden', String(!active));
         // Keep outgoing copy tied to the next layer's entrance, even though

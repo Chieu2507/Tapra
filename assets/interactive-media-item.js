@@ -285,7 +285,27 @@
       } else queueMicrotask(focusClose);
       clone.play?.()?.catch(() => {});
     }
-    collapse({ animate = true, restoreFocus = true } = {}) {
+    resumeScrollPlayer(player) {
+      const current = this.expansion.querySelector('video');
+      const source = player.source;
+      if (!current || !source.matches('video')) return;
+      const playing = !current.paused && !current.ended;
+      player.scrollMuted = source.muted;
+      player.scrollControls = source.controls;
+      player.scrollAutoplay = true;
+      player.scrollEpoch = (player.scrollEpoch || 0) + 1;
+      const epoch = player.scrollEpoch;
+      source.currentTime = current.currentTime;
+      source.muted = current.muted;
+      source.volume = current.volume;
+      source.controls = true;
+      player.media.classList.add('is-scroll-autoplay');
+      if (player.button) { player.button.inert = true; player.button.setAttribute('aria-hidden', 'true'); }
+      if (playing) source.play()?.catch(() => {
+        if (player.scrollEpoch === epoch) this.stopScrollPlayback();
+      });
+    }
+    collapse({ animate = true, restoreFocus = true, resumeScroll = false } = {}) {
       const player = this.activePlayer;
       if (!player) return;
       clearTimeout(this.contentTransitionTimer);
@@ -298,6 +318,7 @@
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       this.expansionAnimation?.cancel();
       this.expansion.classList.add('is-collapsing');
+      if (resumeScroll) this.resumeScrollPlayer(player);
       this.expansion.querySelectorAll('video').forEach(video => video.pause());
       this.expansion.querySelectorAll('iframe').forEach(frame => frame.remove());
       this.sectionRoot.classList.remove('is-media-expanded');
