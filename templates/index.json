@@ -1476,8 +1476,8 @@
         }
       },
       "block_order": [
-        "block_1",
-        "qa_image"
+        "qa_image",
+        "block_1"
       ],
       "settings": {
         "section_width": "full_width",
