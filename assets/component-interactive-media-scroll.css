@@ -8,14 +8,27 @@ lh-interactive-media-scroll.is-scroll-ready {
 }
 .is-scroll-ready .interactive-media-item { isolation: auto; }
 .interactive-media-scroll-slot { position: relative; flex: 0 0 auto; }
+/* Keep the selectable block's DOM bounds equal to the visible reveal window.
+   The media canvas is larger and offset inside this frame. */
 .is-scroll-ready .interactive-media-scroll-target {
-  position: absolute; left: var(--scroll-left, 0px); top: var(--scroll-top, 0px); z-index: 1; margin: 0; padding: 0;
-  width: var(--scroll-width) !important; max-width: none !important;
-  height: var(--scroll-height);
-  clip-path: inset(var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px) round var(--scroll-radius, 0px));
+  position: absolute;
+  left: calc(var(--scroll-left, 0px) + var(--scroll-clip-left, 0px));
+  top: calc(var(--scroll-top, 0px) + var(--scroll-clip-top, 0px));
+  z-index: 1; margin: 0; padding: 0;
+  width: calc(var(--scroll-width) - var(--scroll-clip-left, 0px) - var(--scroll-clip-right, 0px)) !important;
+  max-width: none !important;
+  height: calc(var(--scroll-height) - var(--scroll-clip-top, 0px) - var(--scroll-clip-bottom, 0px));
+  clip-path: inset(0 round var(--scroll-radius, 0px));
 }
 .is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) > :is(.video-block__media, .image-block__media) {
   width: 100%; height: 100%; aspect-ratio: auto; border-radius: var(--scroll-radius);
+}
+.is-scroll-ready .interactive-media-scroll-target > :is(.video-block__media, .image-block__media) {
+  position: absolute;
+  left: calc(-1 * var(--scroll-clip-left, 0px));
+  top: calc(-1 * var(--scroll-clip-top, 0px));
+  width: var(--scroll-width); height: var(--scroll-height);
+  clip-path: inset(var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px) round var(--scroll-radius, 0px));
 }
 .is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) :is(video, iframe, picture, picture > img, .image-block__media > img, .video__placeholder, .image__placeholder) {
   width: 100%; height: 100% !important; object-fit: cover;
@@ -56,7 +69,7 @@ lh-interactive-media-scroll.is-scroll-ready {
 .is-scroll-ready .interactive-media-item[data-blend='true'] > .interactive-media-scroll-target > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
 .is-scroll-ready .interactive-media-item[data-blend='true'] > .interactive-media-scroll-target::after {
   content: ''; position: absolute; z-index: 2; pointer-events: none;
-  inset: var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px);
+  inset: 0;
   border-radius: var(--scroll-radius);
   box-shadow: inset 0 0 48px 22px color-mix(in srgb, var(--interactive-media-background) calc(var(--scroll-blend, 1) * 100%), transparent);
 }
@@ -64,5 +77,5 @@ lh-interactive-media-scroll.is-scroll-ready {
   box-shadow: inset 0 0 24px 6px color-mix(in srgb, var(--interactive-media-background) calc(var(--scroll-blend, 1) * 100%), transparent);
 }
 .is-scroll-ready .interactive-media-scroll-target::before {
-  inset: var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px);
+  inset: 0;
 }
