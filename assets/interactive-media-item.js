@@ -76,7 +76,16 @@
         if (this.dataset.magnetic !== 'true' || !button) return;
         media.addEventListener('pointermove', event => {
           if (this.activePlayer || event.pointerType !== 'mouse' || !this.mouse.matches || this.motion.matches || button.matches(':focus-visible')) return;
-          const bounds = media.getBoundingClientRect();
+          const bounds = { ...media.getBoundingClientRect().toJSON() };
+          const reveal = media.closest('.interactive-media-scroll-target');
+          if (reveal) {
+            const style = getComputedStyle(reveal);
+            const inset = edge => parseFloat(style.getPropertyValue(`--scroll-clip-${edge}`)) || 0;
+            bounds.left += inset('left');
+            bounds.top += inset('top');
+            bounds.width -= inset('left') + inset('right');
+            bounds.height -= inset('top') + inset('bottom');
+          }
           const limitX = Math.max(0, (bounds.width - button.offsetWidth) / 2 - 12);
           const limitY = Math.max(0, (bounds.height - button.offsetHeight) / 2 - 12);
           player.target = {

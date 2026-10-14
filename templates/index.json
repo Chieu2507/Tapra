@@ -1286,6 +1286,7 @@
               "type": "video",
               "settings": {
                 "video_source": "uploaded",
+                "video": "shopify://files/videos/elara-inspiration-1.mp4",
                 "aspect_ratio_desktop": "custom",
                 "custom_aspect_ratio_desktop": 1.5,
                 "aspect_ratio_mobile": "custom",
