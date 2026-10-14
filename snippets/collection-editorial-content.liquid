@@ -85,7 +85,7 @@
     {% when 'image' %}
       {% render 'image', image: settings.image, mobile_image: settings.mobile_image, url: settings.link, open_in_new_tab: settings.open_in_new_tab, width: 1600, widths: '200, 400, 600, 800, 1200, 1600', sizes: '(min-width: 768px) 50vw, 100vw', placeholder: 'image', class: 'ce-header-image' %}
     {% when 'rich' %}<div class="editorial-text-block__base">{{ content }}</div>
-    {% when 'subheading' %}{% if settings.show_icon %}<span class="ce-subheading-icon ce-subheading-icon--{{ settings.icon }}" aria-hidden="true">{% if settings.icon == 'sparkle' %}✦{% endif %}</span>{% endif %}{{ content }}
+    {% when 'subheading' %}{% if settings.show_icon %}<span class="ce-subheading-icon ce-subheading-icon--{{ settings.icon }}" aria-hidden="true">{% if settings.icon == 'sparkle' %}{% render 'icon', icon: 'four-stars', bare: true %}{% endif %}</span>{% endif %}{{ content }}
     {% else %}{{ content }}
   {% endcase %}
 </{{ tag }}>

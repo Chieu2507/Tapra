@@ -1,5 +1,17 @@
 {% doc %}
-  Scoped spacing adapter for the Editorial composition. Preserves explicit mobile zero values.
+  Emits only spacing overrides for the Editorial composition, preserving mobile zero.
   @param {object} settings - Owning block settings
 {% enddoc %}
---ce-pt:{{ settings.padding_top | default: 0 }}px;--ce-pb:{{ settings.padding_bottom | default: 0 }}px;--ce-pl:{{ settings.padding_left | default: 0 }}px;--ce-pr:{{ settings.padding_right | default: 0 }}px;{% if settings.customize_mobile_padding %}--ce-pt-mobile:{{ settings.padding_top_mobile | default: 0 }}px;--ce-pb-mobile:{{ settings.padding_bottom_mobile | default: 0 }}px;--ce-pl-mobile:{{ settings.padding_left_mobile | default: 0 }}px;--ce-pr-mobile:{{ settings.padding_right_mobile | default: 0 }}px;{% endif %}
+{%- assign sides = 'top,bottom,left,right' | split: ',' -%}
+{%- assign short = 'pt,pb,pl,pr' | split: ',' -%}
+{%- for side in sides -%}
+  {%- assign key = 'padding_' | append: side -%}
+  {%- assign value = settings[key] | default: 0 -%}
+  {%- assign token = short[forloop.index0] -%}
+  {%- if value != 0 -%}--ce-{{ token }}:{{ value }}px;{%- endif -%}
+  {%- if settings.customize_mobile_padding -%}
+    {%- assign mobile_key = key | append: '_mobile' -%}
+    {%- assign mobile = settings[mobile_key] | default: 0 -%}
+    {%- if mobile != value -%}--ce-{{ token }}-mobile:{{ mobile }}px;{%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
