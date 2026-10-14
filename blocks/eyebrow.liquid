@@ -62,12 +62,6 @@
 {% capture eyebrow_style %}
   {% if block.settings.background_color != blank %}--eyebrow-background: {{ block.settings.background_color }};{% endif %}
   {% if block.settings.border_color != blank %}--eyebrow-border-color: {{ block.settings.border_color }};{% endif %}
-  {% if block.settings.customize_typography %}
-    --eyebrow-font-size: {{ block.settings.font_size }}px;
-    --eyebrow-text-transform: {{ block.settings.text_transform }};
-    --eyebrow-letter-spacing: {{ block.settings.letter_spacing }}px;
-    --eyebrow-font-family: {% case block.settings.font_role %}{% when 'body' %}var(--font-body-family){% when 'monospace' %}ui-monospace, Menlo, Consolas, monospace{% else %}var(--font-accent-family){% endcase %};
-  {% endif %}
   {% if border_thickness != 0 %}--eyebrow-border-width: {{ border_thickness }}px;{% endif %}
   {% if block.settings.corner_radius != blank and block.settings.corner_radius != 'square' %}--eyebrow-radius: {{ eyebrow_radius }};{% endif %}
   {% if padding_top != 0 %}--eyebrow-padding-top: {{ padding_top }}px;{% endif %}
@@ -86,7 +80,7 @@
 
 {% if block.settings.text != blank or request.design_mode %}
   <div
-    class="{{ eyebrow_class }}{% if block.settings.customize_typography %} eyebrow-block--custom-type{% endif %}"
+    class="{{ eyebrow_class }}"
     {% if eyebrow_style != blank %}style="{{ eyebrow_style }}"{% endif %}
     {% render 'block-animation-attributes', settings: block.settings %}
     {{ block.shopify_attributes }}
@@ -133,15 +127,6 @@
     background-color: var(--eyebrow-background, var(--background-color));
   }
 
-  .eyebrow-block--custom-type.eyebrow-text {
-    font-family: var(--eyebrow-font-family);
-    font-size: var(--eyebrow-font-size);
-    line-height: 1.2;
-    letter-spacing: var(--eyebrow-letter-spacing);
-    text-transform: var(--eyebrow-text-transform);
-  }
-  .eyebrow-block--custom-type .eyebrow-block__icon { width: .5em; height: .5em; }
-  .eyebrow-block--custom-type .eyebrow-block__icon svg { width: 100%; height: 100%; }
   .eyebrow-block__content {
     flex: 1 1 auto;
     min-width: 0;
@@ -182,72 +167,6 @@
       "type": "richtext",
       "id": "text",
       "label": "t:labels.text"
-    },
-    {
-      "type": "checkbox",
-      "id": "customize_typography",
-      "label": "t:gallery_header_controls.customize_typography",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "font_size",
-      "label": "t:gallery_header_controls.font_size",
-      "min": 8,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 12,
-      "visible_if": "{{ block.settings.customize_typography }}"
-    },
-    {
-      "type": "select",
-      "id": "font_role",
-      "label": "t:gallery_header_controls.font_role",
-      "default": "accent",
-      "options": [
-        {
-          "value": "accent",
-          "label": "t:gallery_header_controls.option_accent"
-        },
-        {
-          "value": "body",
-          "label": "t:gallery_header_controls.option_body"
-        },
-        {
-          "value": "monospace",
-          "label": "t:gallery_header_controls.option_monospace"
-        }
-      ],
-      "visible_if": "{{ block.settings.customize_typography }}"
-    },
-    {
-      "type": "select",
-      "id": "text_transform",
-      "label": "t:gallery_header_controls.text_transform",
-      "default": "none",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:gallery_header_controls.option_none"
-        },
-        {
-          "value": "uppercase",
-          "label": "t:gallery_header_controls.option_uppercase"
-        }
-      ],
-      "visible_if": "{{ block.settings.customize_typography }}"
-    },
-    {
-      "type": "range",
-      "id": "letter_spacing",
-      "label": "t:gallery_header_controls.letter_spacing",
-      "min": 0,
-      "max": 3,
-      "step": 0.1,
-      "unit": "px",
-      "default": 0,
-      "visible_if": "{{ block.settings.customize_typography }}"
     },
     {
       "type": "color",

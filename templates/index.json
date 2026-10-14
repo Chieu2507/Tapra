@@ -414,12 +414,7 @@
                 "padding_bottom": 7,
                 "padding_left": 12,
                 "padding_right": 12,
-                "color": "#dbe7ff",
-                "customize_typography": true,
-                "font_size": 12,
-                "font_role": "body",
-                "text_transform": "none",
-                "letter_spacing": 0
+                "color": "#dbe7ff"
               }
             },
             "insta_1_2": {
@@ -457,7 +452,7 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Seen on desks.</p>",
-                        "heading_size": "lg",
+                        "heading_size": "display",
                         "html_tag": "h2",
                         "width": "fill",
                         "custom_heading_size": 60
@@ -467,7 +462,7 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Shared by typists.</p>",
-                        "heading_size": "lg",
+                        "heading_size": "display",
                         "html_tag": "div",
                         "text_color": "#bfe3ff",
                         "width": "fill",
@@ -560,12 +555,7 @@
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10,
-                            "customize_typography": true,
-                            "font_size": 10,
-                            "font_role": "monospace",
-                            "text_transform": "uppercase",
-                            "letter_spacing": 0.8
+                            "padding_right": 10
                           }
                         },
                         "posts": {
@@ -584,12 +574,7 @@
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10,
-                            "customize_typography": true,
-                            "font_size": 10,
-                            "font_role": "monospace",
-                            "text_transform": "uppercase",
-                            "letter_spacing": 0.8
+                            "padding_right": 10
                           }
                         },
                         "weekly": {
@@ -608,12 +593,7 @@
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10,
-                            "customize_typography": true,
-                            "font_size": 10,
-                            "font_role": "monospace",
-                            "text_transform": "uppercase",
-                            "letter_spacing": 0.8
+                            "padding_right": 10
                           }
                         }
                       },
