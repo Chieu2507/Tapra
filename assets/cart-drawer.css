@@ -41,7 +41,7 @@
     transition-delay: 400ms;
   }
 
-  /* Demo rhythm: slide the pill for var(--motion-duration-surface), expand at 300ms for var(--motion-duration-surface).
+  /* Pill translation and expansion share the root surface duration.
      Closing contracts immediately, then returns to the center at 300ms. */
   .cart-drawer.cart-drawer--compact {
     --overlay-backdrop-duration: var(--motion-duration-backdrop);
@@ -768,7 +768,7 @@
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__shipping-progress,
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__items,
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__recommendations,
-    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__footer { animation: cart-drawer-content-reveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+    .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__footer { animation: cart-drawer-content-reveal var(--motion-duration-surface) var(--motion-ease-surface) both; }
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__shipping-progress { animation-delay: 0.08s; }
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__items { animation-delay: 0.12s; }
     .cart-drawer--animated:not(.cart-drawer--compact).is-open .cart-drawer__recommendations { animation-delay: 0.16s; }
