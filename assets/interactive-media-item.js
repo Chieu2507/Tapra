@@ -299,7 +299,7 @@
       source.muted = current.muted;
       source.volume = current.volume;
       source.controls = true;
-      player.media.classList.add('is-scroll-autoplay');
+      player.media.classList.add('is-scroll-autoplay', 'has-started');
       if (player.button) { player.button.inert = true; player.button.setAttribute('aria-hidden', 'true'); }
       if (playing) source.play()?.catch(() => {
         if (player.scrollEpoch === epoch) this.stopScrollPlayback();
