@@ -60,6 +60,7 @@
           button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
           media.addEventListener('click', event => {
+            if (event.target.closest('[data-full-media-content]')) return;
             event.preventDefault();
             event.stopImmediatePropagation();
             source.pause?.();
@@ -107,7 +108,7 @@
       const player = this.players[0];
       if (!player?.button || !this.fullContent) return;
       const copy = this.fullContent.querySelector('.interactive-media-item__content');
-      const buttonHeight = player.button.getBoundingClientRect().height;
+      const buttonHeight = player.button.offsetHeight;
       const gap = parseFloat(getComputedStyle(this.fullContent).getPropertyValue('--media-content-play-gap')) || 32;
       const offset = (copy.getBoundingClientRect().height + gap) / 2 * (this.scrollCopyOpacity || 0);
       this.fullContent.style.setProperty('--media-content-play-size', `${buttonHeight}px`);
