@@ -1197,11 +1197,11 @@
         "customize_mobile_padding": true,
         "padding_top_mobile": 64,
         "padding_bottom_mobile": 64,
-        "gap_desktop": 0,
-        "gap_mobile": 4,
-        "alignment": "left",
-        "customize_mobile_alignment": true,
-        "alignment_mobile": "right"
+        "gap_desktop": 16,
+        "gap_mobile": 16,
+        "alignment": "center",
+        "customize_mobile_alignment": false,
+        "alignment_mobile": "left"
       },
       "blocks": {
         "block_1": {
