@@ -1299,8 +1299,7 @@
                 "corner_radius": "radius_32",
                 "play_button_size_desktop": 64,
                 "play_button_size_mobile": 56,
-                "play_button_background_color": "#ffffffb3",
-                "video": "shopify://files/videos/elara-inspiration-1.mp4"
+                "play_button_background_color": "#ffffffb3"
               },
               "static": true
             },
