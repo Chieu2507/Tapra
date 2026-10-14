@@ -9,7 +9,10 @@
 {% liquid
   assign content_scheme = item_block.settings.content_color_scheme.id | default: item_block.settings.content_color_scheme | default: 'scheme-3'
   assign content_opacity = item_block.settings.content_overlay_opacity | divided_by: 100.0
-  assign media_item_count = section.blocks.size
+  assign media_item_count = 0
+  for item in section.blocks
+    assign media_item_count = media_item_count | plus: 1
+  endfor
   assign media_sequence = false
   if section.settings.sticky_scroll and media_item_count > 1
     assign media_sequence = true
