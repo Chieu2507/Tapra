@@ -1,0 +1,401 @@
+{% render 'collection-editorial-content', block: block, role: 'image' %}
+{% schema %}
+{
+  "name": "Image",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image (optional)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_first",
+      "label": "Show image first on mobile",
+      "default": false
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "select",
+      "id": "device",
+      "label": "Device",
+      "options": [
+        {
+          "value": "desktop",
+          "label": "Desktop"
+        },
+        {
+          "value": "mobile",
+          "label": "Mobile"
+        }
+      ],
+      "default": "desktop"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "options": [
+        {
+          "value": "fit",
+          "label": "Fit"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "visible_if": "{{ block.settings.device == 'desktop' }}",
+      "default": "fit"
+    },
+    {
+      "type": "range",
+      "id": "custom_width",
+      "label": "Custom width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "visible_if": "{{ block.settings.device == 'desktop' and block.settings.width == 'custom' }}",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "limit_width",
+      "label": "Limit width",
+      "visible_if": "{{ block.settings.device == 'desktop' }}",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 50,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "visible_if": "{{ block.settings.device == 'desktop' and block.settings.limit_width }}",
+      "default": 500
+    },
+    {
+      "type": "select",
+      "id": "width_mobile",
+      "label": "Width",
+      "options": [
+        {
+          "value": "fit",
+          "label": "Fit"
+        },
+        {
+          "value": "fill",
+          "label": "Fill"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "visible_if": "{{ block.settings.device == 'mobile' }}",
+      "default": "fit"
+    },
+    {
+      "type": "range",
+      "id": "custom_width_mobile",
+      "label": "Custom width",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "visible_if": "{{ block.settings.device == 'mobile' and block.settings.width_mobile == 'custom' }}",
+      "default": 50
+    },
+    {
+      "type": "checkbox",
+      "id": "limit_width_mobile",
+      "label": "Limit width",
+      "visible_if": "{{ block.settings.device == 'mobile' }}",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "max_width_mobile",
+      "label": "Max width",
+      "min": 50,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "visible_if": "{{ block.settings.device == 'mobile' and block.settings.limit_width_mobile }}",
+      "default": 500
+    },
+    {
+      "type": "select",
+      "id": "ratio",
+      "label": "Image ratio",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Original"
+        },
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "2/3",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "9/16",
+          "label": "Portrait (9:16)"
+        },
+        {
+          "value": "16/9",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "3/2",
+          "label": "Landscape (3:2)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "fill",
+          "label": "Fill height"
+        }
+      ],
+      "visible_if": "{{ block.settings.device == 'desktop' }}",
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "ratio_mobile",
+      "label": "Image ratio (mobile)",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Original"
+        },
+        {
+          "value": "1/1",
+          "label": "Square (1:1)"
+        },
+        {
+          "value": "4/5",
+          "label": "Portrait (4:5)"
+        },
+        {
+          "value": "3/4",
+          "label": "Portrait (3:4)"
+        },
+        {
+          "value": "2/3",
+          "label": "Portrait (2:3)"
+        },
+        {
+          "value": "9/16",
+          "label": "Portrait (9:16)"
+        },
+        {
+          "value": "16/9",
+          "label": "Landscape (16:9)"
+        },
+        {
+          "value": "3/2",
+          "label": "Landscape (3:2)"
+        },
+        {
+          "value": "4/3",
+          "label": "Landscape (4:3)"
+        },
+        {
+          "value": "fill",
+          "label": "Fill height"
+        }
+      ],
+      "visible_if": "{{ block.settings.device == 'mobile' }}",
+      "default": "auto"
+    },
+    {
+      "type": "header",
+      "content": "Border"
+    },
+    {
+      "type": "select",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        },
+        {
+          "value": "none",
+          "label": "Square"
+        },
+        {
+          "value": "xl",
+          "label": "Rounded"
+        },
+        {
+          "value": "full",
+          "label": "Full"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "range",
+      "id": "custom_corner_radius",
+      "label": "Custom corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "visible_if": "{{ block.settings.corner_radius == 'custom' }}",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "select",
+      "id": "animation_type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "scale",
+          "label": "Scale"
+        },
+        {
+          "value": "slide-left",
+          "label": "Slide from left"
+        },
+        {
+          "value": "slide-right",
+          "label": "Slide from right"
+        },
+        {
+          "value": "slide-bottom",
+          "label": "Slide from bottom"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "animation_delay",
+      "label": "Delay",
+      "min": 0,
+      "max": 1000,
+      "step": 50,
+      "unit": "ms",
+      "visible_if": "{{ block.settings.animation_type != 'none' }}",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "Custom for mobile",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Top (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "visible_if": "{{ block.settings.customize_mobile_padding }}",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "visible_if": "{{ block.settings.customize_mobile_padding }}",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image"
+    }
+  ]
+}
+{% endschema %}

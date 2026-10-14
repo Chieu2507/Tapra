@@ -1,0 +1,261 @@
+<div class="ce-action" data-full-mobile="{{ block.settings.full_width_mobile }}" data-height-mobile="{{ block.settings.height_mobile }}" {{ block.shopify_attributes }}>
+{% for device in (1..2) %}
+  {% liquid
+    assign variant = block.settings.style
+    assign icon = blank
+    assign show_icon = block.settings.show_icon
+    assign device_class = 'ce-action__desktop'
+    if device == 2
+      assign variant = block.settings.style_mobile
+      assign show_icon = block.settings.show_icon_mobile
+      assign device_class = 'ce-action__mobile'
+    endif
+    assign treatment = variant
+    if variant == 'subtle'
+      assign variant = 'secondary'
+    endif
+    if show_icon
+      assign icon = block.settings.icon
+    endif
+    assign classes = device_class | append: ' ce-action--' | append: treatment
+  %}
+  {% render 'theme-button', label: block.settings.label, url: block.settings.link, force_link: true, variant: variant, icon: icon, icon_position: block.settings.icon_position, icon_size: block.settings.icon_size, icon_width: block.settings.icon_width, class: classes, open_in_new_tab: block.settings.open_in_new_tab %}
+{% endfor %}
+</div>
+{% schema %}
+{
+  "name": "View all button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "label",
+      "label": "Label",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Open link in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "select",
+      "id": "style",
+      "label": "Style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "subtle",
+          "label": "Subtle"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        }
+      ],
+      "default": "text"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon",
+      "label": "Show icon",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Icon",
+      "options": [
+        {
+          "value": "arrow_right",
+          "label": "Arrow right"
+        },
+        {
+          "value": "long_arrow_right",
+          "label": "Long arrow right"
+        },
+        {
+          "value": "chevron_right",
+          "label": "Chevron"
+        },
+        {
+          "value": "arrow_up_right",
+          "label": "Arrow up"
+        },
+        {
+          "value": "circle_arrow",
+          "label": "Circle arrow"
+        },
+        {
+          "value": "circle_chevron",
+          "label": "Circle chevron"
+        },
+        {
+          "value": "long_arrow_up",
+          "label": "Long arrow up"
+        },
+        {
+          "value": "double_chevron",
+          "label": "Double chevron"
+        },
+        {
+          "value": "arrow_outline",
+          "label": "Arrow outline"
+        },
+        {
+          "value": "square_chevron",
+          "label": "Square chevron"
+        },
+        {
+          "value": "plus",
+          "label": "Plus"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_icon }}",
+      "default": "arrow_up_right"
+    },
+    {
+      "type": "select",
+      "id": "icon_position",
+      "label": "Icon position",
+      "options": [
+        {
+          "value": "before",
+          "label": "Left"
+        },
+        {
+          "value": "after",
+          "label": "Right"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_icon }}",
+      "default": "after"
+    },
+    {
+      "type": "select",
+      "id": "icon_size",
+      "label": "Icon size",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "visible_if": "{{ block.settings.show_icon }}",
+      "default": "inherit"
+    },
+    {
+      "type": "range",
+      "id": "icon_width",
+      "label": "Custom icon size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "visible_if": "{{ block.settings.show_icon and block.settings.icon_size == 'custom' }}",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "select",
+      "id": "style_mobile",
+      "label": "Style",
+      "options": [
+        {
+          "value": "primary",
+          "label": "Primary"
+        },
+        {
+          "value": "secondary",
+          "label": "Secondary"
+        },
+        {
+          "value": "outline",
+          "label": "Outline"
+        },
+        {
+          "value": "subtle",
+          "label": "Subtle"
+        },
+        {
+          "value": "text",
+          "label": "Text"
+        }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "select",
+      "id": "height_mobile",
+      "label": "Height",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        },
+        {
+          "value": "xs",
+          "label": "Extra small"
+        },
+        {
+          "value": "sm",
+          "label": "Small"
+        },
+        {
+          "value": "md",
+          "label": "Medium"
+        },
+        {
+          "value": "lg",
+          "label": "Large"
+        },
+        {
+          "value": "xl",
+          "label": "Extra large"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width_mobile",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_icon_mobile",
+      "label": "Show icon",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

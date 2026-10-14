@@ -1,0 +1,52 @@
+{% liquid
+  assign resource = block.settings.collection
+  assign title = block.settings.custom_title | default: resource.title
+  if title == blank
+    assign title = 'collection_editorial.collection_title' | t
+  endif
+  assign image = block.settings.custom_image | default: resource.featured_image
+  assign list = list_settings
+  assign title_tag = list.html_tag | default: 'div'
+  unless title_tag == 'div' or title_tag == 'h1' or title_tag == 'h2' or title_tag == 'h3' or title_tag == 'h4' or title_tag == 'h5' or title_tag == 'h6'
+    assign title_tag = 'div'
+  endunless
+%}
+{% liquid
+  assign item_tag = 'div'
+  if resource != blank
+    assign item_tag = 'a'
+  endif
+%}
+<{{ item_tag }}{% if resource != blank %} href="{{ resource.url }}"{% endif %} class="ce-item" {{ block.shopify_attributes }}>
+  <span class="ce-item__text"><{{ title_tag }} class="ce-item__title">{{ title | escape }}</{{ title_tag }}>{% if list.show_product_count and resource != blank %}<sup class="ce-item__count">{{ resource.all_products_count }}</sup>{% endif %}</span>
+  {% if list.show_navigation_icon %}<span class="ce-item__icon" aria-hidden="true">{% render 'icon', icon: 'arrow_up_right', bare: true %}</span>{% endif %}
+  <span class="ce-item__preview" aria-hidden="true">{% render 'image', image: image, class: 'ce-item__image', width: 700, widths: '200, 350, 500, 700', sizes: '(min-width: 1150px) 22vw, 1px', alt: '' %}</span>
+</{{ item_tag }}>
+{% schema %}
+{
+  "name": "Collection",
+  "tag": null,
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom title"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Custom image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection"
+    }
+  ]
+}
+{% endschema %}

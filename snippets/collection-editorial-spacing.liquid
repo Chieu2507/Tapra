@@ -1,0 +1,5 @@
+{% doc %}
+  Scoped spacing adapter for the Editorial composition. Preserves explicit mobile zero values.
+  @param {object} settings - Owning block settings
+{% enddoc %}
+--ce-pt:{{ settings.padding_top | default: 0 }}px;--ce-pb:{{ settings.padding_bottom | default: 0 }}px;--ce-pl:{{ settings.padding_left | default: 0 }}px;--ce-pr:{{ settings.padding_right | default: 0 }}px;{% if settings.customize_mobile_padding %}--ce-pt-mobile:{{ settings.padding_top_mobile | default: 0 }}px;--ce-pb-mobile:{{ settings.padding_bottom_mobile | default: 0 }}px;--ce-pl-mobile:{{ settings.padding_left_mobile | default: 0 }}px;--ce-pr-mobile:{{ settings.padding_right_mobile | default: 0 }}px;{% endif %}
