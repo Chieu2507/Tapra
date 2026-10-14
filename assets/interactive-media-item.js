@@ -118,7 +118,7 @@
       }
     }
     setScrollPlayback(progress, active = true) {
-      const player = this.players[0];
+      const player = this.players?.[0];
       if (!player || this.activePlayer) return;
       if (!active || progress <= 0 || this.motion.matches) { this.stopScrollPlayback(); return; }
       if (progress < .6 || player.scrollAutoplay) return;
@@ -151,14 +151,13 @@
       }
     }
     stopScrollPlayback() {
-      const player = this.players[0];
+      const player = this.players?.[0];
       if (!player?.scrollAutoplay) return;
       player.scrollAutoplay = false;
       player.scrollEpoch = (player.scrollEpoch || 0) + 1;
       const source = player.source;
       if (source.matches('video')) {
         source.pause();
-        source.currentTime = 0;
         source.muted = player.scrollMuted;
         source.controls = player.scrollControls;
       } else {
