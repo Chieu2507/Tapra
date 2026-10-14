@@ -11,7 +11,8 @@ lh-interactive-media-scroll.is-scroll-ready {
 .is-scroll-ready .interactive-media-scroll-target {
   position: absolute; left: var(--scroll-left, 0px); top: var(--scroll-top, 0px); z-index: 1; margin: 0; padding: 0;
   width: var(--scroll-width) !important; max-width: none !important;
-  height: var(--scroll-height); transform: translate(var(--scroll-x, 0px), var(--scroll-y, 0px));
+  height: var(--scroll-height);
+  clip-path: inset(var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px) round var(--scroll-radius, 0px));
 }
 .is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) > :is(.video-block__media, .image-block__media) {
   width: 100%; height: 100%; aspect-ratio: auto; border-radius: var(--scroll-radius);
@@ -41,3 +42,27 @@ lh-interactive-media-scroll.is-scroll-ready {
 .is-scroll-ready .interactive-media-scroll-cover { --scroll-blend: 0; }
 .is-scroll-ready .interactive-media-scroll-layer::before { display: none; }
 .is-scroll-ready .interactive-media-expansion { z-index: 20; }
+
+/* The controls and decorative edges follow the reveal window, not the canvas. */
+.is-scroll-ready .interactive-media-scroll-target .video__play {
+  left: calc((var(--scroll-clip-left, 0px) + 100% - var(--scroll-clip-right, 0px)) / 2);
+  top: calc((var(--scroll-clip-top, 0px) + 100% - var(--scroll-clip-bottom, 0px)) / 2);
+}
+.is-scroll-ready .interactive-media-scroll-target :is(.video__placeholder, .image__placeholder) {
+  position: absolute; left: var(--scroll-clip-left, 0px); top: var(--scroll-clip-top, 0px);
+  width: calc(100% - var(--scroll-clip-left, 0px) - var(--scroll-clip-right, 0px));
+  height: calc(100% - var(--scroll-clip-top, 0px) - var(--scroll-clip-bottom, 0px)) !important;
+}
+.is-scroll-ready .interactive-media-item[data-blend='true'] > .interactive-media-scroll-target > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
+.is-scroll-ready .interactive-media-item[data-blend='true'] > .interactive-media-scroll-target::after {
+  content: ''; position: absolute; z-index: 2; pointer-events: none;
+  inset: var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px);
+  border-radius: var(--scroll-radius);
+  box-shadow: inset 0 0 48px 22px color-mix(in srgb, var(--interactive-media-background) calc(var(--scroll-blend, 1) * 100%), transparent);
+}
+.is-scroll-ready .interactive-media-item[data-blend='true'] > .interactive-media-scroll-target:has(> .placeholder-image)::after {
+  box-shadow: inset 0 0 24px 6px color-mix(in srgb, var(--interactive-media-background) calc(var(--scroll-blend, 1) * 100%), transparent);
+}
+.is-scroll-ready .interactive-media-scroll-target::before {
+  inset: var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px);
+}

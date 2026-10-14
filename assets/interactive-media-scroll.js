@@ -58,7 +58,7 @@
         item.stopScrollPlayback?.();
       }
       this.style.removeProperty('--media-scroll-count');
-      for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage?.style.removeProperty(property);
+      for (const property of ['--scroll-left', '--scroll-top', '--scroll-clip-top', '--scroll-clip-right', '--scroll-clip-bottom', '--scroll-clip-left', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage?.style.removeProperty(property);
     }
     measure() {
       this.reset();
@@ -156,14 +156,16 @@
       const zoom = Math.min(1, progress / .6);
       const slot = this.mediaSlot.getBoundingClientRect();
       const parent = this.media.offsetParent.getBoundingClientRect();
-      this.stage.style.setProperty('--scroll-left', `${slot.left - parent.left}px`);
-      this.stage.style.setProperty('--scroll-top', `${slot.top - parent.top}px`);
-      const x = (stage.left - slot.left) * zoom;
-      const y = (stage.top - slot.top) * zoom;
-      this.stage.style.setProperty('--scroll-x', `${x}px`);
-      this.stage.style.setProperty('--scroll-y', `${y}px`);
-      this.stage.style.setProperty('--scroll-width', `${this.initialWidth + (stage.width - this.initialWidth) * zoom}px`);
-      this.stage.style.setProperty('--scroll-height', `${this.initialHeight + (stage.height - this.initialHeight) * zoom}px`);
+      // Keep the image canvas stable: scrolling reveals more of it instead of
+      // repeatedly resizing object-fit and magnifying the entire poster.
+      this.stage.style.setProperty('--scroll-left', `${stage.left - parent.left}px`);
+      this.stage.style.setProperty('--scroll-top', `${stage.top - parent.top}px`);
+      this.stage.style.setProperty('--scroll-width', `${stage.width}px`);
+      this.stage.style.setProperty('--scroll-height', `${stage.height}px`);
+      for (const [edge, inset] of Object.entries({
+        top: slot.top - stage.top, right: stage.right - slot.right,
+        bottom: stage.bottom - slot.bottom, left: slot.left - stage.left,
+      })) this.stage.style.setProperty(`--scroll-clip-${edge}`, `${Math.max(0, inset) * (1 - zoom)}px`);
       this.stage.style.setProperty('--scroll-radius', `${this.radius * (1 - zoom)}px`);
       this.stage.style.setProperty('--scroll-blend', String(1 - zoom));
       this.stage.style.setProperty('--scroll-header-opacity', String(Math.max(0, 1 - progress * 3)));

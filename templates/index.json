@@ -1396,12 +1396,74 @@
       "block_order": [
         "block_1"
       ]
+    },
+    "tapra_rich_text": {
+      "type": "rich-text",
+      "settings": {
+        "section_width": "page_width",
+        "alignment": "center",
+        "customize_mobile_alignment": false,
+        "color_scheme": "scheme-2",
+        "gap_desktop": 32,
+        "gap_mobile": 24,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 72,
+        "padding_bottom_mobile": 72
+      },
+      "blocks": {
+        "eyebrow": {
+          "type": "eyebrow",
+          "static": true,
+          "disabled": true,
+          "settings": {
+            "text": ""
+          }
+        },
+        "heading": {
+          "type": "heading",
+          "static": true,
+          "settings": {
+            "text": "<p>Better days,<br/>one keypress at a time.</p>",
+            "heading_size": "display",
+            "html_tag": "h2",
+            "width": "custom",
+            "max_width": 1000,
+            "customize_mobile_size": true,
+            "width_mobile": "fill"
+          }
+        },
+        "text": {
+          "type": "text",
+          "static": true,
+          "disabled": true,
+          "settings": {
+            "text": ""
+          }
+        },
+        "shop_button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop keyboards",
+            "button_link": "/collections/all",
+            "button_style": "primary",
+            "show_icon": false,
+            "width": "fit",
+            "width_mobile": "fit"
+          }
+        }
+      },
+      "block_order": [
+        "shop_button"
+      ]
     }
   },
   "order": [
     "slideshow",
     "tapra_media",
     "tapra_faq",
+    "tapra_rich_text",
     "instagram_gallery"
   ]
 }

@@ -193,3 +193,11 @@ Layout follows Section width → Alignment → Customize for mobile → conditio
 - Theme Check: 0 errors, 45 warnings. git diff --check passes.
 - Delivery includes FAQ, rich text/editorial composition, typed Interactive media, shared Marquee extraction, media placeholders and shared root motion. Existing unrelated Slideshow pagination edit and older untracked audit docs/output remain outside this commit.
 - Demo Video selection is intentionally blank at user request. Placeholder retains shared tint layers with a narrower Blend edges shadow; no video-specific parent overlay is restored.
+
+
+## Sticky clip reveal and Instagram CTA — 2026-10-14
+
+- Replaced first-media resizing with a stable section-sized canvas and a scroll-driven rounded inset clip. Reverse scrolling follows the same clip bounds. Later media retain their full-size slide-over behavior.
+- Play positioning, magnetic bounds, placeholder illustration, and blended edges follow the visible clip window. Manual video expansion animates the current clip to the full section using the shared surface motion tokens. Base Image/Video/Marquee settings remain unchanged.
+- Added the existing Rich text section before Instagram using static Heading and a standard Button. Restricted Rich text link color inheritance to non-button links so CTA foreground tokens remain effective.
+- QA: 36 relevant tests pass; Theme Check has 0 errors / 45 existing warnings; JS syntax and diff whitespace checks pass. Browser tested real uploaded video at partial clip → manual expansion → reverse scroll; mobile viewport 390×844; two-item video/image slide-over; restored the original empty Video demo after QA. Rich text reviewed on desktop and mobile. No direct Theme Editor iframe inspection in this pass.

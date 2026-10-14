@@ -515,3 +515,56 @@ test('manual inline playback is independent of zoom progress and retains its aud
   item.setScrollPlayback(.7, false);
   assert.equal(pauses, 1);
 });
+
+
+test('sticky reveal keeps a full canvas while the clip window grows and reverses exactly', () => {
+  let Scroll;
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/interactive-media-scroll.js'), 'utf8'), {
+    HTMLElement: class {}, customElements: { get() {}, define(name, value) { Scroll = value; } },
+    document: { documentElement: { clientHeight: 800 } },
+  });
+  const scroll = new Scroll();
+  const values = {};
+  const stage = { left: 0, top: 0, right: 1200, bottom: 800, width: 1200, height: 800 };
+  Object.assign(scroll, {
+    classList: { contains: () => true }, items: [{}], radius: 32,
+    getBoundingClientRect: () => ({ top: -scroll.sample * 1200, height: 2000 }),
+    stage: { getBoundingClientRect: () => stage, style: { setProperty: (key, value) => { values[key] = value; } } },
+    mediaSlot: { getBoundingClientRect: () => ({ left: 360, top: 380, right: 840, bottom: 700 }) },
+    media: { offsetParent: { getBoundingClientRect: () => ({ left: 100, top: 200 }) } },
+    updateLayers() {},
+  });
+  const sample = progress => { scroll.sample = progress; scroll.update(); return { ...values }; };
+  const start = sample(0), half = sample(.3), full = sample(.6);
+  for (const frame of [start, half, full]) {
+    assert.equal(frame['--scroll-width'], '1200px');
+    assert.equal(frame['--scroll-height'], '800px');
+    assert.equal(frame['--scroll-left'], '-100px');
+    assert.equal(frame['--scroll-top'], '-200px');
+  }
+  assert.equal(start['--scroll-clip-top'], '380px');
+  assert.equal(start['--scroll-clip-left'], '360px');
+  assert.equal(half['--scroll-clip-top'], '190px');
+  assert.equal(half['--scroll-clip-right'], '180px');
+  assert.equal(half['--scroll-radius'], '16px');
+  for (const edge of ['top', 'right', 'bottom', 'left']) assert.equal(full[`--scroll-clip-${edge}`], '0px');
+  assert.deepEqual(sample(.3), half);
+  assert.deepEqual(sample(0), start);
+});
+
+test('manual expansion continues from the current sticky clip without resizing the image canvas', () => {
+  let Item;
+  const clip = 'inset(180px 240px 60px 240px round 16px)';
+  vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/interactive-media-item.js'), 'utf8'), {
+    HTMLElement: class {}, customElements: { get() {}, define(name, value) { Item = value; } },
+    getComputedStyle: () => ({ clipPath: clip }),
+  });
+  const item = new Item();
+  item.usesScrollPlayback = () => true;
+  item.sectionRoot = { getBoundingClientRect: () => ({ left: 0, top: 0, width: 1200, height: 800 }) };
+  const frames = item.expansionFrames({ media: { getBoundingClientRect: () => ({}), closest: () => ({}) } });
+  assert.equal(frames[0].clipPath, clip);
+  assert.equal(frames[1].clipPath, 'inset(0px 0px 0px 0px round 0px)');
+  assert.equal(frames[0].width, frames[1].width);
+  assert.equal(frames[0].height, frames[1].height);
+});
