@@ -11,6 +11,7 @@
       this.players = [];
       this.sectionRoot = this.closest('.interactive-media');
       this.expansion = this.querySelector('[data-media-expansion]');
+      if (this.expansion) this.expansion.dataset.blend = this.dataset.blend;
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
       this.closeButton?.addEventListener('click', () => this.collapse(), options);
       window.addEventListener('scroll', () => { if (this.activePlayer) this.positionClose(); }, { ...options, passive: true });
@@ -91,6 +92,7 @@
       this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
+      this.expansion.classList.remove('is-collapsing');
       const clone = player.source.cloneNode(true);
       if (clone.matches('video')) {
         clone.controls = true;
@@ -123,6 +125,7 @@
       this.activePlayer = null;
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       this.expansionAnimation?.cancel();
+      this.expansion.classList.add('is-collapsing');
       this.expansion.querySelectorAll('video').forEach(video => video.pause());
       this.expansion.querySelectorAll('iframe').forEach(frame => frame.remove());
       this.sectionRoot.classList.remove('is-media-expanded');
@@ -132,6 +135,7 @@
       const finish = () => {
         if (this.expansionEpoch !== epoch) return;
         this.expansion.hidden = true;
+        this.expansion.classList.remove('is-collapsing');
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
         if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });

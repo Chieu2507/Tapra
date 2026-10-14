@@ -17,10 +17,8 @@
 @media (hover: hover) and (pointer: fine) {
   .interactive-media-item[data-glow='true']:hover > :is(.video-block, .image-block)::before { opacity: .7; }
   .interactive-media-item[data-glow='true']:hover > :is(.marquee, .elara-marquee) { filter: drop-shadow(0 0 18px #fff8); }
-  .interactive-media-item[data-blend='true']:hover > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
 }
 .interactive-media-item[data-glow='true']:focus-within > :is(.video-block, .image-block)::before { opacity: .7; }
-.interactive-media-item[data-blend='true']:focus-within > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
 .interactive-media-item[data-magnetic='true'] > .video-block .video__play {
   transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
   backdrop-filter: blur(8px);
@@ -33,6 +31,16 @@
   overflow: hidden; background: #000; color: #fff; isolation: isolate;
 }
 .interactive-media-expansion[hidden] { display: none; }
+/* Match the poster edge before the collapsing player hands back to it. */
+.interactive-media-expansion[data-blend='true']::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  box-shadow: inset 0 0 48px 22px var(--interactive-media-background, var(--background-color));
+  opacity: 0; transition: opacity 350ms ease;
+}
+.interactive-media-expansion[data-blend='true'].is-collapsing::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .interactive-media-expansion[data-blend='true']::after { transition: none; }
+}
 .interactive-media-expansion__mount { width: 100%; height: 100%; }
 .interactive-media-expansion__mount > :is(video, iframe) { display: block; border: 0; width: 100%; height: 100%; object-fit: cover; }
 .interactive-media-expansion__close { position: absolute; top: var(--media-collapse-top, 16px); right: 16px; z-index: 2; color: #fff; background: #0008; }
