@@ -48,7 +48,7 @@ lh-interactive-media-scroll.is-scroll-ready {
   left: calc((var(--scroll-clip-left, 0px) + 100% - var(--scroll-clip-right, 0px)) / 2);
   top: calc((var(--scroll-clip-top, 0px) + 100% - var(--scroll-clip-bottom, 0px)) / 2);
 }
-.is-scroll-ready .interactive-media-scroll-target :is(.video__placeholder, .image__placeholder) {
+.is-scroll-ready .interactive-media-scroll-target > :is(.video-block__media, .image-block__media) > :is(.video__placeholder, .image__placeholder) {
   position: absolute; left: var(--scroll-clip-left, 0px); top: var(--scroll-clip-top, 0px);
   width: calc(100% - var(--scroll-clip-left, 0px) - var(--scroll-clip-right, 0px));
   height: calc(100% - var(--scroll-clip-top, 0px) - var(--scroll-clip-bottom, 0px)) !important;
