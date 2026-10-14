@@ -1,3 +1,6 @@
+{% doc %}
+  Fixed Editorial list slot; owns row appearance and semantic title tags.
+{% enddoc %}
 {% liquid
   assign radius = 'var(--container-radius, var(--radius-rounded))'
   case block.settings.corner_radius
@@ -12,6 +15,7 @@
 {% capture desktop_size %}{% render 'heading-size-token', size: block.settings.heading_size, fallback: 'xl' %}{% endcapture %}
 {% capture mobile_size %}{% render 'heading-size-token', size: block.settings.heading_size_mobile, fallback: 'sm' %}{% endcapture %}
 <div class="ce-list" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;--ce-title-size:var(--font-heading-{{ desktop_size | strip }});--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
+  {% comment %}Resolve child title markers here so the parent owns semantics in server HTML, without passing unsupported settings through content_for blocks.{% endcomment %}
   {% capture items %}{% content_for 'blocks' %}{% endcapture %}
   {% liquid
     assign title_tag = block.settings.html_tag | default: 'div'

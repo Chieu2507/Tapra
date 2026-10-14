@@ -1,3 +1,6 @@
+{% doc %}
+  Fixed Editorial header slot with five supported content roles.
+{% enddoc %}
 <div class="ce-header" style="{% if block.settings.limit_width %}max-width:{{ block.settings.max_width }}px;{% endif %}--ce-header-gap:{{ block.settings.gap_desktop }}px;--ce-header-gap-mobile:{{ block.settings.gap_mobile }}px;{% render 'collection-editorial-spacing', settings: block.settings %}" {{ block.shopify_attributes }}>
   {% content_for 'blocks' %}
 </div>
