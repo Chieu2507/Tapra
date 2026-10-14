@@ -25,14 +25,7 @@
       window.addEventListener('resize', this.measureSoon, options);
       this.motion.addEventListener('change', this.measureSoon, options);
       this.addEventListener('load', this.measureSoon, { ...options, capture: true });
-      document.addEventListener('shopify:block:select', event => {
-        if (this.contains(event.target) && !event.target.closest('[data-full-media-content]')) {
-          const index = this.items.findIndex(item => item === event.target || item.contains(event.target));
-          this.editingPosition = index > 0 ? index + .85 : 0;
-          this.progress = -1;
-          this.update();
-        }
-      }, options);
+      document.addEventListener('shopify:block:select', event => this.selectBlock(event.target), options);
       document.addEventListener('shopify:block:deselect', () => { this.editingPosition = undefined; this.progress = -1; this.schedule(); }, options);
       this.observer = new ResizeObserver(() => {
         const width = this.getBoundingClientRect().width;
@@ -105,6 +98,16 @@
       this.classList.add('is-scroll-ready');
       this.style.setProperty('--media-scroll-count', String(this.items.length));
       this.layers.forEach(item => item.querySelector(':scope > :is(.video-block, .image-block)')?.classList.add('interactive-media-scroll-cover'));
+      this.update();
+    }
+    selectBlock(target) {
+      if (!this.contains(target) || target.closest('[data-full-media-content]')) return;
+      const index = this.items.findIndex(item => item === target || item.contains(target));
+      // Selecting an already visible media block must not reset its zoom.
+      // Only reveal another item when selection targets a covered layer.
+      if (index >= 0 && !this.items[index].inert) return;
+      this.editingPosition = index > 0 ? index + .85 : 0;
+      this.progress = -1;
       this.update();
     }
     resumeScroll() {
