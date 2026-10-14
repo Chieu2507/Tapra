@@ -121,6 +121,9 @@
             this.scrollPlay.removeAttribute('aria-hidden');
             this.scrollPlay.classList.add('interactive-media-item__scroll-play');
             this.scrollPlay.setAttribute('data-scroll-play', '');
+            if (this.dataset.playback !== 'full_section') {
+              this.scrollPlay.addEventListener('click', () => player.button.click(), { signal: this.controller.signal });
+            }
             this.fullContent.querySelector('.interactive-media-item__content').append(this.scrollPlay);
           }
           player.media.classList.add('has-scroll-copy');
