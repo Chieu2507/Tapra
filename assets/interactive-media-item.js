@@ -309,6 +309,7 @@
     collapse({ animate = true, restoreFocus = true, resumeScroll = false } = {}) {
       const player = this.activePlayer;
       if (!player) return;
+      console.warn('media-motion-audit', { animate, restoreFocus, resumeScroll }, new Error().stack);
       const visualBounds = this.expansion.getBoundingClientRect?.();
       const visualRadius = visualBounds ? getComputedStyle(this.expansion).borderRadius : null;
       clearTimeout(this.contentTransitionTimer);
