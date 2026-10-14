@@ -1207,7 +1207,7 @@
       },
       "blocks": {
         "block_1": {
-          "type": "media-item-image",
+          "type": "media-item-video",
           "blocks": {
             "marquee": {
               "type": "marquee",
@@ -1270,18 +1270,26 @@
               "static": true
             },
             "media": {
-              "type": "image",
-              "static": true,
+              "type": "video",
               "settings": {
-                "image": "shopify://shop_images/tapra-menu-keyboard.webp",
-                "image_ratio_desktop": "landscape",
-                "image_ratio_mobile": "landscape",
+                "video_source": "uploaded",
+                "aspect_ratio_desktop": "custom",
+                "custom_aspect_ratio_desktop": 1.5,
+                "aspect_ratio_mobile": "custom",
+                "custom_aspect_ratio_mobile": 1.5,
                 "width_desktop": "custom",
                 "width_custom_desktop": 40,
+                "limit_width_desktop": true,
+                "max_width_desktop": 576,
                 "width_mobile": "custom",
                 "width_custom_mobile": 86,
-                "corner_radius": "radius_32"
-              }
+                "corner_radius": "radius_32",
+                "play_button_size_desktop": 64,
+                "play_button_size_mobile": 56,
+                "play_button_background_color": "#ffffffb3",
+                "video": "shopify://files/videos/elara-inspiration-1.mp4"
+              },
+              "static": true
             },
             "full_heading": {
               "type": "heading",
@@ -1319,7 +1327,9 @@
           ],
           "settings": {
             "blend_edges": true,
+            "playback_mode": "full_section",
             "poster_glow": true,
+            "magnetic_play": true,
             "content_color_scheme": "scheme-3",
             "content_overlay_opacity": 20
           }
