@@ -213,6 +213,7 @@
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
       const playerTransition = this.fullContent.classList.contains('is-player-transition');
+      if (fade === 0 && !playerTransition) this.resetScrollCopy();
       this.fullContent.classList.add('is-scroll-copy');
       this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
       this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
