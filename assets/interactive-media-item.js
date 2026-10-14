@@ -111,7 +111,6 @@
     }
     resetScrollCopy() {
       this.fullContent?.classList.remove('is-scroll-copy');
-      this.players[0]?.media.classList.remove('has-scroll-copy');
       if (this.players[0]?.button) {
         this.players[0].button.inert = Boolean(this.players[0].scrollAutoplay);
         if (!this.players[0].scrollAutoplay) this.players[0].button.removeAttribute('aria-hidden');

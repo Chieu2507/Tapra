@@ -99,7 +99,7 @@
 .interactive-media-expansion__close { z-index: 4; }
 @media (prefers-reduced-motion: reduce) { .interactive-media-item__overlay { transition: none; } }
 
-/* Copy and Play share one centered group; scroll controls both fade and rise. */
+/* Scroll controls the content group's fade and vertical travel. */
 .interactive-media-item__overlay.is-scroll-copy {
   padding: clamp(20px, 5vw, 64px);
   transition: none;
