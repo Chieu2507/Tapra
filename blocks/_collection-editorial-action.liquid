@@ -19,7 +19,7 @@
     endif
     assign classes = device_class | append: ' ce-action--' | append: treatment
   %}
-  {% render 'theme-button', label: block.settings.label, url: block.settings.link, force_link: true, variant: variant, icon: icon, icon_position: block.settings.icon_position, icon_size: block.settings.icon_size, icon_width: block.settings.icon_width, class: classes, open_in_new_tab: block.settings.open_in_new_tab %}
+  {% render 'theme-button', label: block.settings.label, label_html: true, url: block.settings.link, force_link: true, variant: variant, icon: icon, icon_position: block.settings.icon_position, icon_size: block.settings.icon_size, icon_width: block.settings.icon_width, class: classes, open_in_new_tab: block.settings.open_in_new_tab %}
 {% endfor %}
 </div>
 {% schema %}
@@ -173,12 +173,12 @@
       "type": "range",
       "id": "icon_width",
       "label": "Custom icon size",
-      "min": 10,
-      "max": 40,
+      "min": 12,
+      "max": 30,
       "step": 1,
       "unit": "px",
       "visible_if": "{{ block.settings.show_icon and block.settings.icon_size == 'custom' }}",
-      "default": 20
+      "default": 16
     },
     {
       "type": "header",
