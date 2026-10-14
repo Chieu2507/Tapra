@@ -1198,7 +1198,7 @@
               "type": "marquee",
               "settings": {
                 "use_elara_layout": true,
-                "show_blurred_edges": true,
+                "show_blurred_edges": false,
                 "enable_parallax": false,
                 "animation_speed": 0.6,
                 "animation_direction": "backward",
@@ -1274,10 +1274,6 @@
               "settings": {
                 "video_source": "uploaded",
                 "video": "shopify://files/videos/elara-inspiration-1.mp4",
-                "playback_mode": "popup",
-                "poster_glow": true,
-                "poster_vignette": true,
-                "magnetic_play": true,
                 "cover_image": "shopify://shop_images/tapra-menu-keyboard.webp",
                 "play_button_size_desktop": 64,
                 "play_button_size_mobile": 56,
@@ -1343,6 +1339,8 @@
       ],
       "settings": {
         "section_width": "full_width",
+        "gap_desktop": 100,
+        "gap_mobile": 64,
         "color_scheme": "scheme-2",
         "padding_top": 100,
         "padding_bottom": 100,

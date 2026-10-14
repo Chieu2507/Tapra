@@ -207,10 +207,6 @@
   assign padding_left_mobile = block.settings.padding_left_mobile | default: 0 | plus: 0
   assign padding_right_mobile = block.settings.padding_right_mobile | default: 0 | plus: 0
 
-  assign video_tag = 'div'
-  if block.settings.playback_mode == 'popup' or block.settings.magnetic_play
-    assign video_tag = 'lh-video-presentation'
-  endif
   assign video_class = 'video-block size-style size-style--contain'
   if block.settings.show_video_first_mobile
     assign video_class = video_class | append: ' video-block--first-mobile'
@@ -248,31 +244,11 @@
 {% endcapture %}
 {% assign video_style = video_style | strip | replace: '\n', ' ' %}
 
-<{{ video_tag }}
-  data-magnetic="{{ block.settings.magnetic_play }}"
-  class="{{ video_class }}{% if block.settings.poster_glow %} video-block--glow{% endif %}{% if block.settings.poster_vignette %} video-block--vignette{% endif %}"
+<div
+  class="{{ video_class }}"
   style="{{ video_style }}"
   {{ block.shopify_attributes }}
 >
-  {% if block.settings.playback_mode == 'popup' %}
-    {% assign video_dialog_id = 'VideoDialog-' | append: section.id | append: '-' | append: block.id %}
-    {% assign video_poster = block.settings.cover_image | default: uploaded_video.preview_image %}
-    <div class="video video-block__media video-poster{% if has_video_media %} video-poster--ready{% endif %}">
-      {% render 'image', image: video_poster, loading: 'lazy', width: 1600, widths: '320, 480, 640, 960, 1200, 1600', sizes: '100vw', class: 'video-poster__image' %}
-      {% if has_video_media %}
-        <button class="video__play" type="button" data-video-dialog-open aria-haspopup="dialog" aria-controls="{{ video_dialog_id }}" aria-label="{{ video_play_label | escape }}">
-          {% render 'icon', icon: 'play', bare: true %}
-        </button>
-      {% endif %}
-    </div>
-    {% if has_video_media %}
-      <template data-video-dialog-template>
-        {% render 'video', video: uploaded_video, external_video: external_video, autoplay: true, loop: block.settings.loop_video, play_label: video_play_label %}
-      </template>
-      {% capture video_dialog_body %}<div data-video-dialog-mount></div>{% endcapture %}
-      {% render 'component-overlay', id: video_dialog_id, content: video_dialog_body, label: video_play_label, desktop_layout: 'popup', mobile_layout: 'bottom_sheet', width: 1080, body_class: 'video-dialog__body', attributes: 'data-video-dialog', append_to_body: true %}
-    {% endif %}
-  {% else %}
   {% render 'video',
     video: uploaded_video,
     external_video: external_video,
@@ -282,10 +258,7 @@
     play_label: video_play_label,
     class: 'video-block__media'
   %}
-  {% endif %}
-</{{ video_tag }}>
-{% if video_tag == 'lh-video-presentation' %}<script src="{{ 'video-presentation.js' | asset_url }}" defer="defer"></script>{% endif %}
-{% if video_tag == 'lh-video-presentation' or block.settings.poster_glow or block.settings.poster_vignette %}{{ 'component-video-presentation.css' | asset_url | stylesheet_tag }}{% endif %}
+</div>
 
 {% stylesheet %}
   .video-block {
@@ -374,14 +347,9 @@
       "accept": ["youtube", "vimeo"],
       "visible_if": "{{ block.settings.video_source == 'external_url' }}"
     },
-    {"type": "select", "id": "playback_mode", "label": "Playback", "options": [{"value": "inline", "label": "Inline"}, {"value": "popup", "label": "Popup"}], "default": "inline"},
-    {"type": "checkbox", "id": "poster_glow", "label": "Show hover glow", "default": false},
-    {"type": "checkbox", "id": "poster_vignette", "label": "Blend poster edges", "default": false},
-    {"type": "checkbox", "id": "magnetic_play", "label": "Magnetic play button", "default": false, "info": "Mouse only. Disabled when reduced motion is preferred."},
     {
       "type": "checkbox",
       "id": "autoplay",
-      "visible_if": "{{ block.settings.playback_mode != 'popup' }}",
       "label": "t:labels.autoplay",
       "default": false
     },

@@ -1,0 +1,34 @@
+/* Composition effects are owned by Media item, never by a base block. */
+.interactive-media-item > :is(.video-block, .image-block) { position: relative; isolation: isolate; }
+.interactive-media-item[data-glow='true'] > :is(.video-block, .image-block)::before {
+  content: ''; position: absolute; inset: 6%; z-index: -1;
+  border-radius: var(--video-block-radius, var(--image-block-radius));
+  background: #fff; filter: blur(40px); opacity: 0; transition: opacity 350ms ease; pointer-events: none;
+}
+.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after {
+  box-shadow: inset 0 0 48px 22px var(--interactive-media-background, var(--background-color));
+  transition: box-shadow 350ms ease;
+}
+.interactive-media-item[data-blend='true'] > :is(.marquee, .elara-marquee) :is(.marquee__viewport, .elara-marquee__viewport) {
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+}
+.interactive-media-item[data-blend='true'] > :is(.marquee, .elara-marquee):focus-within :is(.marquee__viewport, .elara-marquee__viewport) { mask-image: none; }
+.interactive-media-item[data-glow='true'] > :is(.marquee, .elara-marquee) { transition: filter 350ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .interactive-media-item[data-glow='true']:hover > :is(.video-block, .image-block)::before { opacity: .7; }
+  .interactive-media-item[data-glow='true']:hover > :is(.marquee, .elara-marquee) { filter: drop-shadow(0 0 18px #fff8); }
+  .interactive-media-item[data-blend='true']:hover > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
+}
+.interactive-media-item[data-glow='true']:focus-within > :is(.video-block, .image-block)::before { opacity: .7; }
+.interactive-media-item[data-blend='true']:focus-within > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after { box-shadow: none; }
+.interactive-media-item[data-magnetic='true'] > .video-block .video__play {
+  transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
+  backdrop-filter: blur(8px);
+}
+.interactive-media-dialog__body .video { aspect-ratio: 16 / 9; background: #000; }
+.interactive-media-dialog__body .video > :is(video, iframe) { width: 100%; height: 100%; object-fit: contain; }
+@media (prefers-reduced-motion: reduce) {
+  .interactive-media-item[data-glow] > :is(.video-block, .image-block)::before,
+  .interactive-media-item[data-blend] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after,
+  .interactive-media-item[data-glow] > :is(.marquee, .elara-marquee) { transition: none; }
+}

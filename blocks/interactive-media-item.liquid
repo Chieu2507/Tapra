@@ -3,9 +3,18 @@
   and optional Heading/Text/Button blocks stay editable in the foreground.
   The parent section owns spacing, appearance and placement. Repeated items stack.
 {% enddoc %}
-<div class="interactive-media-item" {{ block.shopify_attributes }}>
+<lh-interactive-media-item class="interactive-media-item" data-playback="{{ block.settings.playback_mode | default: 'inline' }}" data-glow="{{ block.settings.poster_glow }}" data-blend="{{ block.settings.blend_edges }}" data-magnetic="{{ block.settings.magnetic_play }}" data-play-label="{{ 'video.play' | t | escape }}" {{ block.shopify_attributes }}>
   {% content_for 'blocks' %}
-</div>
+  {% if block.settings.playback_mode == 'popup' %}
+    {% assign item_dialog_id = 'MediaDialog-' | append: section.id | append: '-' | append: block.id %}
+    {% capture item_dialog_body %}<div class="video" data-item-video-mount></div>{% endcapture %}
+    {% assign item_play_label = 'video.play' | t %}
+    {% render 'component-overlay', id: item_dialog_id, content: item_dialog_body, label: item_play_label, desktop_layout: 'popup', mobile_layout: 'bottom_sheet', width: 1080, body_class: 'interactive-media-dialog__body', attributes: 'data-item-video-dialog', append_to_body: true %}
+    <template data-item-external-play><button class="video__play" type="button" aria-haspopup="dialog" aria-controls="{{ item_dialog_id }}" aria-label="{{ item_play_label | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
+  {% endif %}
+</lh-interactive-media-item>
+{{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'interactive-media-item.js' | asset_url }}" defer="defer"></script>
 {% stylesheet %}
   .interactive-media-item {
     position: relative; isolation: isolate; display: flex; flex-direction: column;
@@ -47,7 +56,49 @@
       "type": "buttons"
     }
   ],
-  "settings": [],
+  "settings": [
+    {
+      "type": "select",
+      "id": "playback_mode",
+      "label": "Video playback",
+      "options": [
+        {
+          "value": "inline",
+          "label": "Inline"
+        },
+        {
+          "value": "popup",
+          "label": "Popup"
+        }
+      ],
+      "default": "inline"
+    },
+    {
+      "type": "header",
+      "content": "Media effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "poster_glow",
+      "label": "Show hover glow",
+      "default": false,
+      "info": "Applies to the image, video and marquee in this item."
+    },
+    {
+      "type": "checkbox",
+      "id": "blend_edges",
+      "label": "Blend edges",
+      "default": false,
+      "info": "Fades marquee edges and blends image/video edges into the section background."
+    },
+    {
+      "type": "checkbox",
+      "id": "magnetic_play",
+      "label": "Magnetic play button",
+      "default": false,
+      "info": "Mouse only. Disabled when reduced motion is preferred."
+    }
+  ],
   "presets": [
     {
       "name": "Media item",
