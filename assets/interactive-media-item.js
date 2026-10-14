@@ -198,7 +198,7 @@
     renderScrollContent(progress, host) {
       const player = this.players[0];
       if (!this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
-      const fade = Math.max(0, Math.min(1, (progress - .6) / .25));
+      const fade = Math.max(0, Math.min(1, (progress - .6) / .35));
       const enter = fade * fade * (3 - 2 * fade);
       const exit = Math.max(0, Math.min(1, (progress - 1) / .6));
       const leave = exit * exit * (3 - 2 * exit);
@@ -264,7 +264,7 @@
         if (started && settled && this.activePlayer === player && this.expansionEpoch === epoch) {
           if (this.scrollBeforeOpen) this.renderScrollContent(1, this.expansion);
           else this.setFullContent(true, this.expansion);
-          if (this.fullContent) this.contentTransitionTimer = setTimeout(() => this.fullContent?.classList.remove('is-player-transition'), this.motion.matches ? 0 : this.motionDuration());
+          if (this.fullContent) this.contentTransitionTimer = setTimeout(() => this.fullContent?.classList.remove('is-player-transition'), this.motion.matches ? 0 : this.motionDuration('--motion-duration-reveal'));
         }
       };
       clone.addEventListener(clone.matches('video') ? 'playing' : 'load', () => { started = true; reveal(); }, { once: true });
