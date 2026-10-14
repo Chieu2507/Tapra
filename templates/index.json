@@ -1326,7 +1326,7 @@
               "type": "button",
               "settings": {
                 "button_label": "Explore keyboards",
-                "button_link": "/collections/all",
+                "button_link": "shopify://collections/all",
                 "button_style": "primary",
                 "color_scheme": "scheme-3"
               }
