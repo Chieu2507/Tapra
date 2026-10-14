@@ -19,7 +19,13 @@
       if (this.expansion) this.expansion.dataset.blend = this.dataset.blend;
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
       this.closeButton?.addEventListener('click', () => this.collapse(), options);
-      window.addEventListener('scroll', () => { if (this.activePlayer) this.positionClose(); }, { ...options, passive: true });
+      window.addEventListener('scroll', () => {
+        if (!this.activePlayer) return;
+        const bounds = this.sectionRoot.getBoundingClientRect();
+        if (bounds.bottom <= 0 || bounds.top >= document.documentElement.clientHeight) {
+          this.collapse({ animate: false, restoreFocus: false });
+        } else this.positionClose();
+      }, { ...options, passive: true });
       window.addEventListener('resize', () => { if (this.activePlayer) this.positionClose(); }, options);
       this.sectionRoot?.addEventListener('keydown', event => {
         if (event.key === 'Escape' && this.activePlayer) { event.preventDefault(); this.collapse(); }
