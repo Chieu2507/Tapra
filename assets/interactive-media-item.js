@@ -203,11 +203,26 @@
       const exit = Math.max(0, Math.min(1, (progress - 1) / .6));
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
-      if (fade > 0 || this.fullContent.classList.contains('is-player-transition')) {
+      const playerTransition = this.fullContent.classList.contains('is-player-transition');
+      const hiding = !playerTransition && !this.motion.matches && (opacity < (this.scrollCopyTargetOpacity || 0) || this.fullContent.classList.contains('is-scroll-hiding'));
+      clearTimeout(this.scrollContentHideTimer);
+      this.scrollCopyTargetOpacity = opacity;
+      if (hiding) this.fullContent.classList.add('is-scroll-hiding');
+      else this.fullContent.classList.remove('is-scroll-hiding');
+      if (fade > 0 || playerTransition || (hiding && this.fullContent.classList.contains('is-visible'))) {
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
         this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
         this.setFullContent(true, host || player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
+        if (hiding && opacity === 0) {
+          this.fullContent.inert = true;
+          this.scrollContentHideTimer = setTimeout(() => {
+            if (this.activePlayer || this.scrollCopyTargetOpacity !== 0) return;
+            this.fullContent.classList.remove('is-scroll-hiding');
+            this.resetScrollCopy();
+            this.setFullContent(false);
+          }, this.motionDuration());
+        }
       } else {
         this.resetScrollCopy();
         this.setFullContent(false);
@@ -250,7 +265,11 @@
       this.activePlayer = player;
       this.expansion.style.setProperty('--media-player-overlay', getComputedStyle(player.media).getPropertyValue('--video-block-overlay').trim() || 'transparent');
       if (this.fullContent) {
+        clearTimeout(this.scrollContentHideTimer);
+        this.fullContent.classList.remove('is-scroll-hiding');
+        this.scrollCopyTargetOpacity = 0;
         clearTimeout(this.contentTransitionTimer);
+        clearTimeout(this.scrollContentHideTimer);
         clearTimeout(this.contentReturnTimer);
         this.fullContent.classList.add('is-player-transition');
         this.expansion.append(this.fullContent);
