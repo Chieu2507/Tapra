@@ -1162,7 +1162,7 @@
                 "faq_question_4_1": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
+                    "text": "<p>Orders ship in 1\u20132 business days. Delivery takes 3\u20137 days depending on your region.</p>",
                     "text_size": "md",
                     "text_color": "#bfe3ffb8",
                     "width": "fill"
@@ -1192,7 +1192,7 @@
       "settings": {
         "color_scheme": "scheme-2",
         "section_width": "full_width",
-        "sticky_scroll": true,
+        "sticky_scroll": false,
         "scroll_distance": 150,
         "padding_top": 100,
         "padding_bottom": 100,
@@ -1285,24 +1285,18 @@
               ]
             },
             "child_2": {
-              "type": "video",
+              "type": "image",
               "settings": {
-                "video_source": "uploaded",
-                "aspect_ratio_desktop": "custom",
-                "custom_aspect_ratio_desktop": 1.5,
-                "aspect_ratio_mobile": "custom",
-                "custom_aspect_ratio_mobile": 1.5,
+                "image": "shopify://shop_images/tapra-menu-keyboard.webp",
+                "image_ratio_desktop": "landscape",
+                "image_ratio_mobile": "landscape",
                 "width_desktop": "custom",
                 "width_custom_desktop": 40,
                 "limit_width_desktop": true,
                 "max_width_desktop": 576,
                 "width_mobile": "custom",
                 "width_custom_mobile": 86,
-                "corner_radius": "radius_32",
-                "play_button_size_desktop": 64,
-                "play_button_size_mobile": 56,
-                "play_button_background_color": "#ffffffb3",
-                "video": "shopify://files/videos/elara-inspiration-1.mp4"
+                "corner_radius": "radius_32"
               }
             }
           },
