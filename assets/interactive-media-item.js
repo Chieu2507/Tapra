@@ -64,12 +64,12 @@
           button.setAttribute('aria-expanded', 'false');
           button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
+          media.addEventListener('click', event => this.openFromMedia(event, player), { ...options, capture: true });
+        } else if (button) {
           media.addEventListener('click', event => {
-            if (media.classList.contains('is-scroll-autoplay') || event.target.closest('[data-full-media-content]')) return;
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            source.pause?.();
-            this.expand(player);
+            if (event.target.closest('[data-full-media-content]')) return;
+            player.inlineManual = true;
+            this.closest('lh-interactive-media-scroll')?.resumeScroll?.();
           }, { ...options, capture: true });
         }
         const reset = () => { player.target = { x: 0, y: 0, scale: 1 }; this.animate(player); };
@@ -90,6 +90,16 @@
         this.motion.addEventListener('change', reset, options);
         this.mouse.addEventListener('change', reset, options);
       });
+    }
+    openFromMedia(event, player) {
+      if (this.dataset.playback !== 'full_section' || event.target.closest('[data-full-media-content]')) return;
+      // Native controls remain interactive at full size. After reverse zoom,
+      // clicking the video must expand it again, even if autoplay was latched.
+      if (player.media.classList.contains('is-scroll-autoplay') && this.scrollProgress >= .6) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      player.source.pause?.();
+      this.expand(player);
     }
     setFullContent(visible, host = this.sectionRoot) {
       if (!this.fullContent) return;
@@ -119,6 +129,11 @@
     setScrollPlayback(progress, active = true) {
       const player = this.players?.[0];
       if (!player || this.activePlayer) return;
+      if (player.inlineManual) {
+        if (active) return;
+        player.source.pause?.();
+        player.inlineManual = false;
+      }
       if (!active || progress <= 0 || this.motion.matches) { this.stopScrollPlayback(progress <= 0 || this.motion.matches); return; }
       if (progress < .6 || player.scrollAutoplay) return;
       const source = player.source;
@@ -153,7 +168,7 @@
       const player = this.players?.[0];
       if (!player) return;
       if (!player.scrollAutoplay) {
-        if (restorePoster) {
+        if (restorePoster && player.media.classList.contains('is-scroll-autoplay')) {
           player.media.classList.remove('is-scroll-autoplay', 'is-playing', 'has-started');
           if (player.button) { player.button.inert = false; player.button.removeAttribute('aria-hidden'); }
         }

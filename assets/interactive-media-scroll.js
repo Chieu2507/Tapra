@@ -20,6 +20,8 @@
         this.measureFrame = requestAnimationFrame(() => this.measure());
       };
       window.addEventListener('scroll', this.schedule, { ...options, passive: true });
+      this.addEventListener('wheel', () => this.resumeScroll(), { ...options, passive: true });
+      this.addEventListener('touchmove', () => this.resumeScroll(), { ...options, passive: true });
       window.addEventListener('resize', this.measureSoon, options);
       this.motion.addEventListener('change', this.measureSoon, options);
       this.addEventListener('load', this.measureSoon, { ...options, capture: true });
@@ -105,10 +107,17 @@
       this.layers.forEach(item => item.querySelector(':scope > :is(.video-block, .image-block)')?.classList.add('interactive-media-scroll-cover'));
       this.update();
     }
+    resumeScroll() {
+      if (this.editingPosition === undefined) return;
+      this.editingPosition = undefined;
+      this.progress = -1;
+      this.update();
+    }
     completeFor(media) {
       if (!this.classList.contains('is-scroll-ready')) return;
       const index = this.items.findIndex(item => item.querySelector(':scope > .video-block') === media?.closest('.video-block'));
       if (index < 0) return;
+      this.editingPosition = undefined;
       const track = this.getBoundingClientRect();
       const distance = Math.max(0, track.height - this.stage.getBoundingClientRect().height);
       // Opening completes this item's segment without skipping later layers.
