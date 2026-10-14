@@ -113,7 +113,7 @@
           const target = this.players[0]?.button || this.querySelector('.image-block');
           if (target) { if (!target.hasAttribute('tabindex') && !target.matches('button')) target.tabIndex = -1; target.focus({ preventScroll: true }); }
         }
-        this.contentReturnTimer = setTimeout(() => this.returnContent(), this.motion.matches ? 0 : 240);
+        this.contentReturnTimer = setTimeout(() => this.returnContent(), this.motion.matches ? 0 : this.motionDuration('--motion-duration-standard'));
       }
     }
     returnContent() {
@@ -213,6 +213,13 @@
         this.setFullContent(false);
       }
     }
+    motionDuration(token = '--motion-duration-surface') {
+      const value = getComputedStyle(this).getPropertyValue(token).trim();
+      return (parseFloat(value) || 0) * (value.endsWith('ms') ? 1 : 1000);
+    }
+    surfaceMotion() {
+      return { duration: this.motionDuration(), easing: getComputedStyle(this).getPropertyValue('--motion-ease-surface').trim() || 'ease' };
+    }
     expansionFrames(player) {
       const section = this.sectionRoot.getBoundingClientRect();
       const media = player.media.getBoundingClientRect();
@@ -253,7 +260,7 @@
         if (started && settled && this.activePlayer === player && this.expansionEpoch === epoch) {
           if (this.scrollBeforeOpen) this.renderScrollContent(1, this.expansion);
           else this.setFullContent(true, this.expansion);
-          if (this.fullContent) this.contentTransitionTimer = setTimeout(() => this.fullContent?.classList.remove('is-player-transition'), this.motion.matches ? 0 : 400);
+          if (this.fullContent) this.contentTransitionTimer = setTimeout(() => this.fullContent?.classList.remove('is-player-transition'), this.motion.matches ? 0 : this.motionDuration());
         }
       };
       clone.addEventListener(clone.matches('video') ? 'playing' : 'load', () => { started = true; reveal(); }, { once: true });
@@ -281,7 +288,7 @@
         if (this.activePlayer === player && this.expansionEpoch === epoch) this.closeButton.focus({ preventScroll: true });
       };
       if (!this.motion.matches) {
-        this.expansionAnimation = this.expansion.animate(frames, { duration: 600, easing: 'cubic-bezier(.4,0,.2,1)' });
+        this.expansionAnimation = this.expansion.animate(frames, this.surfaceMotion());
         this.expansionAnimation.finished.then(() => { settled = true; reveal(); focusClose(); }, () => {});
       } else queueMicrotask(focusClose);
       clone.play?.()?.catch(() => {});
@@ -350,7 +357,7 @@
           const section = this.sectionRoot.getBoundingClientRect();
           frames[0] = { left: `${visualBounds.left - section.left}px`, top: `${visualBounds.top - section.top}px`, width: `${visualBounds.width}px`, height: `${visualBounds.height}px`, borderRadius: visualRadius };
         }
-        this.expansionAnimation = this.expansion.animate(frames, { duration: 600, easing: 'cubic-bezier(.4,0,.2,1)' });
+        this.expansionAnimation = this.expansion.animate(frames, this.surfaceMotion());
         this.expansionAnimation.finished.then(finish, finish);
       } else finish();
     }
