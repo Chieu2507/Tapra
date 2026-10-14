@@ -25,7 +25,7 @@
         if (this.contains(event.target)) { this.editing = true; this.update(); }
       }, options);
       document.addEventListener('shopify:block:deselect', () => { this.editing = false; this.schedule(); }, options);
-      this.observer = new ResizeObserver(entries => {
+      this.observer = new ResizeObserver(() => {
         const width = this.getBoundingClientRect().width;
         const headerHeight = this.content.querySelector('.block-header')?.getBoundingClientRect().height || 0;
         if (width !== this.measuredWidth || headerHeight !== this.headerHeight) this.measureSoon();
@@ -44,7 +44,7 @@
         this.mediaSlot = null;
       }
       this.media?.classList.remove('interactive-media-scroll-target');
-      for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage.style.removeProperty(property);
+      for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage?.style.removeProperty(property);
     }
     measure() {
       this.reset();

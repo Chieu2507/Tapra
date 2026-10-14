@@ -41,6 +41,7 @@
   <script src="{{ 'interactive-media-scroll.js' | asset_url }}" defer="defer"></script>
 {% endif %}
 {% stylesheet %}
+  lh-interactive-media-scroll { display: block; }
   .interactive-media { --flex-align: var(--interactive-media-align, flex-start); --text-align-default: var(--interactive-media-text-align, left); text-align: var(--text-align-default); position: relative; overflow: clip; padding-top: var(--interactive-media-top); padding-bottom: var(--interactive-media-bottom); background: var(--interactive-media-background); }
   .interactive-media__content { display: flex; flex-direction: column; align-items: var(--flex-align); gap: var(--interactive-media-gap, 16px); }
   .interactive-media__items { width: 100%; min-width: 0; display: flex; flex-direction: column; gap: var(--interactive-media-gap, 16px); }
