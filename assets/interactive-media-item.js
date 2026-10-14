@@ -120,7 +120,7 @@
     setScrollPlayback(progress, active = true) {
       const player = this.players?.[0];
       if (!player || this.activePlayer) return;
-      if (!active || progress <= 0 || this.motion.matches) { this.stopScrollPlayback(); return; }
+      if (!active || progress <= 0 || this.motion.matches) { this.stopScrollPlayback(progress <= 0 || this.motion.matches); return; }
       if (progress < .6 || player.scrollAutoplay) return;
       const source = player.source;
       const epoch = player.scrollEpoch = (player.scrollEpoch || 0) + 1;
@@ -150,9 +150,16 @@
         ready();
       }
     }
-    stopScrollPlayback() {
+    stopScrollPlayback(restorePoster = true) {
       const player = this.players?.[0];
-      if (!player?.scrollAutoplay) return;
+      if (!player) return;
+      if (!player.scrollAutoplay) {
+        if (restorePoster) {
+          player.media.classList.remove('is-scroll-autoplay', 'is-playing', 'has-started');
+          if (player.button) { player.button.inert = false; player.button.removeAttribute('aria-hidden'); }
+        }
+        return;
+      }
       player.scrollAutoplay = false;
       player.scrollEpoch = (player.scrollEpoch || 0) + 1;
       const source = player.source;
@@ -164,8 +171,10 @@
         if (this.dataset.playback === 'full_section') source.remove();
         source.src = player.scrollSrc;
       }
-      player.media.classList.remove('is-scroll-autoplay', 'is-playing', 'has-started');
-      if (player.button) { player.button.inert = false; player.button.removeAttribute('aria-hidden'); }
+      if (restorePoster) {
+        player.media.classList.remove('is-scroll-autoplay', 'is-playing', 'has-started');
+        if (player.button) { player.button.inert = false; player.button.removeAttribute('aria-hidden'); }
+      }
     }
     setScrollProgress(progress) {
       this.scrollProgress = progress;
@@ -264,6 +273,7 @@
         this.append(this.expansion);
         if (this.scrollProgress !== undefined) this.setScrollProgress(this.scrollProgress);
         if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
+        if (this.scrollProgress !== undefined) this.setScrollPlayback(this.scrollProgress, !this.inert);
       };
       if (animate && !this.motion.matches) {
         const frames = this.expansionFrames(player).reverse();
