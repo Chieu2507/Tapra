@@ -85,18 +85,19 @@
       if (progress === this.progress) return;
       this.progress = progress;
       this.media.closest('lh-interactive-media-item')?.setScrollProgress?.(progress);
+      const zoom = Math.min(1, progress / .6);
       const slot = this.mediaSlot.getBoundingClientRect();
       const parent = this.media.offsetParent.getBoundingClientRect();
       this.stage.style.setProperty('--scroll-left', `${slot.left - parent.left}px`);
       this.stage.style.setProperty('--scroll-top', `${slot.top - parent.top}px`);
-      const x = (stage.left - slot.left) * progress;
-      const y = (stage.top - slot.top) * progress;
+      const x = (stage.left - slot.left) * zoom;
+      const y = (stage.top - slot.top) * zoom;
       this.stage.style.setProperty('--scroll-x', `${x}px`);
       this.stage.style.setProperty('--scroll-y', `${y}px`);
-      this.stage.style.setProperty('--scroll-width', `${this.initialWidth + (stage.width - this.initialWidth) * progress}px`);
-      this.stage.style.setProperty('--scroll-height', `${this.initialHeight + (stage.height - this.initialHeight) * progress}px`);
-      this.stage.style.setProperty('--scroll-radius', `${this.radius * (1 - progress)}px`);
-      this.stage.style.setProperty('--scroll-blend', String(1 - progress));
+      this.stage.style.setProperty('--scroll-width', `${this.initialWidth + (stage.width - this.initialWidth) * zoom}px`);
+      this.stage.style.setProperty('--scroll-height', `${this.initialHeight + (stage.height - this.initialHeight) * zoom}px`);
+      this.stage.style.setProperty('--scroll-radius', `${this.radius * (1 - zoom)}px`);
+      this.stage.style.setProperty('--scroll-blend', String(1 - zoom));
       this.stage.style.setProperty('--scroll-header-opacity', String(Math.max(0, 1 - progress * 3)));
     }
     disconnectedCallback() {

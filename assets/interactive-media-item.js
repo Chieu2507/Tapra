@@ -15,12 +15,6 @@
         this.contentHome = document.createComment('Full media content');
         this.fullContent.before(this.contentHome);
       }
-      if (this.fullContent) {
-        this.copyObserver = new ResizeObserver(() => {
-          if (this.fullContent.classList.contains('is-scroll-copy')) this.measureScrollCopy();
-        });
-        this.copyObserver.observe(this.fullContent.querySelector('.interactive-media-item__content'));
-      }
       this.expansion = this.querySelector('[data-media-expansion]');
       if (this.expansion) this.expansion.dataset.blend = this.dataset.blend;
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
@@ -60,7 +54,7 @@
           button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
           media.addEventListener('click', event => {
-            if (event.target.closest('[data-full-media-content]')) return;
+            if (event.target.closest('[data-full-media-content]') && !event.target.closest('[data-scroll-play]')) return;
             event.preventDefault();
             event.stopImmediatePropagation();
             source.pause?.();
@@ -104,36 +98,41 @@
     returnContent() {
       if (this.contentHome?.isConnected && this.fullContent) this.contentHome.after(this.fullContent);
     }
-    measureScrollCopy() {
-      const player = this.players[0];
-      if (!player?.button || !this.fullContent) return;
-      const copy = this.fullContent.querySelector('.interactive-media-item__content');
-      const buttonHeight = player.button.offsetHeight;
-      const gap = parseFloat(getComputedStyle(this.fullContent).getPropertyValue('--media-content-play-gap')) || 32;
-      const offset = (copy.getBoundingClientRect().height + gap) / 2 * (this.scrollCopyOpacity || 0);
-      this.fullContent.style.setProperty('--media-content-play-size', `${buttonHeight}px`);
-      player.button.style.setProperty('--scroll-play-offset', `${offset}px`);
-    }
     resetScrollCopy() {
-      if (!this.fullContent) return;
-      this.fullContent.classList.remove('is-scroll-copy');
-      this.players[0]?.button?.style.removeProperty('--scroll-play-offset');
+      this.fullContent?.classList.remove('is-scroll-copy');
+      this.players[0]?.media.classList.remove('has-scroll-copy');
+      if (this.players[0]?.button) {
+        this.players[0].button.inert = false;
+        this.players[0].button.removeAttribute('aria-hidden');
+      }
     }
     setScrollProgress(progress) {
       this.scrollProgress = progress;
       if (this.dataset.mediaKind !== 'video') { this.setScrollFull(progress >= .999); return; }
       const player = this.players[0];
-      if (this.activePlayer || !player || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
-      const fade = Math.max(0, Math.min(1, (progress - .65) / .35));
-      this.scrollCopyOpacity = fade * fade * (3 - 2 * fade);
+      if (this.activePlayer || !player?.button || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
+      const fade = Math.max(0, Math.min(1, (progress - .6) / .25));
+      const opacity = fade * fade * (3 - 2 * fade);
       if (fade > 0) {
+        if (!this.scrollPlay) {
+          this.scrollPlay = player.button.cloneNode(true);
+          this.scrollPlay.removeAttribute('id');
+          this.scrollPlay.removeAttribute('inert');
+          this.scrollPlay.removeAttribute('aria-hidden');
+          this.scrollPlay.classList.add('interactive-media-item__scroll-play');
+          this.scrollPlay.setAttribute('data-scroll-play', '');
+          this.fullContent.querySelector('.interactive-media-item__content').append(this.scrollPlay);
+        }
+        player.media.classList.add('has-scroll-copy');
+        player.button.inert = true;
+        player.button.setAttribute('aria-hidden', 'true');
         this.fullContent.classList.add('is-scroll-copy');
-        this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(this.scrollCopyOpacity));
+        this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
+        this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - opacity)}px`);
         this.setFullContent(true, player.media);
-        this.measureScrollCopy();
       } else {
-        this.setFullContent(false);
         this.resetScrollCopy();
+        this.setFullContent(false);
       }
     }
     setScrollFull(full) {
@@ -216,7 +215,7 @@
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
         if (this.scrollProgress !== undefined) this.setScrollProgress(this.scrollProgress);
-        if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
+        if (restoreFocus && player.button?.isConnected) (this.fullContent?.classList.contains('is-scroll-copy') ? this.scrollPlay : player.button).focus({ preventScroll: true });
       };
       if (animate && !this.motion.matches) {
         const frames = this.expansionFrames(player).reverse();
@@ -250,8 +249,9 @@
         this.returnContent();
         this.contentHome?.remove();
         this.expansionAnimation?.cancel();
-        this.copyObserver?.disconnect();
         this.resetScrollCopy();
+        this.scrollPlay?.remove();
+        this.scrollPlay = null;
         this.controller?.abort();
         this.controller = null;
         this.players?.forEach(player => {
