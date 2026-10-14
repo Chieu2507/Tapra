@@ -1286,7 +1286,6 @@
               "type": "video",
               "settings": {
                 "video_source": "uploaded",
-                "cover_image": "shopify://shop_images/tapra-menu-keyboard.webp",
                 "aspect_ratio_desktop": "custom",
                 "custom_aspect_ratio_desktop": 1.5,
                 "aspect_ratio_mobile": "custom",
