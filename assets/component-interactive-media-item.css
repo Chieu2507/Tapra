@@ -45,3 +45,20 @@
 }
 
 .interactive-media-item[data-playback='full_section'] > .video-block > .video { cursor: pointer; }
+
+/* The base icon wrapper fills the button; center the glyph inside that wrapper. */
+.interactive-media-item .video__play > :is(.video__play-icon, .video__pause-icon) {
+  position: relative;
+  grid-area: 1 / 1;
+  width: 100%;
+  height: 100%;
+}
+.interactive-media-item .video__play svg { margin: 0; }
+.interactive-media-item .video__play > :is(.video__play-icon, .video__pause-icon) > svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.interactive-media-item .video__play > .video__play-icon > svg { transform: translate(calc(-50% + 1px), -50%); }
+.interactive-media-item .video__play > svg { transform: translateX(1px); }
