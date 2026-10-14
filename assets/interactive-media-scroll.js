@@ -22,7 +22,7 @@
       this.motion.addEventListener('change', this.measureSoon, options);
       this.addEventListener('load', this.measureSoon, { ...options, capture: true });
       document.addEventListener('shopify:block:select', event => {
-        if (this.contains(event.target)) { this.editing = true; this.update(); }
+        if (this.contains(event.target) && !event.target.closest('[data-full-media-content]')) { this.editing = true; this.update(); }
       }, options);
       document.addEventListener('shopify:block:deselect', () => { this.editing = false; this.schedule(); }, options);
       this.observer = new ResizeObserver(() => {
