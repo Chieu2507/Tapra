@@ -99,10 +99,10 @@
     .faq-section--horizontal.faq-section--vertical-mobile.faq-section--mobile-align-right .faq-section__content { align-items: flex-end; text-align: right; }
     .faq-section--horizontal.faq-section--vertical-mobile.faq-section--mobile-align-left .faq-section__content { align-items: flex-start; text-align: left; }
   }
-  .faq-section__content > .faq-accordion--width-custom { flex: 0 1 var(--size-style-width); width: var(--size-style-width); }
-  .faq-section--vertical .faq-section__content > .faq-accordion--width-custom { flex-basis: auto; }
+  .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex: 0 1 var(--size-style-width); width: var(--size-style-width); }
+  .faq-section--vertical .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex-basis: auto; }
   @media (max-width: 767.98px) {
-    .faq-section--horizontal.faq-section--vertical-mobile .faq-section__content > .faq-accordion--width-custom { flex-basis: auto; }
+    .faq-section--horizontal.faq-section--vertical-mobile .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex-basis: auto; }
   }
 {% endstylesheet %}
 
