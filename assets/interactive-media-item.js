@@ -179,6 +179,7 @@
         clone.src = url.href;
       }
       const frames = this.expansionFrames(player);
+      this.closest('lh-interactive-media-scroll')?.completeFor?.(player.media);
       this.expansion.querySelector('[data-full-media-mount]').replaceChildren(clone);
       this.sectionRoot.append(this.expansion);
       this.expansion.hidden = false;

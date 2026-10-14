@@ -76,6 +76,15 @@
       this.classList.add('is-scroll-ready');
       this.update();
     }
+    completeFor(media) {
+      if (!this.classList.contains('is-scroll-ready') || media?.closest('.video-block') !== this.media) return;
+      const track = this.getBoundingClientRect();
+      const distance = Math.max(0, track.height - this.stage.getBoundingClientRect().height);
+      // Opening the video completes the same track used by scrolling, leaving
+      // no unused zoom distance below the expanded player.
+      window.scrollTo({ top: window.scrollY + track.top + distance, behavior: 'instant' });
+      this.update();
+    }
     update() {
       if (!this.classList.contains('is-scroll-ready')) return;
       const track = this.getBoundingClientRect();
