@@ -1344,7 +1344,6 @@
             "poster_glow": true,
             "magnetic_play": true,
             "content_color_scheme": "scheme-3",
-            "content_overlay_opacity": 20,
             "marquee_top_divider": false,
             "marquee_bottom_divider": false,
             "marquee_parallax": false

@@ -237,6 +237,7 @@
       this.closingPlayer = null;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
+      this.expansion.style.setProperty('--media-player-overlay', getComputedStyle(player.media).getPropertyValue('--video-block-overlay').trim() || 'transparent');
       if (this.fullContent) {
         clearTimeout(this.contentTransitionTimer);
         clearTimeout(this.contentReturnTimer);

@@ -91,16 +91,10 @@
   transition: opacity 240ms ease, visibility 240ms ease;
   --flex-align: center; --text-align-default: center; text-align: center;
 }
-/* The shade belongs to the media, independent of content reveal or playback. */
-.interactive-media-item > .video-block > .video-block__media::after {
-  background: linear-gradient(rgb(0 0 0 / var(--media-content-overlay, .2)), rgb(0 0 0 / var(--media-content-overlay, .2))), var(--video-block-overlay, transparent);
-}
-.interactive-media-item > .image-block > .image-block__media::after {
-  background: linear-gradient(rgb(0 0 0 / var(--media-content-overlay, .2)), rgb(0 0 0 / var(--media-content-overlay, .2))), var(--image-block-overlay, transparent);
-}
+/* Expanded playback reuses the base Video overlay, including gradients. */
 .interactive-media-expansion::before {
   content: ''; position: absolute; inset: 0; z-index: 1;
-  background: rgb(0 0 0 / var(--media-content-overlay, .2)); pointer-events: none;
+  background: var(--media-player-overlay, transparent); pointer-events: none;
 }
 .interactive-media-item__overlay.is-visible { opacity: 1; visibility: visible; }
 .interactive-media-item__content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 820px; max-height: 100%; overflow: auto; }
