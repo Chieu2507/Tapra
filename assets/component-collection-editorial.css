@@ -90,7 +90,6 @@
 .ce-subheading-icon--sparkle svg{display:block;width:14px;height:14px}
 .ce-content[data-ce-highlight]:not([data-ce-highlight=none]):not([data-ce-highlight=color]) em{display:inline-block;transform:rotate(var(--ce-highlight-rotation,0deg))}
 .ce-content[data-ce-highlight=color] em{background:var(--ce-highlight-gradient,none);background-clip:text}
-.ce-content[data-ce-highlight=color] em:has(+*){box-decoration-break:clone}
 .ce-content[data-ce-highlight=solid] em{background:var(--ce-highlight-gradient,var(--heading-highlight-color,var(--accent-color)));color:var(--ce-highlight-text-color,var(--background-color))}
 .ce-content[data-ce-highlight=bar] em{background-image:var(--ce-highlight-gradient,linear-gradient(transparent 60%,color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 30%,transparent) 60%))}
 .ce-content[data-ce-highlight=color][data-ce-gradient=true] em{color:transparent}
