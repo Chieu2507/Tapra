@@ -38,6 +38,7 @@
     }
     reset() {
       this.classList.remove('is-scroll-ready');
+      this.progress = -1;
       if (this.mediaSlot) {
         this.mediaSlot.remove();
         this.mediaSlot = null;
@@ -78,9 +79,11 @@
       if (!this.classList.contains('is-scroll-ready')) return;
       const track = this.getBoundingClientRect();
       const stage = this.stage.getBoundingClientRect();
-      const slot = this.mediaSlot.getBoundingClientRect();
       const distance = Math.max(1, track.height - stage.height);
       const progress = this.editing ? 0 : Math.max(0, Math.min(1, -track.top / distance));
+      if (progress === this.progress) return;
+      this.progress = progress;
+      const slot = this.mediaSlot.getBoundingClientRect();
       const parent = this.media.offsetParent.getBoundingClientRect();
       this.stage.style.setProperty('--scroll-left', `${slot.left - parent.left}px`);
       this.stage.style.setProperty('--scroll-top', `${slot.top - parent.top}px`);
