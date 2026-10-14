@@ -1,5 +1,6 @@
 (() => {
   if (customElements.get('lh-interactive-media-item')) return;
+  const expandedSections = new WeakMap();
   class InteractiveMediaItem extends HTMLElement {
     connectedCallback() {
       if (this.controller) return;
@@ -8,18 +9,24 @@
       this.motion = matchMedia('(prefers-reduced-motion: reduce)');
       this.mouse = matchMedia('(hover: hover) and (pointer: fine)');
       this.players = [];
-      this.dialog = this.querySelector('[data-item-video-dialog]');
+      this.sectionRoot = this.closest('.interactive-media');
+      this.expansion = this.querySelector('[data-media-expansion]');
+      this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
+      this.closeButton?.addEventListener('click', () => this.collapse(), options);
+      this.sectionRoot?.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && this.activePlayer) { event.preventDefault(); this.collapse(); }
+      }, options);
       const externalButton = this.querySelector('[data-item-external-play]');
       this.querySelectorAll(':scope > .video-block > .video').forEach(media => {
         const source = media.querySelector('video, iframe');
         if (!source) return;
-        // Keep external embeds detached until the parent popup is opened.
-        if (this.dataset.playback === 'popup' && source.matches('iframe')) {
+        // Keep external embeds detached until the item is expanded.
+        if (this.dataset.playback === 'full_section' && source.matches('iframe')) {
           source.remove();
           media.append(externalButton.content.cloneNode(true));
           media.setAttribute('data-video-ready', '');
         }
-        if (this.dataset.playback === 'popup' && source.matches('video')) {
+        if (this.dataset.playback === 'full_section' && source.matches('video')) {
           source.autoplay = false;
           source.removeAttribute('autoplay');
           source.pause();
@@ -34,21 +41,21 @@
         }
         const player = { media, source, button, current: { x: 0, y: 0, scale: 1 }, target: { x: 0, y: 0, scale: 1 }, frame: 0 };
         this.players.push(player);
-        if (this.dataset.playback === 'popup' && button) {
-          button.setAttribute('aria-haspopup', 'dialog');
-          button.setAttribute('aria-controls', this.dialog.id);
+        if (this.dataset.playback === 'full_section' && button) {
+          button.setAttribute('aria-expanded', 'false');
+          button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
           button.addEventListener('click', event => {
             event.preventDefault();
             event.stopImmediatePropagation();
             source.pause?.();
-            this.open(player);
+            this.expand(player);
           }, { ...options, capture: true });
         }
         const reset = () => { player.target = { x: 0, y: 0, scale: 1 }; this.animate(player); };
         if (this.dataset.magnetic !== 'true' || !button) return;
         media.addEventListener('pointermove', event => {
-          if (event.pointerType !== 'mouse' || !this.mouse.matches || this.motion.matches || button.matches(':focus-visible')) return;
+          if (this.activePlayer || event.pointerType !== 'mouse' || !this.mouse.matches || this.motion.matches || button.matches(':focus-visible')) return;
           const bounds = media.getBoundingClientRect();
           const limitX = Math.max(0, (bounds.width - button.offsetWidth) / 2 - 12);
           const limitY = Math.max(0, (bounds.height - button.offsetHeight) / 2 - 12);
@@ -63,29 +70,67 @@
         this.motion.addEventListener('change', reset, options);
         this.mouse.addEventListener('change', reset, options);
       });
-      this.dialog?.addEventListener('closing', () => {
-        this.dialog.querySelectorAll('video').forEach(video => video.pause());
-        this.dialog.querySelectorAll('iframe').forEach(frame => frame.remove());
-      }, options);
-      this.dialog?.addEventListener('close', () => this.dialog.querySelector('[data-item-video-mount]')?.replaceChildren(), options);
     }
-    open(player) {
-      if (!window.ThemeOverlay || !this.dialog) return;
-      this.overlay ||= window.ThemeOverlay.get(this.dialog);
+    expansionFrames(player) {
+      const section = this.sectionRoot.getBoundingClientRect();
+      const media = player.media.getBoundingClientRect();
+      return [
+        { left: `${media.left - section.left}px`, top: `${media.top - section.top}px`, width: `${media.width}px`, height: `${media.height}px`, borderRadius: getComputedStyle(player.media).borderRadius },
+        { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' },
+      ];
+    }
+    expand(player) {
+      if (!this.expansion || !this.sectionRoot || this.activePlayer) return;
+      expandedSections.get(this.sectionRoot)?.collapse({ animate: false, restoreFocus: false });
+      expandedSections.set(this.sectionRoot, this);
+      this.activePlayer = player;
       const clone = player.source.cloneNode(true);
       if (clone.matches('video')) {
         clone.controls = true;
         clone.autoplay = false;
         clone.removeAttribute('autoplay');
+        const poster = player.media.querySelector('.video__cover img');
+        if (poster) clone.poster = poster.currentSrc || poster.src;
       } else {
         const url = new URL(clone.src);
         url.searchParams.set('autoplay', '1');
         clone.src = url.href;
       }
-      this.dialog.querySelector('[data-item-video-mount]').replaceChildren(clone);
-      this.overlay.open({ opener: player.button });
+      const frames = this.expansionFrames(player);
+      this.expansion.querySelector('[data-full-media-mount]').replaceChildren(clone);
+      this.sectionRoot.append(this.expansion);
+      this.expansion.hidden = false;
+      player.button?.setAttribute('aria-expanded', 'true');
+      this.closeButton.focus({ preventScroll: true });
+      this.sectionRoot.classList.add('is-media-expanded');
+      if (!this.motion.matches) {
+        this.expansionAnimation = this.expansion.animate(frames, { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
+      }
       clone.play?.()?.catch(() => {});
     }
+    collapse({ animate = true, restoreFocus = true } = {}) {
+      const player = this.activePlayer;
+      if (!player) return;
+      this.activePlayer = null;
+      this.expansionAnimation?.cancel();
+      this.expansion.querySelectorAll('video').forEach(video => video.pause());
+      this.expansion.querySelectorAll('iframe').forEach(frame => frame.remove());
+      this.sectionRoot.classList.remove('is-media-expanded');
+      player.button?.setAttribute('aria-expanded', 'false');
+      expandedSections.delete(this.sectionRoot);
+      const finish = () => {
+        this.expansion.hidden = true;
+        this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
+        this.append(this.expansion);
+        if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
+      };
+      if (animate && !this.motion.matches) {
+        const frames = this.expansionFrames(player).reverse();
+        this.expansionAnimation = this.expansion.animate(frames, { duration: 400, easing: 'cubic-bezier(.22,1,.36,1)' });
+        this.expansionAnimation.finished.then(finish, finish);
+      } else finish();
+    }
+
     animate(player) {
       if (player.frame) return;
       const tick = () => {
@@ -106,6 +151,8 @@
     disconnectedCallback() {
       queueMicrotask(() => {
         if (this.isConnected) return;
+        this.collapse({ animate: false, restoreFocus: false });
+        this.expansionAnimation?.cancel();
         this.controller?.abort();
         this.controller = null;
         this.players?.forEach(player => {
@@ -116,8 +163,7 @@
             player.media.append(player.source);
           }
         });
-        this.overlay?.destroy();
-        this.overlay = null;
+
       });
     }
   }

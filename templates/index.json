@@ -1308,7 +1308,7 @@
           ],
           "settings": {
             "blend_edges": true,
-            "playback_mode": "popup",
+            "playback_mode": "full_section",
             "poster_glow": true,
             "magnetic_play": true
           }

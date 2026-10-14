@@ -5,12 +5,13 @@
 {% enddoc %}
 <lh-interactive-media-item class="interactive-media-item" data-playback="{{ block.settings.playback_mode | default: 'inline' }}" data-glow="{{ block.settings.poster_glow }}" data-blend="{{ block.settings.blend_edges }}" data-magnetic="{{ block.settings.magnetic_play }}" data-play-label="{{ 'video.play' | t | escape }}" {{ block.shopify_attributes }}>
   {% content_for 'blocks' %}
-  {% if block.settings.playback_mode == 'popup' %}
-    {% assign item_dialog_id = 'MediaDialog-' | append: section.id | append: '-' | append: block.id %}
-    {% capture item_dialog_body %}<div class="video" data-item-video-mount></div>{% endcapture %}
-    {% assign item_play_label = 'video.play' | t %}
-    {% render 'component-overlay', id: item_dialog_id, content: item_dialog_body, label: item_play_label, desktop_layout: 'popup', mobile_layout: 'bottom_sheet', width: 1080, body_class: 'interactive-media-dialog__body', attributes: 'data-item-video-dialog', append_to_body: true %}
-    <template data-item-external-play><button class="video__play" type="button" aria-haspopup="dialog" aria-controls="{{ item_dialog_id }}" aria-label="{{ item_play_label | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
+  {% if block.settings.playback_mode == 'full_section' %}
+    {% assign expansion_id = 'MediaExpansion-' | append: section.id | append: '-' | append: block.id %}
+    <div id="{{ expansion_id }}" class="interactive-media-expansion" data-media-expansion role="region" aria-label="{{ 'video.play' | t | escape }}" hidden>
+      <div class="interactive-media-expansion__mount" data-full-media-mount></div>
+      <button class="overlay-close interactive-media-expansion__close" type="button" data-media-collapse aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'x-mark', bare: true %}</button>
+    </div>
+    <template data-item-external-play><button class="video__play" type="button" aria-expanded="false" aria-controls="{{ expansion_id }}" aria-label="{{ 'video.play' | t | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
   {% endif %}
 </lh-interactive-media-item>
 {{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
@@ -67,11 +68,12 @@
           "label": "Inline"
         },
         {
-          "value": "popup",
-          "label": "Popup"
+          "value": "full_section",
+          "label": "Expand to section"
         }
       ],
-      "default": "inline"
+      "default": "inline",
+      "info": "Expand the media to fill this section when clicked."
     },
     {
       "type": "header",
@@ -195,7 +197,7 @@
       ],
       "settings": {
         "blend_edges": true,
-        "playback_mode": "popup",
+        "playback_mode": "full_section",
         "poster_glow": true,
         "magnetic_play": true
       }

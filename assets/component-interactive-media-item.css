@@ -25,9 +25,20 @@
   transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
   backdrop-filter: blur(8px);
 }
-.interactive-media-dialog__body .video { aspect-ratio: 16 / 9; background: #000; }
-.interactive-media-dialog__body .video > :is(video, iframe) { width: 100%; height: 100%; object-fit: contain; }
+/* Expands inside the section. It does not create a modal, backdrop or scroll lock. */
+.interactive-media__content { transition: opacity 240ms ease, visibility 240ms ease; }
+.interactive-media.is-media-expanded > .interactive-media__content { opacity: 0; visibility: hidden; pointer-events: none; }
+.interactive-media-expansion {
+  position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%;
+  overflow: hidden; background: #000; color: #fff; isolation: isolate;
+}
+.interactive-media-expansion[hidden] { display: none; }
+.interactive-media-expansion__mount { width: 100%; height: 100%; }
+.interactive-media-expansion__mount > :is(video, iframe) { display: block; border: 0; width: 100%; height: 100%; object-fit: cover; }
+.interactive-media-expansion__close { position: absolute; top: 16px; right: 16px; z-index: 2; color: #fff; background: #0008; }
+.interactive-media-expansion__close svg { width: 24px; height: 24px; }
 @media (prefers-reduced-motion: reduce) {
+  .interactive-media__content { transition: none; }
   .interactive-media-item[data-glow] > :is(.video-block, .image-block)::before,
   .interactive-media-item[data-blend] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after,
   .interactive-media-item[data-glow] > :is(.marquee, .elara-marquee) { transition: none; }
