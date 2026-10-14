@@ -1197,8 +1197,8 @@
         "customize_mobile_padding": true,
         "padding_top_mobile": 64,
         "padding_bottom_mobile": 64,
-        "gap_desktop": 16,
-        "gap_mobile": 16,
+        "gap_desktop": 100,
+        "gap_mobile": 64,
         "alignment": "center",
         "customize_mobile_alignment": false,
         "alignment_mobile": "left"
