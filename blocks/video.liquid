@@ -258,7 +258,7 @@
     {% assign video_dialog_id = 'VideoDialog-' | append: section.id | append: '-' | append: block.id %}
     {% assign video_poster = block.settings.cover_image | default: uploaded_video.preview_image %}
     <div class="video video-block__media video-poster{% if has_video_media %} video-poster--ready{% endif %}">
-      {% render 'image', image: video_poster, loading: 'lazy', width: 1200, widths: '320, 480, 640, 960, 1200', sizes: '(min-width: 768px) 580px, 100vw', class: 'video-poster__image' %}
+      {% render 'image', image: video_poster, loading: 'lazy', width: 1600, widths: '320, 480, 640, 960, 1200, 1600', sizes: '100vw', class: 'video-poster__image' %}
       {% if has_video_media %}
         <button class="video__play" type="button" data-video-dialog-open aria-haspopup="dialog" aria-controls="{{ video_dialog_id }}" aria-label="{{ video_play_label | escape }}">
           {% render 'icon', icon: 'play', bare: true %}
