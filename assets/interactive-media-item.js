@@ -258,7 +258,7 @@
       if (reveal && this.usesScrollPlayback()) {
         const canvas = { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' };
         return [
-          { ...canvas, clipPath: getComputedStyle(reveal).clipPath },
+          { ...canvas, left: `${media.left - section.left}px`, top: `${media.top - section.top}px`, clipPath: getComputedStyle(reveal).clipPath },
           { ...canvas, clipPath: 'inset(0px 0px 0px 0px round 0px)' },
         ];
       }
