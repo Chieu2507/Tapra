@@ -44,6 +44,7 @@
         this.mediaSlot = null;
       }
       this.media?.classList.remove('interactive-media-scroll-target');
+      this.media?.closest('lh-interactive-media-item')?.setScrollFull?.(false);
       for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage?.style.removeProperty(property);
     }
     measure() {
@@ -83,6 +84,7 @@
       const progress = this.editing ? 0 : Math.max(0, Math.min(1, -track.top / distance));
       if (progress === this.progress) return;
       this.progress = progress;
+      this.media.closest('lh-interactive-media-item')?.setScrollFull?.(progress >= 0.999);
       const slot = this.mediaSlot.getBoundingClientRect();
       const parent = this.media.offsetParent.getBoundingClientRect();
       this.stage.style.setProperty('--scroll-left', `${slot.left - parent.left}px`);

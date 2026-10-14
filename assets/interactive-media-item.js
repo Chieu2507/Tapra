@@ -10,6 +10,11 @@
       this.mouse = matchMedia('(hover: hover) and (pointer: fine)');
       this.players = [];
       this.sectionRoot = this.closest('.interactive-media');
+      this.fullContent = this.querySelector('[data-full-media-content]');
+      if (this.fullContent) {
+        this.contentHome = document.createComment('Full media content');
+        this.fullContent.before(this.contentHome);
+      }
       this.expansion = this.querySelector('[data-media-expansion]');
       if (this.expansion) this.expansion.dataset.blend = this.dataset.blend;
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
@@ -74,6 +79,29 @@
         this.mouse.addEventListener('change', reset, options);
       });
     }
+    setFullContent(visible, host = this.sectionRoot) {
+      if (!this.fullContent) return;
+      clearTimeout(this.contentReturnTimer);
+      if (visible && host) host.append(this.fullContent);
+      this.fullContent.inert = !visible;
+      this.fullContent.setAttribute('aria-hidden', String(!visible));
+      this.fullContent.classList.toggle('is-visible', visible);
+      if (!visible) {
+        if (this.fullContent.contains(document.activeElement)) {
+          const target = this.players[0]?.button || this.querySelector('.image-block');
+          if (target) { if (!target.hasAttribute('tabindex') && !target.matches('button')) target.tabIndex = -1; target.focus({ preventScroll: true }); }
+        }
+        this.contentReturnTimer = setTimeout(() => this.returnContent(), this.motion.matches ? 0 : 240);
+      }
+    }
+    returnContent() {
+      if (this.contentHome?.isConnected && this.fullContent) this.contentHome.after(this.fullContent);
+    }
+    setScrollFull(full) {
+      if (this.dataset.mediaKind !== 'image' || full === this.scrollFull) return;
+      this.scrollFull = full;
+      this.setFullContent(full);
+    }
     expansionFrames(player) {
       const section = this.sectionRoot.getBoundingClientRect();
       const media = player.media.getBoundingClientRect();
@@ -94,6 +122,13 @@
       this.activePlayer = player;
       this.expansion.classList.remove('is-collapsing');
       const clone = player.source.cloneNode(true);
+      const epoch = this.expansionEpoch;
+      let settled = this.motion.matches;
+      let started = false;
+      const reveal = () => {
+        if (started && settled && this.activePlayer === player && this.expansionEpoch === epoch) this.setFullContent(true, this.expansion);
+      };
+      clone.addEventListener(clone.matches('video') ? 'playing' : 'load', () => { started = true; reveal(); }, { once: true });
       if (clone.matches('video')) {
         clone.controls = true;
         clone.autoplay = false;
@@ -116,6 +151,7 @@
       this.sectionRoot.classList.add('is-media-expanded');
       if (!this.motion.matches) {
         this.expansionAnimation = this.expansion.animate(frames, { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
+        this.expansionAnimation.finished.then(() => { settled = true; reveal(); }, () => {});
       }
       clone.play?.()?.catch(() => {});
     }
@@ -123,6 +159,7 @@
       const player = this.activePlayer;
       if (!player) return;
       this.activePlayer = null;
+      this.setFullContent(false);
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       this.expansionAnimation?.cancel();
       this.expansion.classList.add('is-collapsing');
@@ -168,6 +205,9 @@
       queueMicrotask(() => {
         if (this.isConnected) return;
         this.collapse({ animate: false, restoreFocus: false });
+        clearTimeout(this.contentReturnTimer);
+        this.returnContent();
+        this.contentHome?.remove();
         this.expansionAnimation?.cancel();
         this.controller?.abort();
         this.controller = null;
