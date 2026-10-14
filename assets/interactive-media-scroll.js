@@ -113,6 +113,19 @@
       this.progress = -1;
       this.update();
     }
+    capturePosition() {
+      if (!this.classList.contains('is-scroll-ready')) return null;
+      const track = this.getBoundingClientRect();
+      return { progress: -track.top / Math.max(1, track.height - this.stage.getBoundingClientRect().height), editingPosition: this.editingPosition };
+    }
+    restorePosition(position) {
+      if (!position || !this.classList.contains('is-scroll-ready')) return;
+      const track = this.getBoundingClientRect();
+      this.editingPosition = position.editingPosition;
+      window.scrollTo({ top: window.scrollY + track.top + position.progress * (track.height - this.stage.getBoundingClientRect().height), behavior: 'instant' });
+      this.progress = -1;
+      this.update();
+    }
     completeFor(media) {
       if (!this.classList.contains('is-scroll-ready')) return;
       const index = this.items.findIndex(item => item.querySelector(':scope > .video-block') === media?.closest('.video-block'));
