@@ -192,18 +192,22 @@
     }
     setScrollProgress(progress) {
       this.scrollProgress = progress;
+      if (this.activePlayer) return;
+      this.renderScrollContent(progress);
+    }
+    renderScrollContent(progress, host) {
       const player = this.players[0];
-      if (this.activePlayer || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
+      if (!this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
       const fade = Math.max(0, Math.min(1, (progress - .6) / .25));
       const enter = fade * fade * (3 - 2 * fade);
       const exit = Math.max(0, Math.min(1, (progress - 1) / .6));
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
-      if (fade > 0) {
+      if (fade > 0 || this.fullContent.classList.contains('is-player-transition')) {
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
         this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
-        this.setFullContent(true, player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
+        this.setFullContent(true, host || player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
       } else {
         this.resetScrollCopy();
         this.setFullContent(false);
@@ -223,19 +227,31 @@
     }
     expand(player) {
       if (!this.expansion || !this.sectionRoot || this.activePlayer) return;
+      this.scrollOwner = this.closest('lh-interactive-media-scroll');
+      this.scrollBeforeOpen = this.scrollOwner?.capturePosition?.();
+      this.autoplayBeforeOpen = Boolean(player.scrollAutoplay);
       this.stopScrollPlayback();
       expandedSections.get(this.sectionRoot)?.collapse({ animate: false, restoreFocus: false });
       this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
-      if (this.fullContent) { this.setFullContent(false); this.resetScrollCopy(); }
+      if (this.fullContent) {
+        clearTimeout(this.contentTransitionTimer);
+        clearTimeout(this.contentReturnTimer);
+        this.fullContent.classList.add('is-player-transition');
+        this.expansion.append(this.fullContent);
+      }
       this.expansion.classList.remove('is-collapsing');
       const clone = player.source.cloneNode(true);
       const epoch = this.expansionEpoch;
       let settled = this.motion.matches;
       let started = false;
       const reveal = () => {
-        if (started && settled && this.activePlayer === player && this.expansionEpoch === epoch) this.setFullContent(true, this.expansion);
+        if (started && settled && this.activePlayer === player && this.expansionEpoch === epoch) {
+          if (this.scrollBeforeOpen) this.renderScrollContent(1, this.expansion);
+          else this.setFullContent(true, this.expansion);
+          if (this.fullContent) this.contentTransitionTimer = setTimeout(() => this.fullContent?.classList.remove('is-player-transition'), this.motion.matches ? 0 : 400);
+        }
       };
       clone.addEventListener(clone.matches('video') ? 'playing' : 'load', () => { started = true; reveal(); }, { once: true });
       if (clone.matches('video')) {
@@ -257,20 +273,25 @@
       player.button?.setAttribute('aria-expanded', 'true');
       this.positionClose();
       this.sectionRoot.querySelector('.interactive-media__content').inert = true;
-      this.closeButton.focus({ preventScroll: true });
       this.sectionRoot.classList.add('is-media-expanded');
+      const focusClose = () => {
+        if (this.activePlayer === player && this.expansionEpoch === epoch) this.closeButton.focus({ preventScroll: true });
+      };
       if (!this.motion.matches) {
         this.expansionAnimation = this.expansion.animate(frames, { duration: 500, easing: 'cubic-bezier(.22,1,.36,1)' });
-        this.expansionAnimation.finished.then(() => { settled = true; reveal(); }, () => {});
-      }
+        this.expansionAnimation.finished.then(() => { settled = true; reveal(); focusClose(); }, () => {});
+      } else queueMicrotask(focusClose);
       clone.play?.()?.catch(() => {});
     }
     collapse({ animate = true, restoreFocus = true } = {}) {
       const player = this.activePlayer;
       if (!player) return;
-      console.warn('media-collapse-debug', new Error().stack);
+      clearTimeout(this.contentTransitionTimer);
+      this.fullContent?.classList.add('is-player-transition');
+      if (restoreFocus) this.scrollOwner?.restorePosition?.(this.scrollBeforeOpen);
       this.activePlayer = null;
-      this.setFullContent(false);
+      if (this.fullContent) this.renderScrollContent(this.scrollProgress ?? 0, this.expansion);
+      else this.setFullContent(false);
       const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       this.expansionAnimation?.cancel();
       this.expansion.classList.add('is-collapsing');
@@ -286,9 +307,12 @@
         this.expansion.classList.remove('is-collapsing');
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
+        this.fullContent?.classList.remove('is-player-transition');
         if (this.scrollProgress !== undefined) this.setScrollProgress(this.scrollProgress);
+        else this.setFullContent(false);
         if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
-        if (this.scrollProgress !== undefined) this.setScrollPlayback(this.scrollProgress, !this.inert);
+        if (this.scrollProgress !== undefined) this.setScrollPlayback(restoreFocus && this.autoplayBeforeOpen ? Math.max(.6, this.scrollProgress) : this.scrollProgress, !this.inert);
+        this.scrollBeforeOpen = null;
       };
       if (animate && !this.motion.matches) {
         const frames = this.expansionFrames(player).reverse();
@@ -319,6 +343,7 @@
         if (this.isConnected) return;
         this.collapse({ animate: false, restoreFocus: false });
         clearTimeout(this.contentReturnTimer);
+        clearTimeout(this.contentTransitionTimer);
         this.returnContent();
         this.contentHome?.remove();
         this.expansionAnimation?.cancel();

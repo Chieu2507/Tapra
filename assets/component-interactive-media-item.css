@@ -24,8 +24,7 @@
   backdrop-filter: blur(8px);
 }
 /* Expands inside the section. It does not create a modal, backdrop or scroll lock. */
-.interactive-media__content { transition: opacity 240ms ease, visibility 240ms ease; }
-.interactive-media.is-media-expanded > .interactive-media__content { opacity: 0; visibility: hidden; pointer-events: none; }
+.interactive-media.is-media-expanded > .interactive-media__content { visibility: hidden; pointer-events: none; }
 .interactive-media-expansion {
   position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%;
   overflow: hidden; background: #000; color: #fff; isolation: isolate;
@@ -37,7 +36,7 @@
   box-shadow: inset 0 0 48px 22px var(--interactive-media-background, var(--background-color));
   opacity: 0; transition: opacity 350ms ease;
 }
-.interactive-media-expansion[data-blend='true'].is-collapsing::after { opacity: 1; }
+.interactive-media-expansion[data-blend='true'].is-collapsing::after { opacity: var(--scroll-blend, 1); }
 @media (prefers-reduced-motion: reduce) {
   .interactive-media-expansion[data-blend='true']::after { transition: none; }
 }
@@ -108,5 +107,11 @@
 .interactive-media-item__overlay.is-scroll-copy.is-visible { opacity: var(--media-scroll-copy-opacity, 0); }
 .interactive-media-item__overlay.is-scroll-copy .interactive-media-item__content {
   transform: translateY(var(--media-scroll-copy-travel, 0px));
+}
+.interactive-media-item__overlay.is-player-transition { transition: opacity 400ms ease, visibility 400ms ease; }
+.interactive-media-item__overlay.is-player-transition .interactive-media-item__content { transition: transform 400ms ease; }
+@media (prefers-reduced-motion: reduce) {
+  .interactive-media-item__overlay.is-player-transition,
+  .interactive-media-item__overlay.is-player-transition .interactive-media-item__content { transition: none; }
 }
 .interactive-media-item .video.is-scroll-autoplay > .video__play { visibility: hidden; opacity: 0; pointer-events: none; }
