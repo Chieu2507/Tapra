@@ -31,6 +31,14 @@
   color: var(--gallery-post-text);
 }
 .gallery-image--post .gallery-image__visual { aspect-ratio: var(--gallery-image-ratio, 1); height: auto; border-radius: var(--gallery-post-media-radius); }
+/* Reuse the shared pointer light; keep its glow above opaque gallery media. */
+html[data-surface-light-enabled] .gallery-image--post.surface-light {
+  --surface-light-border-width: var(--gallery-post-border);
+}
+html[data-surface-light-enabled] .gallery-image--post.surface-light::before {
+  z-index: 1;
+  mix-blend-mode: screen;
+}
 .gallery-image__badge { position: absolute; top: 8px; padding: 5px 8px; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--gallery-post-background) 75%, transparent); color: var(--gallery-post-text); font-family: var(--font-accent-family, var(--font-body-family)); font-size: var(--font-body-xs); line-height: 1; }
 .gallery-image__badge--left { left: 8px; }
 .gallery-image__badge--right { right: 8px; }
