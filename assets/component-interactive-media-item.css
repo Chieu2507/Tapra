@@ -1,11 +1,11 @@
 /* Composition effects are owned by Media item, never by a base block. */
 .interactive-media-item > :is(.video-block, .image-block) { position: relative; isolation: isolate; }
-.interactive-media-item[data-glow='true'] > :is(.video-block, .image-block)::before {
+.interactive-media-item[data-glow='true'] > :is(.video-block, .image-block):has(> :is(.video-block__media, .image-block__media):not(.placeholder-image))::before {
   content: ''; position: absolute; inset: 6%; z-index: -1;
   border-radius: var(--video-block-radius, var(--image-block-radius));
   background: #fff; filter: blur(40px); opacity: 0; transition: opacity var(--motion-duration-standard) var(--motion-ease-standard); pointer-events: none;
 }
-.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after {
+.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media):not(.placeholder-image)::after {
   box-shadow: inset 0 0 48px 22px color-mix(in srgb, var(--interactive-media-background, var(--background-color)) calc(var(--scroll-blend, 1) * 100%), transparent);
   transition: box-shadow var(--motion-duration-standard) var(--motion-ease-standard);
 }
