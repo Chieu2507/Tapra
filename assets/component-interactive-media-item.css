@@ -20,7 +20,7 @@
 }
 .interactive-media-item[data-glow='true']:focus-within > :is(.video-block, .image-block)::before { opacity: .7; }
 .interactive-media-item[data-magnetic='true'] > .video-block .video__play {
-  transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
+  transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px) + var(--scroll-play-offset, 0px))) scale(var(--magnetic-scale, 1));
   backdrop-filter: blur(8px);
 }
 /* Expands inside the section. It does not create a modal, backdrop or scroll lock. */
@@ -98,3 +98,19 @@
 .interactive-media-item__overlay.is-visible :is(a, button) { pointer-events: auto; }
 .interactive-media-expansion__close { z-index: 4; }
 @media (prefers-reduced-motion: reduce) { .interactive-media-item__overlay { transition: none; } }
+
+/* Scroll preview keeps the original Play control and centers copy + Play as one group. */
+.interactive-media-item[data-media-kind='video'] .video__play {
+  z-index: 3;
+  transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px) + var(--scroll-play-offset, 0px))) scale(var(--magnetic-scale, 1));
+}
+.interactive-media-item__overlay.is-scroll-copy {
+  --media-content-play-gap: 32px;
+  padding: clamp(20px, 5vw, 64px);
+  transition: none;
+}
+.interactive-media-item__overlay.is-scroll-copy.is-visible { opacity: var(--media-scroll-copy-opacity, 0); }
+.interactive-media-item__overlay.is-scroll-copy .interactive-media-item__content {
+  transform: translateY(calc((var(--media-content-play-size, 64px) + var(--media-content-play-gap)) / -2));
+  max-height: calc(100% - var(--media-content-play-size, 64px) - var(--media-content-play-gap));
+}

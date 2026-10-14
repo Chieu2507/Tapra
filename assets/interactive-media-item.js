@@ -15,6 +15,12 @@
         this.contentHome = document.createComment('Full media content');
         this.fullContent.before(this.contentHome);
       }
+      if (this.fullContent) {
+        this.copyObserver = new ResizeObserver(() => {
+          if (this.fullContent.classList.contains('is-scroll-copy')) this.measureScrollCopy();
+        });
+        this.copyObserver.observe(this.fullContent.querySelector('.interactive-media-item__content'));
+      }
       this.expansion = this.querySelector('[data-media-expansion]');
       if (this.expansion) this.expansion.dataset.blend = this.dataset.blend;
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
@@ -82,7 +88,7 @@
     setFullContent(visible, host = this.sectionRoot) {
       if (!this.fullContent) return;
       clearTimeout(this.contentReturnTimer);
-      if (visible && host) host.append(this.fullContent);
+      if (visible && host && this.fullContent.parentElement !== host) host.append(this.fullContent);
       this.fullContent.inert = !visible;
       this.fullContent.setAttribute('aria-hidden', String(!visible));
       this.fullContent.classList.toggle('is-visible', visible);
@@ -96,6 +102,38 @@
     }
     returnContent() {
       if (this.contentHome?.isConnected && this.fullContent) this.contentHome.after(this.fullContent);
+    }
+    measureScrollCopy() {
+      const player = this.players[0];
+      if (!player?.button || !this.fullContent) return;
+      const copy = this.fullContent.querySelector('.interactive-media-item__content');
+      const buttonHeight = player.button.getBoundingClientRect().height;
+      const gap = parseFloat(getComputedStyle(this.fullContent).getPropertyValue('--media-content-play-gap')) || 32;
+      const offset = (copy.getBoundingClientRect().height + gap) / 2 * (this.scrollCopyOpacity || 0);
+      this.fullContent.style.setProperty('--media-content-play-size', `${buttonHeight}px`);
+      player.button.style.setProperty('--scroll-play-offset', `${offset}px`);
+    }
+    resetScrollCopy() {
+      if (!this.fullContent) return;
+      this.fullContent.classList.remove('is-scroll-copy');
+      this.players[0]?.button?.style.removeProperty('--scroll-play-offset');
+    }
+    setScrollProgress(progress) {
+      this.scrollProgress = progress;
+      if (this.dataset.mediaKind !== 'video') { this.setScrollFull(progress >= .999); return; }
+      const player = this.players[0];
+      if (this.activePlayer || !player || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
+      const fade = Math.max(0, Math.min(1, (progress - .65) / .35));
+      this.scrollCopyOpacity = fade * fade * (3 - 2 * fade);
+      if (fade > 0) {
+        this.fullContent.classList.add('is-scroll-copy');
+        this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(this.scrollCopyOpacity));
+        this.setFullContent(true, player.media);
+        this.measureScrollCopy();
+      } else {
+        this.setFullContent(false);
+        this.resetScrollCopy();
+      }
     }
     setScrollFull(full) {
       if (this.dataset.mediaKind !== 'image' || full === this.scrollFull) return;
@@ -120,6 +158,7 @@
       this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
+      if (this.fullContent) { this.setFullContent(false); this.resetScrollCopy(); }
       this.expansion.classList.remove('is-collapsing');
       const clone = player.source.cloneNode(true);
       const epoch = this.expansionEpoch;
@@ -175,6 +214,7 @@
         this.expansion.classList.remove('is-collapsing');
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
+        if (this.scrollProgress !== undefined) this.setScrollProgress(this.scrollProgress);
         if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
       };
       if (animate && !this.motion.matches) {
@@ -209,6 +249,8 @@
         this.returnContent();
         this.contentHome?.remove();
         this.expansionAnimation?.cancel();
+        this.copyObserver?.disconnect();
+        this.resetScrollCopy();
         this.controller?.abort();
         this.controller = null;
         this.players?.forEach(player => {
