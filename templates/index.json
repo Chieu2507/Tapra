@@ -16,6 +16,7 @@
           "type": "slideshow-slide",
           "settings": {
             "layout": "classic",
+            "link": "",
             "open_in_new_tab": false,
             "media_type": "image",
             "media_2_type": "image",
@@ -41,12 +42,15 @@
               "type": "eyebrow",
               "settings": {
                 "text": "<p>EYEBROW</p>",
+                "color": "",
                 "show_background": false,
                 "show_icon": false,
                 "icon": "circle",
                 "border_thickness": 0,
                 "corner_radius": "square",
                 "color_scheme": "scheme-1",
+                "background_color": "",
+                "border_color": "",
                 "animation_type": "none",
                 "animation_delay": 0,
                 "padding_top": 0,
@@ -58,7 +62,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "heading_2": {
               "type": "heading",
@@ -67,6 +72,7 @@
                 "heading_size": "lg",
                 "custom_heading_size": 24,
                 "html_tag": "h2",
+                "text_color": "",
                 "outline_text": false,
                 "width": "fit",
                 "max_width": 640,
@@ -84,12 +90,14 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "button_3": {
               "type": "button",
               "settings": {
                 "button_label": "Button label",
+                "button_link": "",
                 "button_open_in_new_tab": false,
                 "button_style": "primary",
                 "show_icon": false,
@@ -97,6 +105,17 @@
                 "icon_position": "after",
                 "icon_size": "inherit",
                 "icon_width": 20,
+                "customize_button_style": false,
+                "font_size": 14,
+                "font_weight": "600",
+                "text_transform": "none",
+                "button_padding_start": 24,
+                "button_padding_end": 24,
+                "icon_gap": 8,
+                "color_scheme": "",
+                "corner_radius": "inherit",
+                "icon_background_color": "",
+                "icon_padding": 0,
                 "width": "fit",
                 "width_mobile": "fit",
                 "animation_type": "none",
@@ -110,7 +129,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -123,6 +143,7 @@
           "type": "slideshow-slide",
           "settings": {
             "layout": "classic",
+            "link": "",
             "open_in_new_tab": false,
             "media_type": "image",
             "media_2_type": "image",
@@ -148,12 +169,15 @@
               "type": "eyebrow",
               "settings": {
                 "text": "<p>EYEBROW</p>",
+                "color": "",
                 "show_background": false,
                 "show_icon": false,
                 "icon": "circle",
                 "border_thickness": 0,
                 "corner_radius": "square",
                 "color_scheme": "scheme-1",
+                "background_color": "",
+                "border_color": "",
                 "animation_type": "none",
                 "animation_delay": 0,
                 "padding_top": 0,
@@ -165,7 +189,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "heading_2": {
               "type": "heading",
@@ -174,6 +199,7 @@
                 "heading_size": "lg",
                 "custom_heading_size": 24,
                 "html_tag": "h2",
+                "text_color": "",
                 "outline_text": false,
                 "width": "fit",
                 "max_width": 640,
@@ -191,12 +217,14 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "button_3": {
               "type": "button",
               "settings": {
                 "button_label": "Button label",
+                "button_link": "",
                 "button_open_in_new_tab": false,
                 "button_style": "primary",
                 "show_icon": false,
@@ -204,6 +232,17 @@
                 "icon_position": "after",
                 "icon_size": "inherit",
                 "icon_width": 20,
+                "customize_button_style": false,
+                "font_size": 14,
+                "font_weight": "600",
+                "text_transform": "none",
+                "button_padding_start": 24,
+                "button_padding_end": 24,
+                "icon_gap": 8,
+                "color_scheme": "",
+                "corner_radius": "inherit",
+                "icon_background_color": "",
+                "icon_padding": 0,
                 "width": "fit",
                 "width_mobile": "fit",
                 "animation_type": "none",
@@ -217,7 +256,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -230,6 +270,7 @@
           "type": "slideshow-slide",
           "settings": {
             "layout": "classic",
+            "link": "",
             "open_in_new_tab": false,
             "media_type": "image",
             "media_2_type": "image",
@@ -255,12 +296,15 @@
               "type": "eyebrow",
               "settings": {
                 "text": "<p>EYEBROW</p>",
+                "color": "",
                 "show_background": false,
                 "show_icon": false,
                 "icon": "circle",
                 "border_thickness": 0,
                 "corner_radius": "square",
                 "color_scheme": "scheme-1",
+                "background_color": "",
+                "border_color": "",
                 "animation_type": "none",
                 "animation_delay": 0,
                 "padding_top": 0,
@@ -272,7 +316,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "heading_2": {
               "type": "heading",
@@ -281,6 +326,7 @@
                 "heading_size": "lg",
                 "custom_heading_size": 24,
                 "html_tag": "h2",
+                "text_color": "",
                 "outline_text": false,
                 "width": "fit",
                 "max_width": 640,
@@ -298,12 +344,14 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             },
             "button_3": {
               "type": "button",
               "settings": {
                 "button_label": "Button label",
+                "button_link": "",
                 "button_open_in_new_tab": false,
                 "button_style": "primary",
                 "show_icon": false,
@@ -311,6 +359,17 @@
                 "icon_position": "after",
                 "icon_size": "inherit",
                 "icon_width": 20,
+                "customize_button_style": false,
+                "font_size": 14,
+                "font_weight": "600",
+                "text_transform": "none",
+                "button_padding_start": 24,
+                "button_padding_end": 24,
+                "icon_gap": 8,
+                "color_scheme": "",
+                "corner_radius": "inherit",
+                "icon_background_color": "",
+                "icon_padding": 0,
                 "width": "fit",
                 "width_mobile": "fit",
                 "animation_type": "none",
@@ -324,7 +383,8 @@
                 "padding_bottom_mobile": 0,
                 "padding_left_mobile": 0,
                 "padding_right_mobile": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -366,11 +426,715 @@
         "pagination_position_mobile": "center",
         "aria_label": "Slideshow",
         "color_scheme": "scheme-1",
+        "background_color": "",
         "padding_top": 0,
         "padding_bottom": 0,
         "customize_mobile_padding": false,
         "padding_top_mobile": 0,
         "padding_bottom_mobile": 0
+      }
+    },
+    "tapra_story": {
+      "type": "rich-text",
+      "blocks": {
+        "block_4": {
+          "type": "editorial-text",
+          "settings": {
+            "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+            "size": "lg",
+            "font_size": 40,
+            "text_color": "",
+            "width": "custom",
+            "max_width": 820,
+            "customize_mobile_size": false,
+            "width_mobile": "fit",
+            "max_width_mobile": 480,
+            "enable_scroll_reveal": true,
+            "reveal_unit": "word",
+            "scroll_speed": "medium",
+            "start_opacity": 28,
+            "show_image_1": false,
+            "image_width_1": 200,
+            "image_width_mobile_1": 100,
+            "image_link_1": "",
+            "image_new_tab_1": false,
+            "show_image_2": false,
+            "image_width_2": 200,
+            "image_width_mobile_2": 100,
+            "image_link_2": "",
+            "image_new_tab_2": false,
+            "show_image_3": false,
+            "image_width_3": 200,
+            "image_width_mobile_3": 100,
+            "image_link_3": "",
+            "image_new_tab_3": false,
+            "show_image_4": false,
+            "image_width_4": 200,
+            "image_width_mobile_4": 100,
+            "image_link_4": "",
+            "image_new_tab_4": false,
+            "show_image_5": false,
+            "image_width_5": 200,
+            "image_width_mobile_5": 100,
+            "image_link_5": "",
+            "image_new_tab_5": false,
+            "corner_radius": "inherit",
+            "custom_corner_radius": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          },
+          "blocks": {}
+        },
+        "eyebrow": {
+          "type": "eyebrow",
+          "static": true,
+          "settings": {
+            "text": "<p>About Tapra</p>",
+            "color": "",
+            "show_background": false,
+            "show_icon": false,
+            "icon": "circle",
+            "border_thickness": 0,
+            "corner_radius": "square",
+            "color_scheme": "",
+            "background_color": "",
+            "border_color": "",
+            "animation_type": "none",
+            "animation_delay": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          },
+          "blocks": {}
+        },
+        "heading": {
+          "type": "heading",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "text": "<p>About Tapra</p>",
+            "heading_size": "lg",
+            "custom_heading_size": 24,
+            "html_tag": "h2",
+            "text_color": "",
+            "outline_text": false,
+            "width": "fit",
+            "max_width": 640,
+            "customize_mobile_size": false,
+            "width_mobile": "fit",
+            "max_width_mobile": 480,
+            "animation_type": "none",
+            "animation_delay": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          },
+          "blocks": {}
+        },
+        "text": {
+          "type": "text",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "text": "<p>Our story</p>",
+            "text_size": "md",
+            "customize_letter_spacing": false,
+            "letter_spacing": 0,
+            "customize_line_height": false,
+            "line_height": 26,
+            "height_limit": "none",
+            "text_color": "",
+            "width": "fit",
+            "max_width": 640,
+            "customize_mobile_size": false,
+            "width_mobile": "fit",
+            "max_width_mobile": 480,
+            "animation_type": "none",
+            "animation_delay": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "block_4"
+      ],
+      "settings": {
+        "anchor_id": "about",
+        "section_width": "page_width",
+        "alignment": "center",
+        "customize_mobile_alignment": false,
+        "alignment_mobile": "left",
+        "gap_desktop": 24,
+        "gap_mobile": 20,
+        "color_scheme": "scheme-2",
+        "background_color": "",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "tapra_media": {
+      "type": "interactive-media",
+      "blocks": {
+        "block_1": {
+          "type": "interactive-media-item",
+          "settings": {},
+          "blocks": {
+            "child_1": {
+              "type": "marquee",
+              "settings": {
+                "use_elara_layout": true,
+                "show_top_divider": false,
+                "show_bottom_divider": false,
+                "show_blurred_edges": true,
+                "enable_parallax": false,
+                "alignment": "center",
+                "animation_speed": 0.6,
+                "animation_direction": "backward",
+                "gap_desktop": 72,
+                "gap_mobile": 40,
+                "width": "fill",
+                "custom_width": 50,
+                "color_type": "inherit",
+                "color_scheme": "",
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "customize_mobile_padding": false,
+                "padding_top_mobile": 24,
+                "padding_bottom_mobile": 24,
+                "background_color": "",
+                "padding_left": 0,
+                "padding_right": 0,
+                "padding_left_mobile": 0,
+                "padding_right_mobile": 0
+              },
+              "blocks": {
+                "child_1": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>4.9</strong> Average rating",
+                    "outline": false,
+                    "heading_size": "custom",
+                    "font": "heading",
+                    "custom_heading_size": 92,
+                    "letter_spacing": "normal",
+                    "text_case": "uppercase",
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "color_role": "heading",
+                    "opacity": 100
+                  },
+                  "blocks": {}
+                },
+                "child_2": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>30</strong> Day returns",
+                    "outline": false,
+                    "heading_size": "custom",
+                    "font": "heading",
+                    "custom_heading_size": 92,
+                    "letter_spacing": "normal",
+                    "text_case": "uppercase",
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "color_role": "heading",
+                    "opacity": 100
+                  },
+                  "blocks": {}
+                },
+                "child_3": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>9</strong> Switch types",
+                    "outline": false,
+                    "heading_size": "custom",
+                    "font": "heading",
+                    "custom_heading_size": 92,
+                    "letter_spacing": "normal",
+                    "text_case": "uppercase",
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "color_role": "heading",
+                    "opacity": 100
+                  },
+                  "blocks": {}
+                },
+                "child_4": {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>50+</strong> Hours tested",
+                    "outline": false,
+                    "heading_size": "custom",
+                    "font": "heading",
+                    "custom_heading_size": 92,
+                    "letter_spacing": "normal",
+                    "text_case": "uppercase",
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "color_role": "heading",
+                    "opacity": 100
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "child_1",
+                "child_2",
+                "child_3",
+                "child_4"
+              ]
+            },
+            "child_2": {
+              "type": "video",
+              "settings": {
+                "video_source": "uploaded",
+                "video": "shopify://files/videos/elara-inspiration-1.mp4",
+                "external_video_url": "",
+                "playback_mode": "popup",
+                "poster_glow": true,
+                "poster_vignette": true,
+                "magnetic_play": true,
+                "autoplay": false,
+                "loop_video": false,
+                "cover_image": "shopify://shop_images/tapra-menu-keyboard.webp",
+                "show_video_first_mobile": false,
+                "play_button_size_desktop": 64,
+                "play_button_size_mobile": 56,
+                "play_button_background_color": "#ffffffb3",
+                "play_button_icon_color": "#1c1c1c",
+                "aspect_ratio_desktop": "custom",
+                "custom_aspect_ratio_desktop": 1.5,
+                "width_desktop": "custom",
+                "width_custom_desktop": 40,
+                "limit_width_desktop": true,
+                "max_width_desktop": 576,
+                "aspect_ratio_mobile": "custom",
+                "custom_aspect_ratio_mobile": 1.5,
+                "width_mobile": "custom",
+                "width_custom_mobile": 86,
+                "limit_width_mobile": false,
+                "max_width_mobile": 1600,
+                "corner_radius": "radius_32",
+                "show_overlay": false,
+                "overlay_style": "solid",
+                "overlay_color": "",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "padding_left": 0,
+                "padding_right": 0,
+                "customize_mobile_padding": false,
+                "padding_top_mobile": 0,
+                "padding_bottom_mobile": 0,
+                "padding_left_mobile": 0,
+                "padding_right_mobile": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "child_1",
+            "child_2"
+          ]
+        }
+      },
+      "block_order": [
+        "block_1"
+      ],
+      "settings": {
+        "section_width": "full_width",
+        "item_gap": 80,
+        "color_scheme": "scheme-2",
+        "background_color": "",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      }
+    },
+    "tapra_faq": {
+      "type": "faq-accordion",
+      "blocks": {
+        "header": {
+          "type": "group",
+          "settings": {
+            "mobile_order": 0,
+            "direction": "vertical",
+            "wrap": false,
+            "position": "center",
+            "position_horizontal": "center",
+            "horizontal_alignment": "left",
+            "customize_mobile_alignment": true,
+            "alignment": "left",
+            "alignment_mobile": "left",
+            "gap_desktop": 16,
+            "gap_mobile": 16,
+            "device": "desktop",
+            "width": "fill",
+            "width_custom": 100,
+            "limit_width": false,
+            "max_width": 640,
+            "height": "fill",
+            "width_mobile": "fill",
+            "width_custom_mobile": 100,
+            "limit_width_mobile": false,
+            "max_width_mobile": 480,
+            "appearance_type": "inherit",
+            "color_scheme": "",
+            "background_color": "",
+            "border_type": "none",
+            "border_color": "",
+            "corner_radius": "square",
+            "shadow": "none",
+            "show_overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+            "use_theme_glass": false,
+            "backdrop_blur": 0,
+            "animation_type": "none",
+            "animation_delay": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
+          },
+          "blocks": {
+            "faq_header_1": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>A few things you might be wondering.</p>",
+                "heading_size": "xl",
+                "custom_heading_size": 24,
+                "html_tag": "h2",
+                "text_color": "",
+                "outline_text": false,
+                "width": "fill",
+                "max_width": 640,
+                "customize_mobile_size": false,
+                "width_mobile": "fit",
+                "max_width_mobile": 480,
+                "animation_type": "none",
+                "animation_delay": 0,
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "padding_left": 0,
+                "padding_right": 0,
+                "customize_mobile_padding": false,
+                "padding_top_mobile": 0,
+                "padding_bottom_mobile": 0,
+                "padding_left_mobile": 0,
+                "padding_right_mobile": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "faq_header_1"
+          ]
+        },
+        "questions": {
+          "type": "faq_accordion",
+          "settings": {
+            "use_elara_layout": true,
+            "style": "boxed",
+            "icon": "plus",
+            "dividers": false,
+            "question_font": "body",
+            "question_font_size": "xs",
+            "question_body_font_size": "md",
+            "border_thickness": 0,
+            "shadow": "none",
+            "padding": "custom",
+            "padding_top": 18,
+            "padding_right": 22,
+            "padding_bottom": 18,
+            "padding_left": 22,
+            "gap_desktop": 10,
+            "gap_mobile": 10,
+            "device": "desktop",
+            "width": "custom",
+            "custom_width": 57,
+            "limit_width": false,
+            "max_width": 1100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "limit_width_mobile": false,
+            "max_width_mobile": 1100,
+            "color_type": "inherit",
+            "color_scheme": "",
+            "customize_mobile_font_size": false,
+            "question_font_size_mobile": "xs",
+            "question_body_font_size_mobile": "md",
+            "customize_mobile_size": false,
+            "answer_font_size": "md",
+            "answer_font_size_mobile": "md",
+            "single_open": true,
+            "item_background": "#ffffff0f",
+            "corner_radius": "radius_16"
+          },
+          "blocks": {
+            "faq_question_1": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "How long is the warranty?",
+                "show_question_icon": false,
+                "question_icon": "check",
+                "question_icon_gap": 8,
+                "question_icon_size": 20,
+                "initially_open": true,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_1_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>12 months on the board and PCB. Manufacturing faults are replaced within the first 30 days.</p>",
+                    "text_size": "md",
+                    "customize_letter_spacing": false,
+                    "letter_spacing": 0,
+                    "customize_line_height": false,
+                    "line_height": 26,
+                    "height_limit": "none",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill",
+                    "max_width": 640,
+                    "customize_mobile_size": false,
+                    "width_mobile": "fit",
+                    "max_width_mobile": 480,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "faq_question_1_1"
+              ]
+            },
+            "faq_question_2": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "Can I change switches myself?",
+                "show_question_icon": false,
+                "question_icon": "check",
+                "question_icon_gap": 8,
+                "question_icon_size": 20,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_2_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes. The hot-swap PCB lets you pull out switches and press in new ones, no soldering.</p>",
+                    "text_size": "md",
+                    "customize_letter_spacing": false,
+                    "letter_spacing": 0,
+                    "customize_line_height": false,
+                    "line_height": 26,
+                    "height_limit": "none",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill",
+                    "max_width": 640,
+                    "customize_mobile_size": false,
+                    "width_mobile": "fit",
+                    "max_width_mobile": 480,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "faq_question_2_1"
+              ]
+            },
+            "faq_question_3": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "Does it work with Mac and Windows?",
+                "show_question_icon": false,
+                "question_icon": "check",
+                "question_icon_gap": 8,
+                "question_icon_size": 20,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_3_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes. The board detects your system and remaps modifier keys with one shortcut.</p>",
+                    "text_size": "md",
+                    "customize_letter_spacing": false,
+                    "letter_spacing": 0,
+                    "customize_line_height": false,
+                    "line_height": 26,
+                    "height_limit": "none",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill",
+                    "max_width": 640,
+                    "customize_mobile_size": false,
+                    "width_mobile": "fit",
+                    "max_width_mobile": 480,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "faq_question_3_1"
+              ]
+            },
+            "faq_question_4": {
+              "type": "faq_item",
+              "settings": {
+                "use_elara_layout": true,
+                "question": "How fast is shipping?",
+                "show_question_icon": false,
+                "question_icon": "check",
+                "question_icon_gap": 8,
+                "question_icon_size": 20,
+                "initially_open": false,
+                "pointer_light": true
+              },
+              "blocks": {
+                "faq_question_4_1": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
+                    "text_size": "md",
+                    "customize_letter_spacing": false,
+                    "letter_spacing": 0,
+                    "customize_line_height": false,
+                    "line_height": 26,
+                    "height_limit": "none",
+                    "text_color": "#bfe3ffb8",
+                    "width": "fill",
+                    "max_width": 640,
+                    "customize_mobile_size": false,
+                    "width_mobile": "fit",
+                    "max_width_mobile": 480,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "faq_question_4_1"
+              ]
+            }
+          },
+          "block_order": [
+            "faq_question_1",
+            "faq_question_2",
+            "faq_question_3",
+            "faq_question_4"
+          ]
+        }
+      },
+      "block_order": [
+        "header",
+        "questions"
+      ],
+      "settings": {
+        "section_width": "page_width",
+        "limit_width": false,
+        "max_width": 768,
+        "layout": "horizontal",
+        "position": "top",
+        "alignment": "left",
+        "horizontal_alignment": "left",
+        "vertical_on_mobile": true,
+        "alignment_mobile": "left",
+        "gap_desktop": 40,
+        "gap_mobile": 32,
+        "color_scheme": "scheme-3",
+        "background_color": "",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
       }
     },
     "instagram_gallery": {
@@ -380,14 +1144,51 @@
           "type": "gallery-header-group",
           "settings": {
             "content_width": "page_width",
+            "mobile_order": 0,
             "direction": "vertical",
+            "wrap": false,
+            "position": "center",
+            "position_horizontal": "center",
+            "horizontal_alignment": "left",
+            "customize_mobile_alignment": true,
             "alignment": "left",
             "alignment_mobile": "left",
             "gap_desktop": 32,
             "gap_mobile": 24,
+            "device": "desktop",
             "width": "fill",
+            "width_custom": 100,
+            "limit_width": false,
+            "max_width": 640,
             "height": "fit",
-            "width_mobile": "fill"
+            "width_mobile": "fill",
+            "width_custom_mobile": 100,
+            "limit_width_mobile": false,
+            "max_width_mobile": 480,
+            "appearance_type": "inherit",
+            "color_scheme": "",
+            "background_color": "",
+            "border_type": "none",
+            "border_color": "",
+            "corner_radius": "square",
+            "shadow": "none",
+            "show_overlay": false,
+            "overlay_style": "solid",
+            "overlay_color": "",
+            "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+            "use_theme_glass": false,
+            "backdrop_blur": 0,
+            "animation_type": "none",
+            "animation_delay": 0,
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
           },
           "blocks": {
             "insta_1_1": {
@@ -396,19 +1197,33 @@
                 "text": "<p>Instagram</p>",
                 "color": "#dbe7ff",
                 "show_background": true,
+                "show_icon": false,
+                "icon": "circle",
+                "border_thickness": 0,
                 "corner_radius": "radius_8",
                 "color_scheme": "scheme-3",
                 "background_color": "#ffffff1a",
+                "border_color": "",
+                "animation_type": "none",
+                "animation_delay": 0,
                 "padding_top": 7,
                 "padding_bottom": 7,
                 "padding_left": 12,
-                "padding_right": 12
-              }
+                "padding_right": 12,
+                "customize_mobile_padding": false,
+                "padding_top_mobile": 0,
+                "padding_bottom_mobile": 0,
+                "padding_left_mobile": 0,
+                "padding_right_mobile": 0
+              },
+              "blocks": {}
             },
             "insta_1_2": {
               "type": "group",
               "settings": {
+                "mobile_order": 0,
                 "direction": "horizontal",
+                "wrap": false,
                 "position": "top",
                 "position_horizontal": "top",
                 "horizontal_alignment": "space-between",
@@ -417,23 +1232,90 @@
                 "alignment_mobile": "left",
                 "gap_desktop": 40,
                 "gap_mobile": 24,
+                "device": "desktop",
                 "width": "fill",
+                "width_custom": 100,
+                "limit_width": false,
+                "max_width": 640,
                 "height": "fit",
-                "width_mobile": "fill"
+                "width_mobile": "fill",
+                "width_custom_mobile": 100,
+                "limit_width_mobile": false,
+                "max_width_mobile": 480,
+                "appearance_type": "inherit",
+                "color_scheme": "",
+                "background_color": "",
+                "border_type": "none",
+                "border_color": "",
+                "corner_radius": "square",
+                "shadow": "none",
+                "show_overlay": false,
+                "overlay_style": "solid",
+                "overlay_color": "",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+                "use_theme_glass": false,
+                "backdrop_blur": 0,
+                "animation_type": "none",
+                "animation_delay": 0,
+                "padding_top": 0,
+                "padding_bottom": 0,
+                "padding_left": 0,
+                "padding_right": 0,
+                "customize_mobile_padding": false,
+                "padding_top_mobile": 0,
+                "padding_bottom_mobile": 0,
+                "padding_left_mobile": 0,
+                "padding_right_mobile": 0
               },
               "blocks": {
                 "insta_1_2_1": {
                   "type": "group",
                   "settings": {
+                    "mobile_order": 0,
                     "direction": "vertical",
+                    "wrap": false,
                     "position": "top",
+                    "position_horizontal": "center",
+                    "horizontal_alignment": "left",
+                    "customize_mobile_alignment": true,
                     "alignment": "left",
+                    "alignment_mobile": "left",
                     "gap_desktop": 0,
                     "gap_mobile": 0,
+                    "device": "desktop",
                     "width": "custom",
                     "width_custom": 58,
+                    "limit_width": false,
+                    "max_width": 640,
                     "height": "fit",
-                    "width_mobile": "fill"
+                    "width_mobile": "fill",
+                    "width_custom_mobile": 100,
+                    "limit_width_mobile": false,
+                    "max_width_mobile": 480,
+                    "appearance_type": "inherit",
+                    "color_scheme": "",
+                    "background_color": "",
+                    "border_type": "none",
+                    "border_color": "",
+                    "corner_radius": "square",
+                    "shadow": "none",
+                    "show_overlay": false,
+                    "overlay_style": "solid",
+                    "overlay_color": "",
+                    "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+                    "use_theme_glass": false,
+                    "backdrop_blur": 0,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
                   },
                   "blocks": {
                     "insta_1_2_1_1": {
@@ -443,8 +1325,26 @@
                         "heading_size": "display",
                         "custom_heading_size": 60,
                         "html_tag": "h2",
-                        "width": "fill"
-                      }
+                        "text_color": "",
+                        "outline_text": false,
+                        "width": "fill",
+                        "max_width": 640,
+                        "customize_mobile_size": false,
+                        "width_mobile": "fit",
+                        "max_width_mobile": 480,
+                        "animation_type": "none",
+                        "animation_delay": 0,
+                        "padding_top": 0,
+                        "padding_bottom": 0,
+                        "padding_left": 0,
+                        "padding_right": 0,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 0,
+                        "padding_bottom_mobile": 0,
+                        "padding_left_mobile": 0,
+                        "padding_right_mobile": 0
+                      },
+                      "blocks": {}
                     },
                     "insta_1_2_1_2": {
                       "type": "heading",
@@ -454,8 +1354,25 @@
                         "custom_heading_size": 60,
                         "html_tag": "div",
                         "text_color": "#bfe3ff",
-                        "width": "fill"
-                      }
+                        "outline_text": false,
+                        "width": "fill",
+                        "max_width": 640,
+                        "customize_mobile_size": false,
+                        "width_mobile": "fit",
+                        "max_width_mobile": 480,
+                        "animation_type": "none",
+                        "animation_delay": 0,
+                        "padding_top": 0,
+                        "padding_bottom": 0,
+                        "padding_left": 0,
+                        "padding_right": 0,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 0,
+                        "padding_bottom_mobile": 0,
+                        "padding_left_mobile": 0,
+                        "padding_right_mobile": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -466,17 +1383,51 @@
                 "insta_1_2_2": {
                   "type": "group",
                   "settings": {
+                    "mobile_order": 0,
                     "direction": "vertical",
+                    "wrap": false,
                     "position": "top",
+                    "position_horizontal": "center",
+                    "horizontal_alignment": "left",
+                    "customize_mobile_alignment": true,
                     "alignment": "left",
+                    "alignment_mobile": "left",
                     "gap_desktop": 20,
                     "gap_mobile": 20,
+                    "device": "desktop",
                     "width": "custom",
                     "width_custom": 36,
                     "limit_width": true,
                     "max_width": 350,
                     "height": "fit",
-                    "width_mobile": "fill"
+                    "width_mobile": "fill",
+                    "width_custom_mobile": 100,
+                    "limit_width_mobile": false,
+                    "max_width_mobile": 480,
+                    "appearance_type": "inherit",
+                    "color_scheme": "",
+                    "background_color": "",
+                    "border_type": "none",
+                    "border_color": "",
+                    "corner_radius": "square",
+                    "shadow": "none",
+                    "show_overlay": false,
+                    "overlay_style": "solid",
+                    "overlay_color": "",
+                    "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+                    "use_theme_glass": false,
+                    "backdrop_blur": 0,
+                    "animation_type": "none",
+                    "animation_delay": 0,
+                    "padding_top": 0,
+                    "padding_bottom": 0,
+                    "padding_left": 0,
+                    "padding_right": 0,
+                    "customize_mobile_padding": false,
+                    "padding_top_mobile": 0,
+                    "padding_bottom_mobile": 0,
+                    "padding_left_mobile": 0,
+                    "padding_right_mobile": 0
                   },
                   "blocks": {
                     "insta_1_2_2_1": {
@@ -484,35 +1435,35 @@
                       "settings": {
                         "text": "<p>Follow along for build logs, new drops and real desk setups from our community.</p>",
                         "text_size": "sm",
-                        "width": "fill"
-                      }
-                    },
-                    "insta_1_2_2_2": {
-                      "type": "button",
-                      "settings": {
-                        "button_label": "Follow on Instagram",
-                        "button_link": "https://www.instagram.com/",
-                        "button_style": "secondary",
-                        "show_icon": true,
-                        "icon": "arrow_up_right",
-                        "icon_size": "custom",
-                        "icon_width": 14,
-                        "customize_button_style": true,
-                        "font_size": 14,
-                        "font_weight": "600",
-                        "text_transform": "none",
-                        "button_padding_start": 22,
-                        "button_padding_end": 6,
-                        "icon_gap": 14,
-                        "color_scheme": "scheme-5",
-                        "corner_radius": "pill",
-                        "icon_background_color": "#ffffff2e",
-                        "icon_padding": 10
-                      }
+                        "customize_letter_spacing": false,
+                        "letter_spacing": 0,
+                        "customize_line_height": false,
+                        "line_height": 26,
+                        "height_limit": "none",
+                        "text_color": "",
+                        "width": "fill",
+                        "max_width": 640,
+                        "customize_mobile_size": false,
+                        "width_mobile": "fit",
+                        "max_width_mobile": 480,
+                        "animation_type": "none",
+                        "animation_delay": 0,
+                        "padding_top": 0,
+                        "padding_bottom": 0,
+                        "padding_left": 0,
+                        "padding_right": 0,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 0,
+                        "padding_bottom_mobile": 0,
+                        "padding_left_mobile": 0,
+                        "padding_right_mobile": 0
+                      },
+                      "blocks": {}
                     },
                     "instagram_tags": {
                       "type": "group",
                       "settings": {
+                        "mobile_order": 0,
                         "direction": "horizontal",
                         "wrap": true,
                         "position": "top",
@@ -520,11 +1471,43 @@
                         "horizontal_alignment": "left",
                         "customize_mobile_alignment": false,
                         "alignment": "left",
+                        "alignment_mobile": "left",
                         "gap_desktop": 8,
                         "gap_mobile": 8,
+                        "device": "desktop",
                         "width": "fill",
+                        "width_custom": 100,
+                        "limit_width": false,
+                        "max_width": 640,
                         "height": "fit",
-                        "width_mobile": "fill"
+                        "width_mobile": "fill",
+                        "width_custom_mobile": 100,
+                        "limit_width_mobile": false,
+                        "max_width_mobile": 480,
+                        "appearance_type": "inherit",
+                        "color_scheme": "",
+                        "background_color": "",
+                        "border_type": "none",
+                        "border_color": "",
+                        "corner_radius": "square",
+                        "shadow": "none",
+                        "show_overlay": false,
+                        "overlay_style": "solid",
+                        "overlay_color": "",
+                        "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))",
+                        "use_theme_glass": false,
+                        "backdrop_blur": 0,
+                        "animation_type": "none",
+                        "animation_delay": 0,
+                        "padding_top": 0,
+                        "padding_bottom": 0,
+                        "padding_left": 0,
+                        "padding_right": 0,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 0,
+                        "padding_bottom_mobile": 0,
+                        "padding_left_mobile": 0,
+                        "padding_right_mobile": 0
                       },
                       "blocks": {
                         "followers": {
@@ -538,13 +1521,21 @@
                             "border_thickness": 1,
                             "corner_radius": "pill",
                             "color_scheme": "scheme-3",
-                            "background_color": "#ffffff00",
+                            "background_color": "rgba(0,0,0,0)",
                             "border_color": "#ffffff24",
+                            "animation_type": "none",
+                            "animation_delay": 0,
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10
-                          }
+                            "padding_right": 10,
+                            "customize_mobile_padding": false,
+                            "padding_top_mobile": 0,
+                            "padding_bottom_mobile": 0,
+                            "padding_left_mobile": 0,
+                            "padding_right_mobile": 0
+                          },
+                          "blocks": {}
                         },
                         "posts": {
                           "type": "eyebrow",
@@ -557,13 +1548,21 @@
                             "border_thickness": 1,
                             "corner_radius": "pill",
                             "color_scheme": "scheme-3",
-                            "background_color": "#ffffff00",
+                            "background_color": "rgba(0,0,0,0)",
                             "border_color": "#ffffff24",
+                            "animation_type": "none",
+                            "animation_delay": 0,
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10
-                          }
+                            "padding_right": 10,
+                            "customize_mobile_padding": false,
+                            "padding_top_mobile": 0,
+                            "padding_bottom_mobile": 0,
+                            "padding_left_mobile": 0,
+                            "padding_right_mobile": 0
+                          },
+                          "blocks": {}
                         },
                         "weekly": {
                           "type": "eyebrow",
@@ -576,13 +1575,21 @@
                             "border_thickness": 1,
                             "corner_radius": "pill",
                             "color_scheme": "scheme-3",
-                            "background_color": "#ffffff00",
+                            "background_color": "rgba(0,0,0,0)",
                             "border_color": "#ffffff24",
+                            "animation_type": "none",
+                            "animation_delay": 0,
                             "padding_top": 6,
                             "padding_bottom": 6,
                             "padding_left": 10,
-                            "padding_right": 10
-                          }
+                            "padding_right": 10,
+                            "customize_mobile_padding": false,
+                            "padding_top_mobile": 0,
+                            "padding_bottom_mobile": 0,
+                            "padding_left_mobile": 0,
+                            "padding_right_mobile": 0
+                          },
+                          "blocks": {}
                         }
                       },
                       "block_order": [
@@ -590,6 +1597,45 @@
                         "posts",
                         "weekly"
                       ]
+                    },
+                    "insta_1_2_2_2": {
+                      "type": "button",
+                      "settings": {
+                        "button_label": "Follow on Instagram",
+                        "button_link": "https://www.instagram.com/",
+                        "button_open_in_new_tab": false,
+                        "button_style": "secondary",
+                        "show_icon": true,
+                        "icon": "arrow_up_right",
+                        "icon_position": "after",
+                        "icon_size": "custom",
+                        "icon_width": 14,
+                        "customize_button_style": true,
+                        "font_size": 14,
+                        "font_weight": "600",
+                        "text_transform": "none",
+                        "button_padding_start": 22,
+                        "button_padding_end": 6,
+                        "icon_gap": 14,
+                        "color_scheme": "scheme-5",
+                        "corner_radius": "pill",
+                        "icon_background_color": "#ffffff2e",
+                        "icon_padding": 10,
+                        "width": "fit",
+                        "width_mobile": "fit",
+                        "animation_type": "none",
+                        "animation_delay": 0,
+                        "padding_top": 0,
+                        "padding_bottom": 0,
+                        "padding_left": 0,
+                        "padding_right": 0,
+                        "customize_mobile_padding": false,
+                        "padding_top_mobile": 0,
+                        "padding_bottom_mobile": 0,
+                        "padding_left_mobile": 0,
+                        "padding_right_mobile": 0
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
@@ -616,23 +1662,37 @@
             "layout": "parallax",
             "columns_desktop": 5,
             "columns_mobile": "2",
+            "scroll_on_small_screens": false,
             "item_sizing": "fixed",
             "item_width": 308,
             "width": "fill",
+            "max_width": 1600,
             "gap": 14,
             "gap_mobile": 14,
             "parallax_height": 820,
             "parallax_height_mobile": 640,
             "parallax_distance": 130,
+            "parallax_direction": "alternating",
+            "column_stagger": 0,
             "edge_fade": 7,
             "mobile_columns_mode": "redistribute",
             "color_scheme": "scheme-3",
-            "background_color": "#ffffff00"
+            "background_color": "rgba(0,0,0,0)",
+            "padding_top": 0,
+            "padding_bottom": 0,
+            "padding_left": 0,
+            "padding_right": 0,
+            "customize_mobile_padding": false,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 0,
+            "padding_left_mobile": 0,
+            "padding_right_mobile": 0
           },
           "blocks": {
             "insta_2_1": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "custom",
                 "image_ratio_custom_width": 3,
                 "image_ratio_custom_height": 4,
@@ -642,65 +1702,120 @@
                 "tag": "@gasketclub",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "G",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "4,410",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_2": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "square",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@desknotes",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "D",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "3,307",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_3": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "portrait",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@keycapdaily",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "K",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "2,184",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_4": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "custom",
                 "image_ratio_custom_width": 3,
                 "image_ratio_custom_height": 4,
@@ -710,65 +1825,120 @@
                 "tag": "@tapratypists",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "T",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "5,620",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_5": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "square",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@switchstudio",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "S",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "1,892",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_6": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "portrait",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@gasketclub",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "G",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "4,410",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_7": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "custom",
                 "image_ratio_custom_width": 3,
                 "image_ratio_custom_height": 4,
@@ -778,65 +1948,120 @@
                 "tag": "@desknotes",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "D",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "3,307",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_8": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "square",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@keycapdaily",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "K",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "2,184",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_9": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "portrait",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@tapratypists",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "T",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "5,620",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_10": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "custom",
                 "image_ratio_custom_width": 3,
                 "image_ratio_custom_height": 4,
@@ -846,65 +2071,120 @@
                 "tag": "@switchstudio",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "S",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "1,892",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_11": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "square",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@gasketclub",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "G",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "4,410",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_12": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "portrait",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@desknotes",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "D",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "3,307",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_13": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "custom",
                 "image_ratio_custom_width": 3,
                 "image_ratio_custom_height": 4,
@@ -914,61 +2194,115 @@
                 "tag": "@keycapdaily",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "K",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "2,184",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_14": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "square",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@tapratypists",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "T",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "5,620",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             },
             "insta_2_15": {
               "type": "gallery-image",
               "settings": {
+                "alt_text": "",
                 "image_ratio": "portrait",
+                "image_ratio_custom_width": 3,
+                "image_ratio_custom_height": 4,
                 "corner_radius": "custom",
                 "custom_corner_radius": 18,
                 "overlay_style": "post",
                 "tag": "@switchstudio",
                 "tag_font_size": "custom",
                 "tag_font_size_custom": 12,
+                "customize_mobile_tag_font_size": false,
+                "tag_font_size_mobile": "md",
+                "tag_font_size_custom_mobile": 14,
+                "social_network": "instagram",
+                "social_url": "",
+                "social_background": "#ffffff",
+                "social_color": "#6a372f",
                 "avatar_initials": "S",
+                "badge_left": "",
+                "badge_right": "",
                 "show_likes": true,
                 "likes_count": "1,892",
                 "card_padding": 6,
                 "media_radius": 12,
+                "border_width": 1,
                 "background_color": "#0d1426",
                 "border_color": "#ffffff14",
                 "text_color": "#cfe0ff",
                 "likes_hover_color": "#ff6fa5",
-                "likes_hover_background": "#ff4d8d29"
-              }
+                "likes_hover_background": "#ff4d8d29",
+                "show_overlay": "always",
+                "enable_overlay": true,
+                "background_overlay_style": "solid",
+                "overlay_background": "#00000061",
+                "overlay_gradient": "linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.52))"
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -997,376 +2331,19 @@
       "settings": {
         "section_width": "full_width",
         "alignment": "left",
+        "customize_mobile_alignment": false,
+        "alignment_mobile": "left",
         "content_gap": 56,
         "customize_mobile_gap": true,
         "content_gap_mobile": 32,
         "color_scheme": "scheme-3",
+        "background_color": "",
         "background_gradient": "radial-gradient(ellipse at 85% 25%, rgba(59, 130, 246, 0.28), transparent 65%), linear-gradient(115deg, #050d24, #0a1530)",
         "padding_top": 80,
         "padding_bottom": 0,
-        "customize_mobile_padding": false
-      }
-    },
-    "tapra_faq": {
-      "type": "faq-accordion",
-      "blocks": {
-        "header": {
-          "type": "group",
-          "settings": {
-            "alignment": "left",
-            "gap_desktop": 16,
-            "gap_mobile": 16,
-            "width": "fill"
-          },
-          "blocks": {
-            "faq_header_1": {
-              "type": "heading",
-              "settings": {
-                "text": "<p>A few things you might be wondering.</p>",
-                "heading_size": "xl",
-                "html_tag": "h2",
-                "width": "fill"
-              }
-            }
-          },
-          "block_order": [
-            "faq_header_1"
-          ]
-        },
-        "questions": {
-          "type": "faq_accordion",
-          "settings": {
-            "use_elara_layout": true,
-            "style": "boxed",
-            "icon": "plus",
-            "dividers": false,
-            "question_font": "body",
-            "question_body_font_size": "md",
-            "border_thickness": 0,
-            "shadow": "none",
-            "padding": "custom",
-            "padding_top": 18,
-            "padding_right": 22,
-            "padding_bottom": 18,
-            "padding_left": 22,
-            "gap_desktop": 10,
-            "gap_mobile": 10,
-            "device": "desktop",
-            "width": "custom",
-            "custom_width": 57,
-            "width_mobile": "fill",
-            "color_type": "inherit",
-            "answer_font_size": "md",
-            "single_open": true,
-            "item_background": "#ffffff0f",
-            "corner_radius": "radius_16"
-          },
-          "blocks": {
-            "faq_question_1": {
-              "type": "faq_item",
-              "settings": {
-                "use_elara_layout": true,
-                "question": "How long is the warranty?",
-                "show_question_icon": false,
-                "initially_open": true,
-                "pointer_light": true
-              },
-              "blocks": {
-                "faq_question_1_1": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>12 months on the board and PCB. Manufacturing faults are replaced within the first 30 days.</p>",
-                    "text_size": "md",
-                    "text_color": "#bfe3ffb8",
-                    "width": "fill"
-                  }
-                }
-              },
-              "block_order": [
-                "faq_question_1_1"
-              ]
-            },
-            "faq_question_2": {
-              "type": "faq_item",
-              "settings": {
-                "use_elara_layout": true,
-                "question": "Can I change switches myself?",
-                "show_question_icon": false,
-                "initially_open": false,
-                "pointer_light": true
-              },
-              "blocks": {
-                "faq_question_2_1": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Yes. The hot-swap PCB lets you pull out switches and press in new ones, no soldering.</p>",
-                    "text_size": "md",
-                    "text_color": "#bfe3ffb8",
-                    "width": "fill"
-                  }
-                }
-              },
-              "block_order": [
-                "faq_question_2_1"
-              ]
-            },
-            "faq_question_3": {
-              "type": "faq_item",
-              "settings": {
-                "use_elara_layout": true,
-                "question": "Does it work with Mac and Windows?",
-                "show_question_icon": false,
-                "initially_open": false,
-                "pointer_light": true
-              },
-              "blocks": {
-                "faq_question_3_1": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Yes. The board detects your system and remaps modifier keys with one shortcut.</p>",
-                    "text_size": "md",
-                    "text_color": "#bfe3ffb8",
-                    "width": "fill"
-                  }
-                }
-              },
-              "block_order": [
-                "faq_question_3_1"
-              ]
-            },
-            "faq_question_4": {
-              "type": "faq_item",
-              "settings": {
-                "use_elara_layout": true,
-                "question": "How fast is shipping?",
-                "show_question_icon": false,
-                "initially_open": false,
-                "pointer_light": true
-              },
-              "blocks": {
-                "faq_question_4_1": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
-                    "text_size": "md",
-                    "text_color": "#bfe3ffb8",
-                    "width": "fill"
-                  }
-                }
-              },
-              "block_order": [
-                "faq_question_4_1"
-              ]
-            }
-          },
-          "block_order": [
-            "faq_question_1",
-            "faq_question_2",
-            "faq_question_3",
-            "faq_question_4"
-          ]
-        }
-      },
-      "block_order": [
-        "header",
-        "questions"
-      ],
-      "settings": {
-        "section_width": "page_width",
-        "layout": "horizontal",
-        "position": "top",
-        "horizontal_alignment": "left",
-        "vertical_on_mobile": true,
-        "gap_desktop": 40,
-        "gap_mobile": 32,
-        "color_scheme": "scheme-3",
-        "padding_top": 96,
-        "padding_bottom": 96,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 64,
-        "padding_bottom_mobile": 64
-      }
-    },
-    "tapra_story": {
-      "type": "rich-text",
-      "blocks": {
-        "eyebrow": {
-          "type": "eyebrow",
-          "static": true,
-          "settings": {
-            "text": "<p>About Tapra</p>"
-          }
-        },
-        "heading": {
-          "type": "heading",
-          "disabled": true,
-          "static": true,
-          "settings": {
-            "text": "<p>About Tapra</p>"
-          }
-        },
-        "text": {
-          "type": "text",
-          "disabled": true,
-          "static": true,
-          "settings": {
-            "text": "<p>Our story</p>"
-          }
-        },
-        "block_4": {
-          "type": "editorial-text",
-          "settings": {
-            "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
-            "size": "lg",
-            "width": "custom",
-            "max_width": 820,
-            "enable_scroll_reveal": true,
-            "reveal_unit": "word",
-            "start_opacity": 28
-          }
-        }
-      },
-      "block_order": [
-        "block_4"
-      ],
-      "settings": {
-        "anchor_id": "about",
-        "alignment": "center",
-        "gap_desktop": 24,
-        "gap_mobile": 20,
-        "color_scheme": "scheme-2",
-        "padding_top": 100,
-        "padding_bottom": 0,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 64,
+        "customize_mobile_padding": false,
+        "padding_top_mobile": 0,
         "padding_bottom_mobile": 0
-      }
-    },
-    "tapra_media": {
-      "type": "interactive-media",
-      "blocks": {
-        "block_1": {
-          "type": "interactive-media-item",
-          "settings": {},
-          "blocks": {
-            "child_1": {
-              "type": "marquee",
-              "settings": {
-                "use_elara_layout": true,
-                "show_blurred_edges": true,
-                "enable_parallax": false,
-                "animation_speed": 0.6,
-                "animation_direction": "backward",
-                "gap_desktop": 72,
-                "gap_mobile": 40,
-                "color_type": "inherit",
-                "padding_top": 0,
-                "padding_bottom": 0
-              },
-              "blocks": {
-                "child_1": {
-                  "type": "_marquee-heading",
-                  "settings": {
-                    "text": "<strong>4.9</strong> Average rating",
-                    "heading_size": "custom",
-                    "font": "heading",
-                    "custom_heading_size": 92,
-                    "text_case": "uppercase",
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "opacity": 100
-                  }
-                },
-                "child_2": {
-                  "type": "_marquee-heading",
-                  "settings": {
-                    "text": "<strong>30</strong> Day returns",
-                    "heading_size": "custom",
-                    "font": "heading",
-                    "custom_heading_size": 92,
-                    "text_case": "uppercase",
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "opacity": 100
-                  }
-                },
-                "child_3": {
-                  "type": "_marquee-heading",
-                  "settings": {
-                    "text": "<strong>9</strong> Switch types",
-                    "heading_size": "custom",
-                    "font": "heading",
-                    "custom_heading_size": 92,
-                    "text_case": "uppercase",
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "opacity": 100
-                  }
-                },
-                "child_4": {
-                  "type": "_marquee-heading",
-                  "settings": {
-                    "text": "<strong>50+</strong> Hours tested",
-                    "heading_size": "custom",
-                    "font": "heading",
-                    "custom_heading_size": 92,
-                    "text_case": "uppercase",
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "opacity": 100
-                  }
-                }
-              },
-              "block_order": [
-                "child_1",
-                "child_2",
-                "child_3",
-                "child_4"
-              ]
-            },
-            "child_2": {
-              "type": "video",
-              "settings": {
-                "video_source": "uploaded",
-                "playback_mode": "popup",
-                "poster_glow": true,
-                "poster_vignette": true,
-                "magnetic_play": true,
-                "cover_image": "shopify://shop_images/tapra-menu-keyboard.webp",
-                "play_button_size_desktop": 64,
-                "play_button_size_mobile": 56,
-                "play_button_background_color": "#ffffffb3",
-                "aspect_ratio_desktop": "custom",
-                "custom_aspect_ratio_desktop": 1.5,
-                "width_desktop": "custom",
-                "width_custom_desktop": 40,
-                "limit_width_desktop": true,
-                "max_width_desktop": 576,
-                "aspect_ratio_mobile": "custom",
-                "custom_aspect_ratio_mobile": 1.5,
-                "width_mobile": "custom",
-                "width_custom_mobile": 86,
-                "corner_radius": "radius_32"
-              }
-            }
-          },
-          "block_order": [
-            "child_1",
-            "child_2"
-          ]
-        }
-      },
-      "block_order": [
-        "block_1"
-      ],
-      "settings": {
-        "section_width": "full_width",
-        "color_scheme": "scheme-2",
-        "padding_top": 100,
-        "padding_bottom": 100,
-        "customize_mobile_padding": true,
-        "padding_top_mobile": 64,
-        "padding_bottom_mobile": 64
       }
     }
   },
