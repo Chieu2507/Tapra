@@ -27,7 +27,7 @@ lh-interactive-media-scroll.is-scroll-ready {
   position: absolute;
   left: calc(-1 * var(--scroll-clip-left, 0px));
   top: calc(-1 * var(--scroll-clip-top, 0px));
-  width: var(--scroll-width); height: var(--scroll-height);
+  width: var(--scroll-width); max-width: none; height: var(--scroll-height);
   clip-path: inset(var(--scroll-clip-top, 0px) var(--scroll-clip-right, 0px) var(--scroll-clip-bottom, 0px) var(--scroll-clip-left, 0px) round var(--scroll-radius, 0px));
 }
 .is-scroll-ready :is(.interactive-media-scroll-target, .interactive-media-scroll-cover) :is(video, iframe, picture, picture > img, .image-block__media > img, .video__placeholder, .image__placeholder) {
