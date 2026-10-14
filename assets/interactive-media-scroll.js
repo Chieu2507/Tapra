@@ -156,16 +156,19 @@
       const zoom = Math.min(1, progress / .6);
       const slot = this.mediaSlot.getBoundingClientRect();
       const parent = this.media.offsetParent.getBoundingClientRect();
-      // Keep the image canvas stable: scrolling reveals more of it instead of
-      // repeatedly resizing object-fit and magnifying the entire poster.
-      this.stage.style.setProperty('--scroll-left', `${stage.left - parent.left}px`);
-      this.stage.style.setProperty('--scroll-top', `${stage.top - parent.top}px`);
+      // Reveal around the image's center. Move that canvas from the poster's
+      // center to the stage's center without changing its dimensions.
+      const remaining = 1 - zoom;
+      const offsetX = (slot.left + slot.width / 2 - stage.left - stage.width / 2) * remaining;
+      const offsetY = (slot.top + slot.height / 2 - stage.top - stage.height / 2) * remaining;
+      this.stage.style.setProperty('--scroll-left', `${stage.left - parent.left + offsetX}px`);
+      this.stage.style.setProperty('--scroll-top', `${stage.top - parent.top + offsetY}px`);
       this.stage.style.setProperty('--scroll-width', `${stage.width}px`);
       this.stage.style.setProperty('--scroll-height', `${stage.height}px`);
-      for (const [edge, inset] of Object.entries({
-        top: slot.top - stage.top, right: stage.right - slot.right,
-        bottom: stage.bottom - slot.bottom, left: slot.left - stage.left,
-      })) this.stage.style.setProperty(`--scroll-clip-${edge}`, `${Math.max(0, inset) * (1 - zoom)}px`);
+      const horizontal = Math.max(0, (stage.width - slot.width) / 2) * remaining;
+      const vertical = Math.max(0, (stage.height - slot.height) / 2) * remaining;
+      for (const edge of ['left', 'right']) this.stage.style.setProperty(`--scroll-clip-${edge}`, `${horizontal}px`);
+      for (const edge of ['top', 'bottom']) this.stage.style.setProperty(`--scroll-clip-${edge}`, `${vertical}px`);
       this.stage.style.setProperty('--scroll-radius', `${this.radius * (1 - zoom)}px`);
       this.stage.style.setProperty('--scroll-blend', String(1 - zoom));
       this.stage.style.setProperty('--scroll-header-opacity', String(Math.max(0, 1 - progress * 3)));

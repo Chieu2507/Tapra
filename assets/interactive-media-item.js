@@ -213,36 +213,13 @@
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
       const playerTransition = this.fullContent.classList.contains('is-player-transition');
-      const now = Date.now();
-      const previousOpacity = this.scrollCopyTargetOpacity || 0;
-      const sampleTime = Math.min(80, Math.max(1, now - (this.scrollContentSampleTime ?? now)));
-      const speed = Math.abs(progress - (this.scrollContentSampleProgress ?? progress)) / sampleTime;
-      const fastScroll = speed > .0008;
-      const hiding = !playerTransition && !this.motion.matches && ((opacity < previousOpacity && fastScroll) || (this.fullContent.classList.contains('is-scroll-hiding') && (fastScroll || opacity === previousOpacity)));
-      this.scrollContentSampleProgress = progress;
-      this.scrollContentSampleTime = now;
-      clearTimeout(this.scrollContentHideTimer);
-      this.scrollCopyTargetOpacity = opacity;
-      if (hiding) this.fullContent.classList.add('is-scroll-hiding');
-      else this.fullContent.classList.remove('is-scroll-hiding');
-      if (fade > 0 || playerTransition || (hiding && this.fullContent.classList.contains('is-visible'))) {
-        this.fullContent.classList.add('is-scroll-copy');
-        this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
-        this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
-        this.setFullContent(true, host || player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
-        if (hiding && opacity === 0) {
-          this.fullContent.inert = true;
-          this.scrollContentHideTimer = setTimeout(() => {
-            if (this.activePlayer || this.scrollCopyTargetOpacity !== 0) return;
-            this.fullContent.classList.remove('is-scroll-hiding');
-            this.resetScrollCopy();
-            this.setFullContent(false);
-          }, this.motionDuration());
-        }
-      } else {
-        this.resetScrollCopy();
-        this.setFullContent(false);
-      }
+      if (fade === 0 && !playerTransition) this.resetScrollCopy();
+      this.fullContent.classList.add('is-scroll-copy');
+      this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
+      this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
+      // Keep scroll styling even at zero so hiding cannot fall back to the
+      // ordinary playback transition. Both directions follow scroll directly.
+      this.setFullContent(fade > 0 || playerTransition, host || player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
     }
     motionDuration(token = '--motion-duration-surface') {
       const value = getComputedStyle(this).getPropertyValue(token).trim();
@@ -258,7 +235,7 @@
       if (reveal && this.usesScrollPlayback()) {
         const canvas = { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' };
         return [
-          { ...canvas, clipPath: getComputedStyle(reveal).clipPath },
+          { ...canvas, left: `${media.left - section.left}px`, top: `${media.top - section.top}px`, clipPath: getComputedStyle(player.media).clipPath },
           { ...canvas, clipPath: 'inset(0px 0px 0px 0px round 0px)' },
         ];
       }
@@ -289,9 +266,7 @@
       this.activePlayer = player;
       this.expansion.style.setProperty('--media-player-overlay', getComputedStyle(player.media).getPropertyValue('--video-block-overlay').trim() || 'transparent');
       if (this.fullContent) {
-        clearTimeout(this.scrollContentHideTimer);
-        this.fullContent.classList.remove('is-scroll-hiding');
-        this.scrollCopyTargetOpacity = 0;
+        if (!this.scrollBeforeOpen) this.resetScrollCopy();
         clearTimeout(this.contentTransitionTimer);
         clearTimeout(this.contentReturnTimer);
         this.fullContent.classList.add('is-player-transition');
@@ -433,7 +408,6 @@
       queueMicrotask(() => {
         if (this.isConnected) return;
         this.collapse({ animate: false, restoreFocus: false });
-        clearTimeout(this.scrollContentHideTimer);
         clearTimeout(this.contentReturnTimer);
         clearTimeout(this.contentTransitionTimer);
         this.returnContent();

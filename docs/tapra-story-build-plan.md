@@ -201,3 +201,19 @@ Layout follows Section width → Alignment → Customize for mobile → conditio
 - Play positioning, magnetic bounds, placeholder illustration, and blended edges follow the visible clip window. Manual video expansion animates the current clip to the full section using the shared surface motion tokens. Base Image/Video/Marquee settings remain unchanged.
 - Added the existing Rich text section before Instagram using static Heading and a standard Button. Restricted Rich text link color inheritance to non-button links so CTA foreground tokens remain effective.
 - QA: 36 relevant tests pass; Theme Check has 0 errors / 45 existing warnings; JS syntax and diff whitespace checks pass. Browser tested real uploaded video at partial clip → manual expansion → reverse scroll; mobile viewport 390×844; two-item video/image slide-over; restored the original empty Video demo after QA. Rich text reviewed on desktop and mobile. No direct Theme Editor iframe inspection in this pass.
+
+### Centered reveal and selectable media bounds
+
+- Centered clip insets on the full media canvas and aligned that canvas with the original poster center. Corrected placeholder sizing specificity so its illustration remains centered.
+- Kept the original `shopify_attributes` on the media block wrapper, but sized that wrapper to the visible reveal rectangle. The full-size canvas is positioned inside it, so Theme Editor selection bounds follow the visible media instead of spanning the viewport. Manual expansion reads the inner canvas clip.
+- Verified rendered wrapper/canvas geometry on localhost and 36 scoped tests. Direct Theme Editor selection-ring behavior remains unverified in this pass.
+
+### Video cover without a source
+
+- Shared Video now renders a selected Cover image while the video source is empty instead of discarding the image and displaying an SVG placeholder. No Play control is offered until a playable source exists. Clearing the cover restores the standard placeholder. Uploaded-video autoplay behavior remains unchanged.
+- Render tests cover source-empty with/without cover and uploaded video autoplay on/off. 39 scoped tests pass; Theme Check: 0 errors / 45 warnings. Verified an existing store image as cover on localhost, then restored the original blank demo selection.
+
+### Restore direct scroll content motion
+
+- Removed scroll-speed sampling, the fast-hide class, delayed exit timer, and dedicated reverse-scroll CSS transitions at the merchant's request. Opacity and vertical travel now follow the same scroll progress in both directions, including fast reverse jumps. Manual playback transitions keep their existing shared duration.
+- Scroll styling remains active at zero opacity to avoid falling back to a time-based playback transition. Updated reverse-scroll regression checks; 39 scoped tests pass.

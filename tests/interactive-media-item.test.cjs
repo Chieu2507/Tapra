@@ -385,7 +385,7 @@ test('Media items preserve the shared section layout without independent sticky 
   }
 });
 
-test('scroll content fades and rises continuously and waits for exit duration before hiding', async () => {
+test('scroll content follows scroll immediately in both directions, including a fast reverse jump', () => {
   const { item } = playerFixture();
   const tokens = () => { const values = new Set(); return { add: v => values.add(v), remove: v => values.delete(v), contains: v => values.has(v) }; };
   const styles = new Map();
@@ -428,15 +428,14 @@ test('scroll content fades and rises continuously and waits for exit duration be
   assert.equal(parseFloat(styles.get('--media-scroll-copy-travel')), 0);
   item.setScrollProgress(.7);
   assert.equal(Number(styles.get('--media-scroll-copy-opacity')), partial);
-  item.scrollContentSampleTime = Date.now() - 1000;
   item.setScrollProgress(.69);
-  assert.equal(item.fullContent.classList.contains('is-scroll-hiding'), false, 'slow reverse scroll tracks position without a duration');
-  item.scrollContentSampleTime = Date.now();
+  assert.ok(Number(styles.get('--media-scroll-copy-opacity')) < partial);
   item.setScrollProgress(.5);
-  assert.equal(item.calls.at(-1), true, 'fast reverse scrolling must leave content mounted during its exit');
-  assert.ok(item.fullContent.classList.contains('is-scroll-hiding'));
-  await new Promise(resolve => setTimeout(resolve, 20));
-  assert.equal(item.calls.at(-1), false);
+  assert.equal(item.calls.at(-1), false, 'a fast reverse jump hides at its scroll position without an exit timer');
+  assert.equal(styles.get('--media-scroll-copy-opacity'), '0');
+  assert.ok(item.fullContent.classList.contains('is-scroll-copy'), 'zero progress retains the transition-free scroll style');
+  item.setScrollProgress(.7);
+  assert.equal(Number(styles.get('--media-scroll-copy-opacity')), partial, 'reversing direction has no residual delay');
   assert.equal(button.inert, false);
   assert.equal(copies, 0);
 });
@@ -530,7 +529,7 @@ test('sticky reveal keeps a full canvas while the clip window grows and reverses
     classList: { contains: () => true }, items: [{}], radius: 32,
     getBoundingClientRect: () => ({ top: -scroll.sample * 1200, height: 2000 }),
     stage: { getBoundingClientRect: () => stage, style: { setProperty: (key, value) => { values[key] = value; } } },
-    mediaSlot: { getBoundingClientRect: () => ({ left: 360, top: 380, right: 840, bottom: 700 }) },
+    mediaSlot: { getBoundingClientRect: () => ({ left: 120, top: 380, right: 600, bottom: 700, width: 480, height: 320 }) },
     media: { offsetParent: { getBoundingClientRect: () => ({ left: 100, top: 200 }) } },
     updateLayers() {},
   });
@@ -539,12 +538,21 @@ test('sticky reveal keeps a full canvas while the clip window grows and reverses
   for (const frame of [start, half, full]) {
     assert.equal(frame['--scroll-width'], '1200px');
     assert.equal(frame['--scroll-height'], '800px');
-    assert.equal(frame['--scroll-left'], '-100px');
-    assert.equal(frame['--scroll-top'], '-200px');
+    assert.equal(frame['--scroll-clip-left'], frame['--scroll-clip-right']);
+    assert.equal(frame['--scroll-clip-top'], frame['--scroll-clip-bottom']);
   }
-  assert.equal(start['--scroll-clip-top'], '380px');
+  assert.equal(start['--scroll-clip-top'], '240px');
+  assert.equal(start['--scroll-left'], '-340px');
+  assert.equal(start['--scroll-top'], '-60px');
+  // The crop starts exactly at the configured poster, even off-center.
+  assert.equal(parseFloat(start['--scroll-left']) + 100 + parseFloat(start['--scroll-clip-left']), 120);
+  assert.equal(parseFloat(start['--scroll-top']) + 200 + parseFloat(start['--scroll-clip-top']), 380);
   assert.equal(start['--scroll-clip-left'], '360px');
-  assert.equal(half['--scroll-clip-top'], '190px');
+  assert.equal(half['--scroll-clip-top'], '120px');
+  assert.equal(half['--scroll-left'], '-220px');
+  assert.equal(half['--scroll-top'], '-130px');
+  assert.equal(full['--scroll-left'], '-100px');
+  assert.equal(full['--scroll-top'], '-200px');
   assert.equal(half['--scroll-clip-right'], '180px');
   assert.equal(half['--scroll-radius'], '16px');
   for (const edge of ['top', 'right', 'bottom', 'left']) assert.equal(full[`--scroll-clip-${edge}`], '0px');
@@ -555,15 +563,20 @@ test('sticky reveal keeps a full canvas while the clip window grows and reverses
 test('manual expansion continues from the current sticky clip without resizing the image canvas', () => {
   let Item;
   const clip = 'inset(180px 240px 60px 240px round 16px)';
+  const selectableFrame = {};
   vm.runInNewContext(fs.readFileSync(path.join(root, 'assets/interactive-media-item.js'), 'utf8'), {
     HTMLElement: class {}, customElements: { get() {}, define(name, value) { Item = value; } },
-    getComputedStyle: () => ({ clipPath: clip }),
+    getComputedStyle: element => ({ clipPath: element === selectableFrame ? 'inset(0px)' : clip }),
   });
   const item = new Item();
   item.usesScrollPlayback = () => true;
   item.sectionRoot = { getBoundingClientRect: () => ({ left: 0, top: 0, width: 1200, height: 800 }) };
-  const frames = item.expansionFrames({ media: { getBoundingClientRect: () => ({}), closest: () => ({}) } });
+  const frames = item.expansionFrames({ media: { getBoundingClientRect: () => ({ left: -120, top: 70 }), closest: () => selectableFrame } });
   assert.equal(frames[0].clipPath, clip);
+  assert.equal(frames[0].left, '-120px');
+  assert.equal(frames[0].top, '70px');
+  assert.equal(frames[1].left, '0px');
+  assert.equal(frames[1].top, '0px');
   assert.equal(frames[1].clipPath, 'inset(0px 0px 0px 0px round 0px)');
   assert.equal(frames[0].width, frames[1].width);
   assert.equal(frames[0].height, frames[1].height);
