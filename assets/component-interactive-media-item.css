@@ -35,7 +35,7 @@
 .interactive-media-expansion[hidden] { display: none; }
 .interactive-media-expansion__mount { width: 100%; height: 100%; }
 .interactive-media-expansion__mount > :is(video, iframe) { display: block; border: 0; width: 100%; height: 100%; object-fit: cover; }
-.interactive-media-expansion__close { position: absolute; top: 16px; right: 16px; z-index: 2; color: #fff; background: #0008; }
+.interactive-media-expansion__close { position: absolute; top: var(--media-collapse-top, 16px); right: 16px; z-index: 2; color: #fff; background: #0008; }
 .interactive-media-expansion__close svg { width: 24px; height: 24px; }
 @media (prefers-reduced-motion: reduce) {
   .interactive-media__content { transition: none; }
@@ -43,3 +43,5 @@
   .interactive-media-item[data-blend] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after,
   .interactive-media-item[data-glow] > :is(.marquee, .elara-marquee) { transition: none; }
 }
+
+.interactive-media-item[data-playback='full_section'] > .video-block > .video { cursor: pointer; }

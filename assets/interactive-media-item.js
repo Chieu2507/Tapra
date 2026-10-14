@@ -13,6 +13,8 @@
       this.expansion = this.querySelector('[data-media-expansion]');
       this.closeButton = this.expansion?.querySelector('[data-media-collapse]');
       this.closeButton?.addEventListener('click', () => this.collapse(), options);
+      window.addEventListener('scroll', () => { if (this.activePlayer) this.positionClose(); }, { ...options, passive: true });
+      window.addEventListener('resize', () => { if (this.activePlayer) this.positionClose(); }, options);
       this.sectionRoot?.addEventListener('keydown', event => {
         if (event.key === 'Escape' && this.activePlayer) { event.preventDefault(); this.collapse(); }
       }, options);
@@ -45,7 +47,7 @@
           button.setAttribute('aria-expanded', 'false');
           button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
-          button.addEventListener('click', event => {
+          media.addEventListener('click', event => {
             event.preventDefault();
             event.stopImmediatePropagation();
             source.pause?.();
@@ -79,9 +81,14 @@
         { left: '0px', top: '0px', width: `${section.width}px`, height: `${section.height}px`, borderRadius: '0px' },
       ];
     }
+    positionClose() {
+      const bounds = this.sectionRoot.getBoundingClientRect();
+      this.expansion.style.setProperty('--media-collapse-top', `${Math.max(16, Math.min(bounds.height - 56, 16 - bounds.top))}px`);
+    }
     expand(player) {
       if (!this.expansion || !this.sectionRoot || this.activePlayer) return;
       expandedSections.get(this.sectionRoot)?.collapse({ animate: false, restoreFocus: false });
+      this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       expandedSections.set(this.sectionRoot, this);
       this.activePlayer = player;
       const clone = player.source.cloneNode(true);
@@ -101,6 +108,8 @@
       this.sectionRoot.append(this.expansion);
       this.expansion.hidden = false;
       player.button?.setAttribute('aria-expanded', 'true');
+      this.positionClose();
+      this.sectionRoot.querySelector('.interactive-media__content').inert = true;
       this.closeButton.focus({ preventScroll: true });
       this.sectionRoot.classList.add('is-media-expanded');
       if (!this.motion.matches) {
@@ -112,13 +121,16 @@
       const player = this.activePlayer;
       if (!player) return;
       this.activePlayer = null;
+      const epoch = this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       this.expansionAnimation?.cancel();
       this.expansion.querySelectorAll('video').forEach(video => video.pause());
       this.expansion.querySelectorAll('iframe').forEach(frame => frame.remove());
       this.sectionRoot.classList.remove('is-media-expanded');
+      this.sectionRoot.querySelector('.interactive-media__content').inert = false;
       player.button?.setAttribute('aria-expanded', 'false');
       expandedSections.delete(this.sectionRoot);
       const finish = () => {
+        if (this.expansionEpoch !== epoch) return;
         this.expansion.hidden = true;
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
