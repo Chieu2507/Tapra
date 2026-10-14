@@ -5,9 +5,13 @@
   border-radius: var(--video-block-radius, var(--image-block-radius));
   background: #fff; filter: blur(40px); opacity: 0; transition: opacity var(--motion-duration-standard) var(--motion-ease-standard); pointer-events: none;
 }
-.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media):not(.placeholder-image)::after {
+.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > :is(.video-block__media, .image-block__media)::after {
   box-shadow: inset 0 0 48px 22px color-mix(in srgb, var(--interactive-media-background, var(--background-color)) calc(var(--scroll-blend, 1) * 100%), transparent);
   transition: box-shadow var(--motion-duration-standard) var(--motion-ease-standard);
+}
+/* Keep the shared placeholder tint visible; blend only its outer edge. */
+.interactive-media-item[data-blend='true'] > :is(.video-block, .image-block) > .placeholder-image::after {
+  box-shadow: inset 0 0 24px 6px color-mix(in srgb, var(--interactive-media-background, var(--background-color)) calc(var(--scroll-blend, 1) * 100%), transparent);
 }
 .interactive-media-item[data-blend='true'] > :is(.marquee, .elara-marquee) :is(.marquee__viewport, .elara-marquee__viewport) {
   mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
