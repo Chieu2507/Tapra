@@ -452,7 +452,7 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Seen on desks.</p>",
-                        "heading_size": "xl",
+                        "heading_size": "display",
                         "html_tag": "h2",
                         "width": "fill",
                         "custom_heading_size": 60
@@ -462,7 +462,7 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Shared by typists.</p>",
-                        "heading_size": "xl",
+                        "heading_size": "display",
                         "html_tag": "div",
                         "text_color": "#bfe3ff",
                         "width": "fill",
