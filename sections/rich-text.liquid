@@ -69,7 +69,6 @@
 {% assign rich_text_content_style = rich_text_content_style | strip %}
 
 <div
-  {% if section.settings.anchor_id != blank %}id="{{ section.settings.anchor_id | handleize }}"{% endif %}
   class="section-spacing rich-text__spacing color-scheme section-color-scope {{ rich_text_scheme }}"
   {% if rich_text_style != blank %}style="{{ rich_text_style }}"{% endif %}
 >
@@ -187,12 +186,6 @@
     {
       "type": "header",
       "content": "t:general.layout"
-    },
-    {
-      "type": "text",
-      "id": "anchor_id",
-      "label": "Section anchor",
-      "info": "Optional anchor for links to this section."
     },
     {
       "type": "select",
