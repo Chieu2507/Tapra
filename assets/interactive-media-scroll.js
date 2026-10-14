@@ -150,6 +150,7 @@
       if (position === this.progress && visible === this.visible) return;
       this.visible = visible;
       this.progress = position;
+      this.scrollEpsilon = this.items.length / distance;
       const progress = Math.min(1, position);
       this.updateLayers(position);
       const zoom = Math.min(1, progress / .6);
@@ -177,7 +178,8 @@
         if (!active && item.activePlayer) item.collapse({ animate: false, restoreFocus: false });
         // Manual expansion completed the segment. Reverse scrolling hands the
         // player back to the same scroll geometry instead of keeping it full.
-        if (active && item.activePlayer && local < 1) item.collapse({ animate: false, restoreFocus: false, resumeScroll: true });
+        // Browser scroll positions can round the completed segment by a pixel.
+        if (active && item.activePlayer && local < 1 - (this.scrollEpsilon || .005)) item.collapse({ animate: false, restoreFocus: false, resumeScroll: true });
         item.inert = !active;
         item.setAttribute('aria-hidden', String(!active));
         // Keep outgoing copy tied to the next layer's entrance, even though
