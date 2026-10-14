@@ -129,7 +129,7 @@
     setScrollPlayback(progress, active = true) {
       const player = this.players?.[0];
       if (!player || this.activePlayer) return;
-      if (player.inlineManual) {
+      if (player.inlineManual && !player.scrollAutoplay) {
         if (active) return;
         player.source.pause?.();
         player.inlineManual = false;
