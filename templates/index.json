@@ -1162,7 +1162,7 @@
                 "faq_question_4_1": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Orders ship in 1\u20132 business days. Delivery takes 3\u20137 days depending on your region.</p>",
+                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
                     "text_size": "md",
                     "text_color": "#bfe3ffb8",
                     "width": "fill"
@@ -1340,7 +1340,7 @@
           ],
           "settings": {
             "blend_edges": true,
-            "playback_mode": "inline",
+            "playback_mode": "full_section",
             "poster_glow": true,
             "magnetic_play": true,
             "content_color_scheme": "scheme-3",
