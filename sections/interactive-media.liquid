@@ -1,0 +1,254 @@
+{% liquid
+  assign media_scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1'
+  assign media_background = section.settings.background_color | default: section.settings.color_scheme.settings.background | default: settings.color_schemes[media_scheme].settings.background
+  assign media_width = 'page-width'
+  if section.settings.section_width == 'full_width'
+    assign media_width = 'full-width'
+  endif
+%}
+{% style %}
+  #shopify-section-{{ section.id }} { background: {{ media_background }}; }
+{% endstyle %}
+<div class="section-spacing interactive-media color-scheme section-color-scope {{ media_scheme }}" style="--interactive-media-background: {{ media_background }}; --interactive-media-gap: {{ section.settings.item_gap }}px; --interactive-media-top: {{ section.settings.padding_top }}px; --interactive-media-bottom: {{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %} --interactive-media-top-mobile: {{ section.settings.padding_top_mobile }}px; --interactive-media-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}">
+  <div class="container {{ media_width }} interactive-media__items">
+    {% content_for 'blocks' %}
+  </div>
+</div>
+{% stylesheet %}
+  .interactive-media { overflow: clip; padding-top: var(--interactive-media-top); padding-bottom: var(--interactive-media-bottom); background: var(--interactive-media-background); }
+  .interactive-media__items { display: flex; flex-direction: column; gap: var(--interactive-media-gap, 80px); }
+  @media (max-width: 767.98px) {
+    .interactive-media { padding-top: var(--interactive-media-top-mobile, var(--interactive-media-top)); padding-bottom: var(--interactive-media-bottom-mobile, var(--interactive-media-bottom)); }
+  }
+{% endstylesheet %}
+{% schema %}
+{
+  "name": "Interactive media",
+  "class": "section-interactive-media",
+  "enabled_on": {
+    "templates": [
+      "index"
+    ]
+  },
+  "max_blocks": 6,
+  "blocks": [
+    {
+      "type": "interactive-media-item"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "t:options.section_width.page_width"
+        },
+        {
+          "value": "full_width",
+          "label": "t:options.section_width.full_width"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "range",
+      "id": "item_gap",
+      "label": "t:labels.item_gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "t:labels.background"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ section.settings.customize_mobile_padding }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive media",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "section_width": "full_width",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      },
+      "blocks": [
+        {
+          "type": "interactive-media-item",
+          "blocks": [
+            {
+              "type": "marquee",
+              "settings": {
+                "use_elara_layout": true,
+                "show_blurred_edges": true,
+                "enable_parallax": false,
+                "animation_speed": 0.6,
+                "animation_direction": "backward",
+                "gap_desktop": 72,
+                "gap_mobile": 40,
+                "color_type": "inherit",
+                "padding_top": 0,
+                "padding_bottom": 0
+              },
+              "blocks": [
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>4.9</strong> Average rating",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>30</strong> Day returns",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>9</strong> Switch types",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                },
+                {
+                  "type": "_marquee-heading",
+                  "settings": {
+                    "text": "<strong>50+</strong> Hours tested",
+                    "heading_size": "custom",
+                    "custom_heading_size": 92,
+                    "custom_mobile": true,
+                    "custom_heading_size_mobile": 48,
+                    "font": "heading",
+                    "text_case": "uppercase",
+                    "opacity": 100
+                  }
+                }
+              ]
+            },
+            {
+              "type": "video",
+              "settings": {
+                "playback_mode": "popup",
+                "video_source": "uploaded",
+                "aspect_ratio_desktop": "custom",
+                "custom_aspect_ratio_desktop": 1.5,
+                "aspect_ratio_mobile": "custom",
+                "custom_aspect_ratio_mobile": 1.5,
+                "width_desktop": "custom",
+                "width_custom_desktop": 40,
+                "limit_width_desktop": true,
+                "max_width_desktop": 576,
+                "width_mobile": "custom",
+                "width_custom_mobile": 86,
+                "corner_radius": "radius_32",
+                "play_button_size_desktop": 64,
+                "play_button_size_mobile": 56,
+                "play_button_background_color": "#ffffffb3",
+                "poster_glow": true,
+                "poster_vignette": true,
+                "magnetic_play": true
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
