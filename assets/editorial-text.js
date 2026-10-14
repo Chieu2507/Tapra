@@ -6,7 +6,7 @@
 
   class EditorialText extends HTMLElement {
     static get observedAttributes() {
-      return ['data-editorial-reveal', 'data-editorial-speed', 'data-editorial-opacity'];
+      return ['data-editorial-reveal', 'data-editorial-speed', 'data-editorial-opacity', 'data-editorial-unit'];
     }
     attributeChangedCallback(name, previous, next) {
       if (previous === next || !this.isConnected) return;
@@ -43,9 +43,15 @@
         accessible.className = 'visually-hidden';
         accessible.textContent = node.textContent;
         fragment.append(accessible);
-        for (const character of node.textContent) {
+        const words = this.dataset.editorialUnit === 'word';
+        const parts = words ? node.textContent.split(/(\s+)/) : Array.from(node.textContent);
+        for (const character of parts) {
+          if (words && /^\s+$/.test(character)) {
+            fragment.append(document.createTextNode(character));
+            continue;
+          }
           const letter = document.createElement('span');
-          letter.className = 'editorial-reading-letter';
+          letter.className = words ? 'editorial-reading-word' : 'editorial-reading-letter';
           letter.setAttribute('aria-hidden', 'true');
           letter.textContent = character;
           fragment.append(letter);
@@ -101,9 +107,10 @@
         }
       }
       if (this.motion.matches || this.selected) progress = 1;
-      const edge = progress * (this.units.length + 16);
+      const softness = this.dataset.editorialUnit === 'word' ? 1 : 16;
+      const edge = progress * (this.units.length + softness);
       this.units.forEach((unit, index) => {
-        const value = String(opacity + (1 - opacity) * clamp((edge - index) / 16));
+        const value = String(opacity + (1 - opacity) * clamp((edge - index) / softness));
         if (unit.style.opacity !== value) unit.style.opacity = value;
       });
     }
