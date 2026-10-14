@@ -108,12 +108,12 @@
     }
     setScrollProgress(progress) {
       this.scrollProgress = progress;
-      if (this.dataset.mediaKind !== 'video') { this.setScrollFull(progress >= .999); return; }
       const player = this.players[0];
-      if (this.activePlayer || !player?.button || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
+      if (this.activePlayer || !this.fullContent?.querySelector('.interactive-media-item__content')?.children.length) return;
       const fade = Math.max(0, Math.min(1, (progress - .6) / .25));
       const opacity = fade * fade * (3 - 2 * fade);
       if (fade > 0) {
+        if (this.dataset.mediaKind === 'video' && player?.button) {
         if (!this.scrollPlay) {
           this.scrollPlay = player.button.cloneNode(true);
           this.scrollPlay.removeAttribute('id');
@@ -126,19 +126,15 @@
         player.media.classList.add('has-scroll-copy');
         player.button.inert = true;
         player.button.setAttribute('aria-hidden', 'true');
+        }
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
         this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - opacity)}px`);
-        this.setFullContent(true, player.media);
+        this.setFullContent(true, player?.media || this.sectionRoot);
       } else {
         this.resetScrollCopy();
         this.setFullContent(false);
       }
-    }
-    setScrollFull(full) {
-      if (this.dataset.mediaKind !== 'image' || full === this.scrollFull) return;
-      this.scrollFull = full;
-      this.setFullContent(full);
     }
     expansionFrames(player) {
       const section = this.sectionRoot.getBoundingClientRect();
