@@ -139,7 +139,7 @@
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
         this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - opacity)}px`);
-        this.setFullContent(true, player?.media || this.sectionRoot);
+        this.setFullContent(true, player?.media || this.querySelector(':scope > .image-block') || this.sectionRoot);
       } else {
         this.resetScrollCopy();
         this.setFullContent(false);
