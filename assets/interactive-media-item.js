@@ -269,7 +269,6 @@
         this.fullContent.classList.remove('is-scroll-hiding');
         this.scrollCopyTargetOpacity = 0;
         clearTimeout(this.contentTransitionTimer);
-        clearTimeout(this.scrollContentHideTimer);
         clearTimeout(this.contentReturnTimer);
         this.fullContent.classList.add('is-player-transition');
         this.expansion.append(this.fullContent);
@@ -410,6 +409,7 @@
       queueMicrotask(() => {
         if (this.isConnected) return;
         this.collapse({ animate: false, restoreFocus: false });
+        clearTimeout(this.scrollContentHideTimer);
         clearTimeout(this.contentReturnTimer);
         clearTimeout(this.contentTransitionTimer);
         this.returnContent();
