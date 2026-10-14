@@ -39,6 +39,8 @@
         const mount = this.dialog.querySelector('[data-video-dialog-mount]');
         mount.replaceChildren(this.template.content.cloneNode(true));
         this.overlay.open({ opener: this.trigger });
+        // This play request follows an explicit click, including with reduced motion.
+        mount.querySelector('video')?.play()?.catch(() => {});
       }, options);
       // Stop playback as closing begins; remove external frames after the fade finishes.
       this.dialog?.addEventListener('closing', () => {
