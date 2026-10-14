@@ -9,15 +9,20 @@
 {% style %}
   #shopify-section-{{ section.id }} { background: {{ media_background }}; }
 {% endstyle %}
-<div class="section-spacing interactive-media color-scheme section-color-scope {{ media_scheme }}" style="--interactive-media-background: {{ media_background }}; --interactive-media-gap: {{ section.settings.item_gap }}px; --interactive-media-top: {{ section.settings.padding_top }}px; --interactive-media-bottom: {{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %} --interactive-media-top-mobile: {{ section.settings.padding_top_mobile }}px; --interactive-media-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}">
-  <div class="container {{ media_width }} interactive-media__items">
-    {% content_for 'blocks' %}
+<div class="section-spacing interactive-media color-scheme section-color-scope {{ media_scheme }}" style="--interactive-media-background: {{ media_background }}; --interactive-media-gap: {{ section.settings.item_gap }}px; --interactive-media-header-gap: {{ section.settings.gap_desktop }}px; --interactive-media-header-gap-mobile: {{ section.settings.gap_mobile }}px; --interactive-media-top: {{ section.settings.padding_top }}px; --interactive-media-bottom: {{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %} --interactive-media-top-mobile: {{ section.settings.padding_top_mobile }}px; --interactive-media-bottom-mobile: {{ section.settings.padding_bottom_mobile }}px;{% endif %}">
+  <div class="container {{ media_width }} interactive-media__content">
+    {% content_for 'block', type: 'header', id: 'header' %}
+    <div class="interactive-media__items">
+      {% content_for 'blocks' %}
+    </div>
   </div>
 </div>
 {% stylesheet %}
   .interactive-media { overflow: clip; padding-top: var(--interactive-media-top); padding-bottom: var(--interactive-media-bottom); background: var(--interactive-media-background); }
-  .interactive-media__items { display: flex; flex-direction: column; gap: var(--interactive-media-gap, 80px); }
+  .interactive-media__content { display: flex; flex-direction: column; align-items: center; gap: var(--interactive-media-header-gap, 100px); }
+  .interactive-media__items { width: 100%; min-width: 0; display: flex; flex-direction: column; gap: var(--interactive-media-gap, 80px); }
   @media (max-width: 767.98px) {
+    .interactive-media__content { gap: var(--interactive-media-header-gap-mobile, var(--interactive-media-header-gap, 100px)); }
     .interactive-media { padding-top: var(--interactive-media-top-mobile, var(--interactive-media-top)); padding-bottom: var(--interactive-media-bottom-mobile, var(--interactive-media-bottom)); }
   }
 {% endstylesheet %}
@@ -56,6 +61,26 @@
         }
       ],
       "default": "page_width"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Desktop header gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Mobile header gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 64
     },
     {
       "type": "range",
@@ -149,6 +174,39 @@
         "padding_bottom_mobile": 64
       },
       "blocks": [
+        {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "custom",
+            "max_width": 820,
+            "inherit_alignment": false,
+            "alignment": "center",
+            "gap_desktop": 24,
+            "gap_mobile": 20
+          },
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>About Tapra</p>"
+              }
+            },
+            {
+              "type": "editorial-text",
+              "settings": {
+                "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+                "size": "lg",
+                "width": "custom",
+                "max_width": 820,
+                "enable_scroll_reveal": true,
+                "reveal_unit": "word",
+                "start_opacity": 28
+              }
+            }
+          ],
+          "id": "header"
+        },
         {
           "type": "interactive-media-item",
           "blocks": [
