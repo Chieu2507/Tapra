@@ -110,8 +110,7 @@
       if (index < 0) return;
       const track = this.getBoundingClientRect();
       const distance = Math.max(0, track.height - this.stage.getBoundingClientRect().height);
-      // Opening the video completes the same track used by scrolling, leaving
-      // no unused zoom distance below the expanded player.
+      // Opening completes this item's segment without skipping later layers.
       window.scrollTo({ top: window.scrollY + track.top + distance * (index + 1) / this.items.length, behavior: 'instant' });
       this.update();
     }
