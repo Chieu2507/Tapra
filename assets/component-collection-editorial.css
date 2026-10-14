@@ -93,3 +93,4 @@
 .ce-content[data-ce-highlight=color] em:has(+*){box-decoration-break:clone}
 .ce-content[data-ce-highlight=solid] em{background:var(--ce-highlight-gradient,var(--heading-highlight-color,var(--accent-color)));color:var(--ce-highlight-text-color,var(--background-color))}
 .ce-content[data-ce-highlight=bar] em{background-image:var(--ce-highlight-gradient,linear-gradient(transparent 60%,color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 30%,transparent) 60%))}
+.ce-content[data-ce-highlight=color][data-ce-gradient=true] em{color:transparent}
