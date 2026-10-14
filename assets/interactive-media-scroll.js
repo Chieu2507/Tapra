@@ -38,9 +38,9 @@
     }
     reset() {
       this.classList.remove('is-scroll-ready');
-      if (this.slot) {
-        this.slot.replaceWith(this.media);
-        this.slot = null;
+      if (this.mediaSlot) {
+        this.mediaSlot.replaceWith(this.media);
+        this.mediaSlot = null;
       }
       this.media?.classList.remove('interactive-media-scroll-target');
       for (const property of ['--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage.style.removeProperty(property);
@@ -62,12 +62,12 @@
       this.initialWidth = initial.width * fit;
       this.initialHeight = initial.height * fit;
       this.radius = parseFloat(getComputedStyle(this.media.querySelector('.video-block__media, .image-block__media')).borderTopLeftRadius) || 0;
-      this.slot = document.createElement('div');
-      this.slot.className = 'interactive-media-scroll-slot';
-      this.slot.style.width = `${this.initialWidth}px`;
-      this.slot.style.height = `${this.initialHeight}px`;
-      this.media.before(this.slot);
-      this.slot.append(this.media);
+      this.mediaSlot = document.createElement('div');
+      this.mediaSlot.className = 'interactive-media-scroll-slot';
+      this.mediaSlot.style.width = `${this.initialWidth}px`;
+      this.mediaSlot.style.height = `${this.initialHeight}px`;
+      this.media.before(this.mediaSlot);
+      this.mediaSlot.append(this.media);
       this.media.classList.add('interactive-media-scroll-target');
       this.stage.style.setProperty('--scroll-width', `${this.initialWidth}px`);
       this.stage.style.setProperty('--scroll-height', `${this.initialHeight}px`);
@@ -79,7 +79,7 @@
       if (!this.classList.contains('is-scroll-ready')) return;
       const track = this.getBoundingClientRect();
       const stage = this.stage.getBoundingClientRect();
-      const slot = this.slot.getBoundingClientRect();
+      const slot = this.mediaSlot.getBoundingClientRect();
       const distance = Math.max(1, track.height - stage.height);
       const progress = this.editing ? 0 : Math.max(0, Math.min(1, -track.top / distance));
       const x = (stage.left - slot.left) * progress;
