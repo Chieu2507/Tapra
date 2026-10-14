@@ -24,7 +24,8 @@
   transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
   backdrop-filter: blur(8px);
 }
-.video-dialog__body .video { aspect-ratio: 16 / 9; }
+.video-dialog__body .video { aspect-ratio: 16 / 9; background: #000; }
+.video-dialog__body .video > video { object-fit: contain; }
 .video-dialog__body .video > :is(video, iframe) { width: 100%; height: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .video-block--glow::before, .video-block--vignette .video-block__media::after { transition: none; }

@@ -207,6 +207,10 @@
   assign padding_left_mobile = block.settings.padding_left_mobile | default: 0 | plus: 0
   assign padding_right_mobile = block.settings.padding_right_mobile | default: 0 | plus: 0
 
+  assign video_tag = 'div'
+  if block.settings.playback_mode == 'popup' or block.settings.magnetic_play
+    assign video_tag = 'lh-video-presentation'
+  endif
   assign video_class = 'video-block size-style size-style--contain'
   if block.settings.show_video_first_mobile
     assign video_class = video_class | append: ' video-block--first-mobile'
@@ -244,7 +248,7 @@
 {% endcapture %}
 {% assign video_style = video_style | strip | replace: '\n', ' ' %}
 
-<lh-video-presentation
+<{{ video_tag }}
   data-magnetic="{{ block.settings.magnetic_play }}"
   class="{{ video_class }}{% if block.settings.poster_glow %} video-block--glow{% endif %}{% if block.settings.poster_vignette %} video-block--vignette{% endif %}"
   style="{{ video_style }}"
@@ -279,9 +283,9 @@
     class: 'video-block__media'
   %}
   {% endif %}
-</lh-video-presentation>
-<script src="{{ 'video-presentation.js' | asset_url }}" defer="defer"></script>
-{{ 'component-video-presentation.css' | asset_url | stylesheet_tag }}
+</{{ video_tag }}>
+{% if video_tag == 'lh-video-presentation' %}<script src="{{ 'video-presentation.js' | asset_url }}" defer="defer"></script>{% endif %}
+{% if video_tag == 'lh-video-presentation' or block.settings.poster_glow or block.settings.poster_vignette %}{{ 'component-video-presentation.css' | asset_url | stylesheet_tag }}{% endif %}
 
 {% stylesheet %}
   .video-block {
@@ -352,14 +356,8 @@
       "id": "video_source",
       "label": "t:labels.source",
       "options": [
-        {
-          "value": "uploaded",
-          "label": "t:options.video_source.uploaded"
-        },
-        {
-          "value": "external_url",
-          "label": "t:options.video_source.external_url"
-        }
+        { "value": "uploaded", "label": "t:options.video_source.uploaded" },
+        { "value": "external_url", "label": "t:options.video_source.external_url" }
       ],
       "default": "uploaded"
     },
@@ -373,57 +371,19 @@
       "type": "video_url",
       "id": "external_video_url",
       "label": "t:labels.external_video_url",
-      "accept": [
-        "youtube",
-        "vimeo"
-      ],
+      "accept": ["youtube", "vimeo"],
       "visible_if": "{{ block.settings.video_source == 'external_url' }}"
     },
-    {
-      "type": "select",
-      "id": "playback_mode",
-      "label": "Playback",
-      "options": [
-        {
-          "value": "inline",
-          "label": "Inline"
-        },
-        {
-          "value": "popup",
-          "label": "Popup"
-        }
-      ],
-      "default": "inline"
-    },
-    {
-      "type": "header",
-      "content": "Poster effects"
-    },
-    {
-      "type": "checkbox",
-      "id": "poster_glow",
-      "label": "Show hover glow",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "poster_vignette",
-      "label": "Blend poster edges",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "magnetic_play",
-      "label": "Magnetic play button",
-      "default": false,
-      "info": "Mouse only. Disabled when reduced motion is preferred."
-    },
+    {"type": "select", "id": "playback_mode", "label": "Playback", "options": [{"value": "inline", "label": "Inline"}, {"value": "popup", "label": "Popup"}], "default": "inline"},
+    {"type": "checkbox", "id": "poster_glow", "label": "Show hover glow", "default": false},
+    {"type": "checkbox", "id": "poster_vignette", "label": "Blend poster edges", "default": false},
+    {"type": "checkbox", "id": "magnetic_play", "label": "Magnetic play button", "default": false, "info": "Mouse only. Disabled when reduced motion is preferred."},
     {
       "type": "checkbox",
       "id": "autoplay",
+      "visible_if": "{{ block.settings.playback_mode != 'popup' }}",
       "label": "t:labels.autoplay",
-      "default": false,
-      "visible_if": "{{ block.settings.playback_mode != 'popup' }}"
+      "default": false
     },
     {
       "type": "checkbox",
@@ -494,30 +454,12 @@
       "id": "aspect_ratio_desktop",
       "label": "t:labels.desktop_aspect_ratio",
       "options": [
-        {
-          "value": "original",
-          "label": "t:options.aspect_ratio.original"
-        },
-        {
-          "value": "square",
-          "label": "t:options.aspect_ratio.square"
-        },
-        {
-          "value": "portrait",
-          "label": "t:options.aspect_ratio.portrait"
-        },
-        {
-          "value": "landscape",
-          "label": "t:options.aspect_ratio.landscape"
-        },
-        {
-          "value": "wide",
-          "label": "t:options.aspect_ratio.wide"
-        },
-        {
-          "value": "custom",
-          "label": "t:options.aspect_ratio.custom"
-        }
+        { "value": "original", "label": "t:options.aspect_ratio.original" },
+        { "value": "square", "label": "t:options.aspect_ratio.square" },
+        { "value": "portrait", "label": "t:options.aspect_ratio.portrait" },
+        { "value": "landscape", "label": "t:options.aspect_ratio.landscape" },
+        { "value": "wide", "label": "t:options.aspect_ratio.wide" },
+        { "value": "custom", "label": "t:options.aspect_ratio.custom" }
       ],
       "default": "original"
     },
@@ -536,18 +478,9 @@
       "id": "width_desktop",
       "label": "t:labels.desktop_width",
       "options": [
-        {
-          "value": "fit",
-          "label": "t:options.width.fit"
-        },
-        {
-          "value": "fill",
-          "label": "t:options.width.fill"
-        },
-        {
-          "value": "custom",
-          "label": "t:options.width.custom"
-        }
+        { "value": "fit", "label": "t:options.width.fit" },
+        { "value": "fill", "label": "t:options.width.fill" },
+        { "value": "custom", "label": "t:options.width.custom" }
       ],
       "default": "fit"
     },
@@ -584,30 +517,12 @@
       "id": "aspect_ratio_mobile",
       "label": "t:labels.mobile_aspect_ratio",
       "options": [
-        {
-          "value": "original",
-          "label": "t:options.aspect_ratio.original"
-        },
-        {
-          "value": "square",
-          "label": "t:options.aspect_ratio.square"
-        },
-        {
-          "value": "portrait",
-          "label": "t:options.aspect_ratio.portrait"
-        },
-        {
-          "value": "landscape",
-          "label": "t:options.aspect_ratio.landscape"
-        },
-        {
-          "value": "wide",
-          "label": "t:options.aspect_ratio.wide"
-        },
-        {
-          "value": "custom",
-          "label": "t:options.aspect_ratio.custom"
-        }
+        { "value": "original", "label": "t:options.aspect_ratio.original" },
+        { "value": "square", "label": "t:options.aspect_ratio.square" },
+        { "value": "portrait", "label": "t:options.aspect_ratio.portrait" },
+        { "value": "landscape", "label": "t:options.aspect_ratio.landscape" },
+        { "value": "wide", "label": "t:options.aspect_ratio.wide" },
+        { "value": "custom", "label": "t:options.aspect_ratio.custom" }
       ],
       "default": "original"
     },
@@ -626,18 +541,9 @@
       "id": "width_mobile",
       "label": "t:labels.mobile_width",
       "options": [
-        {
-          "value": "fit",
-          "label": "t:options.width.fit"
-        },
-        {
-          "value": "fill",
-          "label": "t:options.width.fill"
-        },
-        {
-          "value": "custom",
-          "label": "t:options.width.custom"
-        }
+        { "value": "fit", "label": "t:options.width.fit" },
+        { "value": "fill", "label": "t:options.width.fill" },
+        { "value": "custom", "label": "t:options.width.custom" }
       ],
       "default": "fit"
     },
@@ -677,64 +583,7 @@
       "type": "select",
       "id": "corner_radius",
       "label": "t:labels.corner_radius",
-      "options": [
-        {
-          "value": "inherit",
-          "label": "t:options.radius_video.inherit"
-        },
-        {
-          "value": "none",
-          "label": "t:options.radius_video.none"
-        },
-        {
-          "value": "radius_2",
-          "label": "t:options.radius_preset.size_2"
-        },
-        {
-          "value": "small",
-          "label": "t:options.radius_video.small"
-        },
-        {
-          "value": "radius_4",
-          "label": "t:options.radius_preset.size_4"
-        },
-        {
-          "value": "radius_6",
-          "label": "t:options.radius_preset.size_6"
-        },
-        {
-          "value": "medium",
-          "label": "t:options.radius_video.medium"
-        },
-        {
-          "value": "radius_8",
-          "label": "t:options.radius_preset.size_8"
-        },
-        {
-          "value": "radius_12",
-          "label": "t:options.radius_preset.size_12"
-        },
-        {
-          "value": "large",
-          "label": "t:options.radius_video.large"
-        },
-        {
-          "value": "radius_16",
-          "label": "t:options.radius_preset.size_16"
-        },
-        {
-          "value": "radius_24",
-          "label": "t:options.radius_preset.size_24"
-        },
-        {
-          "value": "radius_32",
-          "label": "t:options.radius_preset.size_32"
-        },
-        {
-          "value": "full",
-          "label": "t:options.radius_video.full"
-        }
-      ],
+      "options": [{"value": "inherit", "label": "t:options.radius_video.inherit"}, {"value": "none", "label": "t:options.radius_video.none"}, {"value": "radius_2", "label": "t:options.radius_preset.size_2"}, {"value": "small", "label": "t:options.radius_video.small"}, {"value": "radius_4", "label": "t:options.radius_preset.size_4"}, {"value": "radius_6", "label": "t:options.radius_preset.size_6"}, {"value": "medium", "label": "t:options.radius_video.medium"}, {"value": "radius_8", "label": "t:options.radius_preset.size_8"}, {"value": "radius_12", "label": "t:options.radius_preset.size_12"}, {"value": "large", "label": "t:options.radius_video.large"}, {"value": "radius_16", "label": "t:options.radius_preset.size_16"}, {"value": "radius_24", "label": "t:options.radius_preset.size_24"}, {"value": "radius_32", "label": "t:options.radius_preset.size_32"}, {"value": "full", "label": "t:options.radius_video.full"}],
       "default": "inherit"
     },
     {
