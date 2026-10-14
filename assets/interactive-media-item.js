@@ -19,6 +19,14 @@
           media.append(externalButton.content.cloneNode(true));
           media.setAttribute('data-video-ready', '');
         }
+        if (this.dataset.playback === 'popup' && source.matches('video')) {
+          source.autoplay = false;
+          source.removeAttribute('autoplay');
+          source.pause();
+          source.controls = false;
+          if (!media.querySelector('.video__play')) media.append(externalButton.content.cloneNode(true));
+          media.setAttribute('data-video-ready', '');
+        }
         const button = media.querySelector('.video__play');
         const player = { media, source, button, current: { x: 0, y: 0, scale: 1 }, target: { x: 0, y: 0, scale: 1 }, frame: 0 };
         this.players.push(player);
