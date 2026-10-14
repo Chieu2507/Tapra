@@ -2,7 +2,7 @@
   Typed media story: one static media slot, one static Marquee slot, and editable
   Heading/Text/Button content shown only in the full media state.
 {% enddoc %}
-{% capture item_marquee %}{% content_for 'block', type: 'marquee', id: 'marquee' %}{% endcapture %}
+{% capture item_marquee %}{% content_for 'block', type: '_media-item-marquee', id: 'marquee' %}{% endcapture %}
 {% capture item_media %}{% content_for 'block', type: 'video', id: 'media' %}{% endcapture %}
 {% capture item_content %}{% content_for 'blocks' %}{% endcapture %}
 {% render 'interactive-media-item', item_block: block, media_kind: 'video', marquee: item_marquee, media: item_media, content: item_content %}
@@ -69,6 +69,28 @@
     },
     {
       "type": "header",
+      "content": "Marquee effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_top_divider",
+      "label": "Show top divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_bottom_divider",
+      "label": "Show bottom divider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "marquee_parallax",
+      "label": "Enable parallax effect",
+      "default": false
+    },
+    {
+      "type": "header",
       "content": "Full media content"
     },
     {
@@ -93,11 +115,8 @@
       "name": "Media item video",
       "blocks": [
         {
-          "type": "marquee",
+          "type": "_media-item-marquee",
           "settings": {
-            "use_elara_layout": true,
-            "show_blurred_edges": false,
-            "enable_parallax": false,
             "animation_speed": 0.6,
             "animation_direction": "backward",
             "gap_desktop": 72,
