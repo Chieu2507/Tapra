@@ -1,0 +1,374 @@
+{% liquid
+  assign radius = 'var(--container-radius, var(--radius-rounded))'
+  case block.settings.corner_radius
+    when 'none'
+      assign radius = '0px'
+    when 'xl'
+      assign radius = 'var(--radius-extra, 24px)'
+    when 'custom'
+      assign radius = block.settings.custom_corner_radius | append: 'px'
+  endcase
+%}
+{% capture desktop_size %}{% render 'heading-size-token', size: block.settings.heading_size, fallback: 'xl' %}{% endcapture %}
+{% capture mobile_size %}{% render 'heading-size-token', size: block.settings.heading_size_mobile, fallback: 'sm' %}{% endcapture %}
+<div class="ce-list" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;--ce-title-size:var(--font-heading-{{ desktop_size | strip }});--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
+  {% capture items %}{% content_for 'blocks' %}{% endcapture %}
+  {% liquid
+    assign title_tag = block.settings.html_tag | default: 'div'
+    assign open_tag = '<' | append: title_tag | append: ' class="ce-item__title"'
+    assign close_tag = '</' | append: title_tag | append: '>'
+    echo items | replace: '<ce-title-tag class="ce-item__title"', open_tag | replace: '</ce-title-tag>', close_tag
+  %}
+</div>
+{% schema %}
+{
+  "name": "Collection list",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Mobile columns",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Gap"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Collection appearance"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border thickness",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_background",
+      "label": "Show background",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "Inherit"
+        },
+        {
+          "value": "none",
+          "label": "Square"
+        },
+        {
+          "value": "xl",
+          "label": "Rounded"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "range",
+      "id": "custom_corner_radius",
+      "label": "Custom corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "visible_if": "{{ block.settings.corner_radius == 'custom' }}",
+      "default": 0
+    },
+    {
+      "type": "select",
+      "id": "shadow",
+      "label": "Shadow",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "xs",
+          "label": "Extra small"
+        },
+        {
+          "value": "sm",
+          "label": "Small"
+        },
+        {
+          "value": "md",
+          "label": "Medium"
+        },
+        {
+          "value": "lg",
+          "label": "Large"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Collection title"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "select",
+      "id": "heading_size_mobile",
+      "label": "Mobile size",
+      "options": [
+        {
+          "value": "h1",
+          "label": "Heading 1"
+        },
+        {
+          "value": "h2",
+          "label": "Heading 2"
+        },
+        {
+          "value": "h3",
+          "label": "Heading 3"
+        },
+        {
+          "value": "h4",
+          "label": "Heading 4"
+        },
+        {
+          "value": "h5",
+          "label": "Heading 5"
+        },
+        {
+          "value": "h6",
+          "label": "Heading 6"
+        }
+      ],
+      "default": "h5"
+    },
+    {
+      "type": "select",
+      "id": "html_tag",
+      "label": "HTML tag",
+      "options": [
+        {
+          "value": "div",
+          "label": "Paragraph"
+        },
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        }
+      ],
+      "info": "Use headings in order (H1 → H2 → H3) for better SEO and readability. If unsure, choose Paragraph",
+      "default": "div"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show product count",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation_icon",
+      "label": "Show navigation icon",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "label": "Top and bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Left and right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_block_mobile",
+      "label": "Top and bottom (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_inline_mobile",
+      "label": "Left and right (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "_collection-editorial-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection list",
+      "blocks": [
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        },
+        {
+          "type": "_collection-editorial-item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -81,3 +81,4 @@
  .ce-content[data-ce-case-mobile=original]{text-transform:none}.ce-content[data-ce-case-mobile=capitalize]{text-transform:capitalize}.ce-content[data-ce-case-mobile=uppercase]{text-transform:uppercase}.ce-content[data-ce-case-mobile=lowercase]{text-transform:lowercase}
 }
 @media(prefers-reduced-motion:reduce){.ce-item__preview{transition:none}[data-ce-parallax] .ce-background>.background-media{transform:none}}
+.ce-list[data-ce-count=false] .ce-item__count,.ce-list[data-ce-navigation=false] .ce-item__icon{display:none}
