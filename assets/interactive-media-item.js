@@ -55,12 +55,17 @@
         }
         const player = { media, source, button, current: { x: 0, y: 0, scale: 1 }, target: { x: 0, y: 0, scale: 1 }, frame: 0 };
         this.players.push(player);
+        source.addEventListener('pause', () => {
+          // The base player hides native controls on pause. Keep them available
+          // while the scroll-owned player is visible so it can be resumed.
+          queueMicrotask(() => { if (player.scrollAutoplay && source.matches('video')) source.controls = true; });
+        }, options);
         if (this.dataset.playback === 'full_section' && button) {
           button.setAttribute('aria-expanded', 'false');
           button.setAttribute('aria-controls', this.expansion.id);
           // Capture before the base Video's inline play handler.
           media.addEventListener('click', event => {
-            if (event.target.closest('[data-full-media-content]') && !event.target.closest('[data-scroll-play]')) return;
+            if (media.classList.contains('is-scroll-autoplay') || event.target.closest('[data-full-media-content]')) return;
             event.preventDefault();
             event.stopImmediatePropagation();
             source.pause?.();
@@ -108,9 +113,60 @@
       this.fullContent?.classList.remove('is-scroll-copy');
       this.players[0]?.media.classList.remove('has-scroll-copy');
       if (this.players[0]?.button) {
-        this.players[0].button.inert = false;
-        this.players[0].button.removeAttribute('aria-hidden');
+        this.players[0].button.inert = Boolean(this.players[0].scrollAutoplay);
+        if (!this.players[0].scrollAutoplay) this.players[0].button.removeAttribute('aria-hidden');
       }
+    }
+    setScrollPlayback(progress, active = true) {
+      const player = this.players[0];
+      if (!player || this.activePlayer) return;
+      if (!active || progress <= 0 || this.motion.matches) { this.stopScrollPlayback(); return; }
+      if (progress < .6 || player.scrollAutoplay) return;
+      const source = player.source;
+      const epoch = player.scrollEpoch = (player.scrollEpoch || 0) + 1;
+      player.scrollAutoplay = true;
+      const ready = () => {
+        if (!player.scrollAutoplay || player.scrollEpoch !== epoch) return;
+        player.media.classList.add('is-scroll-autoplay');
+        if (player.button) { player.button.inert = true; player.button.setAttribute('aria-hidden', 'true'); }
+      };
+      if (source.matches('video')) {
+        player.scrollMuted = source.muted;
+        player.scrollControls = source.controls;
+        source.muted = true;
+        source.playsInline = true;
+        source.controls = true;
+        source.play()?.then(ready, () => {
+          if (player.scrollEpoch === epoch) this.stopScrollPlayback();
+        });
+      } else {
+        player.scrollSrc = source.src;
+        const url = new URL(source.src);
+        url.searchParams.set('autoplay', '1');
+        url.searchParams.set('mute', '1');
+        url.searchParams.set('muted', '1');
+        source.src = url.href;
+        player.media.append(source);
+        ready();
+      }
+    }
+    stopScrollPlayback() {
+      const player = this.players[0];
+      if (!player?.scrollAutoplay) return;
+      player.scrollAutoplay = false;
+      player.scrollEpoch = (player.scrollEpoch || 0) + 1;
+      const source = player.source;
+      if (source.matches('video')) {
+        source.pause();
+        source.currentTime = 0;
+        source.muted = player.scrollMuted;
+        source.controls = player.scrollControls;
+      } else {
+        if (this.dataset.playback === 'full_section') source.remove();
+        source.src = player.scrollSrc;
+      }
+      player.media.classList.remove('is-scroll-autoplay', 'is-playing', 'has-started');
+      if (player.button) { player.button.inert = false; player.button.removeAttribute('aria-hidden'); }
     }
     setScrollProgress(progress) {
       this.scrollProgress = progress;
@@ -122,23 +178,6 @@
       const leave = exit * exit * (3 - 2 * exit);
       const opacity = enter * (1 - leave);
       if (fade > 0) {
-        if (this.dataset.mediaKind === 'video' && player?.button) {
-          if (!this.scrollPlay) {
-            this.scrollPlay = player.button.cloneNode(true);
-            this.scrollPlay.removeAttribute('id');
-            this.scrollPlay.removeAttribute('inert');
-            this.scrollPlay.removeAttribute('aria-hidden');
-            this.scrollPlay.classList.add('interactive-media-item__scroll-play');
-            this.scrollPlay.setAttribute('data-scroll-play', '');
-            if (this.dataset.playback !== 'full_section') {
-              this.scrollPlay.addEventListener('click', () => player.button.click(), { signal: this.controller.signal });
-            }
-            this.fullContent.querySelector('.interactive-media-item__content').append(this.scrollPlay);
-          }
-          player.media.classList.add('has-scroll-copy');
-          player.button.inert = true;
-          player.button.setAttribute('aria-hidden', 'true');
-        }
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
         this.fullContent.style.setProperty('--media-scroll-copy-travel', `${Math.min(255, this.sectionRoot.clientHeight * .35) * (1 - enter - leave)}px`);
@@ -162,6 +201,7 @@
     }
     expand(player) {
       if (!this.expansion || !this.sectionRoot || this.activePlayer) return;
+      this.stopScrollPlayback();
       expandedSections.get(this.sectionRoot)?.collapse({ animate: false, restoreFocus: false });
       this.expansionEpoch = (this.expansionEpoch || 0) + 1;
       expandedSections.set(this.sectionRoot, this);
@@ -224,7 +264,7 @@
         this.expansion.querySelector('[data-full-media-mount]').replaceChildren();
         this.append(this.expansion);
         if (this.scrollProgress !== undefined) this.setScrollProgress(this.scrollProgress);
-        if (restoreFocus && player.button?.isConnected) (this.fullContent?.classList.contains('is-scroll-copy') ? this.scrollPlay : player.button).focus({ preventScroll: true });
+        if (restoreFocus && player.button?.isConnected) player.button.focus({ preventScroll: true });
       };
       if (animate && !this.motion.matches) {
         const frames = this.expansionFrames(player).reverse();
@@ -259,8 +299,7 @@
         this.contentHome?.remove();
         this.expansionAnimation?.cancel();
         this.resetScrollCopy();
-        this.scrollPlay?.remove();
-        this.scrollPlay = null;
+        this.stopScrollPlayback();
         this.controller?.abort();
         this.controller = null;
         this.players?.forEach(player => {

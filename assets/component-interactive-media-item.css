@@ -108,8 +108,4 @@
 .interactive-media-item__overlay.is-scroll-copy .interactive-media-item__content {
   transform: translateY(var(--media-scroll-copy-travel, 0px));
 }
-.interactive-media-item .video.has-scroll-copy > .video__play { visibility: hidden; opacity: 0; pointer-events: none; }
-.interactive-media-item .interactive-media-item__scroll-play {
-  position: relative; inset: auto; transform: none !important; flex: 0 0 auto; margin-top: 12px;
-}
-.interactive-media-expansion .interactive-media-item__scroll-play { display: none; }
+.interactive-media-item .video.is-scroll-autoplay > .video__play { visibility: hidden; opacity: 0; pointer-events: none; }

@@ -60,6 +60,7 @@
         item.removeAttribute('aria-hidden');
         item.querySelector(':scope > :is(.video-block, .image-block)')?.classList.remove('interactive-media-scroll-cover');
         item.setScrollProgress?.(0);
+        item.stopScrollPlayback?.();
       }
       this.style.removeProperty('--media-scroll-count');
       for (const property of ['--scroll-left', '--scroll-top', '--scroll-x', '--scroll-y', '--scroll-width', '--scroll-height', '--scroll-radius', '--scroll-blend', '--scroll-header-opacity']) this.stage?.style.removeProperty(property);
@@ -120,7 +121,9 @@
       const stage = this.stage.getBoundingClientRect();
       const distance = Math.max(1, track.height - stage.height);
       const position = this.editingPosition ?? Math.max(0, Math.min(this.items.length, -track.top / distance * this.items.length));
-      if (position === this.progress) return;
+      const visible = stage.bottom > 0 && stage.top < document.documentElement.clientHeight;
+      if (position === this.progress && visible === this.visible) return;
+      this.visible = visible;
       this.progress = position;
       const progress = Math.min(1, position);
       this.updateLayers(position);
@@ -147,12 +150,12 @@
         if (index > 0) item.style.setProperty('--scroll-layer-y', `${100 * (1 - Math.min(1, local / .6))}%`);
         const active = index === activeIndex;
         if (!active && item.activePlayer) item.collapse({ animate: false, restoreFocus: false });
-        if (!active) item.players?.forEach(player => player.source.pause?.());
         item.inert = !active;
         item.setAttribute('aria-hidden', String(!active));
         // Keep outgoing copy tied to the next layer's entrance, even though
         // its controls are already inert. Reversing scroll reverses the fade.
         item.setScrollProgress?.(index === this.items.length - 1 ? Math.min(1, local) : local);
+        item.setScrollPlayback?.(local, active && this.visible !== false);
       });
     }
     disconnectedCallback() {
