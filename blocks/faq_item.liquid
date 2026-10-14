@@ -52,7 +52,8 @@
   </span>
 {% endcapture %}
 
-{% render 'accordion-details', id: faq_item_id, content_id: faq_content_id, class: 'elara-faq-item', summary_class: 'elara-faq-item__summary', content_class: 'elara-faq-item__content', content_inner_class: 'elara-faq-item__content-inner', summary: faq_summary, content: faq_answer, initially_open: block.settings.initially_open, attributes: block.shopify_attributes %}
+{% assign faq_item_class = 'elara-faq-item' %}{% if block.settings.pointer_light %}{% assign faq_item_class = faq_item_class | append: ' surface-light' %}{% endif %}
+{% render 'accordion-details', id: faq_item_id, content_id: faq_content_id, class: faq_item_class, summary_class: 'elara-faq-item__summary', content_class: 'elara-faq-item__content', content_inner_class: 'elara-faq-item__content-inner', summary: faq_summary, content: faq_answer, initially_open: block.settings.initially_open, attributes: block.shopify_attributes %}
 {% else %}
 {% liquid
   assign faq_item_id = 'faq-' | append: block.id
@@ -99,7 +100,8 @@
 {% endcapture %}
 
 {% if faq_answer != blank %}
-  {% render 'accordion-details', id: faq_item_id, content_id: faq_content_id, class: 'faq-item', summary_class: 'faq-item__summary', content_class: 'faq-item__content', content_inner_class: 'faq-item__content-inner', summary: faq_summary, content: faq_answer, initially_open: block.settings.initially_open, attributes: block.shopify_attributes %}
+  {% assign faq_item_class = 'faq-item' %}{% if block.settings.pointer_light %}{% assign faq_item_class = faq_item_class | append: ' surface-light' %}{% endif %}
+{% render 'accordion-details', id: faq_item_id, content_id: faq_content_id, class: faq_item_class, summary_class: 'faq-item__summary', content_class: 'faq-item__content', content_inner_class: 'faq-item__content-inner', summary: faq_summary, content: faq_answer, initially_open: block.settings.initially_open, attributes: block.shopify_attributes %}
 {% endif %}
 {% endif %}
 
@@ -346,6 +348,8 @@
       "label": "t:labels.initially_open",
       "default": false
     }
+,
+    {"type": "checkbox", "id": "pointer_light", "label": "Show pointer light", "default": false, "info": "Uses the shared pointer light from Theme settings. Disabled on touch devices and with reduced motion."}
   ],
   "presets": [
     {
