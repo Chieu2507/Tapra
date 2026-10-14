@@ -114,18 +114,18 @@
       const opacity = fade * fade * (3 - 2 * fade);
       if (fade > 0) {
         if (this.dataset.mediaKind === 'video' && player?.button) {
-        if (!this.scrollPlay) {
-          this.scrollPlay = player.button.cloneNode(true);
-          this.scrollPlay.removeAttribute('id');
-          this.scrollPlay.removeAttribute('inert');
-          this.scrollPlay.removeAttribute('aria-hidden');
-          this.scrollPlay.classList.add('interactive-media-item__scroll-play');
-          this.scrollPlay.setAttribute('data-scroll-play', '');
-          this.fullContent.querySelector('.interactive-media-item__content').append(this.scrollPlay);
-        }
-        player.media.classList.add('has-scroll-copy');
-        player.button.inert = true;
-        player.button.setAttribute('aria-hidden', 'true');
+          if (!this.scrollPlay) {
+            this.scrollPlay = player.button.cloneNode(true);
+            this.scrollPlay.removeAttribute('id');
+            this.scrollPlay.removeAttribute('inert');
+            this.scrollPlay.removeAttribute('aria-hidden');
+            this.scrollPlay.classList.add('interactive-media-item__scroll-play');
+            this.scrollPlay.setAttribute('data-scroll-play', '');
+            this.fullContent.querySelector('.interactive-media-item__content').append(this.scrollPlay);
+          }
+          player.media.classList.add('has-scroll-copy');
+          player.button.inert = true;
+          player.button.setAttribute('aria-hidden', 'true');
         }
         this.fullContent.classList.add('is-scroll-copy');
         this.fullContent.style.setProperty('--media-scroll-copy-opacity', String(opacity));
