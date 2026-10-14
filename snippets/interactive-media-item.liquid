@@ -1,0 +1,29 @@
+{% doc %}
+  Shared typed media story presentation. The owning blocks render static slots.
+  @param {block} item_block - Owning Image or Video Media item
+  @param {string} media_kind - image or video
+  @param {string} marquee - Rendered static Marquee slot
+  @param {string} media - Rendered static Image or Video slot
+  @param {string} content - Rendered dynamic Heading/Text/Button blocks
+{% enddoc %}
+{% liquid
+  assign content_scheme = item_block.settings.content_color_scheme.id | default: item_block.settings.content_color_scheme | default: 'scheme-3'
+  assign content_opacity = item_block.settings.content_overlay_opacity | divided_by: 100.0
+%}
+<lh-interactive-media-item class="interactive-media-item" data-media-kind="{{ media_kind }}" data-playback="{{ item_block.settings.playback_mode | default: 'inline' }}" data-glow="{{ item_block.settings.poster_glow }}" data-blend="{{ item_block.settings.blend_edges }}" data-magnetic="{{ item_block.settings.magnetic_play }}" data-play-label="{{ 'video.play' | t | escape }}" {{ item_block.shopify_attributes }}>
+  {{ marquee }}
+  {{ media }}
+  <div class="interactive-media-item__overlay color-scheme {{ content_scheme }}" data-full-media-content aria-hidden="true" inert style="--media-content-overlay: {{ content_opacity }};">
+    <div class="interactive-media-item__content">{{ content }}</div>
+  </div>
+  {% if media_kind == 'video' and item_block.settings.playback_mode == 'full_section' %}
+    {% assign expansion_id = 'MediaExpansion-' | append: section.id | append: '-' | append: item_block.id %}
+    <div id="{{ expansion_id }}" class="interactive-media-expansion" data-media-expansion role="region" aria-label="{{ 'video.play' | t | escape }}" hidden>
+      <div class="interactive-media-expansion__mount" data-full-media-mount></div>
+      <button class="overlay-close interactive-media-expansion__close" type="button" data-media-collapse aria-label="{{ 'accessibility.close' | t }}">{% render 'icon', icon: 'x-mark', bare: true %}</button>
+    </div>
+    <template data-item-external-play><button class="video__play" type="button" aria-expanded="false" aria-controls="{{ expansion_id }}" aria-label="{{ 'video.play' | t | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
+  {% endif %}
+</lh-interactive-media-item>
+{{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'interactive-media-item.js' | asset_url }}" defer="defer"></script>

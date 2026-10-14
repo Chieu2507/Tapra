@@ -62,7 +62,10 @@
   "max_blocks": 6,
   "blocks": [
     {
-      "type": "interactive-media-item"
+      "type": "media-item-image"
+    },
+    {
+      "type": "media-item-video"
     }
   ],
   "settings": [
@@ -276,7 +279,7 @@
           "id": "header"
         },
         {
-          "type": "interactive-media-item",
+          "type": "media-item-video",
           "blocks": [
             {
               "type": "marquee",
@@ -345,7 +348,9 @@
                     "opacity": 100
                   }
                 }
-              ]
+              ],
+              "id": "marquee",
+              "static": true
             },
             {
               "type": "video",
@@ -365,7 +370,9 @@
                 "play_button_size_desktop": 64,
                 "play_button_size_mobile": 56,
                 "play_button_background_color": "#ffffffb3"
-              }
+              },
+              "id": "media",
+              "static": true
             }
           ],
           "settings": {

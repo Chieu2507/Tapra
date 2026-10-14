@@ -70,3 +70,31 @@
 }
 .interactive-media-item .video__play > .video__play-icon > svg { transform: translate(calc(-50% + 1px), -50%); }
 .interactive-media-item .video__play > svg { transform: translateX(1px); }
+
+
+  .interactive-media-item {
+    position: relative; isolation: isolate; display: flex; flex-direction: column;
+    align-items: var(--flex-align, center); justify-content: center; gap: 24px; min-width: 0; width: 100%;
+    text-align: var(--text-align-default, center);
+  }
+  .interactive-media-item > :is(.marquee, .elara-marquee) {
+    position: absolute; inset: 50% 0 auto; transform: translateY(-50%); z-index: -1;
+    width: 100%; background: transparent;
+  }
+  .interactive-media-item .marquee-heading-block { color: color-mix(in srgb, var(--heading-color) 35%, transparent); }
+  .interactive-media-item .marquee-heading-block strong { color: var(--heading-color); font-weight: 700; }
+  .interactive-media-item > :is(.video-block, .image-block) { flex-shrink: 0; }
+
+.interactive-media-item__overlay {
+  position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
+  padding: clamp(20px, 5vw, 64px); padding-bottom: max(72px, 5vh);
+  background: transparent; opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 240ms ease, visibility 240ms ease;
+  --flex-align: center; --text-align-default: center; text-align: center;
+}
+.interactive-media-item__overlay::before { content: ''; position: absolute; inset: 0; background: #000; opacity: var(--media-content-overlay, .2); pointer-events: none; }
+.interactive-media-item__overlay.is-visible { opacity: 1; visibility: visible; }
+.interactive-media-item__content { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; max-width: 820px; max-height: 100%; overflow: auto; }
+.interactive-media-item__overlay.is-visible :is(a, button) { pointer-events: auto; }
+.interactive-media-expansion__close { z-index: 4; }
+@media (prefers-reduced-motion: reduce) { .interactive-media-item__overlay { transition: none; } }

@@ -16,20 +16,6 @@
 </lh-interactive-media-item>
 {{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'interactive-media-item.js' | asset_url }}" defer="defer"></script>
-{% stylesheet %}
-  .interactive-media-item {
-    position: relative; isolation: isolate; display: flex; flex-direction: column;
-    align-items: var(--flex-align, center); justify-content: center; gap: 24px; min-width: 0; width: 100%;
-    text-align: var(--text-align-default, center);
-  }
-  .interactive-media-item > :is(.marquee, .elara-marquee) {
-    position: absolute; inset: 50% 0 auto; transform: translateY(-50%); z-index: -1;
-    width: 100%; background: transparent;
-  }
-  .interactive-media-item .marquee-heading-block { color: color-mix(in srgb, var(--heading-color) 35%, transparent); }
-  .interactive-media-item .marquee-heading-block strong { color: var(--heading-color); font-weight: 700; }
-  .interactive-media-item > :is(.video-block, .image-block) { flex-shrink: 0; }
-{% endstylesheet %}
 {% schema %}
 {
   "name": "Media item",
@@ -99,108 +85,6 @@
       "label": "Magnetic play button",
       "default": false,
       "info": "Mouse only. Disabled when reduced motion is preferred."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Media item",
-      "blocks": [
-        {
-          "type": "marquee",
-          "settings": {
-            "use_elara_layout": true,
-            "show_blurred_edges": false,
-            "enable_parallax": false,
-            "animation_speed": 0.6,
-            "animation_direction": "backward",
-            "gap_desktop": 72,
-            "gap_mobile": 40,
-            "color_type": "inherit",
-            "padding_top": 0,
-            "padding_bottom": 0
-          },
-          "blocks": [
-            {
-              "type": "_marquee-heading",
-              "settings": {
-                "text": "<strong>4.9</strong> Average rating",
-                "heading_size": "custom",
-                "custom_heading_size": 92,
-                "custom_mobile": true,
-                "custom_heading_size_mobile": 48,
-                "font": "heading",
-                "text_case": "uppercase",
-                "opacity": 100
-              }
-            },
-            {
-              "type": "_marquee-heading",
-              "settings": {
-                "text": "<strong>30</strong> Day returns",
-                "heading_size": "custom",
-                "custom_heading_size": 92,
-                "custom_mobile": true,
-                "custom_heading_size_mobile": 48,
-                "font": "heading",
-                "text_case": "uppercase",
-                "opacity": 100
-              }
-            },
-            {
-              "type": "_marquee-heading",
-              "settings": {
-                "text": "<strong>9</strong> Switch types",
-                "heading_size": "custom",
-                "custom_heading_size": 92,
-                "custom_mobile": true,
-                "custom_heading_size_mobile": 48,
-                "font": "heading",
-                "text_case": "uppercase",
-                "opacity": 100
-              }
-            },
-            {
-              "type": "_marquee-heading",
-              "settings": {
-                "text": "<strong>50+</strong> Hours tested",
-                "heading_size": "custom",
-                "custom_heading_size": 92,
-                "custom_mobile": true,
-                "custom_heading_size_mobile": 48,
-                "font": "heading",
-                "text_case": "uppercase",
-                "opacity": 100
-              }
-            }
-          ]
-        },
-        {
-          "type": "video",
-          "settings": {
-            "video_source": "uploaded",
-            "aspect_ratio_desktop": "custom",
-            "custom_aspect_ratio_desktop": 1.5,
-            "aspect_ratio_mobile": "custom",
-            "custom_aspect_ratio_mobile": 1.5,
-            "width_desktop": "custom",
-            "width_custom_desktop": 40,
-            "limit_width_desktop": true,
-            "max_width_desktop": 576,
-            "width_mobile": "custom",
-            "width_custom_mobile": 86,
-            "corner_radius": "radius_32",
-            "play_button_size_desktop": 64,
-            "play_button_size_mobile": 56,
-            "play_button_background_color": "#ffffffb3"
-          }
-        }
-      ],
-      "settings": {
-        "blend_edges": true,
-        "playback_mode": "full_section",
-        "poster_glow": true,
-        "magnetic_play": true
-      }
     }
   ]
 }

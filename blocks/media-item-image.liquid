@@ -1,0 +1,164 @@
+{% doc %}
+  Typed media story: one static media slot, one static Marquee slot, and editable
+  Heading/Text/Button content shown only in the full media state.
+{% enddoc %}
+{% capture item_marquee %}{% content_for 'block', type: 'marquee', id: 'marquee' %}{% endcapture %}
+{% capture item_media %}{% content_for 'block', type: 'image', id: 'media' %}{% endcapture %}
+{% capture item_content %}{% content_for 'blocks' %}{% endcapture %}
+{% render 'interactive-media-item', item_block: block, media_kind: 'image', marquee: item_marquee, media: item_media, content: item_content %}
+{% schema %}
+{
+  "name": "Media item image",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "buttons"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "poster_glow",
+      "label": "Show hover glow",
+      "default": false,
+      "info": "Applies to the image, video and marquee in this item."
+    },
+    {
+      "type": "checkbox",
+      "id": "blend_edges",
+      "label": "Blend edges",
+      "default": false,
+      "info": "Fades marquee edges and blends image/video edges into the section background."
+    },
+    {
+      "type": "header",
+      "content": "Full media content"
+    },
+    {
+      "type": "color_scheme",
+      "id": "content_color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "range",
+      "id": "content_overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Media item image",
+      "blocks": [
+        {
+          "type": "marquee",
+          "settings": {
+            "use_elara_layout": true,
+            "show_blurred_edges": false,
+            "enable_parallax": false,
+            "animation_speed": 0.6,
+            "animation_direction": "backward",
+            "gap_desktop": 72,
+            "gap_mobile": 40,
+            "color_type": "inherit",
+            "padding_top": 0,
+            "padding_bottom": 0
+          },
+          "blocks": [
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>4.9</strong> Average rating",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>30</strong> Day returns",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>9</strong> Switch types",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>50+</strong> Hours tested",
+                "heading_size": "custom",
+                "custom_heading_size": 92,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 48,
+                "font": "heading",
+                "text_case": "uppercase",
+                "opacity": 100
+              }
+            }
+          ],
+          "id": "marquee",
+          "static": true
+        },
+        {
+          "type": "image",
+          "settings": {
+            "image_ratio_desktop": "landscape",
+            "image_ratio_mobile": "landscape",
+            "width_desktop": "custom",
+            "width_custom_desktop": 40,
+            "width_mobile": "custom",
+            "width_custom_mobile": 86,
+            "corner_radius": "radius_32"
+          },
+          "id": "media",
+          "static": true
+        }
+      ],
+      "settings": {
+        "blend_edges": true,
+        "poster_glow": true
+      }
+    }
+  ]
+}
+{% endschema %}
