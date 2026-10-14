@@ -8,7 +8,7 @@
       "type": "inline_richtext",
       "id": "text",
       "label": "Text",
-      "default": "Discover our collections"
+      "default": "Heading"
     },
     {
       "type": "header",
@@ -84,7 +84,7 @@
           "label": "H6"
         }
       ],
-      "default": "h2"
+      "default": "div"
     },
     {
       "type": "select",
@@ -384,25 +384,7 @@
       "step": 1,
       "unit": "%",
       "visible_if": "{{ block.settings.device == 'desktop' and block.settings.width == 'custom' }}",
-      "default": 100
-    },
-    {
-      "type": "checkbox",
-      "id": "limit_width",
-      "label": "Limit width",
-      "visible_if": "{{ block.settings.device == 'desktop' }}",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "max_width",
-      "label": "Max width",
-      "min": 100,
-      "max": 1100,
-      "step": 10,
-      "unit": "px",
-      "visible_if": "{{ block.settings.device == 'desktop' and block.settings.limit_width }}",
-      "default": 750
+      "default": 50
     },
     {
       "type": "select",
@@ -434,25 +416,7 @@
       "step": 1,
       "unit": "%",
       "visible_if": "{{ block.settings.device == 'mobile' and block.settings.width_mobile == 'custom' }}",
-      "default": 100
-    },
-    {
-      "type": "checkbox",
-      "id": "limit_width_mobile",
-      "label": "Limit width",
-      "visible_if": "{{ block.settings.device == 'mobile' }}",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "max_width_mobile",
-      "label": "Max width",
-      "min": 100,
-      "max": 1100,
-      "step": 10,
-      "unit": "px",
-      "visible_if": "{{ block.settings.device == 'mobile' and block.settings.limit_width_mobile }}",
-      "default": 750
+      "default": 50
     },
     {
       "type": "header",
@@ -465,7 +429,7 @@
     {
       "type": "select",
       "id": "highlight_font",
-      "label": "Font",
+      "label": "Highlight font",
       "options": [
         {
           "value": "default",
@@ -489,7 +453,7 @@
     {
       "type": "select",
       "id": "highlight_style",
-      "label": "Style",
+      "label": "Highlight style",
       "options": [
         {
           "value": "none",
@@ -501,30 +465,54 @@
         },
         {
           "value": "underline_soft",
-          "label": "Underline soft"
+          "label": "Underline (soft)"
         },
         {
           "value": "underline_double",
-          "label": "Underline double"
+          "label": "Underline (double)"
         },
         {
           "value": "underline_wavy",
-          "label": "Underline wavy"
+          "label": "Underline (wavy)"
         },
         {
           "value": "circle",
-          "label": "Circle outline"
+          "label": "Circle (outline)"
         },
         {
           "value": "bar",
-          "label": "Highlight bar"
+          "label": "Highlight (bar)"
         },
         {
           "value": "solid",
-          "label": "Highlight solid"
+          "label": "Highlight (solid)"
         }
       ],
       "default": "none"
+    },
+    {
+      "type": "range",
+      "id": "highlight_rotation",
+      "label": "Rotation",
+      "min": -5,
+      "max": 5,
+      "step": 1,
+      "unit": "deg",
+      "default": 0,
+      "visible_if": "{{ block.settings.highlight_style != 'none' and block.settings.highlight_style != 'color' }}"
+    },
+    {
+      "type": "color_background",
+      "id": "highlight_gradient",
+      "label": "Gradient",
+      "info": "Selecting a gradient overrides solid colors",
+      "visible_if": "{{ block.settings.highlight_style == 'color' or block.settings.highlight_style == 'bar' or block.settings.highlight_style == 'solid' }}"
+    },
+    {
+      "type": "color",
+      "id": "highlight_text_color",
+      "label": "Highlight text color",
+      "visible_if": "{{ block.settings.highlight_style == 'solid' }}"
     },
     {
       "type": "header",

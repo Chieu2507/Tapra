@@ -1,4 +1,5 @@
 {% liquid
+  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-1' | handleize
   assign width_class = 'page-width'
   if section.settings.section_width == 'full_width'
     assign width_class = 'full-width'
@@ -10,7 +11,7 @@
 <script src="{{ 'collection-editorial.js' | asset_url }}" defer></script>
 <script src="{{ 'editorial-text.js' | asset_url }}" defer></script>
 <script src="{{ 'block-animations.js' | asset_url }}" defer></script>
-<section class="collection-editorial-section color-scheme section-color-scope {{ section.settings.color_scheme }}" data-ce-section data-ce-parallax="{{ section.settings.parallax_effect }}" data-ce-divider-top="{{ section.settings.show_top_divider }}" data-ce-divider-bottom="{{ section.settings.show_bottom_divider }}" data-ce-align="{{ section.settings.desktop_alignment }}" data-ce-align-mobile="{{ section.settings.mobile_alignment }}" style="--ce-section-gap:{{ section.settings.gap_desktop }}px;--ce-section-gap-mobile:{{ section.settings.gap_mobile }}px;--ce-section-top:{{ section.settings.padding_top }}px;--ce-section-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--ce-section-top-mobile:{{ section.settings.padding_top_mobile }}px;--ce-section-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}">
+<section class="collection-editorial-section color-scheme section-color-scope {{ scheme }}" data-ce-section data-ce-parallax="{{ section.settings.parallax_effect }}" data-ce-divider-top="{{ section.settings.show_top_divider }}" data-ce-divider-bottom="{{ section.settings.show_bottom_divider }}" data-ce-align="{{ section.settings.desktop_alignment }}" data-ce-align-mobile="{{ section.settings.mobile_alignment }}" style="--ce-section-gap:{{ section.settings.gap_desktop }}px;--ce-section-gap-mobile:{{ section.settings.gap_mobile }}px;--ce-section-top:{{ section.settings.padding_top }}px;--ce-section-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--ce-section-top-mobile:{{ section.settings.padding_top_mobile }}px;--ce-section-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}">
   {% if section.settings.background_media != 'none' %}<div class="ce-background" aria-hidden="true">{% render 'media-background', media_type: section.settings.background_media, image: section.settings.background_image, mobile_image: section.settings.background_image_mobile, video: section.settings.background_video, alt: '', aria_hidden: true, sizes: '100vw' %}{% if section.settings.background_overlay %}<div class="ce-background__overlay" style="background:{{ section.settings.background_overlay_color }}"></div>{% endif %}</div>{% endif %}
   <div class="container {{ width_class }} ce-section-stack">
     {% content_for 'block', type: '_collection-editorial-header', id: 'header' %}

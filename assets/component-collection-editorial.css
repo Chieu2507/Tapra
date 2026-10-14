@@ -87,3 +87,9 @@
 .ce-content--image[data-ce-ratio=fill],.ce-content--image[data-ce-ratio=fill] .ce-header-image{align-self:stretch;flex:1;height:100%}
 @media(max-width:767.98px){.ce-content--image[data-ce-ratio-mobile=fill],.ce-content--image[data-ce-ratio-mobile=fill] .ce-header-image{align-self:stretch;flex:1;height:100%}}
 @media(prefers-reduced-motion:reduce){[data-ce-parallax=fixed] .ce-background img,[data-ce-parallax=fixed] .ce-background video{position:absolute;height:100%;width:100%}}
+.ce-subheading-icon--sparkle svg{display:block;width:14px;height:14px}
+.ce-content[data-ce-highlight]:not([data-ce-highlight=none]):not([data-ce-highlight=color]) em{display:inline-block;transform:rotate(var(--ce-highlight-rotation,0deg))}
+.ce-content[data-ce-highlight=color] em{background:var(--ce-highlight-gradient,none);background-clip:text}
+.ce-content[data-ce-highlight=color] em:has(+*){box-decoration-break:clone}
+.ce-content[data-ce-highlight=solid] em{background:var(--ce-highlight-gradient,var(--heading-highlight-color,var(--accent-color)));color:var(--ce-highlight-text-color,var(--background-color))}
+.ce-content[data-ce-highlight=bar] em{background-image:var(--ce-highlight-gradient,linear-gradient(transparent 60%,color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 30%,transparent) 60%))}
