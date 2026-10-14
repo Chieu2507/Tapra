@@ -237,8 +237,8 @@ html[data-surface-light-enabled] .header-top:not(.header-top--compact) .header-m
 /* Native Account removes its dialog after its own close timer. Finish the
    fade within that timer instead of stretching it past the removal. */
 .header-top shopify-account[data-account-closing]::part(dialog) {
-  animation-duration: var(--account-native-close-duration, 240ms);
-  animation-timing-function: ease;
+  animation-duration: var(--account-native-close-duration, var(--motion-duration-surface));
+  animation-timing-function: var(--motion-ease-surface);
 }
 
 .header-top .header-mega-menu__banner-content--top { justify-content: flex-start; }
