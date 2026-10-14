@@ -9,7 +9,23 @@
 {% liquid
   assign content_scheme = item_block.settings.content_color_scheme.id | default: item_block.settings.content_color_scheme | default: 'scheme-3'
   assign content_opacity = item_block.settings.content_overlay_opacity | divided_by: 100.0
+  assign media_item_count = 0
+  for item in section.blocks
+    if item.type == 'media-item-image' or item.type == 'media-item-video'
+      assign media_item_count = media_item_count | plus: 1
+    endif
+  endfor
+  assign media_sequence = false
+  if section.settings.sticky_scroll and media_item_count > 1
+    assign media_sequence = true
+  endif
 %}
+{% if media_sequence %}
+  <lh-interactive-media-scroll data-enabled="true" data-media-scene>
+    <div class="section-spacing interactive-media">
+      <div class="container {% if section.settings.section_width == 'full_width' %}full-width{% else %}page-width{% endif %} interactive-media__content">
+        <div class="interactive-media__items">
+{% endif %}
 <lh-interactive-media-item class="interactive-media-item" data-media-kind="{{ media_kind }}" data-playback="{{ item_block.settings.playback_mode | default: 'inline' }}" data-glow="{{ item_block.settings.poster_glow }}" data-blend="{{ item_block.settings.blend_edges }}" data-magnetic="{{ item_block.settings.magnetic_play }}" data-play-label="{{ 'video.play' | t | escape }}" {{ item_block.shopify_attributes }}>
   {% capture marquee_effects %}data-media-marquee{% if item_block.settings.marquee_top_divider %} data-marquee-top-divider{% endif %}{% if item_block.settings.marquee_bottom_divider %} data-marquee-bottom-divider{% endif %}{% endcapture %}
   {% assign item_marquee = marquee | replace: 'data-media-marquee', marquee_effects %}
@@ -28,5 +44,11 @@
     <template data-item-external-play><button class="video__play" type="button" aria-expanded="false" aria-controls="{{ expansion_id }}" aria-label="{{ 'video.play' | t | escape }}">{% render 'icon', icon: 'play', bare: true %}</button></template>
   {% endif %}
 </lh-interactive-media-item>
+{% if media_sequence %}
+        </div>
+      </div>
+    </div>
+  </lh-interactive-media-scroll>
+{% endif %}
 {{ 'component-interactive-media-item.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'interactive-media-item.js' | asset_url }}" defer="defer"></script>
