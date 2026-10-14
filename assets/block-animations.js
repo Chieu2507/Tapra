@@ -46,7 +46,7 @@
     const tokens = getComputedStyle(element);
     const tabMotion = element.closest('[data-collection-tab-panel]') && element.matches(cardSelector);
     const stagger = Number(element.dataset.animationStagger) || 0;
-    const delay = Math.min(1500, Math.max(0, (Number(element.dataset.animationDelay) || 0) +
+    const delay = Math.min(2000, Math.max(0, (Number(element.dataset.animationDelay) || 0) +
       (tabMotion ? Number(element.dataset.animationTabDelay) || 0 : stagger)));
     const duration = tabMotion ? durationMilliseconds(tokens.getPropertyValue('--tab-card-duration'), 500) :
       Math.max(700, durationMilliseconds(tokens.getPropertyValue('--motion-duration-slow'), 700));
