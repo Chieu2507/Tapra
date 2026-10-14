@@ -51,7 +51,7 @@
   {% if section.settings.background_color != blank %}--faq-section-background: {{ section.settings.background_color | escape }};{% endif %}
 {% endcapture %}
 
-<div{% if section.settings.anchor_id != blank %} id="{{ section.settings.anchor_id | handleize }}"{% endif %} class="section-spacing faq-section faq-section--{{ faq_section_layout }} faq-section--align-{{ faq_section_alignment }} faq-section--position-{{ faq_section_position }}{% if section.settings.vertical_on_mobile %} faq-section--vertical-mobile faq-section--mobile-align-{{ faq_section_mobile_alignment }}{% endif %} color-scheme section-color-scope {{ faq_section_scheme }}" style="{{ faq_section_style | strip }}">
+<div class="section-spacing faq-section faq-section--{{ faq_section_layout }} faq-section--align-{{ faq_section_alignment }} faq-section--position-{{ faq_section_position }}{% if section.settings.vertical_on_mobile %} faq-section--vertical-mobile faq-section--mobile-align-{{ faq_section_mobile_alignment }}{% endif %} color-scheme section-color-scope {{ faq_section_scheme }}" style="{{ faq_section_style | strip }}">
     <div class="container {{ faq_section_container_width }} faq-section__container">
       <div class="faq-section__content">
         {% content_for 'blocks' %}
@@ -114,7 +114,6 @@
   "blocks": [{ "type": "group" }, { "type": "faq_accordion" }],
   "settings": [
     { "type": "header", "content": "Layout" },
-    { "type": "text", "id": "anchor_id", "label": "Anchor ID", "info": "Optional link target, for example faq." },
     { "type": "select", "id": "section_width", "label": "t:labels.section_width", "options": [{ "value": "page_width", "label": "t:options.section_width.page_width" }, { "value": "full_width", "label": "t:options.section_width.full_width" }, { "value": "full_width_no_padding", "label": "t:options.section_width.full_width_no_padding" }], "default": "page_width" },
     { "type": "checkbox", "id": "limit_width", "label": "t:labels.limit_width", "default": false },
     { "type": "range", "id": "max_width", "label": "t:labels.max_width", "min": 320, "max": 1280, "step": 16, "unit": "px", "default": 768, "visible_if": "{{ section.settings.limit_width }}" },
@@ -170,8 +169,7 @@
     "padding_bottom": 96,
     "customize_mobile_padding": true,
     "padding_top_mobile": 64,
-    "padding_bottom_mobile": 64,
-    "anchor_id": "faq"
+    "padding_bottom_mobile": 64
   },
   "blocks": [
     {

@@ -1022,8 +1022,7 @@
         "padding_bottom": 96,
         "customize_mobile_padding": true,
         "padding_top_mobile": 64,
-        "padding_bottom_mobile": 64,
-        "anchor_id": "faq"
+        "padding_bottom_mobile": 64
       },
       "blocks": {
         "header": {
