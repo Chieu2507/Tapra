@@ -1162,7 +1162,7 @@
                 "faq_question_4_1": {
                   "type": "text",
                   "settings": {
-                    "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
+                    "text": "<p>Orders ship in 1\u20132 business days. Delivery takes 3\u20137 days depending on your region.</p>",
                     "text_size": "md",
                     "text_color": "#bfe3ffb8",
                     "width": "fill"
@@ -1207,9 +1207,9 @@
       },
       "blocks": {
         "block_1": {
-          "type": "interactive-media-item",
+          "type": "media-item-video",
           "blocks": {
-            "child_1": {
+            "marquee": {
               "type": "marquee",
               "settings": {
                 "use_elara_layout": true,
@@ -1225,55 +1225,39 @@
               },
               "blocks": {
                 "child_1": {
-                  "type": "_marquee-heading",
+                  "type": "_marquee-text",
                   "settings": {
-                    "text": "<strong>4.9</strong> Average rating",
-                    "heading_size": "custom",
-                    "custom_heading_size": 92,
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "font": "heading",
-                    "text_case": "uppercase",
-                    "opacity": 100
+                    "text": "<p><strong>4.9</strong> Average rating</p>",
+                    "font": "body",
+                    "text_size": "xxl",
+                    "color_role": "heading"
                   }
                 },
                 "child_2": {
-                  "type": "_marquee-heading",
+                  "type": "_marquee-text",
                   "settings": {
-                    "text": "<strong>30</strong> Day returns",
-                    "heading_size": "custom",
-                    "custom_heading_size": 92,
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "font": "heading",
-                    "text_case": "uppercase",
-                    "opacity": 100
+                    "text": "<p><strong>30</strong> Day returns</p>",
+                    "font": "body",
+                    "text_size": "xxl",
+                    "color_role": "heading"
                   }
                 },
                 "child_3": {
-                  "type": "_marquee-heading",
+                  "type": "_marquee-text",
                   "settings": {
-                    "text": "<strong>9</strong> Switch types",
-                    "heading_size": "custom",
-                    "custom_heading_size": 92,
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "font": "heading",
-                    "text_case": "uppercase",
-                    "opacity": 100
+                    "text": "<p><strong>9</strong> Switch types</p>",
+                    "font": "body",
+                    "text_size": "xxl",
+                    "color_role": "heading"
                   }
                 },
                 "child_4": {
-                  "type": "_marquee-heading",
+                  "type": "_marquee-text",
                   "settings": {
-                    "text": "<strong>50+</strong> Hours tested",
-                    "heading_size": "custom",
-                    "custom_heading_size": 92,
-                    "custom_mobile": true,
-                    "custom_heading_size_mobile": 48,
-                    "font": "heading",
-                    "text_case": "uppercase",
-                    "opacity": 100
+                    "text": "<p><strong>50+</strong> Hours tested</p>",
+                    "font": "body",
+                    "text_size": "xxl",
+                    "color_role": "heading"
                   }
                 }
               },
@@ -1282,9 +1266,10 @@
                 "child_2",
                 "child_3",
                 "child_4"
-              ]
+              ],
+              "static": true
             },
-            "child_2": {
+            "media": {
               "type": "video",
               "settings": {
                 "video_source": "uploaded",
@@ -1303,18 +1288,49 @@
                 "play_button_size_mobile": 56,
                 "play_button_background_color": "#ffffffb3",
                 "video": "shopify://files/videos/elara-inspiration-1.mp4"
+              },
+              "static": true
+            },
+            "full_heading": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Built for your everyday.</p>",
+                "heading_size": "display",
+                "html_tag": "h2",
+                "width": "custom",
+                "max_width": 820
+              }
+            },
+            "full_text": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Thoughtful keyboards, made to feel right from the first word.</p>",
+                "text_size": "md",
+                "width": "custom",
+                "max_width": 640
+              }
+            },
+            "full_button": {
+              "type": "button",
+              "settings": {
+                "button_label": "Explore keyboards",
+                "button_link": "shopify://collections/all",
+                "button_style": "primary"
               }
             }
           },
           "block_order": [
-            "child_1",
-            "child_2"
+            "full_heading",
+            "full_text",
+            "full_button"
           ],
           "settings": {
             "blend_edges": true,
             "playback_mode": "full_section",
             "poster_glow": true,
-            "magnetic_play": true
+            "magnetic_play": true,
+            "content_color_scheme": "scheme-3",
+            "content_overlay_opacity": 20
           }
         },
         "header": {
