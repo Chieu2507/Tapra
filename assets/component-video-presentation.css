@@ -1,0 +1,31 @@
+/* Optional presentation on the shared Video kernel; playback remains in theme-video. */
+.video-block--glow,
+.video-block--vignette { position: relative; isolation: isolate; }
+.video-block--glow::before {
+  content: ''; position: absolute; inset: 6%; z-index: -1;
+  border-radius: var(--video-block-radius); background: #fff; filter: blur(40px);
+  opacity: 0; transition: opacity 350ms ease; pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .video-block--glow:hover::before { opacity: .7; }
+}
+.video-block--glow:focus-within::before { opacity: .7; }
+.video-block--vignette .video-block__media::after {
+  box-shadow: inset 0 0 48px 22px var(--interactive-media-background, var(--background-color));
+  transition: box-shadow 350ms ease;
+}
+.video-block--vignette:focus-within .video-block__media::after,
+.video-block--vignette:hover .video-block__media::after,
+.video-block--vignette .video-block__media.has-started::after { box-shadow: none; }
+.video-poster__image, .video-poster__image :is(picture, img, svg, .image) { width: 100%; height: 100%; }
+.video-poster__image img { object-fit: cover; }
+.video-poster--ready .video__play { visibility: visible; opacity: 1; pointer-events: auto; }
+.video-block[data-magnetic='true'] > .video .video__play {
+  transform: translate(calc(-50% + var(--magnetic-x, 0px)), calc(-50% + var(--magnetic-y, 0px))) scale(var(--magnetic-scale, 1));
+  backdrop-filter: blur(8px);
+}
+.video-dialog__body .video { aspect-ratio: 16 / 9; }
+.video-dialog__body .video > :is(video, iframe) { width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  .video-block--glow::before, .video-block--vignette .video-block__media::after { transition: none; }
+}
