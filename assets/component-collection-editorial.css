@@ -170,3 +170,5 @@ html[data-surface-light-enabled] .ce-list[data-ce-dividers=true][data-ce-backgro
 .ce-list[data-ce-preview=reveal]>.ce-item.is-preview-active .ce-item__description>span{transform:none}
 
 .ce-preview-stage.is-exiting{clip-path:inset(100% 0 0 0);transition-duration:var(--motion-duration-media-exit)}
+
+.ce-preview-stage:not(.is-active):not(.is-exiting){clip-path:inset(0 0 100% 0)}

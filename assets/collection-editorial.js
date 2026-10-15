@@ -60,6 +60,27 @@
         list.append(stage);
         let current = null, revealFrame = 0, cleanupTimer = 0, layer = 0;
         const frozen = new Set();
+        let backing = null, backingRow = null, intent = 0;
+        const prepared = previews.map(preview => {
+          const images = [...(preview?.querySelectorAll('img') || [])];
+          const state = { ready: images.length === 0, promise: null };
+          images.forEach(image => { image.loading = 'eager'; });
+          state.promise = Promise.all(images.map(image => image.decode().catch(() => {}))).then(() => { state.ready = true; });
+          return state;
+        });
+        const setBacking = preview => {
+          if (backingRow === current && backing) return;
+          const copy = preview.cloneNode(true);
+          copy.classList.remove('is-current', 'is-leaving');
+          copy.classList.add('is-visible', 'is-preview-backing');
+          copy.style.clipPath = 'inset(0)';
+          copy.style.transition = 'none';
+          copy.style.zIndex = '0';
+          stage.append(copy);
+          backing?.remove();
+          backing = copy;
+          backingRow = current;
+        };
         const instant = (preview, change) => {
           preview.style.transition = 'none';
           change();
@@ -72,6 +93,8 @@
           stage.style.setProperty('--ce-preview-y', `${rowRect.top - list.getBoundingClientRect().top + rowRect.height / 2}px`);
         };
         const clean = () => {
+          if (current) setBacking(previews[rows.indexOf(current)]);
+          else { backing?.remove(); backing = null; backingRow = null; }
           previews.forEach((preview, index) => {
             if (preview && rows[index] !== current) instant(preview, () => preview.classList.remove('is-visible', 'is-current', 'is-leaving'));
           });
@@ -89,7 +112,17 @@
           frozen.add(copy);
         };
         const activate = row => {
-          if (!rows.includes(row) || row === current) return;
+          const index = rows.indexOf(row);
+          if (index < 0) return;
+          const request = ++intent;
+          if (!prepared[index].ready) {
+            prepared[index].promise.then(() => { if (request === intent && !signal.aborted) reveal(row); });
+            return;
+          }
+          reveal(row);
+        };
+        const reveal = row => {
+          if (row === current) return;
           const preview = previews[rows.indexOf(row)];
           if (!preview) return;
           cancelAnimationFrame(revealFrame);
@@ -104,6 +137,7 @@
           position();
           stage.getBoundingClientRect();
           stage.style.transition = '';
+          if (!backing) setBacking(preview);
           preserve(preview);
           // Every hover immediately starts a new top layer, keeping its painted backing.
           instant(preview, () => {
@@ -130,6 +164,7 @@
         const leave = () => {
           const selected = rows.find(row => !row.classList.contains('is-editor-suppressed') && (row.classList.contains('is-editor-selected') || row.matches(':focus-visible')));
           if (selected) { activate(selected); return; }
+          ++intent;
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           current = null;
@@ -160,9 +195,11 @@
         const observer = new ResizeObserver(position);
         observer.observe(list);
         signal.addEventListener('abort', () => {
+          ++intent;
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           observer.disconnect();
+          backing?.remove();
           frozen.forEach(preview => preview.remove());
           frozen.clear();
           rows.forEach(row => row.classList.remove('is-preview-active'));
