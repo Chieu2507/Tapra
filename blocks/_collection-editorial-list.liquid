@@ -20,7 +20,7 @@
 %}
 {% capture desktop_size %}{% render 'heading-size-token', size: block.settings.heading_size, fallback: 'xl' %}{% endcapture %}
 {% capture mobile_size %}{% render 'heading-size-token', size: block.settings.heading_size_mobile, fallback: 'sm' %}{% endcapture %}
-<div class="ce-list" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-navigation-style="{{ block.settings.navigation_style | default: 'icon' }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;{% if desktop_size == 'custom' %}--ce-title-size:{{ block.settings.custom_heading_size | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size:var(--font-heading-{{ desktop_size | strip }});{% endif %}--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);{% if mobile_size == 'custom' %}--ce-title-size-mobile:{{ block.settings.custom_heading_size_mobile | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});{% endif %}--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
+<div class="ce-list" data-ce-numbers="{{ block.settings.show_numbers }}" data-ce-descriptions="{{ block.settings.show_descriptions }}" data-ce-dividers="{{ block.settings.show_row_dividers }}" data-ce-preview="{{ block.settings.preview_style }}" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-navigation-style="{{ block.settings.navigation_style | default: 'icon' }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-number-font:var(--font-{{ block.settings.number_font | default: 'body' }}-family);--ce-number-size:{% if block.settings.number_size == 'custom' %}{{ block.settings.number_custom_size }}px{% else %}var(--font-body-{{ block.settings.number_size | default: 'xs' }}){% endif %};--ce-number-weight:{{ block.settings.number_weight | default: '400' }};--ce-number-color:{{ block.settings.number_color | default: 'var(--accent-color)' }};--ce-number-gap:{{ block.settings.number_padding_right | default: 32 }}px;--ce-number-gap-mobile:{{ block.settings.number_padding_right_mobile | default: 20 }}px;--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;{% if desktop_size == 'custom' %}--ce-title-size:{{ block.settings.custom_heading_size | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size:var(--font-heading-{{ desktop_size | strip }});{% endif %}--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);{% if mobile_size == 'custom' %}--ce-title-size-mobile:{{ block.settings.custom_heading_size_mobile | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});{% endif %}--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
   {% comment %}Resolve child title markers here so the parent owns semantics in server HTML, without passing unsupported settings through content_for blocks.{% endcomment %}
   {% capture navigation_markup %}
     {% if block.settings.show_navigation_icon %}
@@ -38,7 +38,20 @@
     assign title_tag = block.settings.html_tag | default: 'div'
     assign open_tag = '<' | append: title_tag | append: ' class="ce-item__title"'
     assign close_tag = '</' | append: title_tag | append: '>'
-    echo items | replace: '<ce-title-tag class="ce-item__title"', open_tag | replace: '</ce-title-tag>', close_tag | replace: '<span data-ce-navigation-slot></span>', navigation_markup
+    assign items = items | replace: '<ce-title-tag class="ce-item__title"', open_tag | replace: '</ce-title-tag>', close_tag | replace: '<span data-ce-navigation-slot></span>', navigation_markup
+    assign parts = items | split: '<span data-ce-number-slot></span>'
+    for part in parts
+      unless forloop.first
+        if block.settings.show_numbers
+          assign number = forloop.index0
+          if number < 10
+            assign number = number | prepend: '0'
+          endif
+          echo '<span class="ce-item__number" aria-hidden="true">' | append: number | append: '</span>'
+        endif
+      endunless
+      echo part
+    endfor
   %}
 </div>
 {% schema %}
@@ -117,6 +130,34 @@
     {
       "type": "header",
       "content": "Collection appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_row_dividers",
+      "label": "Show row dividers",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_descriptions",
+      "label": "Show descriptions",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "preview_style",
+      "label": "Image preview",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "reveal",
+          "label": "Following reveal"
+        }
+      ],
+      "default": "standard"
     },
     {
       "type": "range",
@@ -404,6 +445,10 @@
         {
           "value": "arrow_up_right",
           "label": "Arrow up right"
+        },
+        {
+          "value": "plus",
+          "label": "Plus"
         }
       ],
       "default": "arrow_up_right",
@@ -425,6 +470,136 @@
       ],
       "default": "icon",
       "visible_if": "{{ block.settings.show_navigation_icon }}"
+    },
+    {
+      "type": "header",
+      "content": "Collection numbering"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_numbers",
+      "label": "Show collection numbers",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Number typography",
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "select",
+      "id": "number_font",
+      "label": "Font",
+      "options": [
+        {
+          "value": "body",
+          "label": "Body"
+        },
+        {
+          "value": "heading",
+          "label": "Heading"
+        },
+        {
+          "value": "accent",
+          "label": "Accent"
+        }
+      ],
+      "default": "body",
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "select",
+      "id": "number_size",
+      "label": "Size",
+      "options": [
+        {
+          "value": "xs",
+          "label": "XS"
+        },
+        {
+          "value": "sm",
+          "label": "SM"
+        },
+        {
+          "value": "md",
+          "label": "MD"
+        },
+        {
+          "value": "lg",
+          "label": "LG"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "xs",
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "range",
+      "id": "number_custom_size",
+      "label": "Custom size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12,
+      "visible_if": "{{ block.settings.show_numbers and block.settings.number_size == 'custom' }}"
+    },
+    {
+      "type": "select",
+      "id": "number_weight",
+      "label": "Weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400",
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Color",
+      "alpha": true,
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "range",
+      "id": "number_padding_right",
+      "label": "Padding right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ block.settings.show_numbers }}"
+    },
+    {
+      "type": "range",
+      "id": "number_padding_right_mobile",
+      "label": "Padding right (mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20,
+      "visible_if": "{{ block.settings.show_numbers }}"
     },
     {
       "type": "header",
