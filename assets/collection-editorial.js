@@ -82,6 +82,8 @@
           const first = !current;
           const fromBottom = current && rows.indexOf(row) > rows.indexOf(current);
           current = row;
+          rows.forEach(item => { item.classList.remove('is-preview-active'); });
+          row.classList.add('is-preview-active');
           previews.forEach(p => p?.classList.remove('is-current'));
           if (first) stage.style.transition = 'none';
           position();
@@ -111,6 +113,7 @@
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           current = null;
+          rows.forEach(row => row.classList.remove('is-preview-active'));
           previews.forEach(p => {
             p?.classList.remove('is-current');
             if (p?.classList.contains('is-visible')) {
@@ -136,6 +139,7 @@
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           observer.disconnect();
+          rows.forEach(row => row.classList.remove('is-preview-active'));
           previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; delete preview.dataset.ceRevealFrom; rows[index].append(preview); } });
           stage.remove();
         }, { once: true });
