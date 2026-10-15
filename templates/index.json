@@ -1572,7 +1572,8 @@
                 "customize_mobile_typography": true,
                 "font_size_mobile": 34,
                 "width": "custom",
-                "custom_width": 85
+                "custom_width": 85,
+                "width_mobile": "fill"
               }
             },
             "text": {

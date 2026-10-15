@@ -126,3 +126,4 @@
 }
 @media(max-width:767.98px){.ce-item__number{padding-inline-end:var(--ce-number-gap-mobile)}}
 @media(prefers-reduced-motion:reduce){.ce-item__description>span,.ce-list[data-ce-preview=reveal] .ce-item__preview{transition:none}}
+.ce-header[data-ce-header-layout=split]>.ce-content--text{color:var(--text-muted-color,var(--body-color))}
