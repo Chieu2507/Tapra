@@ -107,7 +107,7 @@
 .ce-list[data-ce-descriptions=true] .ce-item__description{display:block;max-width:320px;overflow:hidden;font-size:var(--font-body-sm);line-height:1.45;color:var(--text-muted-color,var(--body-color))}
 .ce-item__description>span{display:block;transform:var(--ce-description-hidden,translateY(110%));transition:transform var(--motion-duration-standard) var(--motion-ease-standard)}
 .ce-item:is(:hover,:focus-visible:not(.is-editor-suppressed),.is-editor-selected) .ce-item__description>span{transform:none}
-.ce-list:has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__description>span{transform:var(--ce-description-hidden,translateY(110%))}
+.ce-list:not([data-ce-preview=reveal]):has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__description>span{transform:var(--ce-description-hidden,translateY(110%))}
 @media(min-width:768px){
  .ce-header[data-ce-header-layout=split]{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:end;width:100%}
  .ce-header[data-ce-header-layout=split]>.ce-content--subheading{grid-column:1/-1}
@@ -123,7 +123,10 @@
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview.is-visible{clip-path:inset(0)}
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview.is-leaving{clip-path:inset(100% 0 0 0);transition-duration:var(--motion-duration-media-exit)}
 /* SurfaceLight shares the existing global switch, pointer loop and motion policy. */
-html[data-surface-light-enabled] .ce-list[data-ce-dividers=true]>.ce-item.surface-light::after{padding:0;inset:-1px 0;height:calc(100% + 1px);border-radius:0;mask:none;-webkit-mask:none;background:radial-gradient(circle 260px at var(--surface-light-x) 50%,var(--surface-light-edge),transparent 75%) top/100% 1px no-repeat,radial-gradient(circle 260px at var(--surface-light-x) 50%,var(--surface-light-edge),transparent 75%) bottom/100% 1px no-repeat}
+html[data-surface-light-enabled] .ce-list[data-ce-dividers=true]>.ce-item.surface-light::after{padding:0;inset:-1px 0; height:auto;border-radius:0;mask:none;-webkit-mask:none;background:radial-gradient(circle 260px at var(--surface-light-x) 50%,var(--surface-light-edge),transparent 75%) top/100% 1px no-repeat}
+html[data-surface-light-enabled] .ce-list[data-ce-dividers=true]>.ce-item.surface-light:nth-last-child(1 of .ce-item)::after{background:radial-gradient(circle 260px at var(--surface-light-x) 50%,var(--surface-light-edge),transparent 75%) top/100% 1px no-repeat,radial-gradient(circle 260px at var(--surface-light-x) 50%,var(--surface-light-edge),transparent 75%) bottom/100% 1px no-repeat}
+html[data-surface-light-enabled] .ce-list:not([data-ce-dividers=true])>.ce-item.surface-light{--surface-light-border-width:var(--ce-border)}
+html[data-surface-light-enabled] .ce-list:not([data-ce-dividers=true])>.ce-item.surface-light::after{inset:calc(-1 * var(--ce-border))}
 [data-ce-ambient=true]{background:radial-gradient(45% 30% at 85% 20%,color-mix(in srgb,var(--accent-color) 20%,transparent),transparent 70%),radial-gradient(50% 35% at 5% 65%,color-mix(in srgb,var(--accent-color) 10%,transparent),transparent 70%),linear-gradient(var(--ce-background,var(--background-color)),color-mix(in srgb,var(--ce-background,var(--background-color)) 85%,var(--accent-color)) 55%,var(--ce-background,var(--background-color)));overflow:clip}
 [data-ce-ambient=true]::before{content:'';position:absolute;z-index:-1;inset:0;background:repeating-linear-gradient(115deg,transparent 0 140px,color-mix(in srgb,var(--accent-color) 7%,transparent) 140px 230px,transparent 230px 360px);filter:blur(36px);pointer-events:none}
 @media(max-width:767.98px),(hover:none){.ce-preview-stage{display:none}}
@@ -161,3 +164,7 @@ html[data-surface-light-enabled] .ce-list[data-ce-dividers=true][data-ce-backgro
 
 /* Downward navigation reveals from the bottom; upward navigation from the top. */
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview[data-ce-reveal-from=bottom]:not(.is-visible):not(.is-leaving){clip-path:inset(100% 0 0 0)}
+
+/* Following preview and description share one active row, including Editor selection. */
+.ce-list[data-ce-preview=reveal]>.ce-item:not(.is-preview-active) .ce-item__description>span{transform:var(--ce-description-hidden,translateY(110%))}
+.ce-list[data-ce-preview=reveal]>.ce-item.is-preview-active .ce-item__description>span{transform:none}
