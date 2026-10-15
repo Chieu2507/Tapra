@@ -27,19 +27,55 @@
         motion.addEventListener('change', schedule, { signal });
         schedule();
       }
+      const pointerLists = [];
+      let pointer = null, hitFrame = 0;
+      const recordPointer = event => {
+        if (event.pointerType === 'mouse' && Number.isFinite(event.clientX) && Number.isFinite(event.clientY)) {
+          pointer = { x: event.clientX, y: event.clientY };
+        }
+      };
+      const hitTest = () => {
+        hitFrame = 0;
+        if (!pointer) return;
+        const hovered = document.elementFromPoint(pointer.x, pointer.y)?.closest('.ce-item');
+        pointerLists.forEach(entry => {
+          entry.list.classList.add('is-pointer-tracked');
+          entry.update(entry.rows.includes(hovered) ? hovered : null);
+        });
+      };
+      const scheduleHitTest = () => { if (pointer && !hitFrame) hitFrame = requestAnimationFrame(hitTest); };
+      document.addEventListener('pointermove', event => { recordPointer(event); scheduleHitTest(); }, { passive: true, signal });
+      document.addEventListener('scroll', scheduleHitTest, { capture: true, passive: true, signal });
+      document.addEventListener('pointerleave', () => {
+        pointer = null;
+        cancelAnimationFrame(hitFrame);
+        hitFrame = 0;
+        pointerLists.forEach(entry => { entry.update(null); entry.list.classList.remove('is-pointer-tracked'); });
+      }, { signal });
       section.querySelectorAll('.ce-list').forEach(list => {
         const rows = [...list.querySelectorAll(':scope > .ce-item')];
-        list.addEventListener('pointerover', event => {
-          if (event.pointerType !== 'mouse') return;
-          const hovered = event.target.closest('.ce-item');
-          if (!rows.includes(hovered)) return;
+        let active = null;
+        const entry = { list, rows, activate: null, leave: null, update: hovered => {
+          if (hovered === active) return;
+          active = hovered;
           rows.forEach(row => {
-            if (row !== hovered && row.classList.contains('is-editor-selected')) {
+            row.classList.remove('is-pointer-active');
+            if (hovered && row !== hovered && row.classList.contains('is-editor-selected')) {
               row.classList.remove('is-editor-selected');
               row.classList.add('is-editor-suppressed');
             }
           });
+          if (hovered) { hovered.classList.add('is-pointer-active'); entry.activate?.(hovered); }
+          else entry.leave?.();
+        } };
+        pointerLists.push(entry);
+        list.addEventListener('pointerover', event => {
+          if (event.pointerType !== 'mouse') return;
+          recordPointer(event);
+          const hovered = event.target.closest('.ce-item');
+          if (rows.includes(hovered)) { list.classList.add('is-pointer-tracked'); entry.update(hovered); }
         }, { signal });
+        list.addEventListener('pointerleave', () => entry.update(null), { signal });
         section.addEventListener('shopify:block:select', event => {
           const row = event.target.closest('.ce-item');
           if (!rows.includes(row)) return;
@@ -183,16 +219,16 @@
         stage.addEventListener('transitionend', event => {
           if (event.target === stage && event.propertyName === 'clip-path' && !current) clean();
         }, { signal });
-        list.addEventListener('pointerover', event => {
-          if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
-        }, { signal });
+        const pointerEntry = pointerLists.find(entry => entry.list === list);
+        pointerEntry.activate = activate;
+        pointerEntry.leave = leave;
         list.addEventListener('focusin', event => activate(event.target.closest('.ce-item')), { signal });
         list.addEventListener('focusout', event => { if (!list.contains(event.relatedTarget)) leave(); }, { signal });
         list.addEventListener('pointerleave', leave, { signal });
         section.addEventListener('shopify:block:select', event => activate(event.target.closest('.ce-item')), { signal });
         section.addEventListener('shopify:block:deselect', event => { event.target.closest('.ce-item')?.classList.remove('is-editor-selected'); leave(); }, { signal });
         motion.addEventListener('change', () => { if (motion.matches) { clearTimeout(cleanupTimer); clean(); } }, { signal });
-        const observer = new ResizeObserver(position);
+        const observer = new ResizeObserver(() => { position(); scheduleHitTest(); });
         observer.observe(list);
         signal.addEventListener('abort', () => {
           ++intent;
@@ -207,7 +243,10 @@
           stage.remove();
         }, { once: true });
       });
-      controllers.set(section, () => { controller.abort(); cancelAnimationFrame(frame); });
+      controllers.set(section, () => {
+        controller.abort(); cancelAnimationFrame(frame); cancelAnimationFrame(hitFrame);
+        pointerLists.forEach(({ list, rows }) => { list.classList.remove('is-pointer-tracked'); rows.forEach(row => row.classList.remove('is-pointer-active')); });
+      });
     });
   };
   const teardown = root => {
