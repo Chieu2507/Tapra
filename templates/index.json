@@ -1564,8 +1564,15 @@
               "type": "_collection-editorial-heading",
               "settings": {
                 "text": "Fresh from the desk. Stories worth typing.",
-                "heading_size": "xl",
-                "html_tag": "h2"
+                "heading_size": "custom",
+                "html_tag": "h2",
+                "text_style": "heading",
+                "font_size": 48,
+                "line_height": "tight",
+                "customize_mobile_typography": true,
+                "font_size_mobile": 34,
+                "width": "custom",
+                "custom_width": 85
               }
             },
             "text": {
@@ -1601,13 +1608,15 @@
             "preview_style": "reveal",
             "show_background": false,
             "corner_radius": "square",
-            "heading_size": "sm",
-            "heading_size_mobile": "xs",
+            "heading_size": "custom",
+            "custom_heading_size": 32,
+            "heading_size_mobile": "custom",
+            "custom_heading_size_mobile": 22,
             "html_tag": "h3",
             "show_product_count": false,
             "navigation_icon": "plus",
             "show_numbers": true,
-            "number_padding_right": 32,
+            "number_padding_right": 44,
             "number_padding_right_mobile": 20,
             "padding_block": 30,
             "padding_inline": 0,
