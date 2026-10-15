@@ -28,30 +28,77 @@
         schedule();
       }
       section.querySelectorAll('[data-ce-preview="reveal"]').forEach(list => {
-        let previous = null;
-        let revealFrame = 0;
-        const activate = row => {
-          if (!row || row === previous) return;
+        const rows = [...list.querySelectorAll(':scope > .ce-item')];
+        const stage = document.createElement('div');
+        stage.className = 'ce-preview-stage';
+        stage.setAttribute('aria-hidden', 'true');
+        const previews = rows.map(row => {
           const preview = row.querySelector('.ce-item__preview');
+          if (preview) stage.append(preview);
+          return preview;
+        });
+        list.append(stage);
+        let current = null, revealFrame = 0, layer = 0;
+        const position = () => {
+          if (!current) return;
+          const rowRect = current.getBoundingClientRect();
+          stage.style.setProperty('--ce-preview-y', `${rowRect.top - list.getBoundingClientRect().top + rowRect.height / 2}px`);
+        };
+        const clean = () => previews.forEach((preview, index) => {
+          if (preview && rows[index] !== current) preview.classList.remove('is-visible', 'is-current', 'is-leaving');
+        });
+        const activate = row => {
+          if (!rows.includes(row) || row === current) return;
+          const preview = previews[rows.indexOf(row)];
           if (!preview) return;
           cancelAnimationFrame(revealFrame);
-          const offset = previous && !motion.matches
-            ? previous.getBoundingClientRect().top - row.getBoundingClientRect().top : 0;
+          const first = !current;
+          current = row;
+          // Keep previous images underneath until the incoming wipe finishes.
+          previews.forEach(p => p?.classList.remove('is-current'));
+          if (first) stage.style.transition = 'none';
+          position();
+          stage.getBoundingClientRect();
+          stage.style.transition = '';
           preview.style.transition = 'none';
-          preview.style.setProperty('--ce-preview-offset', `${offset}px`);
+          preview.classList.remove('is-visible', 'is-leaving');
+          preview.style.zIndex = String(++layer);
           preview.getBoundingClientRect();
+          preview.style.transition = '';
+          stage.classList.add('is-active');
           revealFrame = requestAnimationFrame(() => {
-            preview.style.transition = '';
-            preview.style.setProperty('--ce-preview-offset', '0px');
+            preview.classList.add('is-visible', 'is-current');
+            if (motion.matches) clean();
           });
-          previous = row;
         };
+        const leave = () => {
+          const selected = rows.find(row => row.classList.contains('is-editor-selected') || row.matches(':focus-visible'));
+          if (selected) { activate(selected); return; }
+          cancelAnimationFrame(revealFrame);
+          current = null;
+          previews.forEach(p => { p?.classList.remove('is-current'); if (p?.classList.contains('is-visible')) p.classList.add('is-leaving'); });
+          stage.classList.remove('is-active');
+          if (motion.matches) clean();
+        };
+        stage.addEventListener('transitionend', event => {
+          if (event.propertyName === 'clip-path' && (!current || event.target.classList.contains('is-current'))) clean();
+        }, { signal });
         list.addEventListener('pointerover', event => {
           if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
         }, { signal });
         list.addEventListener('focusin', event => activate(event.target.closest('.ce-item')), { signal });
-        list.addEventListener('pointerleave', () => { previous = null; }, { signal });
-        signal.addEventListener('abort', () => cancelAnimationFrame(revealFrame), { once: true });
+        list.addEventListener('focusout', event => { if (!list.contains(event.relatedTarget)) leave(); }, { signal });
+        list.addEventListener('pointerleave', leave, { signal });
+        section.addEventListener('shopify:block:select', event => activate(event.target.closest('.ce-item')), { signal });
+        section.addEventListener('shopify:block:deselect', event => { event.target.closest('.ce-item')?.classList.remove('is-editor-selected'); leave(); }, { signal });
+        const observer = new ResizeObserver(position);
+        observer.observe(list);
+        signal.addEventListener('abort', () => {
+          cancelAnimationFrame(revealFrame);
+          observer.disconnect();
+          previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; rows[index].append(preview); } });
+          stage.remove();
+        }, { once: true });
       });
       controllers.set(section, () => { controller.abort(); cancelAnimationFrame(frame); });
     });

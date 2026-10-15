@@ -45,7 +45,7 @@
 <script src="{{ 'collection-editorial.js' | asset_url }}" defer></script>
 <script src="{{ 'editorial-text.js' | asset_url }}" defer></script>
 <script src="{{ 'block-animations.js' | asset_url }}" defer></script>
-<div class="section-spacing collection-editorial-section color-scheme section-color-scope {{ scheme }}" data-ce-section data-ce-parallax="{{ section.settings.parallax_effect }}" data-ce-align="{{ alignment }}" data-ce-align-mobile="{{ mobile_alignment }}" style="{{ section_style | strip }}">
+<div class="section-spacing collection-editorial-section color-scheme section-color-scope {{ scheme }}" data-ce-section data-ce-ambient="{{ section.settings.ambient_background }}" data-ce-parallax="{{ section.settings.parallax_effect }}" data-ce-align="{{ alignment }}" data-ce-align-mobile="{{ mobile_alignment }}" style="{{ section_style | strip }}">
   {% if section.settings.background_media != 'none' %}<div class="ce-background" aria-hidden="true">{% render 'media-background', media_type: section.settings.background_media, image: section.settings.background_image, mobile_image: section.settings.background_image_mobile, video: section.settings.background_video, alt: '', aria_hidden: true, sizes: '100vw' %}{% if section.settings.background_overlay %}<div class="ce-background__overlay" style="background:{{ section.settings.background_overlay_color }}"></div>{% endif %}</div>{% endif %}
   <div class="container {{ width_class }} ce-section-stack{% if section.settings.section_width == 'full_bleed' %} ce-full-bleed{% endif %}">
     {% content_for 'block', type: '_collection-editorial-header', id: 'header' %}
@@ -63,10 +63,6 @@
     ]
   },
   "settings": [
-    {
-      "type": "paragraph",
-      "content": "Select collections in the 'Collection list' block"
-    },
     {
       "type": "header",
       "content": "t:general.layout"
@@ -149,6 +145,12 @@
       "id": "background_color",
       "label": "t:labels.background_color",
       "alpha": true
+    },
+    {
+      "type": "checkbox",
+      "id": "ambient_background",
+      "label": "Ambient background",
+      "default": false
     },
     {
       "type": "select",

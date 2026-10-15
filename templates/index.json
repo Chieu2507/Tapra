@@ -1682,6 +1682,7 @@
         "gap_desktop": 64,
         "gap_mobile": 40,
         "color_scheme": "scheme-3",
+        "ambient_background": true,
         "padding_top": 110,
         "padding_bottom": 120,
         "padding_top_mobile": 70,

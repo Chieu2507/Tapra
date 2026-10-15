@@ -13,7 +13,7 @@
     assign item_tag = 'a'
   endif
 %}
-<{{ item_tag }}{% if item_url != blank %} href="{{ item_url | escape }}"{% endif %} class="ce-item" {{ block.shopify_attributes }}>
+<{{ item_tag }}{% if item_url != blank %} href="{{ item_url | escape }}"{% endif %} class="ce-item surface-light" {{ block.shopify_attributes }}>
   <span data-ce-number-slot></span>
   <div class="ce-item__text"><ce-title-tag class="ce-item__title">{{ title | escape }}</ce-title-tag>{% if resource != blank %}<sup class="ce-item__count">{{ resource.all_products_count }}</sup>{% endif %}</div>
   {% if block.settings.description != blank %}<span class="ce-item__description"><span>{{ block.settings.description | escape }}</span></span>{% endif %}
