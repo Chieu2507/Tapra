@@ -38,22 +38,32 @@
           return preview;
         });
         list.append(stage);
-        let current = null, revealFrame = 0, layer = 0;
+        let current = null, pending = null, animating = false, leaving = null, revealFrame = 0, layer = 0;
         const position = () => {
-          if (!current) return;
-          const rowRect = current.getBoundingClientRect();
+          const row = pending || current;
+          if (!row) return;
+          const rowRect = row.getBoundingClientRect();
           stage.style.setProperty('--ce-preview-y', `${rowRect.top - list.getBoundingClientRect().top + rowRect.height / 2}px`);
         };
         const clean = () => previews.forEach((preview, index) => {
           if (preview && rows[index] !== current) preview.classList.remove('is-visible', 'is-current', 'is-leaving');
         });
         const activate = row => {
-          if (!rows.includes(row) || row === current) return;
+          if (!rows.includes(row)) return;
+          if (animating) {
+            pending = row === current ? null : row;
+            position();
+            return;
+          }
+          if (row === current) return;
           const preview = previews[rows.indexOf(row)];
           if (!preview) return;
           cancelAnimationFrame(revealFrame);
           const first = !current;
           current = row;
+          pending = null;
+          leaving = null;
+          animating = !motion.matches;
           // Keep previous images underneath until the incoming wipe finishes.
           previews.forEach(p => p?.classList.remove('is-current'));
           if (first) stage.style.transition = 'none';
@@ -68,20 +78,32 @@
           stage.classList.add('is-active');
           revealFrame = requestAnimationFrame(() => {
             preview.classList.add('is-visible', 'is-current');
-            if (motion.matches) clean();
+            if (motion.matches) finish();
           });
+        };
+        const finish = () => {
+          animating = false;
+          clean();
+          const next = pending;
+          pending = null;
+          if (next && next !== current) activate(next);
         };
         const leave = () => {
           const selected = rows.find(row => row.classList.contains('is-editor-selected') || row.matches(':focus-visible'));
           if (selected) { activate(selected); return; }
           cancelAnimationFrame(revealFrame);
+          leaving = previews.filter(p => p?.classList.contains('is-visible')).sort((a, b) => Number(b.style.zIndex) - Number(a.style.zIndex))[0] || null;
           current = null;
+          pending = null;
+          animating = false;
           previews.forEach(p => { p?.classList.remove('is-current'); if (p?.classList.contains('is-visible')) p.classList.add('is-leaving'); });
           stage.classList.remove('is-active');
           if (motion.matches) clean();
         };
         stage.addEventListener('transitionend', event => {
-          if (event.propertyName === 'clip-path' && (!current || event.target.classList.contains('is-current'))) clean();
+          if (event.propertyName !== 'clip-path') return;
+          if (current && event.target === previews[rows.indexOf(current)] && event.target.classList.contains('is-current')) finish();
+          else if (!current && event.target === leaving) { clean(); leaving = null; }
         }, { signal });
         list.addEventListener('pointerover', event => {
           if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
@@ -91,6 +113,7 @@
         list.addEventListener('pointerleave', leave, { signal });
         section.addEventListener('shopify:block:select', event => activate(event.target.closest('.ce-item')), { signal });
         section.addEventListener('shopify:block:deselect', event => { event.target.closest('.ce-item')?.classList.remove('is-editor-selected'); leave(); }, { signal });
+        motion.addEventListener('change', () => { if (motion.matches) finish(); }, { signal });
         const observer = new ResizeObserver(position);
         observer.observe(list);
         signal.addEventListener('abort', () => {
