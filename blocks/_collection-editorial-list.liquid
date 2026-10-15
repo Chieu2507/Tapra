@@ -14,7 +14,7 @@
 %}
 {% capture desktop_size %}{% render 'heading-size-token', size: block.settings.heading_size, fallback: 'xl' %}{% endcapture %}
 {% capture mobile_size %}{% render 'heading-size-token', size: block.settings.heading_size_mobile, fallback: 'sm' %}{% endcapture %}
-<div class="ce-list" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;--ce-title-size:var(--font-heading-{{ desktop_size | strip }});--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
+<div class="ce-list" data-ce-count="{{ block.settings.show_product_count }}" data-ce-navigation="{{ block.settings.show_navigation_icon }}" data-ce-background="{{ block.settings.show_background }}" data-ce-shadow="{{ block.settings.shadow }}" style="--ce-columns:{{ block.settings.columns_desktop }};--ce-columns-mobile:{{ block.settings.columns_mobile }};--ce-gap:{{ block.settings.gap_desktop }}px;--ce-gap-mobile:{{ block.settings.gap_mobile }}px;--ce-radius:{{ radius }};--ce-border:{{ block.settings.border_width }}px;--ce-row-block:{{ block.settings.padding_block }}px;--ce-row-inline:{{ block.settings.padding_inline }}px;--ce-row-block-mobile:{{ block.settings.padding_block_mobile }}px;--ce-row-inline-mobile:{{ block.settings.padding_inline_mobile }}px;{% if desktop_size == 'custom' %}--ce-title-size:{{ block.settings.custom_heading_size | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size:var(--font-heading-{{ desktop_size | strip }});{% endif %}--ce-title-lh:var(--font-heading-{{ desktop_size | strip }}-line-height);--ce-title-case:var(--font-heading-{{ desktop_size | strip }}-text-transform);{% if mobile_size == 'custom' %}--ce-title-size-mobile:{{ block.settings.custom_heading_size_mobile | default: 24 | at_least: 10 | at_most: 100 }}px;{% else %}--ce-title-size-mobile:var(--font-heading-{{ mobile_size | strip }});{% endif %}--ce-title-lh-mobile:var(--font-heading-{{ mobile_size | strip }}-line-height);--ce-title-case-mobile:var(--font-heading-{{ mobile_size | strip }}-text-transform);" {{ block.shopify_attributes }}>
   {% comment %}Resolve child title markers here so the parent owns semantics in server HTML, without passing unsupported settings through content_for blocks.{% endcomment %}
   {% capture items %}{% content_for 'blocks' %}{% endcapture %}
   {% liquid
@@ -183,102 +183,132 @@
     {
       "type": "select",
       "id": "heading_size",
-      "label": "Size",
+      "label": "t:labels.heading_size",
       "options": [
         {
           "value": "display",
-          "label": "Heading 1"
+          "label": "t:options.heading_size.display"
         },
         {
           "value": "xl",
-          "label": "Heading 2"
+          "label": "t:options.heading_size.xl"
         },
         {
           "value": "lg",
-          "label": "Heading 3"
+          "label": "t:options.heading_size.lg"
         },
         {
           "value": "md",
-          "label": "Heading 4"
+          "label": "t:options.heading_size.md"
         },
         {
           "value": "sm",
-          "label": "Heading 5"
+          "label": "t:options.heading_size.sm"
         },
         {
           "value": "xs",
-          "label": "Heading 6"
+          "label": "t:options.heading_size.xs"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.heading_size.custom"
         }
       ],
       "default": "xl"
     },
     {
+      "type": "range",
+      "id": "custom_heading_size",
+      "label": "Custom size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.heading_size == 'custom' }}"
+    },
+    {
       "type": "select",
       "id": "heading_size_mobile",
-      "label": "Mobile size",
+      "label": "t:labels.mobile_size",
       "options": [
         {
           "value": "display",
-          "label": "Heading 1"
+          "label": "t:options.heading_size.display"
         },
         {
           "value": "xl",
-          "label": "Heading 2"
+          "label": "t:options.heading_size.xl"
         },
         {
           "value": "lg",
-          "label": "Heading 3"
+          "label": "t:options.heading_size.lg"
         },
         {
           "value": "md",
-          "label": "Heading 4"
+          "label": "t:options.heading_size.md"
         },
         {
           "value": "sm",
-          "label": "Heading 5"
+          "label": "t:options.heading_size.sm"
         },
         {
           "value": "xs",
-          "label": "Heading 6"
+          "label": "t:options.heading_size.xs"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.heading_size.custom"
         }
       ],
       "default": "sm"
     },
     {
+      "type": "range",
+      "id": "custom_heading_size_mobile",
+      "label": "Mobile custom size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ block.settings.heading_size_mobile == 'custom' }}"
+    },
+    {
       "type": "select",
       "id": "html_tag",
-      "label": "HTML tag",
+      "label": "t:labels.html_tag",
       "options": [
         {
           "value": "div",
-          "label": "Paragraph"
+          "label": "t:options.html_tag.paragraph"
         },
         {
           "value": "h1",
-          "label": "H1"
+          "label": "t:options.html_tag.h1"
         },
         {
           "value": "h2",
-          "label": "H2"
+          "label": "t:options.html_tag.h2"
         },
         {
           "value": "h3",
-          "label": "H3"
+          "label": "t:options.html_tag.h3"
         },
         {
           "value": "h4",
-          "label": "H4"
+          "label": "t:options.html_tag.h4"
         },
         {
           "value": "h5",
-          "label": "H5"
+          "label": "t:options.html_tag.h5"
         },
         {
           "value": "h6",
-          "label": "H6"
+          "label": "t:options.html_tag.h6"
         }
       ],
-      "info": "Use headings in order (H1 \u2192 H2 \u2192 H3) for better SEO and readability. If unsure, choose Paragraph",
+      "info": "t:info.heading_html_tag",
       "default": "div"
     },
     {
