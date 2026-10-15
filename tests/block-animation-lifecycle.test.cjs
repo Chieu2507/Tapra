@@ -130,3 +130,7 @@ test('Shopify-minified CSS seconds preserve the same card timing as local millis
     assert.equal(h.played[0].options.duration,expected,duration);
   }
 });
+
+test("explicit editorial delays retain the full 2000ms setting range", () => {
+  assert.equal(fixture({delay:2000}).played[0].options.delay,2000);
+});

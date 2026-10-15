@@ -1457,11 +1457,232 @@
       "block_order": [
         "shop_button"
       ]
+    },
+    "collection_editorial": {
+      "type": "collection-list-editorial",
+      "settings": {
+        "color_scheme": "scheme-2"
+      },
+      "blocks": {
+        "header": {
+          "type": "_collection-editorial-header",
+          "static": true,
+          "blocks": {
+            "item_1": {
+              "type": "_collection-editorial-subheading",
+              "settings": {
+                "text": "Shop by category",
+                "show_icon": true,
+                "icon": "square",
+                "animation_type": "slide-bottom",
+                "animation_delay": 200
+              }
+            }
+          },
+          "block_order": [
+            "item_1"
+          ]
+        },
+        "view-all": {
+          "type": "_collection-editorial-action",
+          "static": true,
+          "disabled": true
+        },
+        "collection-list": {
+          "type": "_collection-editorial-list",
+          "static": true,
+          "blocks": {
+            "item_1": {
+              "type": "_collection-editorial-item"
+            },
+            "item_2": {
+              "type": "_collection-editorial-item"
+            },
+            "item_3": {
+              "type": "_collection-editorial-item"
+            },
+            "item_4": {
+              "type": "_collection-editorial-item"
+            },
+            "item_5": {
+              "type": "_collection-editorial-item"
+            },
+            "item_6": {
+              "type": "_collection-editorial-item"
+            },
+            "item_7": {
+              "type": "_collection-editorial-item"
+            },
+            "item_8": {
+              "type": "_collection-editorial-item"
+            }
+          },
+          "block_order": [
+            "item_1",
+            "item_2",
+            "item_3",
+            "item_4",
+            "item_5",
+            "item_6",
+            "item_7",
+            "item_8"
+          ]
+        }
+      }
+    },
+    "news": {
+      "type": "collection-list-editorial",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "gap_desktop": 64,
+        "gap_mobile": 40,
+        "padding_top": 110,
+        "padding_bottom": 120,
+        "padding_top_mobile": 70,
+        "padding_bottom_mobile": 70,
+        "ambient_background": true
+      },
+      "blocks": {
+        "header": {
+          "type": "_collection-editorial-header",
+          "static": true,
+          "settings": {
+            "layout": "split",
+            "limit_width": false,
+            "gap_desktop": 24,
+            "gap_mobile": 20
+          },
+          "blocks": {
+            "eyebrow": {
+              "type": "_collection-editorial-subheading",
+              "settings": {
+                "text": "Latest news"
+              }
+            },
+            "heading": {
+              "type": "_collection-editorial-heading",
+              "settings": {
+                "text": "Fresh from the desk. Stories worth typing.",
+                "heading_size": "custom",
+                "html_tag": "h2",
+                "text_style": "heading",
+                "font_size": 48,
+                "line_height": "tight",
+                "width": "custom",
+                "custom_width": 85,
+                "customize_mobile_typography": true,
+                "font_size_mobile": 34,
+                "width_mobile": "fill"
+              }
+            },
+            "text": {
+              "type": "_collection-editorial-text",
+              "settings": {
+                "text": "<p>Build guides, switch notes and small stories from our workshop, every few weeks.</p>",
+                "text_size": "md"
+              }
+            }
+          },
+          "block_order": [
+            "eyebrow",
+            "heading",
+            "text"
+          ]
+        },
+        "view-all": {
+          "type": "_collection-editorial-action",
+          "static": true,
+          "disabled": true
+        },
+        "collection-list": {
+          "type": "_collection-editorial-list",
+          "static": true,
+          "settings": {
+            "columns_desktop": "1",
+            "columns_mobile": "1",
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "show_background": false,
+            "corner_radius": "square",
+            "show_row_dividers": true,
+            "show_descriptions": true,
+            "preview_style": "reveal",
+            "show_numbers": true,
+            "number_padding_right": 44,
+            "number_padding_right_mobile": 20,
+            "heading_size": "custom",
+            "heading_size_mobile": "custom",
+            "html_tag": "h3",
+            "show_product_count": false,
+            "navigation_icon": "plus",
+            "padding_block": 30,
+            "padding_inline": 0,
+            "padding_block_mobile": 22,
+            "padding_inline_mobile": 0,
+            "custom_heading_size": 32,
+            "custom_heading_size_mobile": 22
+          },
+          "blocks": {
+            "news_1": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "How to choose your first switch",
+                "description": "Linear, tactile or clicky? A calm guide to finding the feel that suits the way you type."
+              }
+            },
+            "news_2": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "Inside the QK65v2 build",
+                "description": "A look at the gasket mount, foam and plate that make this board sound so clean."
+              }
+            },
+            "news_3": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "Keycap profiles, explained",
+                "description": "Cherry, OEM, SA and more. What really changes under your fingers, and what only looks different."
+              }
+            },
+            "news_4": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "Lube your switches in ten minutes",
+                "description": "A beginner walkthrough: the tools, the timing and the small mistakes to avoid."
+              }
+            },
+            "news_5": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "The story behind the Arctic set",
+                "description": "Why the designers drew a frozen cast of characters, and how the colors were chosen."
+              }
+            },
+            "news_6": {
+              "type": "_collection-editorial-item",
+              "settings": {
+                "custom_title": "A quieter desk, in four small steps",
+                "description": "Simple changes to your mat, case and mounting that cut the hollow ring."
+              }
+            }
+          },
+          "block_order": [
+            "news_1",
+            "news_2",
+            "news_3",
+            "news_4",
+            "news_5",
+            "news_6"
+          ]
+        }
+      }
     }
   },
   "order": [
     "slideshow",
+    "collection_editorial",
     "tapra_media",
+    "news",
     "tapra_faq",
     "tapra_rich_text",
     "instagram_gallery"

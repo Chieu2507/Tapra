@@ -1,0 +1,60 @@
+{% liquid
+  assign resource = block.settings.collection
+  assign title = block.settings.custom_title | default: resource.title
+  if title == blank
+    assign title = 'collection_editorial.collection_title' | t
+  endif
+  assign image = block.settings.custom_image | default: resource.featured_image
+%}
+{% liquid
+  assign item_url = block.settings.custom_link | default: resource.url
+  assign item_tag = 'div'
+  if item_url != blank
+    assign item_tag = 'a'
+  endif
+%}
+<{{ item_tag }}{% if item_url != blank %} href="{{ item_url | escape }}"{% endif %} class="ce-item surface-light" {{ block.shopify_attributes }}>
+  <span data-ce-number-slot></span>
+  <div class="ce-item__text"><ce-title-tag class="ce-item__title">{{ title | escape }}</ce-title-tag>{% if resource != blank %}<sup class="ce-item__count">{{ resource.all_products_count }}</sup>{% endif %}</div>
+  {% if block.settings.description != blank %}<span class="ce-item__description"><span>{{ block.settings.description | escape }}</span></span>{% endif %}
+  <span data-ce-navigation-slot></span>
+  <span class="ce-item__preview" aria-hidden="true">{% render 'image', image: image, class: 'ce-item__image', width: 700, widths: '200, 350, 500, 700', sizes: '(min-width: 1150px) 22vw, 1px', alt: '', placeholder: 'collection-1' %}</span>
+</{{ item_tag }}>
+{% schema %}
+{
+  "name": "Collection",
+  "tag": null,
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom title"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_image",
+      "label": "Custom image"
+    },
+    {
+      "type": "url",
+      "id": "custom_link",
+      "label": "Custom link"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection"
+    }
+  ]
+}
+{% endschema %}

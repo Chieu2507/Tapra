@@ -420,5 +420,6 @@
   },
   "gallery": {
     "likes": "{{ count }} likes"
-  }
+  },
+  "collection_editorial": {"collection_title": "Collection title"}
 }

@@ -1,0 +1,91 @@
+{% doc %}
+  Editor-facing adapters for reference Editorial header roles. Shared typography
+  tokens, image rendering and animation controllers remain owned by the theme.
+  @param {object} block - The selectable Theme Block
+  @param {string} role - heading, text, subheading, image or rich
+{% enddoc %}
+{% liquid
+  assign settings = block.settings
+  assign tag = 'div'
+  assign classes = 'ce-content'
+  assign custom_typography = false
+  assign content = settings.text
+  capture size
+    render 'heading-size-token', size: settings.heading_size, fallback: 'xl'
+  endcapture
+  assign size = size | strip
+  if role == 'heading'
+    assign tag = settings.html_tag | default: 'h2'
+    unless tag == 'div' or tag == 'h1' or tag == 'h2' or tag == 'h3' or tag == 'h4' or tag == 'h5' or tag == 'h6'
+      assign tag = 'h2'
+    endunless
+  endif
+  if role == 'heading' or role == 'rich'
+    assign classes = classes | append: ' heading-text heading-' | append: size
+    if settings.heading_size == 'custom'
+      assign custom_typography = true
+    endif
+  elsif role == 'text'
+    assign classes = classes | append: ' body-text body-' | append: settings.text_size
+    if settings.font == 'custom'
+      assign custom_typography = true
+    elsif settings.font == 'accent'
+      assign classes = classes | append: ' font-accent'
+    endif
+  elsif role == 'subheading'
+    assign classes = classes | append: ' eyebrow-text'
+  endif
+  if custom_typography
+    assign classes = classes | append: ' ce-custom-type font-' | append: settings.text_style
+  endif
+  if role == 'rich'
+    assign tag = 'lh-editorial-text'
+    assign content = content | escape | newline_to_br
+    for n in (1..5)
+      assign key = 'image_' | append: n
+      assign show_key = 'show_image_' | append: n
+      assign width_key = 'image_width_' | append: n
+      assign mobile_key = 'image_width_mobile_' | append: n
+      assign link_key = 'image_link_' | append: n
+      assign new_tab_key = 'image_new_tab_' | append: n
+      assign marker = '[img' | append: n | append: ']'
+      capture inline_image
+        if settings[show_key]
+          if settings[key] != blank or request.design_mode
+            echo '<span class="ce-inline-image" style="--ce-inline-width:'
+            echo settings[width_key]
+            echo 'px;--ce-inline-width-mobile:'
+            echo settings[mobile_key]
+            echo 'px;">'
+            render 'image', image: settings[key], url: settings[link_key], open_in_new_tab: settings[new_tab_key], width: 500, widths: '100, 150, 200, 300, 500', sizes: '250px', placeholder: 'image'
+            echo '</span>'
+          endif
+        endif
+      endcapture
+      assign content = content | replace: marker, inline_image
+    endfor
+  endif
+  assign radius = 'var(--media-radius, 0px)'
+  case settings.corner_radius
+    when 'none'
+      assign radius = '0px'
+    when 'xl'
+      assign radius = 'var(--radius-rounded, 24px)'
+    when 'full'
+      assign radius = '9999px'
+    when 'custom'
+      assign radius = settings.custom_corner_radius | append: 'px'
+  endcase
+%}
+<{{ tag }} class="{{ classes }} ce-content--{{ role }}" data-ce-color="{{ settings.text_color }}" data-ce-background="{{ settings.show_background }}" data-ce-ratio="{{ settings.ratio }}" data-ce-ratio-mobile="{{ settings.ratio_mobile }}" data-ce-mobile-first="{{ settings.mobile_first }}" data-ce-highlight="{{ settings.highlight_style | default: 'none' }}" data-ce-gradient="{% if settings.highlight_gradient != blank %}true{% else %}false{% endif %}" data-ce-highlight-font="{{ settings.highlight_font }}" {% if custom_typography %}data-ce-line="{{ settings.line_height }}" data-ce-tracking="{{ settings.letter_spacing }}" data-ce-case="{{ settings.text_case }}"{% if settings.customize_mobile_typography %} data-ce-line-mobile="{{ settings.line_height_mobile }}" data-ce-tracking-mobile="{{ settings.letter_spacing_mobile }}" data-ce-case-mobile="{{ settings.text_case_mobile }}"{% endif %}{% endif %}
+  {% if role == 'rich' %}data-editorial-reveal="{{ settings.enable_scroll_reveal }}" data-editorial-unit="character" data-editorial-speed="{{ settings.scroll_speed }}" data-editorial-opacity="{{ settings.start_opacity }}"{% endif %}
+  {% render 'block-animation-attributes', settings: settings %}
+  style="{% render 'collection-editorial-spacing', settings: settings %}--ce-media-radius:{{ radius }};--ce-highlight-rotation:{{ settings.highlight_rotation | default: 0 }}deg;{% if settings.highlight_gradient != blank %}--ce-highlight-gradient:{{ settings.highlight_gradient }};{% endif %}{% if settings.highlight_text_color != blank %}--ce-highlight-text-color:{{ settings.highlight_text_color }};{% endif %}{% if custom_typography %}--ce-font-size:{{ settings.font_size }}px;{% if settings.customize_mobile_typography %}--ce-font-size-mobile:{{ settings.font_size_mobile }}px;{% endif %}{% endif %}{% if settings.width == 'fill' %}--ce-width:100%;{% elsif settings.width == 'custom' %}--ce-width:{{ settings.custom_width }}%;{% endif %}{% if settings.width_mobile == 'fill' %}--ce-width-mobile:100%;{% elsif settings.width_mobile == 'custom' %}--ce-width-mobile:{{ settings.custom_width_mobile }}%;{% endif %}{% if settings.limit_width %}--ce-max-width:{{ settings.max_width }}px;{% endif %}{% if settings.limit_width_mobile %}--ce-max-width-mobile:{{ settings.max_width_mobile }}px;{% endif %}{% if role == 'image' %}--ce-image-ratio:{{ settings.ratio | replace: 'fill', 'auto' }};--ce-image-ratio-mobile:{{ settings.ratio_mobile | replace: 'fill', 'auto' }};{% endif %}" {{ block.shopify_attributes }}>
+  {% case role %}
+    {% when 'image' %}
+      {% render 'image', image: settings.image, mobile_image: settings.mobile_image, url: settings.link, open_in_new_tab: settings.open_in_new_tab, width: 1600, widths: '200, 400, 600, 800, 1200, 1600', sizes: '100vw', placeholder: 'image', class: 'ce-header-image' %}
+    {% when 'rich' %}<div class="editorial-text-block__base">{{ content }}</div>
+    {% when 'subheading' %}{% if settings.show_icon %}<span class="ce-subheading-icon ce-subheading-icon--{{ settings.icon }}" aria-hidden="true">{% if settings.icon == 'sparkle' %}{% render 'icon', icon: 'four-stars', bare: true %}{% endif %}</span>{% endif %}{{ content }}
+    {% else %}{{ content }}
+  {% endcase %}
+</{{ tag }}>
