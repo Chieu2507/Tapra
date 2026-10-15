@@ -59,6 +59,7 @@
         });
         list.append(stage);
         let current = null, revealFrame = 0, cleanupTimer = 0, layer = 0;
+        const frozen = new Set();
         const instant = (preview, change) => {
           preview.style.transition = 'none';
           change();
@@ -70,9 +71,23 @@
           const rowRect = current.getBoundingClientRect();
           stage.style.setProperty('--ce-preview-y', `${rowRect.top - list.getBoundingClientRect().top + rowRect.height / 2}px`);
         };
-        const clean = () => previews.forEach((preview, index) => {
-          if (preview && rows[index] !== current) instant(preview, () => preview.classList.remove('is-visible', 'is-current', 'is-leaving'));
-        });
+        const clean = () => {
+          previews.forEach((preview, index) => {
+            if (preview && rows[index] !== current) instant(preview, () => preview.classList.remove('is-visible', 'is-current', 'is-leaving'));
+          });
+          frozen.forEach(preview => preview.remove());
+          frozen.clear();
+        };
+        const preserve = preview => {
+          if (!preview.classList.contains('is-visible') && !preview.classList.contains('is-leaving')) return;
+          // Freeze the painted clip before recycling this image for a new wipe.
+          const copy = preview.cloneNode(true);
+          copy.classList.remove('is-current');
+          copy.style.clipPath = getComputedStyle(preview).clipPath;
+          copy.style.transition = 'none';
+          stage.append(copy);
+          frozen.add(copy);
+        };
         const activate = row => {
           if (!rows.includes(row) || row === current) return;
           const preview = previews[rows.indexOf(row)];
@@ -85,22 +100,27 @@
           rows.forEach(item => { item.classList.remove('is-preview-active'); });
           row.classList.add('is-preview-active');
           previews.forEach(p => p?.classList.remove('is-current'));
-          if (first) stage.style.transition = 'none';
+          if (first && !stage.classList.contains('is-exiting')) stage.style.transition = 'none';
           position();
           stage.getBoundingClientRect();
           stage.style.transition = '';
-          // Match the reference: every hover immediately starts a new top layer.
+          preserve(preview);
+          // Every hover immediately starts a new top layer, keeping its painted backing.
           instant(preview, () => {
             preview.classList.remove('is-visible', 'is-leaving');
             preview.dataset.ceRevealFrom = fromBottom ? 'bottom' : 'top';
             preview.style.zIndex = String(++layer);
           });
+          stage.classList.remove('is-exiting');
           stage.classList.add('is-active');
           revealFrame = requestAnimationFrame(() => {
             if (current !== row) return;
             preview.classList.add('is-visible', 'is-current');
             if (motion.matches) clean();
+            else scheduleCleanup(preview);
           });
+        };
+        const scheduleCleanup = preview => {
           // Retain the backing stack beyond the wipe, including rapid changes.
           // 450ms wipe -> 600ms cleanup, derived from CSS rather than a second clock.
           const duration = getComputedStyle(preview).transitionDuration.split(',')[0].trim();
@@ -122,8 +142,12 @@
             }
           });
           stage.classList.remove('is-active');
+          stage.classList.add('is-exiting');
           if (motion.matches) clean();
         };
+        stage.addEventListener('transitionend', event => {
+          if (event.target === stage && event.propertyName === 'clip-path' && !current) clean();
+        }, { signal });
         list.addEventListener('pointerover', event => {
           if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
         }, { signal });
@@ -139,6 +163,8 @@
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           observer.disconnect();
+          frozen.forEach(preview => preview.remove());
+          frozen.clear();
           rows.forEach(row => row.classList.remove('is-preview-active'));
           previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; delete preview.dataset.ceRevealFrom; rows[index].append(preview); } });
           stage.remove();

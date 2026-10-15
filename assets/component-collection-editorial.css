@@ -118,7 +118,7 @@
 .ce-header[data-ce-header-layout=split]>.ce-content--text{color:var(--text-muted-color,var(--body-color))}
 /* One shared stack lets each incoming picture wipe over the previous picture. */
 .ce-list{position:relative;isolation:isolate}
-.ce-preview-stage{--media-radius:var(--radius-12);position:absolute;right:0;top:0;width:clamp(110px,10vw,170px);aspect-ratio:4/5;z-index:20;pointer-events:none;overflow:hidden;border-radius:var(--media-radius);transform:translateY(calc(var(--ce-preview-y,0px) - 50%));transition:transform var(--motion-duration-media-reveal) var(--motion-ease-media-follow)}
+.ce-preview-stage{--media-radius:var(--radius-12);position:absolute;right:0;top:0;width:clamp(110px,10vw,170px);aspect-ratio:4/5;z-index:20;pointer-events:none;overflow:hidden;border-radius:var(--media-radius);transform:translateY(calc(var(--ce-preview-y,0px) - 50%));clip-path:inset(0);transition:transform var(--motion-duration-media-reveal) var(--motion-ease-media-follow),clip-path var(--motion-duration-media-reveal) var(--motion-ease-media-reveal)}
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:4/5;transform:none;opacity:1;visibility:visible;border-radius:inherit;clip-path:inset(0 0 100% 0);transition:clip-path var(--motion-duration-media-reveal) var(--motion-ease-media-reveal)}
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview.is-visible{clip-path:inset(0)}
 .ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview.is-leaving{clip-path:inset(100% 0 0 0);transition-duration:var(--motion-duration-media-exit)}
@@ -168,3 +168,5 @@ html[data-surface-light-enabled] .ce-list[data-ce-dividers=true][data-ce-backgro
 /* Following preview and description share one active row, including Editor selection. */
 .ce-list[data-ce-preview=reveal]>.ce-item:not(.is-preview-active) .ce-item__description>span{transform:var(--ce-description-hidden,translateY(110%))}
 .ce-list[data-ce-preview=reveal]>.ce-item.is-preview-active .ce-item__description>span{transform:none}
+
+.ce-preview-stage.is-exiting{clip-path:inset(100% 0 0 0);transition-duration:var(--motion-duration-media-exit)}
