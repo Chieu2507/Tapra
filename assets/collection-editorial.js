@@ -38,73 +38,67 @@
           return preview;
         });
         list.append(stage);
-        let current = null, pending = null, animating = false, leaving = null, revealFrame = 0, layer = 0;
+        let current = null, revealFrame = 0, cleanupTimer = 0, layer = 0;
+        const instant = (preview, change) => {
+          preview.style.transition = 'none';
+          change();
+          preview.getBoundingClientRect();
+          preview.style.transition = '';
+        };
         const position = () => {
-          const row = pending || current;
-          if (!row) return;
-          const rowRect = row.getBoundingClientRect();
+          if (!current) return;
+          const rowRect = current.getBoundingClientRect();
           stage.style.setProperty('--ce-preview-y', `${rowRect.top - list.getBoundingClientRect().top + rowRect.height / 2}px`);
         };
         const clean = () => previews.forEach((preview, index) => {
-          if (preview && rows[index] !== current) preview.classList.remove('is-visible', 'is-current', 'is-leaving');
+          if (preview && rows[index] !== current) instant(preview, () => preview.classList.remove('is-visible', 'is-current', 'is-leaving'));
         });
         const activate = row => {
-          if (!rows.includes(row)) return;
-          if (animating) {
-            pending = row === current ? null : row;
-            position();
-            return;
-          }
-          if (row === current) return;
+          if (!rows.includes(row) || row === current) return;
           const preview = previews[rows.indexOf(row)];
           if (!preview) return;
           cancelAnimationFrame(revealFrame);
+          clearTimeout(cleanupTimer);
           const first = !current;
           current = row;
-          pending = null;
-          leaving = null;
-          animating = !motion.matches;
-          // Keep previous images underneath until the incoming wipe finishes.
           previews.forEach(p => p?.classList.remove('is-current'));
           if (first) stage.style.transition = 'none';
           position();
           stage.getBoundingClientRect();
           stage.style.transition = '';
-          preview.style.transition = 'none';
-          preview.classList.remove('is-visible', 'is-leaving');
-          preview.style.zIndex = String(++layer);
-          preview.getBoundingClientRect();
-          preview.style.transition = '';
+          // Match the reference: every hover immediately starts a new top layer.
+          instant(preview, () => {
+            preview.classList.remove('is-visible', 'is-leaving');
+            preview.style.zIndex = String(++layer);
+          });
           stage.classList.add('is-active');
           revealFrame = requestAnimationFrame(() => {
+            if (current !== row) return;
             preview.classList.add('is-visible', 'is-current');
-            if (motion.matches) finish();
+            if (motion.matches) clean();
           });
-        };
-        const finish = () => {
-          animating = false;
-          clean();
-          const next = pending;
-          pending = null;
-          if (next && next !== current) activate(next);
+          // Retain the backing stack beyond the wipe, including rapid changes.
+          // 450ms wipe -> 600ms cleanup, derived from CSS rather than a second clock.
+          const duration = getComputedStyle(preview).transitionDuration.split(',')[0].trim();
+          const milliseconds = parseFloat(duration) * (duration.endsWith('ms') ? 1 : 1000);
+          cleanupTimer = setTimeout(clean, Number.isFinite(milliseconds) ? milliseconds * 4 / 3 : 0);
         };
         const leave = () => {
           const selected = rows.find(row => row.classList.contains('is-editor-selected') || row.matches(':focus-visible'));
           if (selected) { activate(selected); return; }
           cancelAnimationFrame(revealFrame);
-          leaving = previews.filter(p => p?.classList.contains('is-visible')).sort((a, b) => Number(b.style.zIndex) - Number(a.style.zIndex))[0] || null;
+          clearTimeout(cleanupTimer);
           current = null;
-          pending = null;
-          animating = false;
-          previews.forEach(p => { p?.classList.remove('is-current'); if (p?.classList.contains('is-visible')) p.classList.add('is-leaving'); });
+          previews.forEach(p => {
+            p?.classList.remove('is-current');
+            if (p?.classList.contains('is-visible')) {
+              p.classList.remove('is-visible');
+              p.classList.add('is-leaving');
+            }
+          });
           stage.classList.remove('is-active');
           if (motion.matches) clean();
         };
-        stage.addEventListener('transitionend', event => {
-          if (event.propertyName !== 'clip-path') return;
-          if (current && event.target === previews[rows.indexOf(current)] && event.target.classList.contains('is-current')) finish();
-          else if (!current && event.target === leaving) { clean(); leaving = null; }
-        }, { signal });
         list.addEventListener('pointerover', event => {
           if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
         }, { signal });
@@ -113,11 +107,12 @@
         list.addEventListener('pointerleave', leave, { signal });
         section.addEventListener('shopify:block:select', event => activate(event.target.closest('.ce-item')), { signal });
         section.addEventListener('shopify:block:deselect', event => { event.target.closest('.ce-item')?.classList.remove('is-editor-selected'); leave(); }, { signal });
-        motion.addEventListener('change', () => { if (motion.matches) finish(); }, { signal });
+        motion.addEventListener('change', () => { if (motion.matches) { clearTimeout(cleanupTimer); clean(); } }, { signal });
         const observer = new ResizeObserver(position);
         observer.observe(list);
         signal.addEventListener('abort', () => {
           cancelAnimationFrame(revealFrame);
+          clearTimeout(cleanupTimer);
           observer.disconnect();
           previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; rows[index].append(preview); } });
           stage.remove();
