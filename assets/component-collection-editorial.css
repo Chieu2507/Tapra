@@ -156,3 +156,9 @@ html[data-surface-light-enabled] .ce-list[data-ce-dividers=true]>.ce-item.surfac
 }
 
 .ce-item__preview>.image,.ce-item__preview>.image::before,.ce-item__preview>.image::after{border-radius:inherit}
+/* Open editorial rows let the bloom spill past their content bounds. */
+html[data-surface-light-enabled] .ce-list[data-ce-dividers=true][data-ce-background=false]>.ce-item.surface-light::before{
+ inset:calc(-1 * var(--surface-light-glow-radius));
+ border-radius:0;
+ background:radial-gradient(circle var(--surface-light-glow-radius) at calc(var(--surface-light-x) + var(--surface-light-glow-radius)) calc(var(--surface-light-y) + var(--surface-light-glow-radius)),var(--surface-light-glow),color-mix(in srgb,var(--surface-light-glow) 28%,transparent) 45%,transparent 72%);
+}
