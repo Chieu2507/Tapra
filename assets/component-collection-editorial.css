@@ -1,13 +1,15 @@
-.collection-editorial-section{position:relative;isolation:isolate;background:var(--background-color);color:var(--body-color)}
+.collection-editorial-section{--section-padding-top:50px;--section-padding-bottom:50px;position:relative;isolation:isolate;background:var(--ce-background,var(--background-color));color:var(--body-color)}
 .collection-editorial-section[data-ce-divider-top=true]{border-top:1px solid var(--border-color)}
 .collection-editorial-section[data-ce-divider-bottom=true]{border-bottom:1px solid var(--border-color)}
-.ce-section-stack{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--ce-section-gap);padding-block:var(--ce-section-top) var(--ce-section-bottom)}
-.ce-full-bleed{width:100%;max-width:none;padding-inline:0}
-.ce-header{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:var(--ce-header-gap);padding:var(--ce-pt,0px) var(--ce-pr,0px) var(--ce-pb,0px) var(--ce-pl,0px)}
+.ce-section-stack{position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--ce-section-gap,30px)}
+.container.full-width.ce-full-bleed{width:100%;max-width:none;padding-inline:0}
+.ce-header{min-width:0;display:flex;flex-direction:column;align-items:var(--flex-align,start);text-align:var(--flex-align,start);gap:var(--ce-header-gap);padding:var(--ce-pt,0px) var(--ce-pr,0px) var(--ce-pb,0px) var(--ce-pl,0px)}
 .ce-section-stack>.ce-list{grid-column:1/-1}
 .ce-section-stack>.ce-action{align-self:center}
 [data-ce-align=center] .ce-header{align-items:center;text-align:center;justify-self:center;grid-column:1/-1;width:100%}
 [data-ce-align=center] .ce-action{justify-self:center;grid-column:1/-1}
+[data-ce-align=right] .ce-header{align-items:flex-end;text-align:right;justify-self:end;grid-column:1/-1;width:100%}
+[data-ce-align=right] .ce-action{justify-self:end;grid-column:1/-1}
 .ce-list{display:grid;grid-template-columns:repeat(var(--ce-columns),minmax(0,1fr));gap:var(--ce-gap);min-width:0}
 .ce-item{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:var(--ce-row-block) var(--ce-row-inline);border:var(--ce-border) solid var(--border-color);border-radius:var(--ce-radius);color:var(--heading-color);text-decoration:none;min-width:0}
 .ce-list[data-ce-background=true]>.ce-item{background:var(--background-component-color)}
@@ -57,7 +59,7 @@
 .ce-content[data-ce-highlight=color] em{color:var(--heading-highlight-color,var(--accent-color))}.ce-content[data-ce-highlight^=underline] em{text-decoration:underline;text-decoration-color:var(--heading-highlight-color,var(--accent-color));text-underline-offset:.15em}.ce-content[data-ce-highlight=underline_double] em{text-decoration-style:double}.ce-content[data-ce-highlight=underline_wavy] em{text-decoration-style:wavy}.ce-content[data-ce-highlight=underline_soft] em{text-decoration-thickness:.15em;text-decoration-color:color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 40%,transparent)}.ce-content[data-ce-highlight=circle] em{border:1px solid var(--heading-highlight-color,var(--accent-color));border-radius:50%;padding-inline:.15em}.ce-content[data-ce-highlight=bar] em{background:linear-gradient(transparent 60%,color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 30%,transparent) 60%)}.ce-content[data-ce-highlight=solid] em{background:var(--heading-highlight-color,var(--accent-color));color:var(--background-color)}
 @media(min-width:768px) and (max-width:1149.98px){.ce-list{grid-template-columns:1fr}}
 @media(max-width:767.98px){
- .ce-section-stack{grid-template-columns:minmax(0,1fr);gap:var(--ce-section-gap-mobile);padding-block:var(--ce-section-top-mobile,var(--ce-section-top)) var(--ce-section-bottom-mobile,var(--ce-section-bottom))}
+ .ce-section-stack{grid-template-columns:minmax(0,1fr);gap:var(--ce-section-gap-mobile,var(--ce-section-gap,30px))}
  .ce-header{grid-column:1/-1;gap:var(--ce-header-gap-mobile)}
  .ce-action{grid-column:1/-1;order:3}.ce-action__desktop{display:none}.ce-action__mobile{display:inline-flex}
  .ce-action[data-full-mobile=true],.ce-action[data-full-mobile=true] .ce-action__mobile{width:100%}
