@@ -44,7 +44,7 @@
         });
       };
       const scheduleHitTest = () => { if (pointer && !hitFrame) hitFrame = requestAnimationFrame(hitTest); };
-      document.addEventListener('pointermove', event => { recordPointer(event); scheduleHitTest(); }, { passive: true, signal });
+      document.addEventListener('pointermove', event => { if (event.pointerType === 'mouse') { recordPointer(event); scheduleHitTest(); } }, { passive: true, signal });
       document.addEventListener('scroll', scheduleHitTest, { capture: true, passive: true, signal });
       document.addEventListener('pointerleave', () => {
         pointer = null;
@@ -79,6 +79,8 @@
         section.addEventListener('shopify:block:select', event => {
           const row = event.target.closest('.ce-item');
           if (!rows.includes(row)) return;
+          active = null;
+          rows.forEach(item => item.classList.remove('is-pointer-active'));
           row.classList.remove('is-editor-suppressed');
           row.classList.add('is-editor-selected');
         }, { signal });
