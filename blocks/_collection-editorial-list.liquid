@@ -4,12 +4,18 @@
 {% liquid
   assign radius = 'var(--container-radius, var(--radius-rounded))'
   case block.settings.corner_radius
-    when 'none'
-      assign radius = '0px'
+    when 'square', 'none'
+      assign radius = 'var(--radius-square)'
+    when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32'
+      assign radius = block.settings.corner_radius | replace: 'radius_', 'var(--radius-' | append: ')'
+    when 'rounded'
+      assign radius = 'var(--radius-rounded)'
+    when 'full'
+      assign radius = 'var(--radius-pill)'
     when 'xl'
       assign radius = 'var(--radius-extra, 24px)'
     when 'custom'
-      assign radius = block.settings.custom_corner_radius | append: 'px'
+      assign radius = block.settings.custom_corner_radius | default: 0 | at_least: 0 | at_most: 40 | append: 'px'
   endcase
 %}
 {% capture desktop_size %}{% render 'heading-size-token', size: block.settings.heading_size, fallback: 'xl' %}{% endcapture %}
@@ -116,23 +122,59 @@
     {
       "type": "select",
       "id": "corner_radius",
-      "label": "Corner radius",
+      "label": "t:labels.corner_radius",
       "options": [
         {
           "value": "inherit",
-          "label": "Inherit"
+          "label": "t:options.radius_preset.inherit"
         },
         {
-          "value": "none",
-          "label": "Square"
+          "value": "square",
+          "label": "t:options.radius_preset.square"
         },
         {
-          "value": "xl",
-          "label": "Rounded"
+          "value": "radius_2",
+          "label": "t:options.radius_preset.size_2"
+        },
+        {
+          "value": "radius_4",
+          "label": "t:options.radius_preset.size_4"
+        },
+        {
+          "value": "radius_6",
+          "label": "t:options.radius_preset.size_6"
+        },
+        {
+          "value": "rounded",
+          "label": "t:options.radius_preset.rounded"
+        },
+        {
+          "value": "radius_8",
+          "label": "t:options.radius_preset.size_8"
+        },
+        {
+          "value": "radius_12",
+          "label": "t:options.radius_preset.size_12"
+        },
+        {
+          "value": "radius_16",
+          "label": "t:options.radius_preset.size_16"
+        },
+        {
+          "value": "radius_24",
+          "label": "t:options.radius_preset.size_24"
+        },
+        {
+          "value": "radius_32",
+          "label": "t:options.radius_preset.size_32"
+        },
+        {
+          "value": "full",
+          "label": "t:options.radius_preset.full"
         },
         {
           "value": "custom",
-          "label": "Custom"
+          "label": "t:options.radius_preset.custom"
         }
       ],
       "default": "inherit"
@@ -140,13 +182,13 @@
     {
       "type": "range",
       "id": "custom_corner_radius",
-      "label": "Custom corner radius",
+      "label": "t:labels.custom_corner_radius",
       "min": 0,
       "max": 40,
       "step": 1,
       "unit": "px",
-      "visible_if": "{{ block.settings.corner_radius == 'custom' }}",
-      "default": 0
+      "default": 0,
+      "visible_if": "{{ block.settings.corner_radius == 'custom' }}"
     },
     {
       "type": "select",
