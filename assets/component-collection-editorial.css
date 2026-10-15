@@ -94,3 +94,35 @@
 .ce-content[data-ce-highlight=solid] em{background:var(--ce-highlight-gradient,var(--heading-highlight-color,var(--accent-color)));color:var(--ce-highlight-text-color,var(--background-color))}
 .ce-content[data-ce-highlight=bar] em{background-image:var(--ce-highlight-gradient,linear-gradient(transparent 60%,color-mix(in srgb,var(--heading-highlight-color,var(--accent-color)) 30%,transparent) 60%))}
 .ce-content[data-ce-highlight=color][data-ce-gradient=true] em{color:transparent}
+/* Optional numbered editorial rows; regular collection cards retain their layout. */
+.ce-item__number{flex:none;font-family:var(--ce-number-font);font-size:var(--ce-number-size);font-weight:var(--ce-number-weight);line-height:1.4;font-variant-numeric:tabular-nums;color:var(--ce-number-color);padding-inline-end:var(--ce-number-gap)}
+.ce-list[data-ce-numbers=true] .ce-item{column-gap:0}
+.ce-list[data-ce-numbers=true] .ce-item__text{flex:1}
+.ce-item__description{display:none}
+.ce-list[data-ce-dividers=true]>.ce-item{border-width:0;border-block-start:1px solid var(--border-color);border-radius:0}
+.ce-list[data-ce-dividers=true]{border-block-end:1px solid var(--border-color)}
+.ce-list[data-ce-descriptions=true]>.ce-item{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr) auto;column-gap:24px}
+.ce-list[data-ce-descriptions=true][data-ce-numbers=true]>.ce-item{grid-template-columns:auto minmax(0,1fr) minmax(0,.9fr) auto;column-gap:0}
+.ce-list[data-ce-descriptions=true] .ce-item__text{padding-inline-end:24px}
+.ce-list[data-ce-descriptions=true] .ce-item__description{display:block;max-width:320px;overflow:hidden;font-size:var(--font-body-sm);line-height:1.45;color:var(--text-muted-color,var(--body-color))}
+.ce-item__description>span{display:block;transform:translateY(110%);transition:transform var(--motion-duration-standard) var(--motion-ease-standard)}
+.ce-item:is(:hover,:focus-visible,.is-editor-selected) .ce-item__description>span{transform:none}
+.ce-list:has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__description>span{transform:translateY(110%)}
+.ce-list[data-ce-preview=reveal] .ce-item__preview{left:auto;right:0;width:clamp(110px,10vw,170px);aspect-ratio:4/5;border-radius:var(--radius-12);clip-path:inset(0 0 100% 0);transition:clip-path var(--motion-duration-standard) var(--motion-ease-standard),opacity var(--motion-duration-standard),visibility var(--motion-duration-standard),transform var(--motion-duration-standard) var(--motion-ease-standard);transform:translateY(calc(-50% + var(--ce-preview-offset,0px)));box-shadow:0 0 60px 10px color-mix(in srgb,var(--heading-color) 35%,transparent)}
+.ce-list[data-ce-preview=reveal] .ce-item:is(:hover,:focus-visible,.is-editor-selected) .ce-item__preview{clip-path:inset(0)}
+@media(min-width:768px){
+ .ce-header[data-ce-header-layout=split]{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:end;width:100%}
+ .ce-header[data-ce-header-layout=split]>.ce-content--subheading{grid-column:1/-1}
+ .ce-header[data-ce-header-layout=split]>.ce-content--text{max-width:390px;justify-self:end;color:var(--text-muted-color,var(--body-color))}
+}
+@media(max-width:767.98px),(hover:none){
+ .ce-list[data-ce-descriptions=true]>.ce-item{grid-template-columns:minmax(0,1fr) auto;row-gap:10px}
+ .ce-list[data-ce-descriptions=true][data-ce-numbers=true]>.ce-item{grid-template-columns:auto minmax(0,1fr) auto}
+ .ce-list[data-ce-descriptions=true] .ce-item__description{grid-column:1;grid-row:2;max-width:none}
+ .ce-list[data-ce-descriptions=true][data-ce-numbers=true] .ce-item__description{grid-column:2}
+ .ce-list[data-ce-descriptions=true] .ce-item__icon{grid-column:-2;grid-row:1}
+ .ce-item__description>span,.ce-list:has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__description>span{transform:none}
+ .ce-list[data-ce-preview=reveal] .ce-item__preview{display:none}
+}
+@media(max-width:767.98px){.ce-item__number{padding-inline-end:var(--ce-number-gap-mobile)}}
+@media(prefers-reduced-motion:reduce){.ce-item__description>span,.ce-list[data-ce-preview=reveal] .ce-item__preview{transition:none}}

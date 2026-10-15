@@ -27,6 +27,32 @@
         motion.addEventListener('change', schedule, { signal });
         schedule();
       }
+      section.querySelectorAll('[data-ce-preview="reveal"]').forEach(list => {
+        let previous = null;
+        let revealFrame = 0;
+        const activate = row => {
+          if (!row || row === previous) return;
+          const preview = row.querySelector('.ce-item__preview');
+          if (!preview) return;
+          cancelAnimationFrame(revealFrame);
+          const offset = previous && !motion.matches
+            ? previous.getBoundingClientRect().top - row.getBoundingClientRect().top : 0;
+          preview.style.transition = 'none';
+          preview.style.setProperty('--ce-preview-offset', `${offset}px`);
+          preview.getBoundingClientRect();
+          revealFrame = requestAnimationFrame(() => {
+            preview.style.transition = '';
+            preview.style.setProperty('--ce-preview-offset', '0px');
+          });
+          previous = row;
+        };
+        list.addEventListener('pointerover', event => {
+          if (event.pointerType === 'mouse') activate(event.target.closest('.ce-item'));
+        }, { signal });
+        list.addEventListener('focusin', event => activate(event.target.closest('.ce-item')), { signal });
+        list.addEventListener('pointerleave', () => { previous = null; }, { signal });
+        signal.addEventListener('abort', () => cancelAnimationFrame(revealFrame), { once: true });
+      });
       controllers.set(section, () => { controller.abort(); cancelAnimationFrame(frame); });
     });
   };
