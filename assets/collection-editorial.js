@@ -27,6 +27,26 @@
         motion.addEventListener('change', schedule, { signal });
         schedule();
       }
+      section.querySelectorAll('.ce-list').forEach(list => {
+        const rows = [...list.querySelectorAll(':scope > .ce-item')];
+        list.addEventListener('pointerover', event => {
+          if (event.pointerType !== 'mouse') return;
+          const hovered = event.target.closest('.ce-item');
+          if (!rows.includes(hovered)) return;
+          rows.forEach(row => {
+            if (row !== hovered && row.classList.contains('is-editor-selected')) {
+              row.classList.remove('is-editor-selected');
+              row.classList.add('is-editor-suppressed');
+            }
+          });
+        }, { signal });
+        section.addEventListener('shopify:block:select', event => {
+          const row = event.target.closest('.ce-item');
+          if (!rows.includes(row)) return;
+          row.classList.remove('is-editor-suppressed');
+          row.classList.add('is-editor-selected');
+        }, { signal });
+      });
       section.querySelectorAll('[data-ce-preview="reveal"]').forEach(list => {
         const rows = [...list.querySelectorAll(':scope > .ce-item')];
         const stage = document.createElement('div');
@@ -60,6 +80,7 @@
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           const first = !current;
+          const fromBottom = current && rows.indexOf(row) > rows.indexOf(current);
           current = row;
           previews.forEach(p => p?.classList.remove('is-current'));
           if (first) stage.style.transition = 'none';
@@ -69,6 +90,7 @@
           // Match the reference: every hover immediately starts a new top layer.
           instant(preview, () => {
             preview.classList.remove('is-visible', 'is-leaving');
+            preview.dataset.ceRevealFrom = fromBottom ? 'bottom' : 'top';
             preview.style.zIndex = String(++layer);
           });
           stage.classList.add('is-active');
@@ -84,7 +106,7 @@
           cleanupTimer = setTimeout(clean, Number.isFinite(milliseconds) ? milliseconds * 4 / 3 : 0);
         };
         const leave = () => {
-          const selected = rows.find(row => row.classList.contains('is-editor-selected') || row.matches(':focus-visible'));
+          const selected = rows.find(row => !row.classList.contains('is-editor-suppressed') && (row.classList.contains('is-editor-selected') || row.matches(':focus-visible')));
           if (selected) { activate(selected); return; }
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
@@ -114,7 +136,7 @@
           cancelAnimationFrame(revealFrame);
           clearTimeout(cleanupTimer);
           observer.disconnect();
-          previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; rows[index].append(preview); } });
+          previews.forEach((preview, index) => { if (preview) { preview.classList.remove('is-visible', 'is-current', 'is-leaving'); preview.style.cssText = ''; delete preview.dataset.ceRevealFrom; rows[index].append(preview); } });
           stage.remove();
         }, { once: true });
       });

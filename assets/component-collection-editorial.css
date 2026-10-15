@@ -28,7 +28,7 @@
  /* Pointer preview takes priority over the Editor selection and keyboard focus. */
  .ce-list:has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__preview{opacity:0;visibility:hidden;transition:none}
 }
-@media(min-width:768px){.ce-item:focus-visible .ce-item__preview,.ce-item.is-editor-selected .ce-item__preview{opacity:1;visibility:visible}}
+@media(min-width:768px){.ce-item:focus-visible:not(.is-editor-suppressed) .ce-item__preview,.ce-item.is-editor-selected .ce-item__preview{opacity:1;visibility:visible}}
 .ce-action__mobile{display:none}
 .ce-action--outline{--button-background:transparent;--button-border:var(--body-color);--button-foreground:var(--body-color)}
 .ce-action--subtle{--button-background:color-mix(in srgb,var(--body-color) 8%,transparent);--button-border:transparent;--button-foreground:var(--body-color)}
@@ -106,7 +106,7 @@
 .ce-list[data-ce-descriptions=true] .ce-item__text{padding-inline-end:24px}
 .ce-list[data-ce-descriptions=true] .ce-item__description{display:block;max-width:320px;overflow:hidden;font-size:var(--font-body-sm);line-height:1.45;color:var(--text-muted-color,var(--body-color))}
 .ce-item__description>span{display:block;transform:var(--ce-description-hidden,translateY(110%));transition:transform var(--motion-duration-standard) var(--motion-ease-standard)}
-.ce-item:is(:hover,:focus-visible,.is-editor-selected) .ce-item__description>span{transform:none}
+.ce-item:is(:hover,:focus-visible:not(.is-editor-suppressed),.is-editor-selected) .ce-item__description>span{transform:none}
 .ce-list:has(>.ce-item:hover)>.ce-item:not(:hover) .ce-item__description>span{transform:var(--ce-description-hidden,translateY(110%))}
 @media(min-width:768px){
  .ce-header[data-ce-header-layout=split]{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:end;width:100%}
@@ -158,3 +158,6 @@ html[data-surface-light-enabled] .ce-list[data-ce-dividers=true][data-ce-backgro
  .ce-list[data-ce-descriptions=true][data-ce-columns-mobile="2"]>.ce-item>.ce-item__description{grid-column:1;grid-row:2;max-width:none}
  .ce-list[data-ce-descriptions=true][data-ce-numbers=true][data-ce-columns-mobile="2"]>.ce-item>.ce-item__description{grid-column:2}
 }
+
+/* Downward navigation reveals from the bottom; upward navigation from the top. */
+.ce-list[data-ce-preview=reveal]>.ce-preview-stage>.ce-item__preview[data-ce-reveal-from=bottom]:not(.is-visible):not(.is-leaving){clip-path:inset(100% 0 0 0)}
