@@ -19,7 +19,8 @@
 .ce-item__title{margin:0;overflow-wrap:anywhere;font-family:var(--font-heading-family);font-weight:var(--font-heading-weight);font-style:var(--font-heading-style);font-size:var(--ce-title-size);line-height:var(--ce-title-lh);text-transform:var(--ce-title-case)}
 .ce-item__count{font-size:12px;line-height:1.4;position:static;color:var(--body-color)}
 .ce-item__icon{flex:none;width:24px;height:24px;display:grid;place-items:center}
-.ce-item__icon svg{width:100%;height:100%}
+.ce-item__icon>svg{width:100%;height:100%}
+.ce-list[data-ce-navigation-style=button] .ce-item__icon{width:auto;height:auto}
 .ce-item__preview{position:absolute;pointer-events:none;left:66%;top:50%;width:33%;aspect-ratio:1;transform:translateY(-50%);opacity:0;visibility:hidden;transition:opacity var(--motion-duration-standard) var(--motion-ease-standard),visibility var(--motion-duration-standard);overflow:hidden;border-radius:var(--media-radius,0px)}
 .ce-item__preview .image,.ce-item__preview img,.ce-item__preview svg{width:100%;height:100%;object-fit:cover}
 @media(hover:hover) and (pointer:fine) and (min-width:768px){.ce-item:hover .ce-item__preview{opacity:1;visibility:visible}}

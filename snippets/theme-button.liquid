@@ -4,6 +4,7 @@
   The snippet controls visual treatment only. The caller remains responsible for
   choosing the correct semantic element and for supplying an accessible label.
 
+  @param {boolean} [presentation] - Decorative button surface inside an existing link; renders an aria-hidden span
   @param {boolean} [label_html] - Render a Shopify-sanitized inline richtext label
   @param {string} label - Visible button label
   @param {string} [label_suffix] - Visually hidden descriptive link text
@@ -134,7 +135,11 @@
   {% endif %}
 {% endcapture %}
 
-{% if url != blank or force_link %}
+{% if presentation %}
+  <span class="{{ button_class | strip }}" style="{{ button_motion_style }}" aria-hidden="true">
+    {{ button_content }}
+  </span>
+{% elsif url != blank or force_link %}
   <a
     class="{{ button_class | strip }}"
     {% if url != blank and disabled != true %}href="{{ url | escape }}"{% endif %}

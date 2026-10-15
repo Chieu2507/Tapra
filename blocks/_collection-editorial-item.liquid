@@ -14,7 +14,7 @@
 %}
 <{{ item_tag }}{% if resource != blank %} href="{{ resource.url }}"{% endif %} class="ce-item" {{ block.shopify_attributes }}>
   <div class="ce-item__text"><ce-title-tag class="ce-item__title">{{ title | escape }}</ce-title-tag>{% if resource != blank %}<sup class="ce-item__count">{{ resource.all_products_count }}</sup>{% endif %}</div>
-  <span class="ce-item__icon" aria-hidden="true">{% render 'icon', icon: 'arrow_up_right', bare: true %}</span>
+  <span data-ce-navigation-slot></span>
   <span class="ce-item__preview" aria-hidden="true">{% render 'image', image: image, class: 'ce-item__image', width: 700, widths: '200, 350, 500, 700', sizes: '(min-width: 1150px) 22vw, 1px', alt: '', placeholder: 'collection-1' %}</span>
 </{{ item_tag }}>
 {% schema %}
