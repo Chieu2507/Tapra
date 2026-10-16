@@ -1947,15 +1947,14 @@
           ]
         },
         "group_2": {
-          "type": "group",
+          "type": "_why-us-card",
           "settings": {
-            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
             "position": "top",
             "alignment": "left",
             "gap_desktop": 22,
             "gap_mobile": 22,
-            "width": "fill",
-            "height": "fill",
             "appearance_type": "scheme",
             "color_scheme": "scheme-2",
             "background_color": "#E6EAF0",
@@ -1991,15 +1990,14 @@
           ]
         },
         "group_3": {
-          "type": "group",
+          "type": "_why-us-card",
           "settings": {
-            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
             "position": "top",
             "alignment": "left",
             "gap_desktop": 22,
             "gap_mobile": 22,
-            "width": "fill",
-            "height": "fill",
             "appearance_type": "scheme",
             "color_scheme": "scheme-2",
             "background_color": "#E6EAF0",
@@ -2035,15 +2033,14 @@
           ]
         },
         "group_4": {
-          "type": "group",
+          "type": "_why-us-card",
           "settings": {
-            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
             "position": "top",
             "alignment": "left",
             "gap_desktop": 22,
             "gap_mobile": 22,
-            "width": "fill",
-            "height": "fill",
             "appearance_type": "scheme",
             "color_scheme": "scheme-2",
             "background_color": "#E6EAF0",
