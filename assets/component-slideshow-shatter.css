@@ -74,6 +74,7 @@
 @media (min-width: 768px) {
   .shatter[data-controls-desktop='left'] .shatter__controls { left: var(--shatter-edge); right: auto; }
   .shatter[data-controls-desktop='center'] .shatter__controls { left: 50%; right: auto; transform: translateX(-50%); }
+  .shatter[data-controls-desktop='center'] .shatter__progress { left: auto; right: var(--shatter-edge); transform: none; width: min(340px, max(0px, calc(50% - var(--shatter-controls-width, 280px) / 2 - var(--shatter-edge) - 24px))); }
   .shatter[data-controls-desktop='left'] .shatter__status { left: auto; right: var(--shatter-edge); }
 }
 @media (max-width: 767.98px) {

@@ -309,7 +309,9 @@
       const rect = this.root.getBoundingClientRect();
       this.width = rect.width; this.height = rect.height;
       this.dpr = Math.min(devicePixelRatio || 1, 2);
-      this.root.style.setProperty('--shatter-controls-height', `${this.root.querySelector('.shatter__controls').getBoundingClientRect().height}px`);
+      const controlsBox = this.root.querySelector('.shatter__controls').getBoundingClientRect();
+      this.root.style.setProperty('--shatter-controls-height', `${controlsBox.height}px`);
+      this.root.style.setProperty('--shatter-controls-width', `${controlsBox.width}px`);
       for (const [canvas, ctx] of [[this.front, this.ctx], [this.back, this.ctxBack]]) {
         canvas.width = Math.round(this.width * this.dpr); canvas.height = Math.round(this.height * this.dpr);
         ctx?.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
