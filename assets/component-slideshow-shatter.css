@@ -90,8 +90,13 @@
 @media (prefers-reduced-motion: reduce) { .shatter__dot { transition: none; } }
 
 
-.shatter__content { grid-area: 1 / 1; display: flex; flex-direction: column; width: max-content; max-width: 100%; min-width: 0; gap: var(--shatter-content-gap, 12px); justify-self: var(--shatter-content-x, start); align-self: var(--shatter-content-y, start); align-items: var(--shatter-content-x, start); --text-align-default: var(--shatter-content-align, left); pointer-events: auto; }
+.shatter__content { grid-area: 1 / 1; display: flex; flex-direction: column; min-width: 0; gap: var(--shatter-content-gap, 12px); justify-self: var(--shatter-content-x, start); align-self: var(--shatter-content-y, start); align-items: var(--shatter-content-items, start); --text-align-default: var(--shatter-content-align, left); pointer-events: auto; }
 @media (prefers-reduced-motion: reduce) { .shatter__content { transform: none !important; opacity: 1 !important; } }
 @media (max-width: 767.98px) {
-  .shatter__content { gap: var(--shatter-content-gap-mobile, var(--shatter-content-gap, 12px)); justify-self: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); align-self: var(--shatter-content-y-mobile, var(--shatter-content-y, start)); align-items: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); --text-align-default: var(--shatter-content-align-mobile, var(--shatter-content-align, left)); }
+  .shatter__content { gap: var(--shatter-content-gap-mobile, var(--shatter-content-gap, 12px)); justify-self: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); align-self: var(--shatter-content-y-mobile, var(--shatter-content-y, start)); align-items: var(--shatter-content-items-mobile, var(--shatter-content-items, start)); --text-align-default: var(--shatter-content-align-mobile, var(--shatter-content-align, left)); }
+}
+
+.shatter__content { padding: var(--shatter-content-padding-top, 0px) var(--shatter-content-padding-right, 0px) var(--shatter-content-padding-bottom, 0px) var(--shatter-content-padding-left, 0px); }
+@media (max-width: 767.98px) {
+  .shatter__content { padding: var(--shatter-content-padding-top-mobile, var(--shatter-content-padding-top, 0px)) var(--shatter-content-padding-right-mobile, var(--shatter-content-padding-right, 0px)) var(--shatter-content-padding-bottom-mobile, var(--shatter-content-padding-bottom, 0px)) var(--shatter-content-padding-left-mobile, var(--shatter-content-padding-left, 0px)); }
 }

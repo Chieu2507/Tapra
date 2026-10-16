@@ -8,8 +8,54 @@
   if block.settings.customize_mobile_position
     assign mobile_position = block.settings.position_mobile | default: block.settings.position | default: 'top_left' | split: '_'
   endif
+  assign content_alignment = position.last
+  assign content_alignment_mobile = mobile_position.last
+  if block.settings.inherit_alignment == false
+    assign content_alignment = block.settings.alignment | default: 'left'
+    assign content_alignment_mobile = content_alignment
+    if block.settings.customize_mobile_alignment
+      assign content_alignment_mobile = block.settings.alignment_mobile | default: content_alignment
+    endif
+  endif
+  assign content_width_mode = block.settings.width | default: 'fit'
+  assign content_width = 'fit-content'
+  assign content_max_width = blank
+  if content_width_mode == 'fill' or content_width_mode == 'custom'
+    assign content_width = '100%'
+  endif
+  if content_width_mode == 'custom'
+    assign content_max_width = block.settings.max_width | default: 750 | at_least: 320 | at_most: 1200 | append: 'px'
+  endif
+  assign content_width_mobile = blank
+  assign content_max_width_mobile = blank
+  if block.settings.customize_mobile_size
+    assign content_width_mobile = 'fit-content'
+    assign mobile_width_mode = block.settings.width_mobile | default: content_width_mode
+    if mobile_width_mode == 'fill' or mobile_width_mode == 'custom'
+      assign content_width_mobile = '100%'
+    endif
+    assign content_max_width_mobile = '100%'
+    if mobile_width_mode == 'custom'
+      assign content_max_width_mobile = block.settings.max_width_mobile | default: 480 | at_least: 240 | at_most: 800 | append: 'px'
+    endif
+  endif
 %}
-<div class="shatter__content" data-shatter-content style="--shatter-content-x:{{ position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y:{{ position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align:{{ position.last }};--shatter-content-x-mobile:{{ mobile_position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y-mobile:{{ mobile_position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align-mobile:{{ mobile_position.last }};--shatter-content-gap:{{ block.settings.gap_desktop | default: 12 }}px;--shatter-content-gap-mobile:{{ block.settings.gap_mobile | default: 12 }}px" {{ block.shopify_attributes }}>
+{% capture content_size_spacing %}
+  {% render 'size-style', width: content_width, max_width: content_max_width, width_mobile: content_width_mobile, max_width_mobile: content_max_width_mobile %}
+  {% for side in (1..4) %}
+    {% assign edge = 'top,right,bottom,left' | split: ',' %}
+    {% assign edge_index = side | minus: 1 %}
+    {% assign edge_name = edge[edge_index] %}
+    {% assign padding_key = 'padding_' | append: edge_name %}
+    {% assign padding_value = block.settings[padding_key] | default: 0 | at_least: 0 | at_most: 100 %}
+    --shatter-content-padding-{{ edge_name }}:{{ padding_value }}px;
+    {% if block.settings.customize_mobile_padding %}
+      {% assign mobile_padding_key = padding_key | append: '_mobile' %}
+      --shatter-content-padding-{{ edge_name }}-mobile:{{ block.settings[mobile_padding_key] | default: 0 | at_least: 0 | at_most: 100 }}px;
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+<div class="shatter__content size-style size-style--contain" data-shatter-content style="{{ content_size_spacing | strip }}--shatter-content-x:{{ position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y:{{ position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align:{{ content_alignment }};--shatter-content-items:{{ content_alignment | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-x-mobile:{{ mobile_position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y-mobile:{{ mobile_position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align-mobile:{{ content_alignment_mobile }};--shatter-content-items-mobile:{{ content_alignment_mobile | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-gap:{{ block.settings.gap_desktop | default: 12 }}px;--shatter-content-gap-mobile:{{ block.settings.gap_mobile | default: 12 }}px" {{ block.shopify_attributes }}>
   {% content_for 'blocks' %}
 </div>
 {% schema %}
@@ -118,14 +164,147 @@
     },
     {
       "type": "header",
-      "content": "Layout"
+      "content": "t:general.size"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "t:labels.width",
+      "options": [
+        {
+          "value": "fit",
+          "label": "t:options.width.fit"
+        },
+        {
+          "value": "fill",
+          "label": "t:options.width.fill"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.width.custom"
+        }
+      ],
+      "default": "fit"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "t:labels.max_width",
+      "min": 320,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 750,
+      "visible_if": "{{ block.settings.width == 'custom' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_size",
+      "label": "t:labels.customize_mobile_size",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "width_mobile",
+      "label": "t:labels.mobile_width",
+      "options": [
+        {
+          "value": "fit",
+          "label": "t:options.width.fit"
+        },
+        {
+          "value": "fill",
+          "label": "t:options.width.fill"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.width.custom"
+        }
+      ],
+      "default": "fit",
+      "visible_if": "{{ block.settings.customize_mobile_size }}"
+    },
+    {
+      "type": "range",
+      "id": "max_width_mobile",
+      "label": "t:labels.mobile_max_width",
+      "min": 240,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 480,
+      "visible_if": "{{ block.settings.customize_mobile_size and block.settings.width_mobile == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:labels.alignment",
+      "visible_if": "{{ block.settings.inherit_alignment == false }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_alignment",
+      "label": "t:labels.inherit_alignment",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "t:labels.alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.alignment.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.alignment.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.alignment.right"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ block.settings.inherit_alignment == false }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_alignment",
+      "label": "t:labels.customize_mobile_alignment",
+      "default": false,
+      "visible_if": "{{ block.settings.inherit_alignment == false }}"
+    },
+    {
+      "type": "select",
+      "id": "alignment_mobile",
+      "label": "t:labels.mobile_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:options.alignment.left"
+        },
+        {
+          "value": "center",
+          "label": "t:options.alignment.center"
+        },
+        {
+          "value": "right",
+          "label": "t:options.alignment.right"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ block.settings.customize_mobile_alignment and block.settings.inherit_alignment == false }}"
+    },
+    {
+      "type": "header",
+      "content": "t:general.gap"
     },
     {
       "type": "range",
       "id": "gap_desktop",
-      "label": "Gap",
+      "label": "t:labels.desktop_gap",
       "min": 0,
-      "max": 48,
+      "max": 100,
       "step": 1,
       "unit": "px",
       "default": 12
@@ -133,12 +312,106 @@
     {
       "type": "range",
       "id": "gap_mobile",
-      "label": "Gap (mobile)",
+      "label": "t:labels.mobile_gap",
       "min": 0,
-      "max": 48,
+      "max": 100,
       "step": 1,
       "unit": "px",
       "default": 12
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_left",
+      "label": "t:labels.left_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "t:labels.right_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_left_mobile",
+      "label": "t:labels.mobile_left_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
+    },
+    {
+      "type": "range",
+      "id": "padding_right_mobile",
+      "label": "t:labels.mobile_right_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_mobile_padding }}"
     }
   ],
   "blocks": [
