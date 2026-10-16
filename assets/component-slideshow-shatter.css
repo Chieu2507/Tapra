@@ -21,9 +21,6 @@
 .shatter__fallback :is(img, svg) { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
 .shatter.is-canvas .shatter__fallback { opacity: 0; }
 .shatter__headings { position: absolute; inset: var(--shatter-content-top, 70px) var(--shatter-edge) var(--shatter-content-bottom, 70px); z-index: 4; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); pointer-events: none; }
-.shatter__headings .heading-block { grid-area: 1 / 1; min-width: 0; max-width: 100%; margin: 0; pointer-events: auto; }
-.shatter__heading-slot--1 > .heading-block { justify-self: var(--shatter-heading-1-x, start); align-self: var(--shatter-heading-1-y, start); --text-align-default: var(--shatter-heading-1-align, left); }
-.shatter__heading-slot--2 > .heading-block { justify-self: var(--shatter-heading-2-x, end); align-self: var(--shatter-heading-2-y, end); --text-align-default: var(--shatter-heading-2-align, right); }
 .shatter[data-desktop-height='adapt'] { aspect-ratio: var(--shatter-desktop-aspect, 1.5); }
 .shatter__glass { background: color-mix(in srgb, var(--background-color) 60%, transparent); border: 1px solid color-mix(in srgb, var(--heading-color) 20%, transparent); backdrop-filter: blur(10px) saturate(1.3); -webkit-backdrop-filter: blur(10px) saturate(1.3); }
 .shatter__status { position: absolute; z-index: 5; left: var(--shatter-edge); bottom: 34px; width: 198px; border-radius: var(--radius-16, 16px); padding: 11px 12px; font-size: var(--font-body-xs, 12px); line-height: 1.5; }
@@ -54,15 +51,12 @@
   .shatter { height: var(--shatter-height-mobile, 440px); aspect-ratio: auto; }
   .shatter[data-mobile-height='adapt'] { aspect-ratio: var(--shatter-mobile-aspect, var(--shatter-desktop-aspect, 1.5)); }
   .shatter__headings { top: var(--shatter-content-top-mobile, 50px); bottom: var(--shatter-content-bottom-mobile, 50px); }
-  .shatter__heading-slot--1 > .heading-block { justify-self: var(--shatter-heading-1-x-mobile, var(--shatter-heading-1-x, start)); align-self: var(--shatter-heading-1-y-mobile, var(--shatter-heading-1-y, start)); --text-align-default: var(--shatter-heading-1-align-mobile, var(--shatter-heading-1-align, left)); }
-  .shatter__heading-slot--2 > .heading-block { justify-self: var(--shatter-heading-2-x-mobile, var(--shatter-heading-2-x, end)); align-self: var(--shatter-heading-2-y-mobile, var(--shatter-heading-2-y, end)); --text-align-default: var(--shatter-heading-2-align-mobile, var(--shatter-heading-2-align, right)); }
   .shatter__status { display: none; }
   .shatter__controls { left: 50%; right: auto; transform: translateX(-50%); bottom: 22px; max-width: calc(100% - 16px); border-radius: var(--radius-24, 24px); flex-wrap: wrap; justify-content: center; width: max-content; }
   .shatter__pagination { max-width: 100%; overflow-x: auto; }
   .shatter__progress { bottom: calc(var(--shatter-controls-height, 54px) + 34px); }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .shatter__cursor { display: none; } }
-@media (prefers-reduced-motion: reduce) { .shatter__headings .heading-block { transition: none !important; transform: none !important; opacity: 1 !important; } }
 
 .shatter__controls [data-shatter-pause] svg { display: block; width: 18px; height: 18px; }
 .shatter [data-shatter-pause][aria-pressed='false'] .shatter__play-icon,
@@ -92,4 +86,8 @@
 .shatter__pagination [aria-current='true'] .shatter__ring-fill { stroke-dashoffset: calc(100 - var(--shatter-progress, 0) * 100); }
 @media (prefers-reduced-motion: reduce) { .shatter__dot { transition: none; } }
 
-.shatter__heading-slot { display: contents; }
+
+.shatter__content { grid-area: 1 / 1; display: flex; flex-direction: column; width: max-content; max-width: 100%; min-width: 0; gap: var(--shatter-content-gap, 12px); justify-self: var(--shatter-content-x, start); align-self: var(--shatter-content-y, start); align-items: var(--shatter-content-x, start); --text-align-default: var(--shatter-content-align, left); pointer-events: auto; }
+@media (max-width: 767.98px) {
+  .shatter__content { gap: var(--shatter-content-gap-mobile, var(--shatter-content-gap, 12px)); justify-self: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); align-self: var(--shatter-content-y-mobile, var(--shatter-content-y, start)); align-items: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); --text-align-default: var(--shatter-content-align-mobile, var(--shatter-content-align, left)); }
+}
