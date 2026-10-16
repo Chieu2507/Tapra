@@ -178,12 +178,12 @@
       this.synchronize();
     }
     clearText() {
-      this.root.querySelectorAll('.shatter__headings > .heading-block').forEach(el => {
+      this.root.querySelectorAll('.shatter__headings .heading-block').forEach(el => {
         el.style.transition = ''; el.style.opacity = ''; el.style.transform = '';
       });
     }
     textExit() {
-      this.slides[this.index].querySelectorAll('.shatter__headings > .heading-block').forEach((el, i) => {
+      this.slides[this.index].querySelectorAll('.shatter__headings .heading-block').forEach((el, i) => {
         el.style.transition = 'opacity 650ms ease-in, transform 650ms ease-in';
         el.style.opacity = '0';
         el.style.transform = `translateY(${i ? 30 : -30}px)`;
@@ -198,7 +198,7 @@
       this.show(transition.index);
       this.build();
       this.pieces.forEach(p => { p.x = p.sx; p.y = p.sy; p.a = p.sa; });
-      const spans = this.slides[this.index].querySelectorAll('.shatter__headings > .heading-block');
+      const spans = this.slides[this.index].querySelectorAll('.shatter__headings .heading-block');
       spans.forEach((el, i) => {
         el.style.transition = 'none'; el.style.opacity = '0';
         el.style.transform = `translateY(${i ? -30 : 30}px)`;

@@ -1698,8 +1698,34 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-1.webp",
             "image_alt": "Tapra keyboard artwork 1",
-            "title_top": "Small keys.",
-            "title_bottom": "More room\nto type."
+            "heading_1_position": "top_left",
+            "heading_2_position": "bottom_right",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "heading-1": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>Small keys.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "h1"
+              }
+            },
+            "heading-2": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>More room<br>to type.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "div"
+              }
+            }
           }
         },
         "slide_2": {
@@ -1707,8 +1733,34 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-2.webp",
             "image_alt": "Tapra keyboard artwork 2",
-            "title_top": "Compact.",
-            "title_bottom": "Built\nyour way."
+            "heading_1_position": "top_left",
+            "heading_2_position": "bottom_right",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "heading-1": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>Compact.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "h1"
+              }
+            },
+            "heading-2": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>Built<br>your way.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "div"
+              }
+            }
           }
         },
         "slide_3": {
@@ -1716,8 +1768,34 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-3.webp",
             "image_alt": "Tapra keyboard artwork 3",
-            "title_top": "Swap it.",
-            "title_bottom": "Find your\nfeel."
+            "heading_1_position": "top_left",
+            "heading_2_position": "bottom_right",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "heading-1": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>Swap it.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "h1"
+              }
+            },
+            "heading-2": {
+              "type": "heading",
+              "static": true,
+              "settings": {
+                "text": "<p>Find your<br>feel.</p>",
+                "heading_size": "display",
+                "custom_heading_size": 72,
+                "html_tag": "div"
+              }
+            }
           }
         }
       },
@@ -1727,6 +1805,13 @@
         "slide_3"
       ],
       "settings": {
+        "desktop_height": "full_screen",
+        "mobile_height": "full_screen",
+        "pause_on_hover": false,
+        "interval": 8,
+        "pagination_type": "numbers",
+        "pagination_position_desktop": "right",
+        "pagination_position_mobile": "center",
         "color_scheme": "scheme-3"
       }
     }

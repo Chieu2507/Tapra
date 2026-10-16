@@ -7,10 +7,15 @@
 %}
 {{ 'component-slideshow-shatter.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'slideshow-shatter.js' | asset_url }}" defer></script>
+{% liquid
+  assign desktop_height = section.settings.desktop_height | default: 'medium'
+  assign mobile_height = section.settings.mobile_height | default: 'small'
+%}
 {% capture section_style %}
-  {% if section.settings.height == 'custom' %}--shatter-height:{{ section.settings.custom_height }}px;{% endif %}
-  {% if section.settings.min_height != 600 %}--shatter-min-height:{{ section.settings.min_height }}px;{% endif %}
-  {% if section.settings.customize_mobile_height %}--shatter-mobile-height:{{ section.settings.mobile_height }}px;{% endif %}
+  --shatter-height:{% case desktop_height %}{% when 'adapt' %}auto{% when 'extra_small' %}420px{% when 'small' %}560px{% when 'medium' %}640px{% when 'large' %}820px{% when 'extra_large' %}1080px{% when 'full_screen' %}100svh{% when 'custom' %}{{ section.settings.desktop_height_custom }}px{% endcase %};
+  {% if section.settings.customize_tablet_height and desktop_height != 'adapt' %}--shatter-height-tablet:{{ section.settings.tablet_height_custom }}px;{% endif %}
+  --shatter-height-mobile:{% case mobile_height %}{% when 'adapt' %}auto{% when 'extra_small' %}320px{% when 'small' %}440px{% when 'medium' %}560px{% when 'large' %}620px{% when 'extra_large' %}820px{% when 'full_screen' %}100svh{% when 'custom' %}{{ section.settings.mobile_height_custom }}px{% endcase %};
+  {% if section.settings.background_color != blank %}--shatter-background:{{ section.settings.background_color }};{% endif %}
   {% if section.settings.padding_top != 0 %}--section-padding-top:{{ section.settings.padding_top }}px;{% endif %}
   {% if section.settings.padding_bottom != 0 %}--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% endif %}
   {% if section.settings.customize_mobile_padding %}
@@ -20,7 +25,7 @@
 {% endcapture %}
 <div class="section-spacing color-scheme section-color-scope {{ scheme }}" style="{{ section_style | strip }}">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} shatter-full-bleed{% endif %}">
-    <slideshow-shatter class="shatter{% if section.settings.ambient_background %} shatter--ambient{% endif %}" data-shatter data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval }}" data-show-progress="{{ section.settings.show_progress }}" data-interaction="{{ section.settings.allow_assembly }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+    <slideshow-shatter class="shatter{% if section.settings.ambient_background %} shatter--ambient{% endif %}" data-shatter data-desktop-height="{{ desktop_height }}" data-mobile-height="{{ mobile_height }}" data-pause-on-hover="{{ section.settings.pause_on_hover }}" data-pagination-type="{{ section.settings.pagination_type }}" data-bullet-style="{{ section.settings.pagination_bullet_style }}" data-controls-desktop="{{ section.settings.pagination_position_desktop }}" data-controls-mobile="{{ section.settings.pagination_position_mobile }}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval }}" data-show-progress="{{ section.settings.show_progress }}" data-interaction="{{ section.settings.allow_assembly }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
       <canvas class="shatter__canvas shatter__canvas--back" data-shatter-back aria-hidden="true"></canvas>
       <div class="shatter__slides" data-shatter-slides>{% content_for 'blocks' %}</div>
       <canvas class="shatter__canvas" data-shatter-front aria-hidden="true"></canvas>
@@ -60,7 +65,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "t:general.layout"
+      "content": "Layout"
     },
     {
       "type": "select",
@@ -70,104 +75,276 @@
       "options": [
         {
           "value": "page_width",
-          "label": "t:options.section_width.page_width"
+          "label": "Page width"
         },
         {
           "value": "full_width",
-          "label": "t:options.section_width.full_width"
+          "label": "Full width"
         },
         {
           "value": "full_bleed",
-          "label": "Full bleed"
+          "label": "Full width (no padding)"
         }
       ]
     },
     {
+      "type": "header",
+      "content": "Height"
+    },
+    {
       "type": "select",
-      "id": "height",
-      "label": "Height",
-      "default": "screen",
+      "id": "desktop_height",
+      "label": "Desktop height",
       "options": [
         {
-          "value": "screen",
+          "value": "adapt",
+          "label": "Adapt"
+        },
+        {
+          "value": "extra_small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "extra_large",
+          "label": "Extra large"
+        },
+        {
+          "value": "full_screen",
           "label": "Full screen"
         },
         {
           "value": "custom",
           "label": "Custom"
         }
-      ]
+      ],
+      "default": "medium"
     },
     {
       "type": "range",
-      "id": "custom_height",
-      "label": "Custom height",
-      "min": 400,
+      "id": "desktop_height_custom",
+      "label": "Desktop custom height",
+      "min": 200,
       "max": 1200,
-      "step": 20,
-      "default": 800,
-      "unit": "px",
-      "visible_if": "{{ section.settings.height == 'custom' }}"
-    },
-    {
-      "type": "range",
-      "id": "min_height",
-      "label": "Minimum height",
-      "min": 300,
-      "max": 800,
       "step": 10,
-      "default": 600,
-      "unit": "px"
+      "unit": "px",
+      "default": 810,
+      "visible_if": "{{ section.settings.desktop_height == 'custom' }}"
     },
     {
       "type": "checkbox",
-      "id": "customize_mobile_height",
-      "label": "Customize for mobile",
-      "default": false
+      "id": "customize_tablet_height",
+      "label": "Customize tablet height",
+      "default": false,
+      "visible_if": "{{ section.settings.desktop_height != 'adapt' }}"
     },
     {
       "type": "range",
-      "id": "mobile_height",
-      "label": "Height (mobile)",
-      "min": 300,
-      "max": 1000,
+      "id": "tablet_height_custom",
+      "label": "Tablet height",
+      "min": 200,
+      "max": 1200,
       "step": 10,
-      "default": 700,
       "unit": "px",
-      "visible_if": "{{ section.settings.customize_mobile_height }}"
+      "default": 720,
+      "visible_if": "{{ section.settings.desktop_height != 'adapt' and section.settings.customize_tablet_height }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt"
+        },
+        {
+          "value": "extra_small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "extra_large",
+          "label": "Extra large"
+        },
+        {
+          "value": "full_screen",
+          "label": "Full screen"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_custom",
+      "label": "Mobile custom height",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 670,
+      "visible_if": "{{ section.settings.mobile_height == 'custom' }}"
     },
     {
       "type": "header",
-      "content": "Slideshow"
+      "content": "Slide autoplay"
     },
     {
       "type": "checkbox",
       "id": "autoplay",
-      "label": "Auto rotate slides",
+      "label": "Auto-rotate slides",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true,
+      "visible_if": "{{ section.settings.autoplay }}"
     },
     {
       "type": "range",
       "id": "interval",
-      "label": "Change slides every",
-      "min": 4,
-      "max": 20,
+      "label": "Autoplay interval",
+      "min": 3,
+      "max": 10,
       "step": 1,
-      "default": 8,
       "unit": "s",
+      "default": 6,
       "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
     },
     {
       "type": "checkbox",
       "id": "show_pagination",
-      "label": "Show slide numbers",
+      "label": "Show pagination",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "progress_bar",
+          "label": "Progress bar"
+        },
+        {
+          "value": "bullets",
+          "label": "Bullets"
+        },
+        {
+          "value": "numbers",
+          "label": "Numbers"
+        }
+      ],
+      "default": "bullets",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_bullet_style",
+      "label": "Bullet style",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "circular",
+          "label": "Circular progress"
+        }
+      ],
+      "default": "standard",
+      "visible_if": "{{ section.settings.show_pagination and section.settings.pagination_type == 'bullets' }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_position_desktop",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_position_mobile",
+      "label": "Mobile position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "visible_if": "{{ section.settings.show_pagination }}"
     },
     {
       "type": "checkbox",
       "id": "show_progress",
-      "label": "Show progress bar",
-      "default": true
+      "label": "Show autoplay progress bar",
+      "default": true,
+      "visible_if": "{{ section.settings.autoplay and section.settings.pagination_type != 'progress_bar' }}"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessible label",
+      "default": "Slideshow"
+    },
+    {
+      "type": "header",
+      "content": "Interaction"
     },
     {
       "type": "checkbox",
@@ -189,20 +366,20 @@
       "visible_if": "{{ section.settings.allow_assembly }}"
     },
     {
-      "type": "text",
-      "id": "aria_label",
-      "label": "Accessibility label",
-      "default": "Featured stories"
-    },
-    {
       "type": "header",
-      "content": "t:general.appearance"
+      "content": "Appearance"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:labels.color_scheme",
       "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "Background color"
     },
     {
       "type": "checkbox",
@@ -238,7 +415,7 @@
       "type": "checkbox",
       "id": "customize_mobile_padding",
       "label": "t:labels.customize_mobile_padding",
-      "default": true
+      "default": false
     },
     {
       "type": "range",
@@ -269,24 +446,78 @@
       "blocks": [
         {
           "type": "_slideshow-shatter-slide",
-          "settings": {
-            "title_top": "Small keys.",
-            "title_bottom": "More room\nto type."
-          }
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Small keys.</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              },
+              "id": "heading-1",
+              "static": true
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>More room<br>to type.</p>",
+                "heading_size": "display",
+                "html_tag": "div"
+              },
+              "id": "heading-2",
+              "static": true
+            }
+          ]
         },
         {
           "type": "_slideshow-shatter-slide",
-          "settings": {
-            "title_top": "Compact.",
-            "title_bottom": "Built\nyour way."
-          }
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Compact.</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              },
+              "id": "heading-1",
+              "static": true
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Built<br>your way.</p>",
+                "heading_size": "display",
+                "html_tag": "div"
+              },
+              "id": "heading-2",
+              "static": true
+            }
+          ]
         },
         {
           "type": "_slideshow-shatter-slide",
-          "settings": {
-            "title_top": "Swap it.",
-            "title_bottom": "Find your\nfeel."
-          }
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Swap it.</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              },
+              "id": "heading-1",
+              "static": true
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Find your<br>feel.</p>",
+                "heading_size": "display",
+                "html_tag": "div"
+              },
+              "id": "heading-2",
+              "static": true
+            }
+          ]
         }
       ]
     }
