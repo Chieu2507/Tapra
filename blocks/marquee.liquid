@@ -614,13 +614,19 @@
       "visible_if": "{{ block.settings.color_type == 'scheme' }}"
     },
     {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "t:labels.background_color"
+    },
+    {
       "type": "header",
       "content": "Padding"
     },
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Top",
+      "label": "t:labels.top_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -630,7 +636,7 @@
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Bottom",
+      "label": "t:labels.bottom_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -638,15 +644,35 @@
       "default": 24
     },
     {
+      "type": "range",
+      "id": "padding_left",
+      "label": "t:labels.left_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_right",
+      "label": "t:labels.right_padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
       "type": "checkbox",
       "id": "customize_mobile_padding",
-      "label": "Custom for mobile",
+      "label": "t:labels.customize_mobile_padding",
       "default": false
     },
     {
       "type": "range",
       "id": "padding_top_mobile",
-      "label": "Mobile top padding",
+      "label": "t:labels.mobile_top_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -657,7 +683,7 @@
     {
       "type": "range",
       "id": "padding_bottom_mobile",
-      "label": "Mobile bottom padding",
+      "label": "t:labels.mobile_bottom_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -666,35 +692,9 @@
       "visible_if": "{{ block.settings.customize_mobile_padding }}"
     },
     {
-      "type": "color",
-      "alpha": true,
-      "id": "background_color",
-      "label": "t:labels.background"
-    },
-    {
-      "type": "range",
-      "id": "padding_left",
-      "label": "Left padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding_right",
-      "label": "Right padding",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
       "type": "range",
       "id": "padding_left_mobile",
-      "label": "Mobile left padding",
+      "label": "t:labels.mobile_left_padding",
       "min": 0,
       "max": 100,
       "step": 1,
@@ -705,7 +705,7 @@
     {
       "type": "range",
       "id": "padding_right_mobile",
-      "label": "Mobile right padding",
+      "label": "t:labels.mobile_right_padding",
       "min": 0,
       "max": 100,
       "step": 1,

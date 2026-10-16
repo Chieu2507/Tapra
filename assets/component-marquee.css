@@ -11,7 +11,7 @@
     max-width: 100%;
     min-width: 0;
     overflow: hidden;
-    background-color: var(--background-color);
+    background-color: var(--marquee-background-color, var(--background-color));
     padding-top: var(--marquee-padding-top, 0px);
     padding-bottom: var(--marquee-padding-bottom, 0px);
   }
@@ -19,6 +19,8 @@
   .elara-marquee--block .elara-marquee__container {
     min-width: 0;
     width: 100%;
+    padding-left: var(--marquee-padding-left, 0px);
+    padding-right: var(--marquee-padding-right, 0px);
   }
 
   .elara-marquee--block[data-marquee-top-divider] { border-top: 1px solid var(--border-color); }
@@ -70,6 +72,10 @@
   }
 
   @media (max-width: 767.98px) {
+    .elara-marquee--block .elara-marquee__container {
+      padding-left: var(--marquee-padding-left-mobile, var(--marquee-padding-left, 0px));
+      padding-right: var(--marquee-padding-right-mobile, var(--marquee-padding-right, 0px));
+    }
     .elara-marquee--block {
       width: 100%;
       padding-top: var(--marquee-padding-top-mobile, var(--marquee-padding-top, 0px));
