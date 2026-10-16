@@ -255,10 +255,6 @@
       "label": "Type",
       "options": [
         {
-          "value": "progress_bar",
-          "label": "Progress bar"
-        },
-        {
           "value": "bullets",
           "label": "Bullets"
         },
@@ -334,7 +330,7 @@
       "id": "show_progress",
       "label": "Show autoplay progress bar",
       "default": true,
-      "visible_if": "{{ section.settings.autoplay and section.settings.pagination_type != 'progress_bar' }}"
+      "visible_if": "{{ section.settings.autoplay }}"
     },
     {
       "type": "text",

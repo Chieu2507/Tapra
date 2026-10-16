@@ -40,8 +40,6 @@
         if (paginationType === 'bullets') {
           button.innerHTML = '<span class="shatter__dot" aria-hidden="true"></span>';
           if (root.dataset.bulletStyle === 'circular') button.innerHTML += '<svg viewBox="0 0 36 36" aria-hidden="true"><circle class="shatter__ring-track" cx="18" cy="18" r="16" pathLength="100"/><circle class="shatter__ring-fill" cx="18" cy="18" r="16" pathLength="100"/></svg>';
-        } else if (paginationType === 'progress_bar') {
-          button.innerHTML = '<span class="shatter__segment-track" aria-hidden="true"><i></i></span>';
         } else button.textContent = String(index + 1);
         button.setAttribute('aria-label', `${index + 1} / ${this.slides.length}`);
         slide.setAttribute('role', 'group');
@@ -285,7 +283,7 @@
     updateControls() {
       this.pauseButton.hidden = this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
       if (this.assembleButton) this.assembleButton.hidden = this.motion.matches;
-      this.progress.parentElement.hidden = (this.root.dataset.paginationType === 'progress_bar' && !this.pagination.hidden) || this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
+      this.progress.parentElement.hidden = this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
       const paused = this.pauses.has('manual') || this.pauses.has('editor');
       this.pauseButton.setAttribute('aria-pressed', String(paused));
       const label = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
