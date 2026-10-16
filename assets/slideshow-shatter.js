@@ -275,9 +275,9 @@
       this.listen(this.mobile, 'change', () => this.refreshSource());
       this.listen(this.root, 'shopify:block:select', e => {
         const index = this.slides.indexOf(e.target.closest('[data-shatter-slide]'));
-        if (index >= 0) { this.pauses.add('editor'); this.toggleAssembly = false; this.setHold(false); this.release(); this.go(index, false, true); }
+        if (index >= 0) { this.pauses.add('editor'); this.updateControls(); this.toggleAssembly = false; this.setHold(false); this.release(); this.go(index, false, true); }
       });
-      this.listen(this.root, 'shopify:block:deselect', () => this.pauses.delete('editor'));
+      this.listen(this.root, 'shopify:block:deselect', () => { this.pauses.delete('editor'); this.updateControls(); });
     }
     updateFocusPause(target, pointer = false) {
       if (!pointer && target?.matches?.(':focus-visible')) this.pauses.add('focus');
