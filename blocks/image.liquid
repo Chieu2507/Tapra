@@ -262,8 +262,11 @@
     pointer-events: none;
   }
 
-  .image-block__media {
+  .image-block__media:not(.placeholder-image) {
     background-color: var(--image-block-background, transparent);
+  }
+
+  .image-block__media {
     width: 100%;
     max-width: 100%;
     aspect-ratio: var(--image-block-ratio, auto);

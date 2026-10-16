@@ -36,7 +36,14 @@
   assign rich_text_scheme = rich_text_scheme | default: 'scheme-1' | handleize
 %}
 
+{% style %}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color | default: section.settings.color_scheme.settings.background | default: settings.color_schemes[rich_text_scheme].settings.background }};
+  }
+{% endstyle %}
 {% capture rich_text_style %}
+  {% if section.settings.gap_desktop != blank %}--rich-text-gap: {{ section.settings.gap_desktop }}px;{% endif %}
+  {% if section.settings.gap_mobile != blank %}--rich-text-gap-mobile: {{ section.settings.gap_mobile }}px;{% endif %}
   {% if rich_text_alignment != 'start' %}--flex-align: {{ rich_text_alignment }};{% endif %}
   {% if section.settings.customize_mobile_alignment and rich_text_alignment_mobile != rich_text_alignment %}--flex-align-mobile: {{ rich_text_alignment_mobile }};{% endif %}
   {% if section.settings.background_color != blank %}--rich-text-background-color: {{ section.settings.background_color | escape }};{% endif %}
@@ -55,8 +62,8 @@
     wrap: 'nowrap',
     align_items: 'var(--flex-align, flex-start)',
     align_items_mobile: 'var(--flex-align-mobile, var(--flex-align, flex-start))',
-    gap_value: 'var(--layout-grid-gap, 1rem)',
-    gap_mobile_value: 'var(--layout-grid-gap, 1rem)'
+    gap_value: 'var(--rich-text-gap, var(--layout-grid-gap, 1rem))',
+    gap_mobile_value: 'var(--rich-text-gap-mobile, var(--rich-text-gap, var(--layout-grid-gap, 1rem)))'
   %}
 {% endcapture %}
 {% assign rich_text_content_style = rich_text_content_style | strip %}
@@ -125,7 +132,7 @@
     max-width: 100%;
   }
 
-  .rich-text__content a {
+  .rich-text__content a:not(.btn) {
     color: inherit;
   }
 
@@ -141,17 +148,39 @@
 {
   "name": "t:general.rich_text",
   "class": "section-rich--text",
-  "enabled_on": { "templates": ["*"] },
+  "enabled_on": {
+    "templates": [
+      "*"
+    ]
+  },
   "blocks": [
-    { "type": "eyebrow" },
-    { "type": "heading" },
-    { "type": "editorial-text" },
-    { "type": "text" },
-    { "type": "image" },
-    { "type": "button" },
-    { "type": "buttons" },
-    { "type": "icon" },
-    { "type": "marquee" }
+    {
+      "type": "eyebrow"
+    },
+    {
+      "type": "heading"
+    },
+    {
+      "type": "editorial-text"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "image"
+    },
+    {
+      "type": "button"
+    },
+    {
+      "type": "buttons"
+    },
+    {
+      "type": "icon"
+    },
+    {
+      "type": "marquee"
+    }
   ],
   "settings": [
     {
@@ -192,6 +221,26 @@
       "label": "t:labels.mobile_alignment",
       "default": "left",
       "visible_if": "{{ section.settings.customize_mobile_alignment }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Desktop gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Mobile gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "header",
@@ -303,6 +352,58 @@
           "static": true,
           "settings": {
             "text": "<p>Use this section to test the shared Section Kernel, global layout width, color scheme, background and responsive padding.</p>"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Brand story",
+      "settings": {
+        "alignment": "center",
+        "color_scheme": "scheme-2",
+        "padding_top": 100,
+        "padding_bottom": 0,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 0,
+        "gap_desktop": 24,
+        "gap_mobile": 20
+      },
+      "blocks": [
+        {
+          "type": "eyebrow",
+          "id": "eyebrow",
+          "static": true,
+          "settings": {
+            "text": "<p>About Tapra</p>"
+          }
+        },
+        {
+          "type": "heading",
+          "id": "heading",
+          "static": true,
+          "settings": {
+            "text": ""
+          }
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "static": true,
+          "settings": {
+            "text": ""
+          }
+        },
+        {
+          "type": "editorial-text",
+          "settings": {
+            "text": "<p>We build keyboards for people who work with words. Quiet to type, easy to tune and made to last, so your desk feels a little calmer every day.</p>",
+            "size": "lg",
+            "width": "custom",
+            "max_width": 820,
+            "enable_scroll_reveal": true,
+            "reveal_unit": "word",
+            "start_opacity": 28
           }
         }
       ]
