@@ -2546,7 +2546,11 @@
                 "media_ratio": "ratio_3_2",
                 "customize_media_inset": true,
                 "media_inset": 14,
-                "card_corner_radius": "radius_24"
+                "card_corner_radius": "radius_24",
+                "content_layout": "summary_action",
+                "title_size": 32,
+                "title_size_mobile": 28,
+                "add_button_label": "Add"
               }
             }
           }

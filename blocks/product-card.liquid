@@ -53,6 +53,10 @@
     product: card_product,
     rating_content: product_card_rating,
     card_style: block.settings.card_style,
+    content_layout: block.settings.content_layout,
+    add_button_label: block.settings.add_button_label,
+    title_size: block.settings.title_size,
+    title_size_mobile: block.settings.title_size_mobile,
     card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
     media_ratio: block.settings.media_ratio,
@@ -67,6 +71,10 @@
     placeholder: true,
     placeholder_index: placeholder_index,
     card_style: block.settings.card_style,
+    content_layout: block.settings.content_layout,
+    add_button_label: block.settings.add_button_label,
+    title_size: block.settings.title_size,
+    title_size_mobile: block.settings.title_size_mobile,
     card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
     media_ratio: block.settings.media_ratio,
@@ -107,6 +115,51 @@
     {
       "type": "header",
       "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "content_layout",
+      "label": "Content layout",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "summary_action",
+          "label": "Summary and Add button"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "text",
+      "id": "add_button_label",
+      "label": "Add button label",
+      "default": "Add",
+      "visible_if": "{{ block.settings.content_layout == 'summary_action' }}"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 32,
+      "visible_if": "{{ block.settings.content_layout == 'summary_action' }}"
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "label": "Title size (mobile)",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 28,
+      "visible_if": "{{ block.settings.content_layout == 'summary_action' }}"
     },
     {
       "type": "select",

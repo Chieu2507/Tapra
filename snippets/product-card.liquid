@@ -4,6 +4,10 @@
   surfaces using the global Product cards settings.
 
   @param {product} product - Product to render
+  @param {string} [content_layout] - Standard or summary_action content composition
+  @param {string} [add_button_label] - Label for the content purchase button
+  @param {number} [title_size] - Title size for summary/action layout
+  @param {number} [title_size_mobile] - Mobile title size for summary/action layout
   @param {string} [card_style] - Optional local Standard/Card style; blank inherits Theme Settings
   @param {string} [card_corner_radius] - Optional local card radius preset; inherit uses Theme Settings
   @param {string} [media_corner_radius] - Optional local radius preset; inherit uses Theme Settings
@@ -92,6 +96,7 @@
   assign quick_add_full_width = true
   if settings.product_card_quick_add_full_width == false
     assign quick_add_full_width = false
+    assign quick_add_color_scheme = card_color_scheme
   endif
 
   assign quick_view_enabled = true
@@ -159,6 +164,12 @@
   endcase
 
   assign card_class = 'product-card product-card--' | append: card_style
+  if content_layout == 'summary_action'
+    assign card_class = card_class | append: ' product-card--summary-action product-card--quick-add-mobile'
+    assign quick_add_enabled = true
+    assign quick_add_style = 'text'
+    assign quick_add_full_width = false
+  endif
   assign card_class = card_class | append: ' product-card--ratio-' | append: card_ratio
   assign card_class = card_class | append: ' product-card--align-' | append: card_alignment
   assign card_class = card_class | append: ' product-card--swatches-' | append: swatch_position
@@ -221,12 +232,20 @@
     endif
   endif
   assign quick_add_label = 'products.quick_add' | t
+  if content_layout == 'summary_action' and add_button_label != blank
+    assign quick_add_label = add_button_label
+  endif
   assign quick_add_options_label = 'products.choose_options' | t
   assign quick_view_label = 'products.quick_view' | t
   assign product_card_motion_speed = 'standard'
 %}
 
 {% capture product_card_local_style %}
+  {% if content_layout == 'summary_action' %}
+    --product-card-title-size: {{ title_size | default: 32 | at_least: 12 | at_most: 40 }}px;
+    --product-card-title-size-mobile: {{ title_size_mobile | default: 28 | at_least: 12 | at_most: 32 }}px;
+    --product-card-alignment: left;--product-card-content-alignment: flex-start;
+  {% endif %}
   {% case card_corner_radius %}
     {% when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32' %}
       --card-radius: var(--radius-{{ card_corner_radius | remove: 'radius_' }});
@@ -293,7 +312,7 @@
       %}
     </div>
 
-    {% if quick_add_enabled and product.available and current_variant != blank %}
+    {% unless content_layout == 'summary_action' %}    {% if quick_add_enabled and product.available and current_variant != blank %}
       {% if product.variants.size > 1 %}
         {% render 'product-card-quick-add-overlay',
           url: product.url,
@@ -316,6 +335,7 @@
         %}
       {% endif %}
     {% endif %}
+{% endunless %}
 
     {% if quick_view_enabled %}
       {% render 'product-card-quick-view',
@@ -343,7 +363,38 @@
         <p class="product-card__type body-sm">{{ product.type | escape }}</p>
       {% endif %}
       {% render 'product-card-title', product: product, heading_tag: heading_tag %}
-      {% render 'product-card-price', item: product %}
+      {% if content_layout == 'summary_action' %}
+        {% if product.metafields.custom.summary.value != blank %}<p class="product-card__summary body-sm">{{ product.metafields.custom.summary.value | escape }}</p>{% endif %}
+        <div class="product-card__purchase-row">
+          {% render 'product-card-price', item: product %}
+    {% if quick_add_enabled and product.available and current_variant != blank %}
+      {% if product.variants.size > 1 %}
+        {% render 'product-card-quick-add-overlay',
+          url: product.url,
+          label: quick_add_options_label,
+          product_title: product.title,
+          style: quick_add_style,
+          full_width: quick_add_full_width,
+          color_scheme: quick_add_color_scheme,
+          motion_speed: product_card_motion_speed
+        %}
+      {% else %}
+        {% render 'product-card-quick-add',
+          variant_id: current_variant.id,
+          label: quick_add_label,
+          product_title: product.title,
+          style: quick_add_style,
+          full_width: quick_add_full_width,
+          color_scheme: quick_add_color_scheme,
+          motion_speed: product_card_motion_speed
+        %}
+      {% endif %}
+    {% endif %}
+
+        </div>
+      {% else %}
+        {% render 'product-card-price', item: product %}
+      {% endif %}
     </div>
 
     {% if middle_content != blank %}
