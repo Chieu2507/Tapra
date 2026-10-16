@@ -138,7 +138,6 @@
       this.requestedIndex = index;
       this.buttons.forEach((button, i) => {
         button.setAttribute('aria-current', String(i === index));
-        button.setAttribute('data-complete', String(i < index));
       });
       const button = this.buttons[index];
       if (!this.pagination || !button?.getBoundingClientRect) return;
