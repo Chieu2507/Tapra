@@ -222,7 +222,10 @@
     }
     bind() {
       this.listen(this.pauseButton, 'click', () => {
-        if (this.pauses.has('manual')) this.pauses.delete('manual'); else this.pauses.add('manual');
+        if (this.pauses.has('manual') || this.pauses.has('editor')) {
+          this.pauses.delete('manual');
+          this.pauses.delete('editor');
+        } else this.pauses.add('manual');
         this.updateControls();
       });
       if (this.assembleButton) this.listen(this.assembleButton, 'click', () => {
@@ -275,9 +278,6 @@
         if (index >= 0) { this.pauses.add('editor'); this.toggleAssembly = false; this.setHold(false); this.release(); this.go(index, false, true); }
       });
       this.listen(this.root, 'shopify:block:deselect', () => this.pauses.delete('editor'));
-      const wrapper = this.root.closest('.shopify-section') || this.root;
-      this.listen(wrapper, 'shopify:section:select', () => this.pauses.add('section'));
-      this.listen(wrapper, 'shopify:section:deselect', () => this.pauses.delete('section'));
     }
     updateFocusPause(target, pointer = false) {
       if (!pointer && target?.matches?.(':focus-visible')) this.pauses.add('focus');
@@ -287,7 +287,7 @@
       this.pauseButton.hidden = this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
       if (this.assembleButton) this.assembleButton.hidden = this.motion.matches;
       this.progress.parentElement.hidden = (this.root.dataset.paginationType === 'progress_bar' && !this.pagination.hidden) || this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
-      const paused = this.pauses.has('manual');
+      const paused = this.pauses.has('manual') || this.pauses.has('editor');
       this.pauseButton.setAttribute('aria-pressed', String(paused));
       const label = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
       this.pauseButton.setAttribute('aria-label', label);
