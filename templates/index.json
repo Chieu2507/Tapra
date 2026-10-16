@@ -339,6 +339,7 @@
         "slide_2",
         "slide_3"
       ],
+      "disabled": true,
       "settings": {
         "layout_preset": "standard",
         "width": "full_bleed",
@@ -1688,9 +1689,44 @@
         "padding_top_mobile": 70,
         "padding_bottom_mobile": 70
       }
+    },
+    "shatter": {
+      "type": "slideshow-shatter",
+      "blocks": {
+        "slide_1": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "title_top": "Small keys.",
+            "title_bottom": "More room\nto type."
+          }
+        },
+        "slide_2": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "title_top": "Compact.",
+            "title_bottom": "Built\nyour way."
+          }
+        },
+        "slide_3": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "title_top": "Swap it.",
+            "title_bottom": "Find your\nfeel."
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
+      "settings": {
+        "color_scheme": "scheme-5"
+      }
     }
   },
   "order": [
+    "shatter",
     "slideshow",
     "collection_editorial",
     "tapra_media",
