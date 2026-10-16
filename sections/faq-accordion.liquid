@@ -99,10 +99,10 @@
     .faq-section--horizontal.faq-section--vertical-mobile.faq-section--mobile-align-right .faq-section__content { align-items: flex-end; text-align: right; }
     .faq-section--horizontal.faq-section--vertical-mobile.faq-section--mobile-align-left .faq-section__content { align-items: flex-start; text-align: left; }
   }
-  .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex: 0 1 var(--size-style-width); width: var(--size-style-width); }
-  .faq-section--vertical .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex-basis: auto; }
+  .faq-section__content > .faq-accordion--width-custom { flex: 0 1 var(--size-style-width); width: var(--size-style-width); }
+  .faq-section--vertical .faq-section__content > .faq-accordion--width-custom { flex-basis: auto; }
   @media (max-width: 767.98px) {
-    .faq-section--horizontal.faq-section--vertical-mobile .faq-section__content > :is(.faq-accordion--width-custom, .elara-faq-accordion--width-custom) { flex-basis: auto; }
+    .faq-section--horizontal.faq-section--vertical-mobile .faq-section__content > .faq-accordion--width-custom { flex-basis: auto; }
   }
 {% endstylesheet %}
 
@@ -152,163 +152,6 @@
         { "type": "faq_item", "settings": { "question": "How can I contact support?", "show_question_icon": true, "question_icon": "share" } }
       ] }
     ]
-  },
-{
-  "name": "FAQ cards",
-  "category": "Text",
-  "settings": {
-    "section_width": "page_width",
-    "layout": "horizontal",
-    "position": "top",
-    "horizontal_alignment": "left",
-    "vertical_on_mobile": true,
-    "gap_desktop": 40,
-    "gap_mobile": 32,
-    "color_scheme": "scheme-3",
-    "padding_top": 96,
-    "padding_bottom": 96,
-    "customize_mobile_padding": true,
-    "padding_top_mobile": 64,
-    "padding_bottom_mobile": 64
-  },
-  "blocks": [
-    {
-      "type": "group",
-      "settings": {
-        "width": "fill",
-        "gap_desktop": 16,
-        "gap_mobile": 16,
-        "alignment": "left"
-      },
-      "blocks": [
-        {
-          "type": "heading",
-          "settings": {
-            "text": "<p>A few things you might be wondering.</p>",
-            "heading_size": "xl",
-            "html_tag": "h2",
-            "width": "fill"
-          }
-        }
-      ]
-    },
-    {
-      "type": "faq_accordion",
-      "settings": {
-        "use_elara_layout": true,
-        "style": "boxed",
-        "icon": "plus",
-        "dividers": false,
-        "question_font": "body",
-        "question_body_font_size": "md",
-        "answer_font_size": "md",
-        "border_thickness": 0,
-        "shadow": "none",
-        "padding": "custom",
-        "padding_top": 18,
-        "padding_right": 22,
-        "padding_bottom": 18,
-        "padding_left": 22,
-        "gap_desktop": 10,
-        "gap_mobile": 10,
-        "width": "custom",
-        "custom_width": 57,
-        "width_mobile": "fill",
-        "device": "desktop",
-        "color_type": "inherit",
-        "single_open": true,
-        "item_background": "#ffffff0f",
-        "corner_radius": "radius_16"
-      },
-      "blocks": [
-        {
-          "type": "faq_item",
-          "settings": {
-            "use_elara_layout": true,
-            "question": "How long is the warranty?",
-            "show_question_icon": false,
-            "initially_open": true,
-            "pointer_light": true
-          },
-          "blocks": [
-            {
-              "type": "text",
-              "settings": {
-                "text": "<p>12 months on the board and PCB. Manufacturing faults are replaced within the first 30 days.</p>",
-                "text_size": "md",
-                "text_color": "#bfe3ffb8",
-                "width": "fill"
-              }
-            }
-          ]
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "use_elara_layout": true,
-            "question": "Can I change switches myself?",
-            "show_question_icon": false,
-            "initially_open": false,
-            "pointer_light": true
-          },
-          "blocks": [
-            {
-              "type": "text",
-              "settings": {
-                "text": "<p>Yes. The hot-swap PCB lets you pull out switches and press in new ones, no soldering.</p>",
-                "text_size": "md",
-                "text_color": "#bfe3ffb8",
-                "width": "fill"
-              }
-            }
-          ]
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "use_elara_layout": true,
-            "question": "Does it work with Mac and Windows?",
-            "show_question_icon": false,
-            "initially_open": false,
-            "pointer_light": true
-          },
-          "blocks": [
-            {
-              "type": "text",
-              "settings": {
-                "text": "<p>Yes. The board detects your system and remaps modifier keys with one shortcut.</p>",
-                "text_size": "md",
-                "text_color": "#bfe3ffb8",
-                "width": "fill"
-              }
-            }
-          ]
-        },
-        {
-          "type": "faq_item",
-          "settings": {
-            "use_elara_layout": true,
-            "question": "How fast is shipping?",
-            "show_question_icon": false,
-            "initially_open": false,
-            "pointer_light": true
-          },
-          "blocks": [
-            {
-              "type": "text",
-              "settings": {
-                "text": "<p>Orders ship in 1–2 business days. Delivery takes 3–7 days depending on your region.</p>",
-                "text_size": "md",
-                "text_color": "#bfe3ffb8",
-                "width": "fill"
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-  ]
+  }]
 }
 {% endschema %}

@@ -164,7 +164,6 @@
   <lh-editorial-text
     class="{{ editorial_text_class }}"
     data-editorial-reveal="{{ block.settings.enable_scroll_reveal }}"
-    data-editorial-unit="{{ block.settings.reveal_unit | default: 'character' }}"
     data-editorial-speed="{{ block.settings.scroll_speed | default: 'medium' }}"
     data-editorial-opacity="{{ block.settings.start_opacity | default: 30 }}"
     {% if editorial_text_style != blank %}style="{{ editorial_text_style }}"{% endif %}
@@ -205,9 +204,7 @@
   .editorial-text-block__image :is(a, img, .placeholder-image) { border-radius: inherit; }
   .editorial-text-block__image img { height: auto; }
   .editorial-text-block__image .placeholder-image { display: block; aspect-ratio: 2 / 1; }
-  .editorial-reading-word { display: inline-block; transition: opacity 350ms ease; }
   @media (prefers-reduced-motion: reduce) {
-    .editorial-reading-word { opacity: 1 !important; transition: none; }
     .editorial-reading-letter { opacity: 1 !important; }
   }
 
@@ -314,7 +311,6 @@
     },
     {"type": "header", "content": "Scroll settings"},
     {"type": "checkbox", "id": "enable_scroll_reveal", "label": "Enable scroll reveal", "default": true},
-    {"type": "select", "id": "reveal_unit", "label": "Reveal by", "options": [{"value": "character", "label": "Character"}, {"value": "word", "label": "Word"}], "default": "character", "visible_if": "{{ block.settings.enable_scroll_reveal }}"},
     {"type": "select", "id": "scroll_speed", "label": "Scroll speed", "options": [{"value": "slow", "label": "Slow"}, {"value": "medium", "label": "Medium"}, {"value": "fast", "label": "Fast"}], "default": "medium", "visible_if": "{{ block.settings.enable_scroll_reveal }}"},
     {"type": "range", "id": "start_opacity", "label": "Start opacity", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 30, "visible_if": "{{ block.settings.enable_scroll_reveal }}"},
     {"type": "header", "content": "Image 1"},

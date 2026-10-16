@@ -7,10 +7,6 @@
       if (instances.has(root)) return;
       const controller = new AbortController();
       const options = { signal: controller.signal };
-      const surfaceDuration = () => {
-        const value = getComputedStyle(root).getPropertyValue('--motion-duration-surface').trim();
-        return (parseFloat(value) || 0) * (value.endsWith('ms') ? 1 : 1000);
-      };
       const drawer = root.querySelector('[data-header-mobile-drawer]');
       if (!drawer) return;
       const summaries = [...drawer.querySelectorAll('[data-mobile-drawer-details] > summary')];
@@ -37,7 +33,7 @@
         if (performance.now() < openingUntil) return;
         root.classList.add('header-compact--fast');
         clearTimeout(fastTimer);
-        fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), surfaceDuration());
+        fastTimer = setTimeout(() => root.classList.remove('header-compact--fast'), 420);
       };
       const measure = () => {
         // Preserve shell measurements throughout the exit transition.
@@ -109,7 +105,7 @@
       }, { ...options, capture: true });
       const synchronizeOpenMenu = (preserveSelection = false) => {
         cancelHover();
-        openingUntil = performance.now() + surfaceDuration();
+        openingUntil = performance.now() + 600;
         clearTimeout(fastTimer);
         root.classList.remove('header-compact--fast');
         navigation.forEach(control => control.classList.remove('is-compact-menu-active'));

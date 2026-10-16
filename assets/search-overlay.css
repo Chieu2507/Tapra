@@ -1,10 +1,10 @@
 /* search-overlay detail styles; kept outside the first-paint bundle. */
   .search-overlay {
     --overlay-rest-transform: translateY(-0.5rem);
-    --overlay-motion-duration: var(--motion-duration-surface);
-    --overlay-motion-ease: var(--motion-ease-surface);
+    --overlay-motion-duration: var(--motion-duration-standard);
+    --overlay-motion-ease: var(--motion-ease-standard);
     --overlay-exit-duration: var(--overlay-motion-duration);
-    --overlay-backdrop-duration: var(--motion-duration-backdrop);
+    --overlay-backdrop-duration: var(--motion-duration-standard);
     --overlay-backdrop-ease: var(--motion-ease-standard);
     color: var(--overlay-text-color);
   }

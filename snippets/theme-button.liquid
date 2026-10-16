@@ -4,8 +4,6 @@
   The snippet controls visual treatment only. The caller remains responsible for
   choosing the correct semantic element and for supplying an accessible label.
 
-  @param {boolean} [presentation] - Decorative button surface inside an existing link; renders an aria-hidden span
-  @param {boolean} [label_html] - Render a Shopify-sanitized inline richtext label
   @param {string} label - Visible button label
   @param {string} [label_suffix] - Visually hidden descriptive link text
   @param {string} [url] - Link destination. Omit for a button element
@@ -122,7 +120,7 @@
 {% capture button_content %}
   <span class="btn__label{% if button_icon_name != blank %} btn__label--icon{% endif %}">
     {% if button_icon_name != blank and button_icon_position == 'before' %}{{ button_icon_markup }}{% endif %}
-    <span class="btn__text{% if icon_only %} visually-hidden{% endif %}">{% if label_html %}{{ label }}{% else %}{{ label | escape }}{% endif %}{% if label_suffix != blank %}<span class="visually-hidden">: {{ label_suffix | escape }}</span>{% endif %}</span>
+    <span class="btn__text{% if icon_only %} visually-hidden{% endif %}">{{ label | escape }}{% if label_suffix != blank %}<span class="visually-hidden">: {{ label_suffix | escape }}</span>{% endif %}</span>
     {% if button_icon_name != blank and button_icon_position == 'after' %}{{ button_icon_markup }}{% endif %}
   </span>
 {% endcapture %}
@@ -135,11 +133,7 @@
   {% endif %}
 {% endcapture %}
 
-{% if presentation %}
-  <span class="{{ button_class | strip }}" style="{{ button_motion_style }}" aria-hidden="true">
-    {{ button_content }}
-  </span>
-{% elsif url != blank or force_link %}
+{% if url != blank or force_link %}
   <a
     class="{{ button_class | strip }}"
     {% if url != blank and disabled != true %}href="{{ url | escape }}"{% endif %}

@@ -3,12 +3,12 @@
   --overlay-surface-background: color-mix(in srgb, var(--overlay-background-color, var(--background-color)) var(--overlay-surface-opacity, 90%), transparent);
   --overlay-surface-blur: blur(16px) saturate(1.3);
   --overlay-rest-transform: scale(.95);
-  --overlay-motion-duration: var(--motion-duration-surface);
-  --overlay-motion-ease: var(--motion-ease-surface);
+  --overlay-motion-duration: var(--motion-duration-standard);
+  --overlay-motion-ease: var(--motion-ease-standard);
   --overlay-exit-duration: var(--overlay-motion-duration);
   --overlay-exit-ease: var(--overlay-motion-ease);
   --overlay-enter-delay: 0ms;
-  --overlay-backdrop-duration: var(--motion-duration-backdrop);
+  --overlay-backdrop-duration: var(--overlay-motion-duration);
   --overlay-backdrop-ease: var(--overlay-motion-ease);
 }
 

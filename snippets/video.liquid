@@ -3,7 +3,7 @@
 
   @param {video} [video] - An uploaded Shopify video
   @param {external_video} [external_video] - A YouTube or Vimeo video URL entry
-  @param {image} [poster] - Optional uploaded-video cover, also shown while its video source is empty
+  @param {image} [poster] - Optional cover image for an uploaded video
   @param {boolean} [autoplay] - Whether the video should autoplay
   @param {boolean} [loop] - Whether the video should loop
   @param {string} [play_label] - Accessible label for the play button
@@ -35,24 +35,15 @@
       endif
     endif
   endif
-  if poster != blank
-    assign video_is_placeholder = false
-  endif
 %}
-
-{% capture video_cover %}
-  {% if poster != blank %}
-    <div class="video__cover" data-video-cover aria-hidden="true">
-      {{ poster | image_url: width: 1600 | image_tag: alt: '' }}
-    </div>
-  {% endif %}
-{% endcapture %}
 
 <theme-video class="video{% if video_is_placeholder %} placeholder-image{% endif %} {{ class }}" data-video-media>
   {% if video != blank %}
     {{ video | video_tag: image_size: '1600x', autoplay: video_autoplay, loop: video_loop, muted: video_muted, controls: true, loading: 'lazy', width: video_width, height: video_height }}
     {% if poster != blank and video_autoplay == false %}
-      {{ video_cover }}
+      <div class="video__cover" data-video-cover aria-hidden="true">
+        {{ poster | image_url: width: 1600 | image_tag: alt: '' }}
+      </div>
     {% endif %}
     {% if video_autoplay == false %}
       <button
@@ -101,10 +92,10 @@
         allowfullscreen
       ></iframe>
     {% else %}
-      {% if poster != blank %}{{ video_cover }}{% else %}{{ 'image' | placeholder_svg_tag: 'video__placeholder' }}{% endif %}
+      {{ 'product-1' | placeholder_svg_tag: 'video__placeholder' }}
     {% endif %}
   {% else %}
-    {% if poster != blank %}{{ video_cover }}{% else %}{{ 'image' | placeholder_svg_tag: 'video__placeholder' }}{% endif %}
+    {{ 'product-1' | placeholder_svg_tag: 'video__placeholder' }}
   {% endif %}
 </theme-video>
 
@@ -230,6 +221,7 @@
 
   .video__placeholder {
     height: var(--video-block-height, auto);
+    background-color: var(--background-color);
   }
 
   @media (max-width: 767.98px) {

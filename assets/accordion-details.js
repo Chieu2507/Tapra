@@ -190,15 +190,6 @@
       return;
     }
 
-    if (nextState) {
-      const group = state.details.closest('[data-accordion-single]');
-      group?.querySelectorAll(detailsSelector).forEach((details) => {
-        if (details === state.details || details.closest('[data-accordion-single]') !== group) return;
-        const sibling = states.get(details);
-        if (sibling?.isOpen) setOpenState(sibling, false);
-      });
-    }
-
     state.isOpen = nextState;
     updateAccessibilityState(state);
     notifyStateChange(state);

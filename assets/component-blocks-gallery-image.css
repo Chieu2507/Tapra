@@ -31,9 +31,6 @@
   color: var(--gallery-post-text);
 }
 .gallery-image--post .gallery-image__visual { aspect-ratio: var(--gallery-image-ratio, 1); height: auto; border-radius: var(--gallery-post-media-radius); }
-/* The visual owns the ratio. A percentage height in normal flow resolves
-   against auto height and can leave portrait cards with square media. */
-.gallery-image--post .gallery-image__media { position: absolute; inset: 0; width: 100%; height: 100%; }
 /* Reuse the shared pointer light; keep its glow above opaque gallery media. */
 html[data-surface-light-enabled] .gallery-image--post.surface-light {
   --surface-light-border-width: var(--gallery-post-border);

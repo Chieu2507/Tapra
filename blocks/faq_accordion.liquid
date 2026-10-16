@@ -2,7 +2,6 @@
   Elara compatibility: saved instances retain their original rendering and
   responsive contract. New presets explicitly opt into the rebuilt layout.
 {% endcomment %}
-{% capture faq_appearance_style %}{%- if block.settings.item_background != blank -%}--faq-item-background: {{ block.settings.item_background }};{%- endif -%}{%- if block.settings.corner_radius != blank and block.settings.corner_radius != 'default' -%}--faq-item-radius: {% if block.settings.corner_radius == 'square' %}var(--radius-square){% else %}var(--{{ block.settings.corner_radius | replace: '_', '-' }}){% endif %};{%- endif -%}{% endcapture %}
 {% capture faq_accordion_child_blocks %}
   {% content_for 'blocks' %}
 {% endcapture %}
@@ -151,7 +150,7 @@
   {% if block.settings.customize_mobile_font_size and block.settings.answer_font_size_mobile != blank %}--faq-item-answer-size-mobile: var(--font-body-{{ block.settings.answer_font_size_mobile }});{% endif %}
 {% endcapture %}
 
-<div class="faq-accordion elara-faq-accordion size-style elara-faq-accordion--width-{{ faq_accordion_width }} elara-faq-accordion--style-{{ faq_accordion_style }} elara-faq-accordion--icon-{{ faq_accordion_icon }}{% if block.settings.dividers %} elara-faq-accordion--dividers{% endif %}{% if faq_accordion_mobile_size_enabled %} elara-faq-accordion--mobile-size{% endif %}{% if block.settings.padding == 'custom' %} elara-faq-accordion--custom-padding{% endif %}{% if faq_accordion_style == 'boxed' and faq_accordion_color_type == 'color_scheme' %} color-scheme {{ faq_accordion_scheme }}{% endif %}" style="{{ faq_appearance_style }}{{ faq_accordion_style_attribute | strip }}"{% if block.settings.single_open %} data-accordion-single{% endif %} {{ block.shopify_attributes }}>
+<div class="faq-accordion elara-faq-accordion size-style elara-faq-accordion--width-{{ faq_accordion_width }} elara-faq-accordion--style-{{ faq_accordion_style }} elara-faq-accordion--icon-{{ faq_accordion_icon }}{% if block.settings.dividers %} elara-faq-accordion--dividers{% endif %}{% if faq_accordion_mobile_size_enabled %} elara-faq-accordion--mobile-size{% endif %}{% if block.settings.padding == 'custom' %} elara-faq-accordion--custom-padding{% endif %}{% if faq_accordion_style == 'boxed' and faq_accordion_color_type == 'color_scheme' %} color-scheme {{ faq_accordion_scheme }}{% endif %}" style="{{ faq_accordion_style_attribute | strip }}" {{ block.shopify_attributes }}>
   <div class="elara-faq-accordion__items">
     {{ faq_accordion_child_blocks }}
   </div>
@@ -256,7 +255,7 @@
   {% endif %}
 {% endcapture %}
 
-<div class="faq-accordion size-style faq-accordion--width-{{ faq_accordion_width }} faq-accordion--style-{{ faq_accordion_style }} faq-accordion--icon-{{ faq_accordion_icon }}{% if block.settings.dividers %} faq-accordion--dividers{% endif %}{% if faq_accordion_style == 'boxed' %} color-scheme {{ faq_accordion_scheme }}{% endif %}" style="{{ faq_appearance_style }}{{ faq_accordion_style_attribute | strip }}"{% if block.settings.single_open %} data-accordion-single{% endif %} {{ block.shopify_attributes }}>
+<div class="faq-accordion size-style faq-accordion--width-{{ faq_accordion_width }} faq-accordion--style-{{ faq_accordion_style }} faq-accordion--icon-{{ faq_accordion_icon }}{% if block.settings.dividers %} faq-accordion--dividers{% endif %}{% if faq_accordion_style == 'boxed' %} color-scheme {{ faq_accordion_scheme }}{% endif %}" style="{{ faq_accordion_style_attribute | strip }}" {{ block.shopify_attributes }}>
   <div class="faq-accordion__items">
     {{ faq_accordion_child_blocks }}
   </div>
@@ -358,10 +357,6 @@
     .faq-section__content > .elara-faq-accordion--mobile-size { flex-basis: auto; width: var(--size-style-width-mobile, var(--size-style-width, 100%)); }
   }
   @media (prefers-reduced-motion: reduce) { .elara-faq-item__plus-vertical { transition: none; } }
-
-  /* Optional boxed appearance retains the original defaults for saved instances. */
-  .faq-accordion--style-boxed .faq-item { border-radius: var(--faq-item-radius, var(--radius-square)); background: var(--faq-item-background, var(--background-color)); }
-  .elara-faq-accordion--style-boxed > .elara-faq-accordion__items > .elara-faq-item { border-radius: var(--faq-item-radius, var(--card-radius)); background: var(--faq-item-background, var(--background-color)); }
 {% endstylesheet %}
 
 {% schema %}
@@ -938,11 +933,6 @@
       "default": "md",
       "visible_if": "{{ block.settings.customize_mobile_font_size }}"
     }
-,
-    {"type": "header", "content": "Cards"},
-    {"type": "checkbox", "id": "single_open", "label": "Open one item at a time", "default": false},
-    {"type": "color", "id": "item_background", "label": "Card background color", "alpha": true, "visible_if": "{{ block.settings.style == 'boxed' }}"},
-    {"type": "select", "id": "corner_radius", "label": "Corner radius", "options": [{"value": "default", "label": "Theme default"}, {"value": "square", "label": "Square"}, {"value": "radius_8", "label": "8 px"}, {"value": "radius_12", "label": "12 px"}, {"value": "radius_16", "label": "16 px"}, {"value": "radius_24", "label": "24 px"}], "default": "default", "visible_if": "{{ block.settings.style == 'boxed' }}"}
   ],
   "presets": [
     {
