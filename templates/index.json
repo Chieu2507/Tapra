@@ -2508,7 +2508,7 @@
           "type": "product-list",
           "static": true,
           "settings": {
-            "collection": "new-arrivals-stroken",
+            "collection": "keyboards-tapra",
             "max_products": 3,
             "layout_type": "grid",
             "columns_desktop": "3",
