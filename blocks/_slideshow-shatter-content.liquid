@@ -19,15 +19,15 @@
   endif
   assign content_width_mode = block.settings.width | default: 'fit'
   assign content_width = 'fit-content'
-  assign content_max_width = blank
+  assign content_max_width = ''
   if content_width_mode == 'fill' or content_width_mode == 'custom'
     assign content_width = '100%'
   endif
   if content_width_mode == 'custom'
     assign content_max_width = block.settings.max_width | default: 750 | at_least: 320 | at_most: 1200 | append: 'px'
   endif
-  assign content_width_mobile = blank
-  assign content_max_width_mobile = blank
+  assign content_width_mobile = ''
+  assign content_max_width_mobile = ''
   if block.settings.customize_mobile_size
     assign content_width_mobile = 'fit-content'
     assign mobile_width_mode = block.settings.width_mobile | default: content_width_mode
