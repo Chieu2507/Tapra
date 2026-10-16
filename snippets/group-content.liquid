@@ -13,6 +13,7 @@
   @param {object} section - Owning section
   @param {string} children - Captured child blocks
   @param {string} [container_class] - Optional shared container classes
+  @param {string} [extra_class] - Classes on the Group's visible surface
 
   @example
   {% content_for 'block', type: 'group', id: 'group' %}
@@ -245,6 +246,9 @@
     assign group_wrap = 'wrap'
   endif
   assign group_class = 'group size-style layout-flow layout-flow--responsive group--' | append: group_direction
+  if extra_class != blank
+    assign group_class = group_class | append: ' ' | append: extra_class
+  endif
   assign group_class = group_class | append: ' group--align-' | append: group_alignment
   assign group_class = group_class | append: ' group--width-' | append: group_width_mode
   assign group_class = group_class | append: ' group--height-' | append: group_height_mode

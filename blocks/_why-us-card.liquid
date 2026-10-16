@@ -2,7 +2,7 @@
   Editable Why us card using the shared Group layout and appearance kernel.
 {% enddoc %}
 {% capture children %}{% content_for 'blocks' %}{% endcapture %}
-{% render 'group-content', block: block, section: section, children: children %}
+{% render 'group-content', block: block, section: section, children: children, extra_class: 'surface-light' %}
 {% schema %}
 {
   "name": "Card",
