@@ -5,7 +5,10 @@
 
   @param {product} product - Product to render
   @param {string} [card_style] - Optional local Standard/Card style; blank inherits Theme Settings
+  @param {string} [card_corner_radius] - Optional local card radius preset; inherit uses Theme Settings
   @param {string} [media_corner_radius] - Optional local radius preset; inherit uses Theme Settings
+  @param {string} [media_ratio] - Optional image ratio; inherit uses Theme Settings
+  @param {number} [media_inset] - Optional media inset in pixels; blank inherits Theme Settings
   @param {string} [class] - Additional classes
   @param {string} [color_type] - Inherit or override the card color scheme
   @param {object} [color_scheme] - Optional block-level color scheme override
@@ -32,7 +35,12 @@
   endunless
 
   assign card_ratio = settings.product_card_ratio | default: 'natural'
-  unless card_ratio == 'natural' or card_ratio == 'square' or card_ratio == 'portrait' or card_ratio == 'landscape' or card_ratio == 'ratio_7_6'
+  assign local_media_ratio = false
+  if media_ratio == 'natural' or media_ratio == 'square' or media_ratio == 'portrait' or media_ratio == 'landscape' or media_ratio == 'ratio_7_6' or media_ratio == 'ratio_3_2'
+    assign card_ratio = media_ratio
+    assign local_media_ratio = true
+  endif
+  unless card_ratio == 'natural' or card_ratio == 'square' or card_ratio == 'portrait' or card_ratio == 'landscape' or card_ratio == 'ratio_7_6' or card_ratio == 'ratio_3_2'
     assign card_ratio = 'natural'
   endunless
 
@@ -145,6 +153,9 @@
       assign image_height = 600
     when 'ratio_7_6'
       assign image_height = 686
+    when 'ratio_3_2'
+      assign image_width = 900
+      assign image_height = 600
   endcase
 
   assign card_class = 'product-card product-card--' | append: card_style
@@ -216,6 +227,23 @@
 %}
 
 {% capture product_card_local_style %}
+  {% case card_corner_radius %}
+    {% when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32' %}
+      --card-radius: var(--radius-{{ card_corner_radius | remove: 'radius_' }});
+    {% when 'square' %}--card-radius: var(--radius-square);
+    {% when 'rounded' %}--card-radius: var(--radius-rounded);
+    {% when 'full' %}--card-radius: var(--radius-pill);
+  {% endcase %}
+  {% if media_inset != nil and media_inset != blank %}--product-card-media-inset: {{ media_inset | at_least: 0 | at_most: 32 }}px;{% endif %}
+  {% if local_media_ratio %}
+    {% case card_ratio %}
+      {% when 'square' %}--product-card-image-ratio: 1 / 1;
+      {% when 'portrait' %}--product-card-image-ratio: 4 / 5;
+      {% when 'landscape' %}--product-card-image-ratio: 4 / 3;
+      {% when 'ratio_7_6' %}--product-card-image-ratio: 7 / 6;
+      {% when 'ratio_3_2' %}--product-card-image-ratio: 3 / 2;
+    {% endcase %}
+  {% endif %}
   {% case media_corner_radius %}
     {% when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32' %}
       --product-card-media-radius: var(--radius-{{ media_corner_radius | remove: 'radius_' }});

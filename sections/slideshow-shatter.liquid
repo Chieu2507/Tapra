@@ -1,0 +1,573 @@
+{% liquid
+  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-3' | handleize
+  assign width_class = 'full-width'
+  if section.settings.section_width == 'page_width'
+    assign width_class = 'page-width'
+  endif
+%}
+{{ 'component-slideshow-shatter.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'slideshow-shatter.js' | asset_url }}" defer></script>
+{% liquid
+  assign desktop_height = section.settings.desktop_height | default: 'medium'
+  assign mobile_height = section.settings.mobile_height | default: 'small'
+%}
+{% capture section_style %}
+  --shatter-height:{% case desktop_height %}{% when 'adapt' %}auto{% when 'extra_small' %}420px{% when 'small' %}560px{% when 'medium' %}640px{% when 'large' %}820px{% when 'extra_large' %}1080px{% when 'full_screen' %}100svh{% when 'custom' %}{{ section.settings.desktop_height_custom }}px{% endcase %};
+  {% if section.settings.customize_tablet_height and desktop_height != 'adapt' %}--shatter-height-tablet:{{ section.settings.tablet_height_custom }}px;{% endif %}
+  --shatter-height-mobile:{% case mobile_height %}{% when 'adapt' %}auto{% when 'extra_small' %}320px{% when 'small' %}440px{% when 'medium' %}560px{% when 'large' %}620px{% when 'extra_large' %}820px{% when 'full_screen' %}100svh{% when 'custom' %}{{ section.settings.mobile_height_custom }}px{% endcase %};
+  {% if section.settings.background_color != blank %}--shatter-background:{{ section.settings.background_color }};{% endif %}
+  {% if section.settings.padding_top != 0 %}--section-padding-top:{{ section.settings.padding_top }}px;{% endif %}
+  {% if section.settings.padding_bottom != 0 %}--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% endif %}
+  {% if section.settings.customize_mobile_padding %}
+    {% if section.settings.padding_top_mobile != section.settings.padding_top %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;{% endif %}
+    {% if section.settings.padding_bottom_mobile != section.settings.padding_bottom %}--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}
+  {% endif %}
+{% endcapture %}
+<div class="section-spacing color-scheme section-color-scope {{ scheme }}" style="{{ section_style | strip }}">
+  <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} shatter-full-bleed{% endif %}">
+    <slideshow-shatter class="shatter{% if section.settings.ambient_background %} shatter--ambient{% endif %}" data-shatter data-desktop-height="{{ desktop_height }}" data-mobile-height="{{ mobile_height }}" data-pause-on-hover="{{ section.settings.pause_on_hover }}" data-pagination-type="{{ section.settings.pagination_type }}" data-bullet-style="{{ section.settings.pagination_bullet_style }}" data-controls-desktop="{{ section.settings.pagination_position_desktop }}" data-controls-mobile="{{ section.settings.pagination_position_mobile }}" data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval }}" data-show-progress="{{ section.settings.show_progress }}" data-interaction="{{ section.settings.allow_assembly }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+      <canvas class="shatter__canvas shatter__canvas--back" data-shatter-back aria-hidden="true"></canvas>
+      <div class="shatter__slides" data-shatter-slides>{% content_for 'blocks' %}</div>
+      <canvas class="shatter__canvas" data-shatter-front aria-hidden="true"></canvas>
+      <div class="shatter__status shatter__glass"{% unless section.settings.show_status %} hidden{% endunless %} aria-hidden="true">
+        <span data-shatter-percent>70%</span> <small>{{ 'shatter.assembled' | t }}</small>
+        <div class="shatter__status-bar"><i data-shatter-assembly-bar></i></div>
+        <p>{{ 'shatter.hold_hint' | t }}</p>
+      </div>
+      <div class="shatter__progress"{% unless section.settings.show_progress %} hidden{% endunless %} aria-hidden="true"><i data-shatter-progress></i></div>
+      <div class="shatter__controls shatter__glass">
+        <div class="shatter__pagination" data-shatter-pagination{% unless section.settings.show_pagination %} hidden{% endunless %} role="group" aria-label="{{ 'shatter.slides' | t }}"></div>
+        {% if section.settings.allow_assembly and section.settings.show_assemble_button %}<button type="button" data-shatter-assemble aria-pressed="false">{{ 'shatter.assemble' | t }}</button>{% endif %}
+        <button type="button" data-shatter-pause aria-pressed="false" aria-label="{{ 'shatter.pause' | t }}" title="{{ 'shatter.pause' | t }}" data-pause-label="{{ 'shatter.pause' | t }}" data-play-label="{{ 'shatter.play' | t }}"><span class="shatter__pause-icon" aria-hidden="true">{% render 'icon', icon: 'pause', bare: true %}</span><span class="shatter__play-icon" aria-hidden="true">{% render 'icon', icon: 'play', bare: true %}</span></button>
+      </div>
+      <div class="shatter__cursor" data-shatter-cursor aria-hidden="true"><i></i><span data-hold-label="{{ 'shatter.hold_cursor' | t }}" data-release-label="{{ 'shatter.release_cursor' | t }}">{{ 'shatter.hold_cursor' | t }}</span></div>
+      <span class="visually-hidden" data-shatter-announcement aria-live="polite" aria-atomic="true"></span>
+      {% if section.blocks.size == 0 %}<p class="shatter__empty">{{ 'shatter.empty' | t }}</p>{% endif %}
+    </slideshow-shatter>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Slideshow: Shatter",
+  "tag": "div",
+  "class": "section-slideshow-shatter",
+  "enabled_on": {
+    "templates": [
+      "index"
+    ]
+  },
+  "max_blocks": 12,
+  "blocks": [
+    {
+      "type": "_slideshow-shatter-slide"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "default": "full_bleed",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "full_bleed",
+          "label": "Full width (no padding)"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Height"
+    },
+    {
+      "type": "select",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt"
+        },
+        {
+          "value": "extra_small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "extra_large",
+          "label": "Extra large"
+        },
+        {
+          "value": "full_screen",
+          "label": "Full screen"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height_custom",
+      "label": "Desktop custom height",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 810,
+      "visible_if": "{{ section.settings.desktop_height == 'custom' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_tablet_height",
+      "label": "Customize tablet height",
+      "default": false,
+      "visible_if": "{{ section.settings.desktop_height != 'adapt' }}"
+    },
+    {
+      "type": "range",
+      "id": "tablet_height_custom",
+      "label": "Tablet height",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 720,
+      "visible_if": "{{ section.settings.desktop_height != 'adapt' and section.settings.customize_tablet_height }}"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt"
+        },
+        {
+          "value": "extra_small",
+          "label": "Extra small"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "extra_large",
+          "label": "Extra large"
+        },
+        {
+          "value": "full_screen",
+          "label": "Full screen"
+        },
+        {
+          "value": "custom",
+          "label": "Custom"
+        }
+      ],
+      "default": "small"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height_custom",
+      "label": "Mobile custom height",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 670,
+      "visible_if": "{{ section.settings.mobile_height == 'custom' }}"
+    },
+    {
+      "type": "header",
+      "content": "Slide autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on hover",
+      "default": true,
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "range",
+      "id": "interval",
+      "label": "Autoplay interval",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 6,
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "pagination_type",
+      "label": "Type",
+      "options": [
+        {
+          "value": "bullets",
+          "label": "Bullets"
+        },
+        {
+          "value": "numbers",
+          "label": "Numbers"
+        }
+      ],
+      "default": "bullets",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_bullet_style",
+      "label": "Bullet style",
+      "options": [
+        {
+          "value": "standard",
+          "label": "Standard"
+        },
+        {
+          "value": "circular",
+          "label": "Circular progress"
+        }
+      ],
+      "default": "standard",
+      "visible_if": "{{ section.settings.show_pagination and section.settings.pagination_type == 'bullets' }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_position_desktop",
+      "label": "Desktop position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "select",
+      "id": "pagination_position_mobile",
+      "label": "Mobile position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress",
+      "label": "Show autoplay progress bar",
+      "default": true,
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessible label",
+      "default": "Slideshow"
+    },
+    {
+      "type": "header",
+      "content": "Interaction"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_status",
+      "label": "Show assembly status on desktop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "allow_assembly",
+      "label": "Enable pointer and hold interaction",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_assemble_button",
+      "label": "Show Assemble button",
+      "default": true,
+      "visible_if": "{{ section.settings.allow_assembly }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "ambient_background",
+      "label": "Ambient background",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow: Shatter",
+      "blocks": [
+        {
+          "type": "_slideshow-shatter-slide",
+          "blocks": [
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small keys.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
+            },
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>More room<br>to type.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
+            }
+          ],
+          "settings": {}
+        },
+        {
+          "type": "_slideshow-shatter-slide",
+          "blocks": [
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Compact.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
+            },
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Built<br>your way.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
+            }
+          ],
+          "settings": {}
+        },
+        {
+          "type": "_slideshow-shatter-slide",
+          "blocks": [
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Swap it.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
+            },
+            {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your<br>feel.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
+            }
+          ],
+          "settings": {}
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

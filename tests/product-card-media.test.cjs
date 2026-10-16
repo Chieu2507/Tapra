@@ -1,0 +1,20 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const {loadLiquid, stripShopifyMetadata} = require('./helpers/liquid-engine.cjs');
+const Liquid = loadLiquid();
+const engine = new Liquid({fs:{resolve:(_root,name)=>name,exists:async()=>true,readFile:async()=> '{{ card_class }}|{{ style }}'}});
+engine.registerFilter('t',v=>v);
+const source = stripShopifyMetadata(fs.readFileSync('snippets/product-card.liquid','utf8'));
+const render = values => engine.parseAndRender(source,{placeholder:true,settings:{product_card_ratio:'portrait'},...values});
+test('local media ratio and inset override only the opted-in card, including zero',async()=>{
+ const custom = await render({media_ratio:'ratio_3_2',media_inset:14});
+ assert.match(custom,/product-card--ratio-ratio_3_2/);
+ assert.match(custom,/--product-card-image-ratio: 3 \/ 2/);
+ assert.match(custom,/--product-card-media-inset: 14px/);
+ const inherited = await render({media_ratio:'inherit'});
+ assert.match(inherited,/product-card--ratio-portrait/);
+ assert.doesNotMatch(inherited,/--product-card-image-ratio:|--product-card-media-inset:/);
+ assert.match(await render({media_inset:0}),/--product-card-media-inset: 0px/);
+ assert.match(await render({media_inset:100}),/--product-card-media-inset: 32px/);
+});

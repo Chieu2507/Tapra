@@ -1,0 +1,378 @@
+{% liquid
+  assign scheme = section.settings.color_scheme | default: 'scheme-2'
+  assign width_class = 'page-width'
+  if section.settings.section_width == 'full_width' or section.settings.section_width == 'full_bleed'
+    assign width_class = 'full-width'
+  endif
+%}
+{% capture section_style %}
+  --section-padding-top:{{ section.settings.padding_top | default: 96 }}px;
+  --section-padding-bottom:{{ section.settings.padding_bottom | default: 96 }}px;
+  {% if section.settings.customize_mobile_padding %}
+    --section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;
+    --section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;
+  {% endif %}
+  --why-columns:{{ section.settings.columns | default: 3 }};
+  --why-header-gap:{{ section.settings.header_gap | default: 44 }}px;
+  --why-card-gap:{{ section.settings.card_gap | default: 16 }}px;
+  {% if section.settings.background_color != blank %}--why-background:{{ section.settings.background_color }};{% endif %}
+  {% if section.settings.hover_background != blank %}--why-hover-background:{{ section.settings.hover_background }};{% endif %}
+{% endcapture %}
+{% render 'component-stylesheet', filename: 'component-why-us.css', section_index: section.index %}
+<script src="{{ 'block-animations.js' | asset_url }}" defer></script>
+<div class="section-spacing why-us color-scheme section-color-scope {{ scheme }}" data-why-hover="{{ section.settings.hover_effect }}" style="{{ section_style | strip }}">
+  <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} why-us--full-bleed{% endif %}">
+    <div class="why-us__header">{% content_for 'block', type: 'group', id: 'header' %}</div>
+    <div class="why-us__cards">{% content_for 'blocks' %}</div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Why us",
+  "class": "section-why-us",
+  "tag": "section",
+  "max_blocks": 8,
+  "enabled_on": {
+    "templates": [
+      "*"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "_why-us-card"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "default": "page_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "full_bleed",
+          "label": "Full width (no padding)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "label": "Header gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 44
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "checkbox",
+      "id": "hover_effect",
+      "label": "Enable card hover effect",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "hover_background",
+      "label": "Card hover background",
+      "alpha": true,
+      "default": "#BFE3FF",
+      "visible_if": "{{ section.settings.hover_effect }}"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why us",
+      "category": "t:general.content",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "section_width": "page_width"
+      },
+      "blocks": [
+        {
+          "type": "group",
+          "id": "header",
+          "static": true,
+          "settings": {
+            "direction": "horizontal",
+            "wrap": false,
+            "position_horizontal": "bottom",
+            "horizontal_alignment": "space-between",
+            "alignment": "left",
+            "width": "fill",
+            "height": "fit",
+            "gap_desktop": 32,
+            "gap_mobile": 20,
+            "customize_mobile_alignment": true,
+            "alignment_mobile": "left",
+            "animation_type": "slide-bottom"
+          },
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "height": "fit",
+                "alignment": "left",
+                "gap_desktop": 0,
+                "gap_mobile": 0
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Why us?</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Here's why you should shop with us.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "div",
+                    "text_color": "#5F687C"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Honest service, careful packing and a team that types as much as you do.</p>",
+                "text_size": "md",
+                "width": "custom",
+                "max_width": 340,
+                "text_color": "#5F687C"
+              }
+            }
+          ]
+        },
+        {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 0,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": [
+            {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 7h11v9H3z\"/><path d=\"M14 10h4l3 3v3h-7\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/><path d=\"M8.5 11.2c0-1 1-1.6 1.7-1 .7-.6 1.7 0 1.7 1 0 1.1-1.7 2.1-1.7 2.1s-1.7-1-1.7-2.1z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>All orders</strong> are packed by hand with care and shipped from our own <strong>warehouse</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          ]
+        },
+        {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 100,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": [
+            {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M8 3v4M16 3v4M3 10h18\"/><path d=\"M8 16h8M13 13l3 3-3 3\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>We ship most orders within <strong>24\u201348 hours</strong> and accept returns within <strong>30 days</strong> of receipt.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          ]
+        },
+        {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 200,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": [
+            {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>More than <strong>1,300+</strong> verified <strong>5-star</strong> reviews with an average rating of <strong>4.9</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

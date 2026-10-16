@@ -421,5 +421,19 @@
   "gallery": {
     "likes": "{{ count }} likes"
   },
-  "collection_editorial": {"collection_title": "Collection title"}
+  "collection_editorial": {
+    "collection_title": "Collection title"
+  },
+  "shatter": {
+    "assembled": "ASSEMBLED",
+    "hold_hint": "Press and hold to assemble the picture.",
+    "hold_cursor": "Hold to assemble",
+    "release_cursor": "Release to scatter",
+    "slides": "Slides",
+    "assemble": "Assemble",
+    "pause": "Pause",
+    "play": "Play",
+    "empty": "Add a slide to get started.",
+    "slide_label": "Slide {{ number }} of {{ count }}"
+  }
 }

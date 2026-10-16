@@ -53,6 +53,18 @@
 %}
 
 {% capture marquee_style %}
+  {% if marquee_settings.background_color != blank %}--marquee-background-color: {{ marquee_settings.background_color | escape }};{% endif %}
+  {% for edge in (1..2) %}
+    {% assign side = 'left' %}
+    {% if edge == 2 %}{% assign side = 'right' %}{% endif %}
+    {% assign padding_key = 'padding_' | append: side %}
+    {% assign padding_value = marquee_settings[padding_key] | default: 0 | at_least: 0 | at_most: 100 %}
+    {% if padding_value != 0 %}--marquee-padding-{{ side }}: {{ padding_value }}px;{% endif %}
+    {% if marquee_settings.customize_mobile_padding %}
+      {% assign mobile_key = padding_key | append: '_mobile' %}
+      --marquee-padding-{{ side }}-mobile: {{ marquee_settings[mobile_key] | default: 0 | at_least: 0 | at_most: 100 }}px;
+    {% endif %}
+  {% endfor %}
   --marquee-align: {% case marquee_settings.alignment %}{% when 'top' %}flex-start{% when 'bottom' %}flex-end{% else %}center{% endcase %};
   {% if marquee_settings.width == 'custom' %}--marquee-width: {{ marquee_settings.custom_width | default: 50 }}%;{% endif %}
   {% if padding_top != 0 %}--marquee-padding-top: {{ padding_top }}px;{% endif %}

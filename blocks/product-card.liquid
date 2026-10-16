@@ -22,6 +22,10 @@
 {% enddoc %}
 
 {% liquid
+  assign product_card_media_inset = nil
+  if block.settings.customize_media_inset
+    assign product_card_media_inset = block.settings.media_inset | default: 0 | at_least: 0 | at_most: 32
+  endif
   assign card_product = closest.product | default: product
   assign product_card_color_type = block.settings.color_type
   if color_type_override != nil
@@ -49,7 +53,10 @@
     product: card_product,
     rating_content: product_card_rating,
     card_style: block.settings.card_style,
+    card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
+    media_ratio: block.settings.media_ratio,
+    media_inset: product_card_media_inset,
     color_type: product_card_color_type,
     color_scheme: product_card_color_scheme,
     attributes: product_card_editor_attributes
@@ -60,7 +67,10 @@
     placeholder: true,
     placeholder_index: placeholder_index,
     card_style: block.settings.card_style,
+    card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
+    media_ratio: block.settings.media_ratio,
+    media_inset: product_card_media_inset,
     color_type: product_card_color_type,
     color_scheme: product_card_color_scheme,
     attributes: product_card_editor_attributes
@@ -117,6 +127,115 @@
         }
       ],
       "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "card_corner_radius",
+      "label": "Card corner radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.radius_preset.inherit"
+        },
+        {
+          "value": "square",
+          "label": "t:options.radius_preset.square"
+        },
+        {
+          "value": "radius_2",
+          "label": "t:options.radius_preset.size_2"
+        },
+        {
+          "value": "radius_4",
+          "label": "t:options.radius_preset.size_4"
+        },
+        {
+          "value": "radius_6",
+          "label": "t:options.radius_preset.size_6"
+        },
+        {
+          "value": "rounded",
+          "label": "t:options.radius_preset.rounded"
+        },
+        {
+          "value": "radius_8",
+          "label": "t:options.radius_preset.size_8"
+        },
+        {
+          "value": "radius_12",
+          "label": "t:options.radius_preset.size_12"
+        },
+        {
+          "value": "radius_16",
+          "label": "t:options.radius_preset.size_16"
+        },
+        {
+          "value": "radius_24",
+          "label": "t:options.radius_preset.size_24"
+        },
+        {
+          "value": "radius_32",
+          "label": "t:options.radius_preset.size_32"
+        },
+        {
+          "value": "full",
+          "label": "t:options.radius_preset.full"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "media_ratio",
+      "label": "t:labels.image_ratio",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.radius_preset.inherit"
+        },
+        {
+          "value": "natural",
+          "label": "t:options.image_ratio.original"
+        },
+        {
+          "value": "square",
+          "label": "t:options.image_ratio.square"
+        },
+        {
+          "value": "portrait",
+          "label": "t:options.image_ratio.portrait"
+        },
+        {
+          "value": "landscape",
+          "label": "t:options.image_ratio.landscape"
+        },
+        {
+          "value": "ratio_3_2",
+          "label": "3:2"
+        },
+        {
+          "value": "ratio_7_6",
+          "label": "t:options.image_ratio.ratio_7_6"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_media_inset",
+      "label": "Customize media inset",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "media_inset",
+      "label": "t:labels.media_inset",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "default": 0,
+      "visible_if": "{{ block.settings.customize_media_inset }}"
     },
     {
       "type": "select",

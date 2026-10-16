@@ -1,0 +1,845 @@
+{
+  "store": "layouthub-template-v2.myshopify.com",
+  "themeId": "192330793259",
+  "reference": "https://jsfiddle.net/1shw25og/2/",
+  "workflow": "docs/content-creation-workflow.md",
+  "generatedConcepts": true,
+  "createdProducts": [
+    {
+      "title": "Tapra 65",
+      "handle": "tapra-65",
+      "price": "59.00",
+      "compareAtPrice": "79.00",
+      "tags": [
+        "Bestseller",
+        "Tapra",
+        "Demo",
+        "65%"
+      ],
+      "summary": "65% layout, hot-swap, Bluetooth",
+      "descriptionHtml": "<p>A compact keyboard concept for a desk with room to move. Tapra 65 brings the everyday typing area into a 65% layout, leaving more space beside your board.</p><h2>At a glance</h2><ul><li>Compact 65% keyboard layout.</li><li>Hot-swap design for changing compatible switches.</li><li>Bluetooth connectivity.</li></ul><p>The navy and ivory finish shown in the gallery is the single demo configuration. See the lifestyle image for a working desk setup and the additional angles for a closer look at the case and keys.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "shopify": {
+        "id": "gid://shopify/Product/15429632327979",
+        "handle": "tapra-65",
+        "title": "Tapra 65",
+        "variants": {
+          "nodes": [
+            {
+              "id": "gid://shopify/ProductVariant/67781247697195",
+              "inventoryItem": {
+                "id": "gid://shopify/InventoryItem/69791114953003",
+                "tracked": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Tapra 75 Pro",
+      "handle": "tapra-75-pro",
+      "price": "109.00",
+      "compareAtPrice": "139.00",
+      "tags": [
+        "New",
+        "Tapra",
+        "Demo",
+        "75%"
+      ],
+      "summary": "75% layout, aluminium case, tri-mode",
+      "descriptionHtml": "<p>A compact layout with the function row close at hand. Tapra 75 Pro is a keyboard concept for an everyday workspace, pairing a 75% layout with an aluminium case.</p><h2>At a glance</h2><ul><li>75% layout with a dedicated function row.</li><li>Aluminium case.</li><li>Tri-mode connectivity.</li></ul><p>The slate-blue and ivory finish shown in the gallery is the single demo configuration. Explore the catalog and workspace images to see the board on its own and in use.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "shopify": {
+        "id": "gid://shopify/Product/15429632393515",
+        "handle": "tapra-75-pro",
+        "title": "Tapra 75 Pro",
+        "variants": {
+          "nodes": [
+            {
+              "id": "gid://shopify/ProductVariant/67781247893803",
+              "inventoryItem": {
+                "id": "gid://shopify/InventoryItem/69791115149611",
+                "tracked": false
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "title": "Tapra TKL",
+      "handle": "tapra-tkl",
+      "price": "79.00",
+      "compareAtPrice": "99.00",
+      "tags": [
+        "New",
+        "Tapra",
+        "Demo",
+        "TKL"
+      ],
+      "summary": "80% layout, PBT keycaps, USB-C",
+      "descriptionHtml": "<p>A familiar typing area with space for dedicated navigation keys. Tapra TKL is an 80% keyboard concept that keeps the function row and arrow cluster while leaving out the number pad.</p><h2>At a glance</h2><ul><li>80% tenkeyless layout.</li><li>PBT keycaps.</li><li>USB-C connection.</li></ul><p>The mist-grey and ivory finish shown in the gallery is the single demo configuration. The workspace image shows the board being used at a desk; additional views show the key arrangement and case profile.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "shopify": {
+        "id": "gid://shopify/Product/15429632459051",
+        "handle": "tapra-tkl",
+        "title": "Tapra TKL",
+        "variants": {
+          "nodes": [
+            {
+              "id": "gid://shopify/ProductVariant/67781247959339",
+              "inventoryItem": {
+                "id": "gid://shopify/InventoryItem/69791115215147",
+                "tracked": false
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "status": "complete",
+  "verifiedProducts": [
+    {
+      "id": "gid://shopify/Product/15429632327979",
+      "title": "Tapra 65",
+      "handle": "tapra-65",
+      "status": "ACTIVE",
+      "publishedOnPublication": true,
+      "category": {
+        "id": "gid://shopify/TaxonomyCategory/el-7-9-12-8",
+        "name": "Keyboards"
+      },
+      "descriptionHtml": "<p>A compact keyboard concept for a desk with room to move. Tapra 65 brings the everyday typing area into a 65% layout, leaving more space beside your board.</p><h2>At a glance</h2><ul>\n<li>Compact 65% keyboard layout.</li>\n<li>Hot-swap design for changing compatible switches.</li>\n<li>Bluetooth connectivity.</li>\n</ul><p>The navy and ivory finish shown in the gallery is the single demo configuration. See the lifestyle image for a working desk setup and the additional angles for a closer look at the case and keys.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "tags": [
+        "65%",
+        "Bestseller",
+        "Demo",
+        "Tapra"
+      ],
+      "totalInventory": 20,
+      "options": [
+        {
+          "name": "Title",
+          "optionValues": [
+            {
+              "name": "Default Title"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "value": "65% layout, hot-swap, Bluetooth",
+        "type": "multi_line_text_field"
+      },
+      "media": {
+        "nodes": [
+          {
+            "id": "gid://shopify/MediaImage/46680634163499",
+            "status": "READY",
+            "alt": "Tapra 65 demo keyboard centered horizontally, straight overhead catalog view on a white background",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-catalog.webp?v=1792144101",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680636326187",
+            "status": "READY",
+            "alt": "Hands typing on a Tapra 65 keyboard at a workspace with monitor",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-lifestyle.webp?v=1792142934",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680638292267",
+            "status": "READY",
+            "alt": "Tapra 65 keyboard front-left three-quarter view",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-angle-1.webp?v=1792142943",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680641012011",
+            "status": "READY",
+            "alt": "Tapra 65 keyboard right-corner key and case detail",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-angle-2.webp?v=1792142952",
+              "width": 1536,
+              "height": 1024
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo0NjY4MDY0MTAxMjAxMSwibGFzdF92YWx1ZSI6IjQifQ=="
+        }
+      },
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67781247697195",
+            "price": "59.00",
+            "compareAtPrice": "79.00",
+            "inventoryQuantity": 20,
+            "secondary": {
+              "type": "file_reference",
+              "value": "gid://shopify/MediaImage/46680636326187"
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo2Nzc4MTI0NzY5NzE5NSwibGFzdF92YWx1ZSI6MX0="
+        }
+      }
+    },
+    {
+      "id": "gid://shopify/Product/15429632393515",
+      "title": "Tapra 75 Pro",
+      "handle": "tapra-75-pro",
+      "status": "ACTIVE",
+      "publishedOnPublication": true,
+      "category": {
+        "id": "gid://shopify/TaxonomyCategory/el-7-9-12-8",
+        "name": "Keyboards"
+      },
+      "descriptionHtml": "<p>A compact layout with the function row close at hand. Tapra 75 Pro is a keyboard concept for an everyday workspace, pairing a 75% layout with an aluminium case.</p><h2>At a glance</h2><ul>\n<li>75% layout with a dedicated function row.</li>\n<li>Aluminium case.</li>\n<li>Tri-mode connectivity.</li>\n</ul><p>The slate-blue and ivory finish shown in the gallery is the single demo configuration. Explore the catalog and workspace images to see the board on its own and in use.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "tags": [
+        "75%",
+        "Demo",
+        "New",
+        "Tapra"
+      ],
+      "totalInventory": 20,
+      "options": [
+        {
+          "name": "Title",
+          "optionValues": [
+            {
+              "name": "Default Title"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "value": "75% layout, aluminium case, tri-mode",
+        "type": "multi_line_text_field"
+      },
+      "media": {
+        "nodes": [
+          {
+            "id": "gid://shopify/MediaImage/46680611979563",
+            "status": "READY",
+            "alt": "Tapra 75 Pro demo keyboard centered horizontally, straight overhead catalog view on a white background",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-catalog.webp?v=1792144102",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680614568235",
+            "status": "READY",
+            "alt": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-lifestyle.webp?v=1792142841",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680616370475",
+            "status": "READY",
+            "alt": "Tapra 75 Pro keyboard from a front three-quarter angle",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-angle-1.webp?v=1792142849",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680618500395",
+            "status": "READY",
+            "alt": "Tapra 75 Pro keyboard overhead detail from the right",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-angle-2.webp?v=1792142859",
+              "width": 1536,
+              "height": 1024
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo0NjY4MDYxODUwMDM5NSwibGFzdF92YWx1ZSI6IjQifQ=="
+        }
+      },
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67781247893803",
+            "price": "109.00",
+            "compareAtPrice": "139.00",
+            "inventoryQuantity": 20,
+            "secondary": {
+              "type": "file_reference",
+              "value": "gid://shopify/MediaImage/46680614568235"
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo2Nzc4MTI0Nzg5MzgwMywibGFzdF92YWx1ZSI6MX0="
+        }
+      }
+    },
+    {
+      "id": "gid://shopify/Product/15429632459051",
+      "title": "Tapra TKL",
+      "handle": "tapra-tkl",
+      "status": "ACTIVE",
+      "publishedOnPublication": true,
+      "category": {
+        "id": "gid://shopify/TaxonomyCategory/el-7-9-12-8",
+        "name": "Keyboards"
+      },
+      "descriptionHtml": "<p>A familiar typing area with space for dedicated navigation keys. Tapra TKL is an 80% keyboard concept that keeps the function row and arrow cluster while leaving out the number pad.</p><h2>At a glance</h2><ul>\n<li>80% tenkeyless layout.</li>\n<li>PBT keycaps.</li>\n<li>USB-C connection.</li>\n</ul><p>The mist-grey and ivory finish shown in the gallery is the single demo configuration. The workspace image shows the board being used at a desk; additional views show the key arrangement and case profile.</p><p><em>Demo product for the Tapra theme preview. Product images are generated concept visuals; specifications and pricing are sample catalog content.</em></p>",
+      "tags": [
+        "Demo",
+        "New",
+        "Tapra",
+        "TKL"
+      ],
+      "totalInventory": 20,
+      "options": [
+        {
+          "name": "Title",
+          "optionValues": [
+            {
+              "name": "Default Title"
+            }
+          ]
+        }
+      ],
+      "summary": {
+        "value": "80% layout, PBT keycaps, USB-C",
+        "type": "multi_line_text_field"
+      },
+      "media": {
+        "nodes": [
+          {
+            "id": "gid://shopify/MediaImage/46680647270699",
+            "status": "READY",
+            "alt": "Tapra TKL demo keyboard centered horizontally, straight overhead catalog view on a white background",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-catalog.webp?v=1792144102",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680650514731",
+            "status": "READY",
+            "alt": "Hands typing on a Tapra TKL keyboard in an everyday monitor workspace",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-lifestyle.webp?v=1792142978",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680654283051",
+            "status": "READY",
+            "alt": "Tapra TKL keyboard front three-quarter view",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-angle-1.webp?v=1792142987",
+              "width": 1536,
+              "height": 1024
+            }
+          },
+          {
+            "id": "gid://shopify/MediaImage/46680657461547",
+            "status": "READY",
+            "alt": "Tapra TKL keyboard overhead side detail",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-angle-2.webp?v=1792142994",
+              "width": 1536,
+              "height": 1024
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo0NjY4MDY1NzQ2MTU0NywibGFzdF92YWx1ZSI6IjQifQ=="
+        }
+      },
+      "variants": {
+        "nodes": [
+          {
+            "id": "gid://shopify/ProductVariant/67781247959339",
+            "price": "79.00",
+            "compareAtPrice": "99.00",
+            "inventoryQuantity": 20,
+            "secondary": {
+              "type": "file_reference",
+              "value": "gid://shopify/MediaImage/46680650514731"
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "eyJsYXN0X2lkIjo2Nzc4MTI0Nzk1OTMzOSwibGFzdF92YWx1ZSI6MX0="
+        }
+      }
+    }
+  ],
+  "collections": [
+    {
+      "id": "gid://shopify/Collection/535367319851",
+      "title": "Keyboards Tapra",
+      "handle": "keyboards-tapra",
+      "descriptionHtml": "<p>Meet the Tapra keyboard demo collection: compact 65%, versatile 75% and tenkeyless layouts, shown in calm everyday workspaces.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-75-pro-lifestyle.webp?v=1792142888",
+      "imageAltText": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 3,
+      "products": [
+        {
+          "title": "Tapra 65",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "59.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        },
+        {
+          "title": "Tapra 75 Pro",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "109.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        },
+        {
+          "title": "Tapra TKL",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "79.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:28:08Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367385387",
+      "title": "Compact Keyboards Tapra",
+      "handle": "compact-keyboards-tapra",
+      "descriptionHtml": "<p>Discover the Tapra 65 demo keyboard, a compact 65% layout for everyday desk setups.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-65-lifestyle.webp?v=1792143016",
+      "imageAltText": "Hands typing on a Tapra 65 keyboard at a workspace with monitor",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra 65",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "59.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:30:17Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367352619",
+      "title": "75% Keyboards Tapra",
+      "handle": "75-keyboards-tapra",
+      "descriptionHtml": "<p>Explore the Tapra 75 Pro demo: a compact keyboard layout with a function row and aluminium case.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-75-pro-lifestyle_acdaac5d-8e87-4829-a662-5ab1dee9571d.webp?v=1792142895",
+      "imageAltText": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra 75 Pro",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "109.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:28:15Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367418155",
+      "title": "TKL Keyboards Tapra",
+      "handle": "tkl-keyboards-tapra",
+      "descriptionHtml": "<p>Explore Tapra tenkeyless demo keyboards with dedicated function and navigation keys, without a number pad.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-tkl-lifestyle.webp?v=1792143023",
+      "imageAltText": "Hands typing on a Tapra TKL keyboard in an everyday monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra TKL",
+          "variantTitle": null,
+          "imageUrl": null,
+          "price": "79.00",
+          "currencyCode": "USD",
+          "status": "DRAFT"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:30:24Z",
+      "currencyCode": "USD"
+    }
+  ],
+  "uploads": [
+    {
+      "product": "tapra-65",
+      "role": "catalog",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-catalog.webp?v=1792142926",
+      "fileId": "gid://shopify/MediaImage/46680634163499",
+      "filename": "tapra-65-catalog.webp",
+      "alt": "Tapra 65 navy and ivory compact keyboard, catalog view",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-65",
+      "role": "lifestyle",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-lifestyle.webp?v=1792142934",
+      "fileId": "gid://shopify/MediaImage/46680636326187",
+      "filename": "tapra-65-lifestyle.webp",
+      "alt": "Hands typing on a Tapra 65 keyboard at a workspace with monitor",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-65",
+      "role": "angle-1",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-angle-1.webp?v=1792142943",
+      "fileId": "gid://shopify/MediaImage/46680638292267",
+      "filename": "tapra-65-angle-1.webp",
+      "alt": "Tapra 65 keyboard front-left three-quarter view",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-65",
+      "role": "angle-2",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-angle-2.webp?v=1792142952",
+      "fileId": "gid://shopify/MediaImage/46680641012011",
+      "filename": "tapra-65-angle-2.webp",
+      "alt": "Tapra 65 keyboard right-corner key and case detail",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-75-pro",
+      "role": "catalog",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-catalog.webp?v=1792142826",
+      "fileId": "gid://shopify/MediaImage/46680611979563",
+      "filename": "tapra-75-pro-catalog.webp",
+      "alt": "Tapra 75 Pro demo keyboard with slate-blue aluminium case and ivory keycaps, catalog view",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-75-pro",
+      "role": "lifestyle",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-lifestyle.webp?v=1792142841",
+      "fileId": "gid://shopify/MediaImage/46680614568235",
+      "filename": "tapra-75-pro-lifestyle.webp",
+      "alt": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-75-pro",
+      "role": "angle-1",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-angle-1.webp?v=1792142849",
+      "fileId": "gid://shopify/MediaImage/46680616370475",
+      "filename": "tapra-75-pro-angle-1.webp",
+      "alt": "Tapra 75 Pro keyboard from a front three-quarter angle",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-75-pro",
+      "role": "angle-2",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-angle-2.webp?v=1792142859",
+      "fileId": "gid://shopify/MediaImage/46680618500395",
+      "filename": "tapra-75-pro-angle-2.webp",
+      "alt": "Tapra 75 Pro keyboard overhead detail from the right",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-tkl",
+      "role": "catalog",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-catalog.webp?v=1792142969",
+      "fileId": "gid://shopify/MediaImage/46680647270699",
+      "filename": "tapra-tkl-catalog.webp",
+      "alt": "Tapra TKL mist-grey tenkeyless keyboard with ivory PBT keycaps, catalog view",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-tkl",
+      "role": "lifestyle",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-lifestyle.webp?v=1792142978",
+      "fileId": "gid://shopify/MediaImage/46680650514731",
+      "filename": "tapra-tkl-lifestyle.webp",
+      "alt": "Hands typing on a Tapra TKL keyboard in an everyday monitor workspace",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-tkl",
+      "role": "angle-1",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-angle-1.webp?v=1792142987",
+      "fileId": "gid://shopify/MediaImage/46680654283051",
+      "filename": "tapra-tkl-angle-1.webp",
+      "alt": "Tapra TKL keyboard front three-quarter view",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    },
+    {
+      "product": "tapra-tkl",
+      "role": "angle-2",
+      "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-angle-2.webp?v=1792142994",
+      "fileId": "gid://shopify/MediaImage/46680657461547",
+      "filename": "tapra-tkl-angle-2.webp",
+      "alt": "Tapra TKL keyboard overhead side detail",
+      "width": 1536,
+      "height": 1024,
+      "format": "WEBP"
+    }
+  ],
+  "imageGeneration": {
+    "agentModel": "gpt-6.1-sol",
+    "reasoningEffort": "low",
+    "requested": "2K maximum native supported, 3:2",
+    "actual": "1536x1024",
+    "upscaled": false,
+    "lifestyle": "Adult hands typing the same keyboard in a workspace with monitor",
+    "qa": "Catalog and lifestyle visually checked by primary agent; every image and supplementary view checked by generating agent. Minor synthetic key legend artifacts retained as demo imagery."
+  },
+  "editor": {
+    "section": "find_board",
+    "picker": "blocks.product-list.settings.collection",
+    "current": "keyboards-tapra",
+    "pending": null,
+    "reason": null,
+    "themePublished": false,
+    "verified": true
+  },
+  "publicationBlock": {
+    "action": "publishablePublish to Online Store for three Tapra products",
+    "reason": "Automatic approval review rejected publication as not explicitly authorized. All three confirmed DRAFT and unpublished.",
+    "publicationId": "gid://shopify/Publication/322604237099",
+    "resolved": true,
+    "resolution": "User explicitly requested publishing the three demo products; all three activated and published successfully to Online Store."
+  },
+  "verifiedCollections": [
+    {
+      "id": "gid://shopify/Collection/535367319851",
+      "title": "Keyboards Tapra",
+      "handle": "keyboards-tapra",
+      "descriptionHtml": "<p>Meet the Tapra keyboard demo collection: compact 65%, versatile 75% and tenkeyless layouts, shown in calm everyday workspaces.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-75-pro-lifestyle.webp?v=1792142888",
+      "imageAltText": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 3,
+      "products": [
+        {
+          "title": "Tapra 65",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-catalog.webp?v=1792142926",
+          "price": "59.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        },
+        {
+          "title": "Tapra 75 Pro",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-catalog.webp?v=1792142826",
+          "price": "109.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        },
+        {
+          "title": "Tapra TKL",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-catalog.webp?v=1792142969",
+          "price": "79.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:32:18Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367385387",
+      "title": "Compact Keyboards Tapra",
+      "handle": "compact-keyboards-tapra",
+      "descriptionHtml": "<p>Discover the Tapra 65 demo keyboard, a compact 65% layout for everyday desk setups.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-65-lifestyle.webp?v=1792143016",
+      "imageAltText": "Hands typing on a Tapra 65 keyboard at a workspace with monitor",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra 65",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-catalog.webp?v=1792142926",
+          "price": "59.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:32:14Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367352619",
+      "title": "75% Keyboards Tapra",
+      "handle": "75-keyboards-tapra",
+      "descriptionHtml": "<p>Explore the Tapra 75 Pro demo: a compact keyboard layout with a function row and aluminium case.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-75-pro-lifestyle_acdaac5d-8e87-4829-a662-5ab1dee9571d.webp?v=1792142895",
+      "imageAltText": "Hands typing on the Tapra 75 Pro keyboard in a monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra 75 Pro",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-catalog.webp?v=1792142826",
+          "price": "109.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:32:18Z",
+      "currencyCode": "USD"
+    },
+    {
+      "id": "gid://shopify/Collection/535367418155",
+      "title": "TKL Keyboards Tapra",
+      "handle": "tkl-keyboards-tapra",
+      "descriptionHtml": "<p>Explore Tapra tenkeyless demo keyboards with dedicated function and navigation keys, without a number pad.</p>",
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/collections/tapra-tkl-lifestyle.webp?v=1792143023",
+      "imageAltText": "Hands typing on a Tapra TKL keyboard in an everyday monitor workspace",
+      "sortOrder": "MANUAL",
+      "collectionType": "manual",
+      "productsCount": 1,
+      "products": [
+        {
+          "title": "Tapra TKL",
+          "variantTitle": null,
+          "imageUrl": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-catalog.webp?v=1792142969",
+          "price": "79.00",
+          "currencyCode": "USD",
+          "status": "ACTIVE"
+        }
+      ],
+      "rules": null,
+      "updatedAt": "2026-10-16T09:30:24Z",
+      "currencyCode": "USD"
+    }
+  ],
+  "previewQA": {
+    "desktop": "Find your board displays Tapra 65, Tapra 75 Pro and Tapra TKL with catalog images, native 3:2 ratio and sale/original prices after reload. Lifestyle hover loaded for each card and first card visually verified.",
+    "mobile": "390px viewport, three 358px-wide cards in one column, no horizontal overflow.",
+    "themePublished": false
+  },
+  "catalogRevision": {
+    "reason": "User requested white backgrounds, identical catalog camera style and correct nested card radii.",
+    "camera": "All three catalog images use a horizontal, straight overhead view on a neutral white background.",
+    "sourceReference": "Torvex Sony DualSense catalog presentation inspected in store.",
+    "actualPixels": [
+      1536,
+      1024
+    ],
+    "format": "WebP quality 92, no resizing/upscaling",
+    "replacements": [
+      {
+        "handle": "tapra-65",
+        "replacedFileId": "gid://shopify/MediaImage/46680634163499",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-65-catalog-white-overhead.webp?v=1792144095",
+          "fileId": "gid://shopify/MediaImage/46681025544491",
+          "filename": "tapra-65-catalog-white-overhead.webp",
+          "alt": "Tapra 65 demo keyboard centered horizontally, straight overhead catalog view on a white background"
+        },
+        "localPath": "output/tapra-catalog/tapra-65/catalog-normalized.webp"
+      },
+      {
+        "handle": "tapra-75-pro",
+        "replacedFileId": "gid://shopify/MediaImage/46680611979563",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-75-pro-catalog-white-overhead.webp?v=1792144080",
+          "fileId": "gid://shopify/MediaImage/46681021382955",
+          "filename": "tapra-75-pro-catalog-white-overhead.webp",
+          "alt": "Tapra 75 Pro demo keyboard centered horizontally, straight overhead catalog view on a white background"
+        },
+        "localPath": "output/tapra-catalog/tapra-75-pro/catalog-normalized.webp"
+      },
+      {
+        "handle": "tapra-tkl",
+        "replacedFileId": "gid://shopify/MediaImage/46680647270699",
+        "source": {
+          "url": "https://cdn.shopify.com/s/files/1/1024/2192/2091/files/tapra-tkl-catalog-white-overhead.webp?v=1792144064",
+          "fileId": "gid://shopify/MediaImage/46681017975083",
+          "filename": "tapra-tkl-catalog-white-overhead.webp",
+          "alt": "Tapra TKL demo keyboard centered horizontally, straight overhead catalog view on a white background"
+        },
+        "localPath": "output/tapra-catalog/tapra-tkl/catalog-normalized.webp"
+      }
+    ],
+    "radiusFix": {
+      "owner": "assets/critical.css",
+      "cardRadius": 24,
+      "mediaInset": 14,
+      "mediaRadius": 16,
+      "imageRadius": 0,
+      "rule": "Final explicit user settings: card 24px, media 16px, inset 14px. Media radius capped only at outer card radius; nested image clipping remains owned by media."
+    },
+    "qa": "Desktop and 390px mobile computed radii verified; mobile has no horizontal overflow. Catalog files READY and product IDs/variant media relationships preserved. Lifestyle remains image 2."
+  }
+}

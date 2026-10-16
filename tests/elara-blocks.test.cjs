@@ -146,3 +146,17 @@ test('Text marquee preserves legacy section types with natural height and valid 
     }
   }
 });
+
+test('Marquee appearance and four-sided Padding groups are ordered consistently across slots', async () => {
+  const paddingIds = ['padding_top', 'padding_bottom', 'padding_left', 'padding_right', 'customize_mobile_padding', 'padding_top_mobile', 'padding_bottom_mobile', 'padding_left_mobile', 'padding_right_mobile'];
+  for (const file of ['blocks/marquee.liquid', 'blocks/_media-item-marquee.liquid', 'blocks/_crossed-scrolling-ribbon.liquid']) {
+    const fields = schema(file).settings;
+    const start = fields.findIndex(f => f.type === 'header' && f.content === 'Padding');
+    assert.deepEqual(fields.slice(start + 1).map(f => f.id), paddingIds, file);
+    assert(fields.findIndex(f => f.id === 'background_color') < start, file);
+  }
+  const html = await render('blocks/marquee.liquid', { padding_left: 32, padding_right: 24, customize_mobile_padding: true, padding_left_mobile: 0, padding_right_mobile: 16, background_color: '#BFE3FF' });
+  for (const value of ['--marquee-padding-left: 32px', '--marquee-padding-right: 24px', '--marquee-padding-left-mobile: 0px', '--marquee-padding-right-mobile: 16px', '--marquee-background-color: #BFE3FF']) assert.ok(html.includes(value), value);
+  const inherited = await render('blocks/marquee.liquid', { padding_left: 32, customize_mobile_padding: false, padding_left_mobile: 0 });
+  assert.ok(!inherited.includes('--marquee-padding-left-mobile:'));
+});

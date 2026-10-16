@@ -1867,7 +1867,10 @@ legend {
 
 .product-card--card .product-card__media {
   margin: var(--product-card-media-inset, 0px) var(--product-card-media-inset, 0px) 0;
-  border-radius: var(--product-card-media-radius, var(--media-radius));
+  border-radius: min(
+    var(--product-card-media-radius, var(--media-radius)),
+    var(--card-radius)
+  );
 }
 
 .product-card__image-link {
@@ -1892,6 +1895,7 @@ legend {
 .product-card__media .image > img {
   height: 100%;
   object-fit: cover;
+  border-radius: 0;
 }
 
 .product-card__media .product-card__image > img {

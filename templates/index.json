@@ -371,7 +371,8 @@
         "slide_1",
         "slide_2",
         "slide_3"
-      ]
+      ],
+      "disabled": true
     },
     "instagram_gallery": {
       "type": "gallery-image-grid",
@@ -1676,9 +1677,888 @@
           ]
         }
       }
+    },
+    "shatter": {
+      "type": "slideshow-shatter",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "desktop_height": "full_screen",
+        "mobile_height": "full_screen",
+        "interval": 8,
+        "pause_on_hover": false,
+        "pagination_type": "numbers",
+        "pagination_position_desktop": "right",
+        "pagination_position_mobile": "center"
+      },
+      "blocks": {
+        "slide_1": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-1.webp",
+            "image_alt": "Tapra keyboard artwork 1",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "content-1": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small keys.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            },
+            "content-2": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>More room<br>to type.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            }
+          }
+        },
+        "slide_2": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-2.webp",
+            "image_alt": "Tapra keyboard artwork 2",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "content-1": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Compact.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            },
+            "content-2": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Built<br>your way.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            }
+          }
+        },
+        "slide_3": {
+          "type": "_slideshow-shatter-slide",
+          "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-3.webp",
+            "image_alt": "Tapra keyboard artwork 3",
+            "content_padding_top": 136,
+            "content_padding_bottom": 122,
+            "content_padding_top_mobile": 136,
+            "content_padding_bottom_mobile": 200
+          },
+          "blocks": {
+            "content-1": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Swap it.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            },
+            "content-2": {
+              "type": "_slideshow-shatter-content",
+              "static": true,
+              "settings": {
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your<br>feel.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div",
+                    "custom_heading_size": 72
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
+            }
+          }
+        }
+      },
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ]
+    },
+    "why_us": {
+      "type": "why-us",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64,
+        "section_width": "page_width"
+      },
+      "blocks": {
+        "header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "direction": "horizontal",
+            "wrap": false,
+            "position_horizontal": "bottom",
+            "horizontal_alignment": "space-between",
+            "alignment": "left",
+            "width": "fill",
+            "height": "fit",
+            "gap_desktop": 32,
+            "gap_mobile": 20,
+            "customize_mobile_alignment": true,
+            "alignment_mobile": "left",
+            "animation_type": "slide-bottom"
+          },
+          "blocks": {
+            "group_1": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "height": "fit",
+                "alignment": "left",
+                "gap_desktop": 0,
+                "gap_mobile": 0
+              },
+              "blocks": {
+                "heading_1": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Why us?</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2"
+                  }
+                },
+                "heading_2": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Here's why you should shop with us.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "div",
+                    "text_color": "#5F687C"
+                  }
+                }
+              },
+              "block_order": [
+                "heading_1",
+                "heading_2"
+              ]
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Honest service, careful packing and a team that types as much as you do.</p>",
+                "text_size": "md",
+                "width": "custom",
+                "max_width": 340,
+                "text_color": "#5F687C"
+              }
+            }
+          },
+          "block_order": [
+            "group_1",
+            "text_2"
+          ]
+        },
+        "group_2": {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 0,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 7h11v9H3z\"/><path d=\"M14 10h4l3 3v3h-7\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/><path d=\"M8.5 11.2c0-1 1-1.6 1.7-1 .7-.6 1.7 0 1.7 1 0 1.1-1.7 2.1-1.7 2.1s-1.7-1-1.7-2.1z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>All orders</strong> are packed by hand with care and shipped from our own <strong>warehouse</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        },
+        "group_3": {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 100,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M8 3v4M16 3v4M3 10h18\"/><path d=\"M8 16h8M13 13l3 3-3 3\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>We ship most orders within <strong>24–48 hours</strong> and accept returns within <strong>30 days</strong> of receipt.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        },
+        "group_4": {
+          "type": "_why-us-card",
+          "settings": {
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26,
+            "animation_type": "slide-bottom",
+            "animation_delay": 200,
+            "width": "fill",
+            "height": "fill",
+            "position": "top"
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>More than <strong>1,300+</strong> verified <strong>5-star</strong> reviews with an average rating of <strong>4.9</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        }
+      },
+      "block_order": [
+        "group_2",
+        "group_3",
+        "group_4"
+      ]
+    },
+    "crossed_text": {
+      "type": "crossed-scrolling-text",
+      "settings": {
+        "section_width": "full_bleed",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 60
+      },
+      "blocks": {
+        "ribbon-back": {
+          "type": "_crossed-scrolling-ribbon",
+          "static": true,
+          "settings": {
+            "animation_direction": "backward",
+            "animation_speed": 1.1,
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-3",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "show_blurred_edges": false,
+            "enable_parallax": false
+          },
+          "blocks": {
+            "marquee-heading_1": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>QwertyKeys</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "extra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_2": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_3": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Domikey</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "relaxed",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_4": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_5": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Gateron",
+                "heading_size": "custom",
+                "font": "heading",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "ultra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_6": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_7": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Keychron</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "extra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_8": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_9": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Akko</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "relaxed",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_10": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_11": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Wuque Studio",
+                "heading_size": "custom",
+                "font": "heading",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "ultra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_12": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          },
+          "block_order": [
+            "marquee-heading_1",
+            "marquee-icon_2",
+            "marquee-heading_3",
+            "marquee-icon_4",
+            "marquee-heading_5",
+            "marquee-icon_6",
+            "marquee-heading_7",
+            "marquee-icon_8",
+            "marquee-heading_9",
+            "marquee-icon_10",
+            "marquee-heading_11",
+            "marquee-icon_12"
+          ]
+        },
+        "ribbon-front": {
+          "type": "_crossed-scrolling-ribbon",
+          "static": true,
+          "settings": {
+            "animation_direction": "forward",
+            "animation_speed": 1.1,
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-4",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "show_blurred_edges": false,
+            "enable_parallax": false
+          },
+          "blocks": {
+            "marquee-heading_1": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Kailh</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "extra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_2": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_3": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Epomaker</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "relaxed",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_4": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_5": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "NuPhy",
+                "heading_size": "custom",
+                "font": "heading",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "ultra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_6": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_7": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Leopold</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "extra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_8": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_9": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Ducky</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "relaxed",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_10": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_11": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Varmilo",
+                "heading_size": "custom",
+                "font": "heading",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "ultra_loose",
+                "text_case": "uppercase"
+              }
+            },
+            "marquee-icon_12": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          },
+          "block_order": [
+            "marquee-heading_1",
+            "marquee-icon_2",
+            "marquee-heading_3",
+            "marquee-icon_4",
+            "marquee-heading_5",
+            "marquee-icon_6",
+            "marquee-heading_7",
+            "marquee-icon_8",
+            "marquee-heading_9",
+            "marquee-icon_10",
+            "marquee-heading_11",
+            "marquee-icon_12"
+          ]
+        }
+      },
+      "block_order": []
+    },
+    "find_board": {
+      "type": "featured-collection",
+      "settings": {
+        "section_width": "page_width",
+        "desktop_alignment": "left",
+        "mobile_alignment": "left",
+        "gap_desktop": 44,
+        "gap_mobile": 24,
+        "color_scheme": "scheme-1",
+        "customize_mobile_padding": true,
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56
+      },
+      "blocks": {
+        "header": {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "inherit_alignment": true
+          },
+          "blocks": {
+            "intro": {
+              "type": "group",
+              "settings": {
+                "width": "fill",
+                "height": "fit",
+                "direction": "horizontal",
+                "wrap": false,
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "gap_desktop": 32,
+                "gap_mobile": 12,
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left"
+              },
+              "blocks": {
+                "title": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your board.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Free shipping on orders over $79. 30-day returns.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "text_color": "#5F687C",
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "title",
+                "description"
+              ]
+            }
+          },
+          "block_order": [
+            "intro"
+          ]
+        },
+        "featured-collection-view-all": {
+          "type": "view-all-button",
+          "static": true,
+          "settings": {
+            "button_label": "View all",
+            "button_style": "tertiary",
+            "button_style_mobile": "secondary",
+            "button_height_mobile": "inherit",
+            "full_width_mobile": true,
+            "show_icon": false,
+            "show_icon_mobile": false
+          },
+          "disabled": true
+        },
+        "product-list": {
+          "type": "product-list",
+          "static": true,
+          "settings": {
+            "collection": "keyboards-tapra",
+            "max_products": 3,
+            "layout_type": "grid",
+            "columns_desktop": "3",
+            "columns_mobile": "1",
+            "show_next_slide_preview_on_desktop": false,
+            "product_gap_desktop": 16,
+            "product_gap_mobile": 20,
+            "show_navigation_on_desktop": false,
+            "navigation_position": "top",
+            "navigation_style": "secondary",
+            "navigation_icon": "chevron",
+            "show_pagination_on_desktop": false,
+            "pagination_type": "progress_bar",
+            "pagination_top_padding_desktop": 50,
+            "pagination_top_padding_mobile": 24,
+            "pagination_limit_width": true,
+            "pagination_max_width": 260,
+            "autoplay": false,
+            "autoplay_pause_on_hover": true,
+            "autoplay_speed": 4,
+            "columns_tablet": "2"
+          },
+          "blocks": {
+            "product-card": {
+              "type": "product-card",
+              "static": true,
+              "settings": {
+                "color_type": "color_scheme",
+                "color_scheme": "scheme-2",
+                "card_style": "card",
+                "media_corner_radius": "radius_16",
+                "show_rating": false,
+                "media_ratio": "ratio_3_2",
+                "customize_media_inset": true,
+                "media_inset": 14,
+                "card_corner_radius": "radius_24"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "order": [
+    "shatter",
+    "why_us",
+    "crossed_text",
+    "find_board",
     "slideshow",
     "collection_editorial",
     "tapra_media",

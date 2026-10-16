@@ -136,6 +136,10 @@
     .slideshow:is(:hover, :focus-within) .slideshow__navigation--show_on_hover { opacity: 1; }
   }
   .slideshow__pagination { --swiper-pagination-inline-padding: var(--slideshow-content-inline-padding); }
+  /* Full-bleed media still uses the centered page container for its content. */
+  .slideshow--width-full_bleed:not(.slideshow--peekoo)[data-content-container-width='page'] .slideshow__pagination {
+    --swiper-pagination-inline-padding: calc(max(0px, (100% - var(--page-width)) / 2) + var(--slideshow-content-inline-padding));
+  }
   .slideshow[data-autoplay='true'] .slideshow__swiper > .slideshow__pagination[data-pagination-type='bullets'] .swiper-pagination-bullet-active {
     /* Preserve the same side padding as the inactive dots' touch targets. */
     width: calc(32px + var(--swiper-pagination-bullet-hit-width, 24px) - var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 8px)));

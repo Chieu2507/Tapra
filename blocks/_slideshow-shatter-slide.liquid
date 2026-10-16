@@ -1,0 +1,141 @@
+{% doc %}
+  Slide media and layout for Slideshow: Shatter. Two Content slots own their placement and child composition; the Slide owns
+  media and shared content padding.
+{% enddoc %}
+{% liquid
+  assign loading = 'lazy'
+  assign priority = 'low'
+  if section.blocks.first.id == block.id
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+  assign image_alt = block.settings.image_alt | default: block.settings.image.alt
+%}
+{% capture slide_style %}
+  {% if block.settings.content_padding_top != 70 %}--shatter-content-top:{{ block.settings.content_padding_top | default: 70 }}px;{% endif %}
+  {% if block.settings.content_padding_bottom != 70 %}--shatter-content-bottom:{{ block.settings.content_padding_bottom | default: 70 }}px;{% endif %}
+  {% if block.settings.content_padding_top_mobile != 50 %}--shatter-content-top-mobile:{{ block.settings.content_padding_top_mobile | default: 50 }}px;{% endif %}
+  {% if block.settings.content_padding_bottom_mobile != 50 %}--shatter-content-bottom-mobile:{{ block.settings.content_padding_bottom_mobile | default: 50 }}px;{% endif %}
+{% endcapture %}
+<div class="shatter__slide" data-shatter-slide data-block-id="{{ block.id }}" data-aspect="{{ block.settings.image.aspect_ratio | default: 1.5 }}" data-mobile-aspect="{{ block.settings.mobile_image.aspect_ratio | default: block.settings.image.aspect_ratio | default: 1.5 }}" data-focus="{{ block.settings.image.presentation.focal_point | default: '50% 50%' }}" data-mobile-focus="{{ block.settings.mobile_image.presentation.focal_point | default: block.settings.image.presentation.focal_point | default: '50% 50%' }}" style="{{ slide_style | strip }}" {{ block.shopify_attributes }}>
+  <div class="shatter__fallback" data-shatter-artwork>{% render 'image', image: block.settings.image, mobile_image: block.settings.mobile_image, alt: image_alt, width: 1600, widths: '400, 600, 900, 1200, 1600', sizes: '52vw', loading: loading, fetchpriority: priority, auto_sizes: false, placeholder: 'lifestyle-1' %}</div>
+  <div class="shatter__headings">
+    {% content_for 'block', type: '_slideshow-shatter-content', id: 'content-1' %}
+    {% content_for 'block', type: '_slideshow-shatter-content', id: 'content-2' %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Slide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Image (mobile)"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image description"
+    },
+    {
+      "type": "header",
+      "content": "Content padding"
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top",
+      "label": "Top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom",
+      "label": "Bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "content_padding_top_mobile",
+      "label": "Top (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "content_padding_bottom_mobile",
+      "label": "Bottom (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slide",
+      "blocks": [
+        {
+          "type": "_slideshow-shatter-content",
+          "static": true,
+          "settings": {
+            "position": "top_left"
+          },
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Small keys.</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              }
+            }
+          ],
+          "id": "content-1"
+        },
+        {
+          "type": "_slideshow-shatter-content",
+          "static": true,
+          "settings": {
+            "position": "bottom_right"
+          },
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>More room<br>to type.</p>",
+                "heading_size": "display",
+                "html_tag": "div"
+              }
+            }
+          ],
+          "id": "content-2"
+        }
+      ],
+      "settings": {}
+    }
+  ]
+}
+{% endschema %}

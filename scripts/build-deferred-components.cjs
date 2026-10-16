@@ -18,6 +18,8 @@ const files = [
   "assets/component-blocks-gallery-image.css",
   "assets/component-gallery-parallax.css",
   "assets/component-collection-editorial.css",
+  "assets/component-why-us.css",
+  "assets/component-crossed-scrolling-text.css",
   "assets/component-snippets-product-callout-runtime.css",
   "assets/component-sections-collection-list-thumbnails.css"
 ];
