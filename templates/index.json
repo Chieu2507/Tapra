@@ -1805,14 +1805,12 @@
         "slide_3"
       ],
       "settings": {
-        "section_width": "full_bleed",
-        "desktop_height": "adapt",
-        "customize_tablet_height": false,
-        "mobile_height": "adapt",
+        "desktop_height": "full_screen",
+        "mobile_height": "full_screen",
         "pause_on_hover": false,
         "interval": 8,
-        "pagination_type": "progress_bar",
-        "pagination_position_desktop": "center",
+        "pagination_type": "numbers",
+        "pagination_position_desktop": "right",
         "pagination_position_mobile": "center",
         "color_scheme": "scheme-3"
       }
