@@ -21,8 +21,8 @@
 <div class="section-spacing crossed-scrolling color-scheme section-color-scope {{ scheme }}" data-crossed-pause="{{ section.settings.pause_on_hover }}" style="{{ section_style | strip }}">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} crossed-scrolling--full-bleed{% endif %}">
     <div class="crossed-scrolling__stage">
-      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--back">{% content_for 'block', type: 'marquee', id: 'ribbon-back' %}</div>
-      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--front">{% content_for 'block', type: 'marquee', id: 'ribbon-front' %}</div>
+      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--back">{% content_for 'block', type: '_crossed-scrolling-ribbon', id: 'ribbon-back' %}</div>
+      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--front">{% content_for 'block', type: '_crossed-scrolling-ribbon', id: 'ribbon-front' %}</div>
     </div>
   </div>
 </div>
@@ -185,11 +185,10 @@
       },
       "blocks": [
         {
-          "type": "marquee",
+          "type": "_crossed-scrolling-ribbon",
           "id": "ribbon-back",
           "static": true,
           "settings": {
-            "use_elara_layout": true,
             "animation_direction": "backward",
             "animation_speed": 1.1,
             "gap_desktop": 56,
@@ -337,11 +336,10 @@
           ]
         },
         {
-          "type": "marquee",
+          "type": "_crossed-scrolling-ribbon",
           "id": "ribbon-front",
           "static": true,
           "settings": {
-            "use_elara_layout": true,
             "animation_direction": "forward",
             "animation_speed": 1.1,
             "gap_desktop": 56,

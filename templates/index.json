@@ -2095,10 +2095,9 @@
       "type": "crossed-scrolling-text",
       "blocks": {
         "ribbon-back": {
-          "type": "marquee",
+          "type": "_crossed-scrolling-ribbon",
           "static": true,
           "settings": {
-            "use_elara_layout": true,
             "show_blurred_edges": false,
             "enable_parallax": false,
             "animation_speed": 1.1,
@@ -2260,10 +2259,9 @@
           ]
         },
         "ribbon-front": {
-          "type": "marquee",
+          "type": "_crossed-scrolling-ribbon",
           "static": true,
           "settings": {
-            "use_elara_layout": true,
             "show_blurred_edges": false,
             "enable_parallax": false,
             "animation_speed": 1.1,
