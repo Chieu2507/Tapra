@@ -1696,6 +1696,8 @@
         "slide_1": {
           "type": "_slideshow-shatter-slide",
           "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-1.webp",
+            "image_alt": "Tapra keyboard artwork 1",
             "title_top": "Small keys.",
             "title_bottom": "More room\nto type."
           }
@@ -1703,6 +1705,8 @@
         "slide_2": {
           "type": "_slideshow-shatter-slide",
           "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-2.webp",
+            "image_alt": "Tapra keyboard artwork 2",
             "title_top": "Compact.",
             "title_bottom": "Built\nyour way."
           }
@@ -1710,6 +1714,8 @@
         "slide_3": {
           "type": "_slideshow-shatter-slide",
           "settings": {
+            "image": "shopify://shop_images/tapra-shatter-slide-3.webp",
+            "image_alt": "Tapra keyboard artwork 3",
             "title_top": "Swap it.",
             "title_bottom": "Find your\nfeel."
           }
