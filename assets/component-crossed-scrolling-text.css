@@ -1,0 +1,8 @@
+.crossed-scrolling { overflow: hidden; background: var(--crossed-background, var(--background-color)); }
+.crossed-scrolling .container.crossed-scrolling--full-bleed { width: 100%; max-width: none; padding-inline: 0; }
+.crossed-scrolling__stage { position: relative; height: var(--crossed-height, 340px); isolation: isolate; }
+.crossed-scrolling__ribbon { position: absolute; top: 50%; left: -15%; width: 130%; transform: translateY(-50%) rotate(var(--crossed-angle, 5deg)); }
+.crossed-scrolling__ribbon--back { transform: translateY(-50%) rotate(calc(-1 * var(--crossed-angle, 5deg))); z-index: 1; }
+.crossed-scrolling__ribbon--front { z-index: 2; }
+.crossed-scrolling[data-crossed-pause='true']:is(:hover, :focus-within) .elara-marquee__track { animation-play-state: paused; }
+@media (max-width: 767.98px) { .crossed-scrolling__stage { height: var(--crossed-height-mobile, var(--crossed-height, 340px)); } }

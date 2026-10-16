@@ -1,0 +1,495 @@
+{% liquid
+  assign scheme = section.settings.color_scheme | default: 'scheme-2'
+  assign width_class = 'page-width'
+  if section.settings.section_width == 'full_width' or section.settings.section_width == 'full_bleed'
+    assign width_class = 'full-width'
+  endif
+%}
+{% capture section_style %}
+  --section-padding-top:{{ section.settings.padding_top | default: 0 }}px;
+  --section-padding-bottom:{{ section.settings.padding_bottom | default: 60 }}px;
+  {% if section.settings.customize_mobile_padding %}
+    --section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;
+    --section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;
+  {% endif %}
+  --crossed-height:{{ section.settings.height | default: 340 }}px;
+  {% if section.settings.customize_mobile_height %}--crossed-height-mobile:{{ section.settings.height_mobile }}px;{% endif %}
+  --crossed-angle:{{ section.settings.angle | default: 5 }}deg;
+  {% if section.settings.background_color != blank %}--crossed-background:{{ section.settings.background_color }};{% endif %}
+{% endcapture %}
+{% render 'component-stylesheet', filename: 'component-crossed-scrolling-text.css', section_index: section.index %}
+<div class="section-spacing crossed-scrolling color-scheme section-color-scope {{ scheme }}" data-crossed-pause="{{ section.settings.pause_on_hover }}" style="{{ section_style | strip }}">
+  <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} crossed-scrolling--full-bleed{% endif %}">
+    <div class="crossed-scrolling__stage">
+      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--back">{% content_for 'block', type: 'marquee', id: 'ribbon-back' %}</div>
+      <div class="crossed-scrolling__ribbon crossed-scrolling__ribbon--front">{% content_for 'block', type: 'marquee', id: 'ribbon-front' %}</div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Scrolling text: Crossed",
+  "class": "section-crossed-scrolling-text",
+  "tag": "section",
+  "enabled_on": {
+    "templates": [
+      "*"
+    ]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "default": "full_bleed",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "full_bleed",
+          "label": "Full width (no padding)"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "height",
+      "label": "Desktop height",
+      "min": 160,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 340
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_height",
+      "label": "Customize for mobile",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Mobile height",
+      "min": 120,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 220,
+      "visible_if": "{{ section.settings.customize_mobile_height }}"
+    },
+    {
+      "type": "range",
+      "id": "angle",
+      "label": "Crossing angle",
+      "min": 0,
+      "max": 12,
+      "step": 1,
+      "unit": "deg",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause both ribbons on hover",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "color",
+      "alpha": true,
+      "id": "background_color",
+      "label": "Background color"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling text: Crossed",
+      "category": "t:general.content",
+      "settings": {
+        "section_width": "full_bleed",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 60
+      },
+      "blocks": [
+        {
+          "type": "marquee",
+          "id": "ribbon-back",
+          "static": true,
+          "settings": {
+            "use_elara_layout": true,
+            "animation_direction": "backward",
+            "animation_speed": 1.1,
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-3",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "show_blurred_edges": false,
+            "enable_parallax": false
+          },
+          "blocks": [
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>QwertyKeys</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Domikey</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Gateron",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Keychron</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Akko</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Wuque Studio",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "marquee",
+          "id": "ribbon-front",
+          "static": true,
+          "settings": {
+            "use_elara_layout": true,
+            "animation_direction": "forward",
+            "animation_speed": 1.1,
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-4",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "show_blurred_edges": false,
+            "enable_parallax": false
+          },
+          "blocks": [
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Kailh</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Epomaker</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "NuPhy",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Leopold</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Ducky</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Varmilo",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100,
+                "letter_spacing": "normal",
+                "text_case": "uppercase"
+              }
+            },
+            {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
