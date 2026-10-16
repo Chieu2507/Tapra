@@ -1,4 +1,4 @@
-.shatter-full-bleed.container { width: 100%; max-width: none; }
+.section-slideshow-shatter .container.shatter-full-bleed { width: 100%; max-width: none; padding-inline: 0; }
 .shatter {
   --shatter-art-size: min(64cqh, 52cqw);
   --shatter-edge: max(2.4cqw, var(--page-margin-current, 16px));

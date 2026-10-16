@@ -1,5 +1,5 @@
 {% liquid
-  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-5' | handleize
+  assign scheme = section.settings.color_scheme.id | default: section.settings.color_scheme | default: 'scheme-3' | handleize
   assign width_class = 'full-width'
   if section.settings.section_width == 'page_width'
     assign width_class = 'page-width'
@@ -192,7 +192,7 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "t:labels.color_scheme",
-      "default": "scheme-5"
+      "default": "scheme-3"
     },
     {
       "type": "checkbox",
