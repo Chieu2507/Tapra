@@ -63,12 +63,24 @@
         this.synchronize();
       });
       this.intersection.observe(root);
-      this.prepare(0).then(art => {
-        if (this.abort.signal.aborted || this.intent) return;
-        this.art = art;
-        this.resize();
-        this.slides.forEach((_, i) => { if (i) this.prepare(i); });
-      });
+      this.initializeArtwork();
+    }
+    async initializeArtwork() {
+      const art = await this.prepare(0);
+      if (this.abort.signal.aborted || this.intent) return;
+      this.art = art;
+      this.resize();
+      this.slides.forEach((_, i) => { if (i) this.prepare(i); });
+    }
+    async refreshSource() {
+      this.release();
+      this.settle();
+      this.loading = false;
+      const intent = this.intent = (this.intent || 0) + 1;
+      const art = await this.prepare(this.index);
+      if (this.abort.signal.aborted || intent !== this.intent) return;
+      this.art = art;
+      this.resize();
     }
     listen(target, type, fn, options = {}) {
       target.addEventListener(type, fn, { ...options, signal: this.abort.signal });
@@ -222,16 +234,7 @@
       this.listen(this.root, 'contextmenu', e => { if (this.pending || this.holding) e.preventDefault(); });
       this.listen(document, 'visibilitychange', () => { this.release(); this.synchronize(); });
       this.listen(this.motion, 'change', () => { this.toggleAssembly = false; this.setHold(false); this.release(); this.settle(); this.updateControls(); this.resize(); });
-      this.listen(this.mobile, 'change', () => {
-        this.release();
-        this.settle();
-        this.loading = false;
-        const intent = this.intent = (this.intent || 0) + 1;
-        this.prepare(this.index).then(art => {
-          if (this.abort.signal.aborted || intent !== this.intent) return;
-          this.art = art; this.resize();
-        });
-      });
+      this.listen(this.mobile, 'change', () => this.refreshSource());
       this.listen(this.root, 'shopify:block:select', e => {
         const index = this.slides.indexOf(e.target.closest('[data-shatter-slide]'));
         if (index >= 0) { this.pauses.add('editor'); this.toggleAssembly = false; this.setHold(false); this.release(); this.go(index, false, true); }
