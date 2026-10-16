@@ -58,7 +58,10 @@
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .shatter__cursor { display: none; } }
 
+.shatter__controls [data-shatter-pause] { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; line-height: 0; }
+.shatter__controls [data-shatter-pause] > span { display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; }
 .shatter__controls [data-shatter-pause] svg { display: block; width: 18px; height: 18px; }
+.shatter__play-icon { transform: translateX(1px); }
 .shatter [data-shatter-pause][aria-pressed='false'] .shatter__play-icon,
 .shatter [data-shatter-pause][aria-pressed='true'] .shatter__pause-icon { display: none; }
 
@@ -88,6 +91,7 @@
 
 
 .shatter__content { grid-area: 1 / 1; display: flex; flex-direction: column; width: max-content; max-width: 100%; min-width: 0; gap: var(--shatter-content-gap, 12px); justify-self: var(--shatter-content-x, start); align-self: var(--shatter-content-y, start); align-items: var(--shatter-content-x, start); --text-align-default: var(--shatter-content-align, left); pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .shatter__content { transform: none !important; opacity: 1 !important; } }
 @media (max-width: 767.98px) {
   .shatter__content { gap: var(--shatter-content-gap-mobile, var(--shatter-content-gap, 12px)); justify-self: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); align-self: var(--shatter-content-y-mobile, var(--shatter-content-y, start)); align-items: var(--shatter-content-x-mobile, var(--shatter-content-x, start)); --text-align-default: var(--shatter-content-align-mobile, var(--shatter-content-align, left)); }
 }
