@@ -96,7 +96,6 @@
   assign quick_add_full_width = true
   if settings.product_card_quick_add_full_width == false
     assign quick_add_full_width = false
-    assign quick_add_color_scheme = card_color_scheme
   endif
 
   assign quick_view_enabled = true
@@ -169,6 +168,7 @@
     assign quick_add_enabled = true
     assign quick_add_style = 'text'
     assign quick_add_full_width = false
+    assign quick_add_color_scheme = card_color_scheme
   endif
   assign card_class = card_class | append: ' product-card--ratio-' | append: card_ratio
   assign card_class = card_class | append: ' product-card--align-' | append: card_alignment
