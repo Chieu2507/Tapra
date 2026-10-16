@@ -121,12 +121,27 @@
         slide.hidden = i !== index;
         slide.inert = i !== index;
       });
+      this.updatePagination(index);
+    }
+    updatePagination(index) {
+      this.requestedIndex = index;
       this.buttons.forEach((button, i) => button.setAttribute('aria-current', String(i === index)));
+      const button = this.buttons[index];
+      if (!this.pagination || !button?.getBoundingClientRect) return;
+      const box = button.getBoundingClientRect();
+      if (!box.width) return;
+      const x = box.left - this.pagination.getBoundingClientRect().left + this.pagination.scrollLeft;
+      this.pagination.style.setProperty('--shatter-active-x', `${x}px`);
+      this.pagination.style.setProperty('--shatter-active-width', `${box.width}px`);
     }
     async go(index, manual = false, immediate = false) {
       if (!this.slides.length || this.abort.signal.aborted) return;
       index = (index + this.slides.length) % this.slides.length;
-      if (!immediate && (this.transition || this.loading || this.holding || index === this.index)) return;
+      if (!immediate && (this.holding || (!manual && (this.transition || this.loading)) || (index === this.index && !this.transition && !this.loading))) return;
+      if (manual) {
+        this.settle();
+        this.updatePagination(index);
+      }
       const intent = this.intent = (this.intent || 0) + 1;
       this.loading = true;
       const art = await this.prepare(index);
@@ -143,9 +158,9 @@
         this.resize();
         return;
       }
-      this.transition = { start: performance.now(), index, art, swapped: false };
-      this.burst(true);
-      this.textExit();
+      this.transition = { start: performance.now(), index, art, swapped: false, manual };
+      if (manual) this.swap();
+      else { this.burst(true); this.textExit(); }
       this.synchronize();
     }
     clearText() {
@@ -269,6 +284,7 @@
     }
     resize() {
       if (this.abort.signal.aborted) return;
+      this.updatePagination(this.requestedIndex ?? this.index);
       const rect = this.root.getBoundingClientRect();
       this.width = rect.width; this.height = rect.height;
       this.dpr = Math.min(devicePixelRatio || 1, 2);
@@ -341,9 +357,10 @@
       let alpha = 1;
       if (this.transition) {
         const elapsed = now - this.transition.start;
-        if (elapsed < 1000) alpha = Math.max(1 - elapsed / 900, 0);
+        if (this.transition.manual) alpha = .55 + .45 * clamp(elapsed / 450);
+        else if (elapsed < 1000) alpha = Math.max(1 - elapsed / 900, 0);
         else { this.swap(); alpha = Math.min((elapsed - 1000) / 600, 1); }
-        if (elapsed > 1700) { this.transition = null; this.idle = 0; alpha = 1; }
+        if (elapsed > (this.transition.manual ? 650 : 1700)) { this.transition = null; this.idle = 0; alpha = 1; }
       } else if (!this.holding && !this.pauses.size && !this.loading && this.root.dataset.autoplay === 'true' && this.slides.length > 1) {
         this.idle += dt;
         if (this.idle >= this.interval) this.go(this.index + 1);
