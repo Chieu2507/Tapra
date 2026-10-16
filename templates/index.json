@@ -2542,8 +2542,8 @@
                 "media_inset": 14,
                 "media_corner_radius": "radius_24",
                 "show_rating": false,
-                "color_type": "inherit",
-                "color_scheme": "scheme-1"
+                "color_type": "color_scheme",
+                "color_scheme": "scheme-2"
               }
             }
           }
