@@ -215,9 +215,10 @@
         this.toggleAssembly = !this.toggleAssembly;
         this.setHold(this.toggleAssembly);
       });
-      this.listen(this.root, 'focusin', () => this.pauses.add('focus'));
+      this.listen(this.root, 'focusin', e => this.updateFocusPause(e.target));
       this.listen(this.root, 'focusout', e => { if (!this.root.contains(e.relatedTarget)) this.pauses.delete('focus'); });
       this.listen(this.root, 'keydown', e => {
+        this.pauses.add('focus');
         if (/INPUT|TEXTAREA|SELECT/.test(e.target.tagName) || e.target.isContentEditable) return;
         if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); this.go(this.index + (e.key === 'ArrowRight' ? 1 : -1), true); }
         if (e.key === 'Escape') { this.toggleAssembly = false; this.setHold(false); }
@@ -233,6 +234,7 @@
         if (this.pending && !this.holding && Math.hypot(e.clientX - this.pending.x, e.clientY - this.pending.y) > 12) this.release();
       }, { passive: true });
       this.listen(this.root, 'pointerdown', e => {
+        this.updateFocusPause(e.target, true);
         if (!this.interaction || this.motion.matches || !content(e) || this.transition || (e.pointerType === 'mouse' && e.button !== 0)) return;
         this.pending = { x: e.clientX, y: e.clientY, pointer: e.pointerId };
         this.holdTimer = this.later(() => { if (this.pending) this.setHold(true); }, e.pointerType === 'touch' ? 260 : 200);
@@ -258,6 +260,10 @@
       const wrapper = this.root.closest('.shopify-section') || this.root;
       this.listen(wrapper, 'shopify:section:select', () => this.pauses.add('section'));
       this.listen(wrapper, 'shopify:section:deselect', () => this.pauses.delete('section'));
+    }
+    updateFocusPause(target, pointer = false) {
+      if (!pointer && target?.matches?.(':focus-visible')) this.pauses.add('focus');
+      else this.pauses.delete('focus');
     }
     updateControls() {
       this.pauseButton.hidden = this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
