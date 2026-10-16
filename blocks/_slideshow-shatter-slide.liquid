@@ -1,0 +1,182 @@
+{% doc %}
+  Editable two-part heading and artwork for Slideshow: Shatter.
+  Visual typography uses the theme Heading scale independently of semantics.
+{% enddoc %}
+{% liquid
+  assign heading_tag = block.settings.html_tag | default: 'h1'
+  unless heading_tag == 'div' or heading_tag == 'h1' or heading_tag == 'h2' or heading_tag == 'h3' or heading_tag == 'h4' or heading_tag == 'h5' or heading_tag == 'h6'
+    assign heading_tag = 'h1'
+  endunless
+  assign loading = 'lazy'
+  assign priority = 'low'
+  if section.blocks.first.id == block.id
+    assign loading = 'eager'
+    assign priority = 'high'
+  endif
+  assign image_alt = block.settings.image_alt | default: block.settings.image.alt
+%}
+<div class="shatter__slide" data-shatter-slide data-block-id="{{ block.id }}" data-focus="{{ block.settings.image.presentation.focal_point | default: '50% 50%' }}" data-mobile-focus="{{ block.settings.mobile_image.presentation.focal_point | default: block.settings.image.presentation.focal_point | default: '50% 50%' }}" style="--shatter-fluid-max:{{ block.settings.fluid_max }}px;--shatter-fluid-min:{{ block.settings.fluid_mobile_min }}px;--heading-block-custom-size:{{ block.settings.custom_heading_size }}px;" {{ block.shopify_attributes }}>
+  <div class="shatter__fallback" data-shatter-artwork>{% render 'image', image: block.settings.image, mobile_image: block.settings.mobile_image, alt: image_alt, width: 1600, widths: '400, 600, 900, 1200, 1600', sizes: '52vw', loading: loading, fetchpriority: priority, auto_sizes: false, placeholder: 'lifestyle-1' %}</div>
+  <{{ heading_tag }} class="shatter__heading heading-text{% if block.settings.fluid_heading %} shatter__heading--fluid{% else %} heading-{{ block.settings.heading_size }}{% endif %}"><span class="shatter__top" data-shatter-top>{{ block.settings.title_top | escape }}</span><span class="shatter__bottom" data-shatter-bottom>{{ block.settings.title_bottom | escape }}</span></{{ heading_tag }}>
+</div>
+{% schema %}
+{
+  "name": "Slide",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Image (mobile)"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image description"
+    },
+    {
+      "type": "textarea",
+      "id": "title_top",
+      "label": "Upper heading",
+      "default": "Small keys."
+    },
+    {
+      "type": "textarea",
+      "id": "title_bottom",
+      "label": "Lower heading",
+      "default": "More room\nto type."
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "checkbox",
+      "id": "fluid_heading",
+      "label": "Fluid heading size",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "t:labels.heading_size",
+      "options": [
+        {
+          "value": "display",
+          "label": "t:options.heading_size.display"
+        },
+        {
+          "value": "xl",
+          "label": "t:options.heading_size.xl"
+        },
+        {
+          "value": "lg",
+          "label": "t:options.heading_size.lg"
+        },
+        {
+          "value": "md",
+          "label": "t:options.heading_size.md"
+        },
+        {
+          "value": "sm",
+          "label": "t:options.heading_size.sm"
+        },
+        {
+          "value": "xs",
+          "label": "t:options.heading_size.xs"
+        },
+        {
+          "value": "custom",
+          "label": "t:options.heading_size.custom"
+        }
+      ],
+      "default": "display",
+      "visible_if": "{{ block.settings.fluid_heading == false }}"
+    },
+    {
+      "type": "select",
+      "id": "html_tag",
+      "label": "t:labels.html_tag",
+      "info": "t:info.heading_html_tag",
+      "options": [
+        {
+          "value": "div",
+          "label": "t:options.html_tag.paragraph"
+        },
+        {
+          "value": "h1",
+          "label": "t:options.html_tag.h1"
+        },
+        {
+          "value": "h2",
+          "label": "t:options.html_tag.h2"
+        },
+        {
+          "value": "h3",
+          "label": "t:options.html_tag.h3"
+        },
+        {
+          "value": "h4",
+          "label": "t:options.html_tag.h4"
+        },
+        {
+          "value": "h5",
+          "label": "t:options.html_tag.h5"
+        },
+        {
+          "value": "h6",
+          "label": "t:options.html_tag.h6"
+        }
+      ],
+      "default": "h1"
+    },
+    {
+      "type": "range",
+      "id": "custom_heading_size",
+      "label": "Custom heading size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "default": 72,
+      "unit": "px",
+      "visible_if": "{{ block.settings.fluid_heading == false and block.settings.heading_size == 'custom' }}"
+    },
+    {
+      "type": "range",
+      "id": "fluid_max",
+      "label": "Maximum fluid size",
+      "min": 80,
+      "max": 200,
+      "step": 2,
+      "default": 168,
+      "unit": "px",
+      "visible_if": "{{ block.settings.fluid_heading }}"
+    },
+    {
+      "type": "range",
+      "id": "fluid_mobile_min",
+      "label": "Minimum fluid size",
+      "min": 24,
+      "max": 64,
+      "step": 1,
+      "default": 44,
+      "unit": "px",
+      "visible_if": "{{ block.settings.fluid_heading }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slide"
+    }
+  ]
+}
+{% endschema %}
