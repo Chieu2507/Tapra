@@ -44,9 +44,11 @@
         this.listen(button, 'click', () => this.go(index, true));
         return button;
       });
-      this.pauseButton.hidden = root.dataset.autoplay !== 'true' || this.slides.length < 2;
+      this.pauseButton.hidden = root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
       this.progress.parentElement.hidden ||= this.pauseButton.hidden;
       this.pagination.hidden ||= this.slides.length < 2;
+      if (this.assembleButton) this.assembleButton.hidden = this.motion.matches;
+      this.updateControls();
       this.show(0);
       this.bind();
       root.classList.add('is-ready');
@@ -58,8 +60,9 @@
         this.synchronize();
       });
       this.intersection.observe(root);
-      this.prepare(0).then(() => {
+      this.prepare(0).then(art => {
         if (this.abort.signal.aborted) return;
+        this.art = art;
         this.resize();
         this.slides.forEach((_, i) => { if (i) this.prepare(i); });
       });
@@ -95,7 +98,6 @@
       }
       const art = await this.images.get(source);
       if (this.abort.signal.aborted) return null;
-      if (!this.art) { this.art = art; this.artIndex = index; }
       return art;
     }
     show(index) {
@@ -215,7 +217,7 @@
       });
       this.listen(this.root, 'contextmenu', e => { if (this.pending || this.holding) e.preventDefault(); });
       this.listen(document, 'visibilitychange', () => { this.release(); this.synchronize(); });
-      this.listen(this.motion, 'change', () => { this.release(); this.settle(); this.resize(); });
+      this.listen(this.motion, 'change', () => { this.toggleAssembly = false; this.setHold(false); this.release(); this.settle(); this.updateControls(); this.resize(); });
       this.listen(this.mobile, 'change', () => {
         const intent = this.intent = (this.intent || 0) + 1;
         this.prepare(this.index).then(art => {
@@ -225,7 +227,7 @@
       });
       this.listen(this.root, 'shopify:block:select', e => {
         const index = this.slides.indexOf(e.target.closest('[data-shatter-slide]'));
-        if (index >= 0) { this.pauses.add('editor'); this.release(); this.go(index, false, true); }
+        if (index >= 0) { this.pauses.add('editor'); this.toggleAssembly = false; this.setHold(false); this.release(); this.go(index, false, true); }
       });
       this.listen(this.root, 'shopify:block:deselect', () => this.pauses.delete('editor'));
       const wrapper = this.root.closest('.shopify-section') || this.root;
@@ -233,6 +235,9 @@
       this.listen(wrapper, 'shopify:section:deselect', () => this.pauses.delete('section'));
     }
     updateControls() {
+      this.pauseButton.hidden = this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
+      if (this.assembleButton) this.assembleButton.hidden = this.motion.matches;
+      this.progress.parentElement.hidden = this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
       const paused = this.pauses.has('manual');
       this.pauseButton.setAttribute('aria-pressed', String(paused));
       this.pauseButton.textContent = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
@@ -259,6 +264,8 @@
         canvas.width = Math.round(this.width * this.dpr); canvas.height = Math.round(this.height * this.dpr);
         ctx?.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
       }
+      const style = getComputedStyle(this.root);
+      this.lightColor = style.getPropertyValue('--heading-color').trim() || '#ffffff';
       this.build();
       this.root.classList.toggle('is-canvas', !!this.art && !!this.ctx && !!this.ctxBack && !this.motion.matches);
       this.synchronize();
@@ -284,10 +291,11 @@
       this.cx = this.width / 2; this.cy = this.height / 2;
       const cells = [];
       for (let y = 0; y < 9; y++) for (let x = 0; x < 9; x++) cells.push({ x, y, distance: Math.hypot((x + .5) / 9 - .5, (y + .5) / 9 - .5) });
-      const threshold = cells.map(p => p.distance).sort((a, b) => a - b)[56];
+      const central = new Set(cells.slice().sort((a, b) => a.distance - b.distance).slice(0, 57));
+      const threshold = Math.max(...[...central].map(p => p.distance));
       const max = Math.max(...cells.map(p => p.distance));
       this.pieces = cells.map(cell => {
-        const p = { hx: this.cx - this.size / 2 + (cell.x + .5) * this.size / 9, hy: this.cy - this.size / 2 + (cell.y + .5) * this.size / 9, base: cell.distance <= threshold, ring: Math.max(0, (cell.distance - threshold) / (max - threshold)), vx: 0, vy: 0, va: 0, until: 0, phase: Math.random() * Math.PI * 2, z: Math.random() > .42 };
+        const p = { hx: this.cx - this.size / 2 + (cell.x + .5) * this.size / 9, hy: this.cy - this.size / 2 + (cell.y + .5) * this.size / 9, base: central.has(cell), ring: Math.max(0, (cell.distance - threshold) / (max - threshold)), vx: 0, vy: 0, va: 0, until: 0, phase: Math.random() * Math.PI * 2, z: Math.random() > .42 };
         [p.sx, p.sy] = this.scatter(p); p.sa = (Math.random() - .5) * 6;
         p.x = p.base ? p.hx : p.sx; p.y = p.base ? p.hy : p.sy; p.a = p.base ? 0 : p.sa;
         return p;
@@ -345,7 +353,7 @@
       this.light.y += (this.pointer.y - this.light.y) * (1 - Math.pow(.9, f));
       this.light.intensity += (target - this.light.intensity) * (1 - Math.pow(.9, f));
       const light = this.light;
-      const color = getComputedStyle(this.root).getPropertyValue('--heading-color').trim() || '#ffffff';
+      const color = this.lightColor || '#ffffff';
       if (light.intensity > .004) {
         const glow = this.ctxBack.createRadialGradient(light.x, light.y, 0, light.x, light.y, 312);
         glow.addColorStop(0, color); glow.addColorStop(1, 'transparent');
