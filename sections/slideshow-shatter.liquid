@@ -9,11 +9,14 @@
 <script src="{{ 'slideshow-shatter.js' | asset_url }}" defer></script>
 {% capture section_style %}
   {% if section.settings.height == 'custom' %}--shatter-height:{{ section.settings.custom_height }}px;{% endif %}
-  --shatter-min-height:{{ section.settings.min_height }}px;
+  {% if section.settings.min_height != 600 %}--shatter-min-height:{{ section.settings.min_height }}px;{% endif %}
   {% if section.settings.customize_mobile_height %}--shatter-mobile-height:{{ section.settings.mobile_height }}px;{% endif %}
   {% if section.settings.padding_top != 0 %}--section-padding-top:{{ section.settings.padding_top }}px;{% endif %}
   {% if section.settings.padding_bottom != 0 %}--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% endif %}
-  {% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}
+  {% if section.settings.customize_mobile_padding %}
+    {% if section.settings.padding_top_mobile != section.settings.padding_top %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;{% endif %}
+    {% if section.settings.padding_bottom_mobile != section.settings.padding_bottom %}--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}
+  {% endif %}
 {% endcapture %}
 <div class="section-spacing color-scheme section-color-scope {{ scheme }}" style="{{ section_style | strip }}">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} shatter-full-bleed{% endif %}">
