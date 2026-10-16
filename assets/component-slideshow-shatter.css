@@ -2,7 +2,7 @@
 .shatter {
   --shatter-art-size: min(64cqh, 52cqw);
   --shatter-edge: max(2.4cqw, var(--page-margin-current, 16px));
-  position: relative; isolation: isolate; container-type: size;
+  display: block; position: relative; isolation: isolate; container-type: size;
   height: var(--shatter-height, 100svh); min-height: var(--shatter-min-height, 600px);
   overflow: hidden; background: var(--background-color); color: var(--heading-color);
   touch-action: pan-y;
@@ -36,7 +36,7 @@
 .shatter__progress i { display: block; height: 100%; background: currentColor; transform-origin: left; transform: scaleX(0); }
 .shatter__controls { position: absolute; z-index: 5; right: var(--shatter-edge); bottom: 30px; display: none; align-items: center; gap: 2px; padding: 4px; border-radius: var(--radius-pill, 999px); }
 .shatter.is-ready .shatter__controls { display: flex; }
-.shatter__pagination { display: flex; gap: 2px; }
+.shatter__pagination { display: flex; gap: 2px; min-width: 0; overflow-x: auto; }
 .shatter__controls button { display: inline-flex; justify-content: center; align-items: center; min-width: 44px; min-height: 44px; padding: 4px 10px; border: 0; background: transparent; color: inherit; border-radius: var(--radius-pill, 999px); font: inherit; font-size: var(--font-body-xs, 12px); cursor: pointer; }
 .shatter__controls button:is([aria-current='true'], [aria-pressed='true']) { background: var(--heading-color); color: var(--background-color); }
 .shatter__controls button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
@@ -54,7 +54,7 @@
   .shatter__status { display: none; }
   .shatter__controls { left: 50%; right: auto; transform: translateX(-50%); bottom: 22px; max-width: calc(100% - 16px); border-radius: var(--radius-24, 24px); flex-wrap: wrap; justify-content: center; width: max-content; }
   .shatter__pagination { max-width: 100%; overflow-x: auto; }
-  .shatter__progress { bottom: 88px; }
+  .shatter__progress { bottom: calc(var(--shatter-controls-height, 54px) + 34px); }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .shatter__cursor { display: none; } }
 @media (prefers-reduced-motion: reduce) { .shatter__heading > span { transition: none !important; transform: none !important; opacity: 1 !important; } }

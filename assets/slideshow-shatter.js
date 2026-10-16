@@ -1,7 +1,6 @@
 /* Canvas keycap assembly. Each section owns its clock, input and teardown. */
 (() => {
-  if (customElements.get('shatter-lifecycle')) return;
-  const instances = new Map();
+  if (customElements.get('slideshow-shatter')) return;
   const ease = 'cubic-bezier(.22,1,.36,1)';
   const clamp = (n, min = 0, max = 1) => Math.max(min, Math.min(max, n));
 
@@ -39,6 +38,9 @@
         button.type = 'button';
         button.textContent = String(index + 1);
         button.setAttribute('aria-label', `${index + 1} / ${this.slides.length}`);
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', `${index + 1} / ${this.slides.length}`);
         button.setAttribute('aria-controls', slide.id = `${root.closest('[id]').id}-shatter-${index}`);
         this.pagination.append(button);
         this.listen(button, 'click', () => this.go(index, true));
@@ -54,6 +56,7 @@
       root.classList.add('is-ready');
       this.observer = new ResizeObserver(() => this.resize());
       this.observer.observe(root);
+      this.observer.observe(root.querySelector('.shatter__controls'));
       this.intersection = new IntersectionObserver(entries => {
         this.visible = entries[0].isIntersecting;
         if (!this.visible) this.release();
@@ -153,6 +156,7 @@
       this.artIndex = transition.index;
       this.show(transition.index);
       this.build();
+      this.pieces.forEach(p => { p.x = p.sx; p.y = p.sy; p.a = p.sa; });
       const spans = this.slides[this.index].querySelectorAll('.shatter__heading > span');
       spans.forEach((el, i) => {
         el.style.transition = 'none'; el.style.opacity = '0';
@@ -260,6 +264,7 @@
       const rect = this.root.getBoundingClientRect();
       this.width = rect.width; this.height = rect.height;
       this.dpr = Math.min(devicePixelRatio || 1, 2);
+      this.root.style.setProperty('--shatter-controls-height', `${this.root.querySelector('.shatter__controls').getBoundingClientRect().height}px`);
       for (const [canvas, ctx] of [[this.front, this.ctx], [this.back, this.ctxBack]]) {
         canvas.width = Math.round(this.width * this.dpr); canvas.height = Math.round(this.height * this.dpr);
         ctx?.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
@@ -421,18 +426,13 @@
       this.root.classList.remove('is-ready', 'is-canvas', 'is-holding');
     }
   }
-  const setup = container => {
-    const roots = [...container.querySelectorAll('[data-shatter]')];
-    if (container.matches?.('[data-shatter]')) roots.unshift(container);
-    roots.forEach(root => { if (!instances.has(root)) instances.set(root, new Shatter(root)); });
-  };
-  const teardown = container => instances.forEach((controller, root) => {
-    if (container === root || container.contains(root)) { controller.destroy(); instances.delete(root); }
+  customElements.define('slideshow-shatter', class extends HTMLElement {
+    connectedCallback() {
+      if (!this.controller) this.controller = new Shatter(this);
+    }
+    disconnectedCallback() {
+      this.controller?.destroy();
+      this.controller = null;
+    }
   });
-  // Registration also prevents duplicate bootstrap listeners after Editor loads.
-  customElements.define('shatter-lifecycle', class extends HTMLElement {});
-  document.addEventListener('shopify:section:load', e => { teardown(e.target); setup(e.target); });
-  document.addEventListener('shopify:section:unload', e => teardown(e.target));
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => setup(document), { once: true });
-  else setup(document);
 })();

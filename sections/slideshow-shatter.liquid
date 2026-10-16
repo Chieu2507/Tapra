@@ -17,7 +17,7 @@
 {% endcapture %}
 <div class="section-spacing color-scheme section-color-scope {{ scheme }}" style="{{ section_style | strip }}">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} shatter-full-bleed{% endif %}">
-    <div class="shatter{% if section.settings.ambient_background %} shatter--ambient{% endif %}" data-shatter data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval }}" data-show-progress="{{ section.settings.show_progress }}" data-interaction="{{ section.settings.allow_assembly }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
+    <slideshow-shatter class="shatter{% if section.settings.ambient_background %} shatter--ambient{% endif %}" data-shatter data-autoplay="{{ section.settings.autoplay }}" data-interval="{{ section.settings.interval }}" data-show-progress="{{ section.settings.show_progress }}" data-interaction="{{ section.settings.allow_assembly }}" role="region" aria-roledescription="carousel" aria-label="{{ section.settings.aria_label | escape }}">
       <canvas class="shatter__canvas shatter__canvas--back" data-shatter-back aria-hidden="true"></canvas>
       <div class="shatter__slides" data-shatter-slides>{% content_for 'blocks' %}</div>
       <canvas class="shatter__canvas" data-shatter-front aria-hidden="true"></canvas>
@@ -35,7 +35,7 @@
       <div class="shatter__cursor" data-shatter-cursor aria-hidden="true"><i></i><span data-hold-label="{{ 'shatter.hold_cursor' | t }}" data-release-label="{{ 'shatter.release_cursor' | t }}">{{ 'shatter.hold_cursor' | t }}</span></div>
       <span class="visually-hidden" data-shatter-announcement aria-live="polite" aria-atomic="true"></span>
       {% if section.blocks.size == 0 %}<p class="shatter__empty">{{ 'shatter.empty' | t }}</p>{% endif %}
-    </div>
+    </slideshow-shatter>
   </div>
 </div>
 {% schema %}

@@ -17,7 +17,7 @@
 %}
 <div class="shatter__slide" data-shatter-slide data-block-id="{{ block.id }}" data-focus="{{ block.settings.image.presentation.focal_point | default: '50% 50%' }}" data-mobile-focus="{{ block.settings.mobile_image.presentation.focal_point | default: block.settings.image.presentation.focal_point | default: '50% 50%' }}" style="--shatter-fluid-max:{{ block.settings.fluid_max }}px;--shatter-fluid-min:{{ block.settings.fluid_mobile_min }}px;--heading-block-custom-size:{{ block.settings.custom_heading_size }}px;" {{ block.shopify_attributes }}>
   <div class="shatter__fallback" data-shatter-artwork>{% render 'image', image: block.settings.image, mobile_image: block.settings.mobile_image, alt: image_alt, width: 1600, widths: '400, 600, 900, 1200, 1600', sizes: '52vw', loading: loading, fetchpriority: priority, auto_sizes: false, placeholder: 'lifestyle-1' %}</div>
-  <{{ heading_tag }} class="shatter__heading heading-text{% if block.settings.fluid_heading %} shatter__heading--fluid{% else %} heading-{{ block.settings.heading_size }}{% endif %}"><span class="shatter__top" data-shatter-top>{{ block.settings.title_top | escape }}</span><span class="shatter__bottom" data-shatter-bottom>{{ block.settings.title_bottom | escape }}</span></{{ heading_tag }}>
+  <{{ heading_tag }} class="shatter__heading heading-text{% if block.settings.fluid_heading %} shatter__heading--fluid{% else %} heading-{{ block.settings.heading_size }}{% endif %}"><span class="shatter__top" data-shatter-top>{{ block.settings.title_top | escape }}</span> <span class="shatter__bottom" data-shatter-bottom>{{ block.settings.title_bottom | escape }}</span></{{ heading_tag }}>
 </div>
 {% schema %}
 {
