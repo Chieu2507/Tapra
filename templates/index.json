@@ -2085,6 +2085,7 @@
         "group_4"
       ],
       "settings": {
+        "section_width": "page_width",
         "color_scheme": "scheme-2",
         "padding_top": 96,
         "padding_bottom": 96,
