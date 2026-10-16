@@ -2090,11 +2090,353 @@
         "padding_top_mobile": 64,
         "padding_bottom_mobile": 64
       }
+    },
+    "crossed_text": {
+      "type": "crossed-scrolling-text",
+      "blocks": {
+        "ribbon-back": {
+          "type": "marquee",
+          "static": true,
+          "settings": {
+            "use_elara_layout": true,
+            "show_blurred_edges": false,
+            "enable_parallax": false,
+            "animation_speed": 1.1,
+            "animation_direction": "backward",
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-3",
+            "padding_top": 24,
+            "padding_bottom": 24
+          },
+          "blocks": {
+            "marquee-heading_1": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>QwertyKeys</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_2": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_3": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Domikey</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_4": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_5": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Gateron",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_6": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_7": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Keychron</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_8": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_9": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Akko</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_10": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_11": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Wuque Studio",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_12": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          },
+          "block_order": [
+            "marquee-heading_1",
+            "marquee-icon_2",
+            "marquee-heading_3",
+            "marquee-icon_4",
+            "marquee-heading_5",
+            "marquee-icon_6",
+            "marquee-heading_7",
+            "marquee-icon_8",
+            "marquee-heading_9",
+            "marquee-icon_10",
+            "marquee-heading_11",
+            "marquee-icon_12"
+          ]
+        },
+        "ribbon-front": {
+          "type": "marquee",
+          "static": true,
+          "settings": {
+            "use_elara_layout": true,
+            "show_blurred_edges": false,
+            "enable_parallax": false,
+            "animation_speed": 1.1,
+            "animation_direction": "forward",
+            "gap_desktop": 56,
+            "gap_mobile": 32,
+            "color_type": "scheme",
+            "color_scheme": "scheme-4",
+            "padding_top": 24,
+            "padding_bottom": 24
+          },
+          "blocks": {
+            "marquee-heading_1": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Kailh</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_2": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_3": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Epomaker</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_4": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_5": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "NuPhy",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_6": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_7": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong>Leopold</strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_8": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_9": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "<strong><em>Ducky</em></strong>",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_10": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            },
+            "marquee-heading_11": {
+              "type": "_marquee-heading",
+              "settings": {
+                "text": "Varmilo",
+                "heading_size": "custom",
+                "font": "body",
+                "custom_heading_size": 30,
+                "letter_spacing": "normal",
+                "text_case": "uppercase",
+                "custom_mobile": true,
+                "custom_heading_size_mobile": 20,
+                "opacity": 100
+              }
+            },
+            "marquee-icon_12": {
+              "type": "_marquee-icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path opacity=\".55\" d=\"M12 2c1.4 5.5 4.5 8.6 10 10-5.5 1.4-8.6 4.5-10 10C10.6 16.5 7.5 13.4 2 12c5.5-1.4 8.6-4.5 10-10Z\"/></svg>",
+                "icon_width": 16
+              }
+            }
+          },
+          "block_order": [
+            "marquee-heading_1",
+            "marquee-icon_2",
+            "marquee-heading_3",
+            "marquee-icon_4",
+            "marquee-heading_5",
+            "marquee-icon_6",
+            "marquee-heading_7",
+            "marquee-icon_8",
+            "marquee-heading_9",
+            "marquee-icon_10",
+            "marquee-heading_11",
+            "marquee-icon_12"
+          ]
+        }
+      },
+      "settings": {
+        "section_width": "full_bleed",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "shatter",
     "why_us",
+    "crossed_text",
     "slideshow",
     "collection_editorial",
     "tapra_media",
