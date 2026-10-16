@@ -38,7 +38,7 @@
       <div class="shatter__controls shatter__glass">
         <div class="shatter__pagination" data-shatter-pagination{% unless section.settings.show_pagination %} hidden{% endunless %} role="group" aria-label="{{ 'shatter.slides' | t }}"></div>
         {% if section.settings.allow_assembly and section.settings.show_assemble_button %}<button type="button" data-shatter-assemble aria-pressed="false">{{ 'shatter.assemble' | t }}</button>{% endif %}
-        <button type="button" data-shatter-pause aria-pressed="false" aria-label="{{ 'shatter.pause' | t }}" title="{{ 'shatter.pause' | t }}" data-pause-label="{{ 'shatter.pause' | t }}" data-play-label="{{ 'shatter.play' | t }}"><span class="shatter__pause-icon" aria-hidden="true">{% render 'icon', icon: 'pause' %}</span><span class="shatter__play-icon" aria-hidden="true">{% render 'icon', icon: 'play' %}</span></button>
+        <button type="button" data-shatter-pause aria-pressed="false" aria-label="{{ 'shatter.pause' | t }}" title="{{ 'shatter.pause' | t }}" data-pause-label="{{ 'shatter.pause' | t }}" data-play-label="{{ 'shatter.play' | t }}"><span class="shatter__pause-icon" aria-hidden="true">{% render 'icon', icon: 'pause', bare: true %}</span><span class="shatter__play-icon" aria-hidden="true">{% render 'icon', icon: 'play', bare: true %}</span></button>
       </div>
       <div class="shatter__cursor" data-shatter-cursor aria-hidden="true"><i></i><span data-hold-label="{{ 'shatter.hold_cursor' | t }}" data-release-label="{{ 'shatter.release_cursor' | t }}">{{ 'shatter.hold_cursor' | t }}</span></div>
       <span class="visually-hidden" data-shatter-announcement aria-live="polite" aria-atomic="true"></span>
@@ -444,76 +444,127 @@
           "type": "_slideshow-shatter-slide",
           "blocks": [
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>Small keys.</p>",
-                "heading_size": "display",
-                "html_tag": "h1"
+                "position": "top_left"
               },
-              "id": "heading-1",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small keys.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
             },
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>More room<br>to type.</p>",
-                "heading_size": "display",
-                "html_tag": "div"
+                "position": "bottom_right"
               },
-              "id": "heading-2",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>More room<br>to type.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
             }
-          ]
+          ],
+          "settings": {}
         },
         {
           "type": "_slideshow-shatter-slide",
           "blocks": [
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>Compact.</p>",
-                "heading_size": "display",
-                "html_tag": "h1"
+                "position": "top_left"
               },
-              "id": "heading-1",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Compact.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
             },
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>Built<br>your way.</p>",
-                "heading_size": "display",
-                "html_tag": "div"
+                "position": "bottom_right"
               },
-              "id": "heading-2",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Built<br>your way.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
             }
-          ]
+          ],
+          "settings": {}
         },
         {
           "type": "_slideshow-shatter-slide",
           "blocks": [
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>Swap it.</p>",
-                "heading_size": "display",
-                "html_tag": "h1"
+                "position": "top_left"
               },
-              "id": "heading-1",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Swap it.</p>",
+                    "heading_size": "display",
+                    "html_tag": "h1"
+                  }
+                }
+              ],
+              "id": "content-1"
             },
             {
-              "type": "heading",
+              "type": "_slideshow-shatter-content",
+              "static": true,
               "settings": {
-                "text": "<p>Find your<br>feel.</p>",
-                "heading_size": "display",
-                "html_tag": "div"
+                "position": "bottom_right"
               },
-              "id": "heading-2",
-              "static": true
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your<br>feel.</p>",
+                    "heading_size": "display",
+                    "html_tag": "div"
+                  }
+                }
+              ],
+              "id": "content-2"
             }
-          ]
+          ],
+          "settings": {}
         }
       ]
     }
