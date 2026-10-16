@@ -1,6 +1,7 @@
 .why-us { background: var(--why-background, var(--background-color)); }
 .why-us .container.why-us--full-bleed { width: 100%; max-width: none; padding-inline: 0; }
 .why-us__header { margin-bottom: var(--why-header-gap, 44px); }
+.why-us__header:not(:has(> .group)) { display: none; }
 .why-us__header > .group { background: transparent; }
 .why-us__cards { display: grid; grid-template-columns: repeat(var(--why-columns, 3), minmax(0, 1fr)); gap: var(--why-card-gap, 16px); }
 .why-us__cards > .group { min-width: 0; transition: translate 350ms ease, background-color 350ms ease; }
