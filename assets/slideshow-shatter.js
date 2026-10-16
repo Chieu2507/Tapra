@@ -250,7 +250,9 @@
       this.progress.parentElement.hidden = this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
       const paused = this.pauses.has('manual');
       this.pauseButton.setAttribute('aria-pressed', String(paused));
-      this.pauseButton.textContent = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
+      const label = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
+      this.pauseButton.setAttribute('aria-label', label);
+      this.pauseButton.title = label;
     }
     setHold(value) {
       if (value && (this.motion.matches || this.transition)) return;

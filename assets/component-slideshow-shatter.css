@@ -58,3 +58,7 @@
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .shatter__cursor { display: none; } }
 @media (prefers-reduced-motion: reduce) { .shatter__heading > span { transition: none !important; transform: none !important; opacity: 1 !important; } }
+
+.shatter__controls [data-shatter-pause] svg { display: block; width: 18px; height: 18px; }
+.shatter [data-shatter-pause][aria-pressed='false'] .shatter__play-icon,
+.shatter [data-shatter-pause][aria-pressed='true'] .shatter__pause-icon { display: none; }
