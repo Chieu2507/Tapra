@@ -2536,6 +2536,9 @@
               "type": "product-card",
               "static": true,
               "settings": {
+                "content_layout": "summary_action",
+                "title_size": 32,
+                "title_size_mobile": 28,
                 "card_style": "card",
                 "card_corner_radius": "radius_24",
                 "media_ratio": "ratio_3_2",
