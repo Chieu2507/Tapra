@@ -5,6 +5,7 @@
 
   @param {product} product - Product to render
   @param {string} [card_style] - Optional local Standard/Card style; blank inherits Theme Settings
+  @param {string} [card_corner_radius] - Optional local card radius preset; inherit uses Theme Settings
   @param {string} [media_corner_radius] - Optional local radius preset; inherit uses Theme Settings
   @param {string} [media_ratio] - Optional image ratio; inherit uses Theme Settings
   @param {number} [media_inset] - Optional media inset in pixels; blank inherits Theme Settings
@@ -226,6 +227,13 @@
 %}
 
 {% capture product_card_local_style %}
+  {% case card_corner_radius %}
+    {% when 'radius_2', 'radius_4', 'radius_6', 'radius_8', 'radius_12', 'radius_16', 'radius_24', 'radius_32' %}
+      --card-radius: var(--radius-{{ card_corner_radius | remove: 'radius_' }});
+    {% when 'square' %}--card-radius: var(--radius-square);
+    {% when 'rounded' %}--card-radius: var(--radius-rounded);
+    {% when 'full' %}--card-radius: var(--radius-pill);
+  {% endcase %}
   {% if media_inset != nil and media_inset != blank %}--product-card-media-inset: {{ media_inset | at_least: 0 | at_most: 32 }}px;{% endif %}
   {% if local_media_ratio %}
     {% case card_ratio %}

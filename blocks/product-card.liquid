@@ -53,6 +53,7 @@
     product: card_product,
     rating_content: product_card_rating,
     card_style: block.settings.card_style,
+    card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
     media_ratio: block.settings.media_ratio,
     media_inset: product_card_media_inset,
@@ -66,6 +67,7 @@
     placeholder: true,
     placeholder_index: placeholder_index,
     card_style: block.settings.card_style,
+    card_corner_radius: block.settings.card_corner_radius,
     media_corner_radius: block.settings.media_corner_radius,
     media_ratio: block.settings.media_ratio,
     media_inset: product_card_media_inset,
@@ -122,6 +124,62 @@
         {
           "value": "card",
           "label": "t:options.product_card_style.card"
+        }
+      ],
+      "default": "inherit"
+    },
+    {
+      "type": "select",
+      "id": "card_corner_radius",
+      "label": "Card corner radius",
+      "options": [
+        {
+          "value": "inherit",
+          "label": "t:options.radius_preset.inherit"
+        },
+        {
+          "value": "square",
+          "label": "t:options.radius_preset.square"
+        },
+        {
+          "value": "radius_2",
+          "label": "t:options.radius_preset.size_2"
+        },
+        {
+          "value": "radius_4",
+          "label": "t:options.radius_preset.size_4"
+        },
+        {
+          "value": "radius_6",
+          "label": "t:options.radius_preset.size_6"
+        },
+        {
+          "value": "rounded",
+          "label": "t:options.radius_preset.rounded"
+        },
+        {
+          "value": "radius_8",
+          "label": "t:options.radius_preset.size_8"
+        },
+        {
+          "value": "radius_12",
+          "label": "t:options.radius_preset.size_12"
+        },
+        {
+          "value": "radius_16",
+          "label": "t:options.radius_preset.size_16"
+        },
+        {
+          "value": "radius_24",
+          "label": "t:options.radius_preset.size_24"
+        },
+        {
+          "value": "radius_32",
+          "label": "t:options.radius_preset.size_32"
+        },
+        {
+          "value": "full",
+          "label": "t:options.radius_preset.full"
         }
       ],
       "default": "inherit"
