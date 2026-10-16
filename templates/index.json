@@ -1874,10 +1874,229 @@
         "pagination_position_mobile": "center",
         "color_scheme": "scheme-3"
       }
+    },
+    "why_us": {
+      "type": "why-us",
+      "blocks": {
+        "header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "direction": "horizontal",
+            "wrap": false,
+            "position_horizontal": "bottom",
+            "horizontal_alignment": "space-between",
+            "customize_mobile_alignment": true,
+            "alignment": "left",
+            "alignment_mobile": "left",
+            "gap_desktop": 32,
+            "gap_mobile": 20,
+            "width": "fill",
+            "height": "fit",
+            "animation_type": "slide-bottom"
+          },
+          "blocks": {
+            "group_1": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "alignment": "left",
+                "gap_desktop": 0,
+                "gap_mobile": 0,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "heading_1": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Why us?</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2"
+                  }
+                },
+                "heading_2": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Here's why you should shop with us.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "div",
+                    "text_color": "#5F687C"
+                  }
+                }
+              },
+              "block_order": [
+                "heading_1",
+                "heading_2"
+              ]
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Honest service, careful packing and a team that types as much as you do.</p>",
+                "text_size": "md",
+                "text_color": "#5F687C",
+                "width": "custom",
+                "max_width": 340
+              }
+            }
+          },
+          "block_order": [
+            "group_1",
+            "text_2"
+          ]
+        },
+        "group_2": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "top",
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "rounded",
+            "animation_type": "slide-bottom",
+            "animation_delay": 0,
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 7h11v9H3z\"/><path d=\"M14 10h4l3 3v3h-7\"/><circle cx=\"7\" cy=\"18\" r=\"2\"/><circle cx=\"17\" cy=\"18\" r=\"2\"/><path d=\"M8.5 11.2c0-1 1-1.6 1.7-1 .7-.6 1.7 0 1.7 1 0 1.1-1.7 2.1-1.7 2.1s-1.7-1-1.7-2.1z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p><strong>All orders</strong> are packed by hand with care and shipped from our own <strong>warehouse</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        },
+        "group_3": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "top",
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "rounded",
+            "animation_type": "slide-bottom",
+            "animation_delay": 100,
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M8 3v4M16 3v4M3 10h18\"/><path d=\"M8 16h8M13 13l3 3-3 3\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>We ship most orders within <strong>24–48 hours</strong> and accept returns within <strong>30 days</strong> of receipt.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        },
+        "group_4": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "top",
+            "alignment": "left",
+            "gap_desktop": 22,
+            "gap_mobile": 22,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "rounded",
+            "animation_type": "slide-bottom",
+            "animation_delay": 200,
+            "padding_top": 26,
+            "padding_bottom": 26,
+            "padding_left": 26,
+            "padding_right": 26
+          },
+          "blocks": {
+            "icon_1": {
+              "type": "icon",
+              "settings": {
+                "source": "custom",
+                "custom_icon": "<svg fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z\"/></svg>",
+                "icon_width": 48
+              }
+            },
+            "text_2": {
+              "type": "text",
+              "settings": {
+                "text": "<p>More than <strong>1,300+</strong> verified <strong>5-star</strong> reviews with an average rating of <strong>4.9</strong>.</p>",
+                "text_size": "md",
+                "width": "fill"
+              }
+            }
+          },
+          "block_order": [
+            "icon_1",
+            "text_2"
+          ]
+        }
+      },
+      "block_order": [
+        "group_2",
+        "group_3",
+        "group_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      }
     }
   },
   "order": [
     "shatter",
+    "why_us",
     "slideshow",
     "collection_editorial",
     "tapra_media",

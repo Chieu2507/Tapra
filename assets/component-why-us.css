@@ -1,0 +1,12 @@
+.why-us { background: var(--why-background, var(--background-color)); }
+.why-us .container.why-us--full-bleed { width: 100%; max-width: none; padding-inline: 0; }
+.why-us__header { margin-bottom: var(--why-header-gap, 44px); }
+.why-us__header > .group { background: transparent; }
+.why-us__cards { display: grid; grid-template-columns: repeat(var(--why-columns, 3), minmax(0, 1fr)); gap: var(--why-card-gap, 16px); }
+.why-us__cards > .group { min-width: 0; transition: translate 350ms ease, background-color 350ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .why-us[data-why-hover='true'] .why-us__cards > .group:hover { translate: 0 -6px; background-color: var(--why-hover-background, var(--background-color)); }
+}
+@media (min-width: 600px) and (max-width: 989.98px) { .why-us__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 599.98px) { .why-us__cards { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: reduce) { .why-us__cards > .group { transition: none; translate: none !important; } }
