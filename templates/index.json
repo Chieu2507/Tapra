@@ -2429,12 +2429,146 @@
         "padding_top": 0,
         "padding_bottom": 60
       }
+    },
+    "find_board": {
+      "type": "featured-collection",
+      "blocks": {
+        "header": {
+          "type": "header",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "inherit_alignment": true,
+            "gap_desktop": 0,
+            "gap_mobile": 0
+          },
+          "blocks": {
+            "intro": {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "wrap": false,
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left",
+                "gap_desktop": 32,
+                "gap_mobile": 12,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "title": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your board.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Free shipping on orders over $79. 30-day returns.</p>",
+                    "text_size": "md",
+                    "text_color": "#5F687C",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "title",
+                "description"
+              ]
+            }
+          },
+          "block_order": [
+            "intro"
+          ]
+        },
+        "featured-collection-view-all": {
+          "type": "view-all-button",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "button_label": "View all",
+            "button_style": "tertiary",
+            "show_icon": false,
+            "button_style_mobile": "secondary",
+            "button_height_mobile": "inherit",
+            "full_width_mobile": true,
+            "show_icon_mobile": false
+          }
+        },
+        "product-list": {
+          "type": "product-list",
+          "static": true,
+          "settings": {
+            "collection": "new-arrivals-stroken",
+            "max_products": 3,
+            "layout_type": "grid",
+            "columns_desktop": "3",
+            "columns_tablet": "2",
+            "columns_mobile": "1",
+            "show_next_slide_preview_on_desktop": false,
+            "product_gap_desktop": 16,
+            "product_gap_mobile": 20,
+            "show_navigation_on_desktop": false,
+            "navigation_position": "top",
+            "navigation_style": "secondary",
+            "navigation_icon": "chevron",
+            "show_pagination_on_desktop": false,
+            "pagination_type": "progress_bar",
+            "pagination_top_padding_desktop": 50,
+            "pagination_top_padding_mobile": 24,
+            "pagination_limit_width": true,
+            "pagination_max_width": 260,
+            "autoplay": false,
+            "autoplay_pause_on_hover": true,
+            "autoplay_speed": 4
+          },
+          "blocks": {
+            "product-card": {
+              "type": "product-card",
+              "static": true,
+              "settings": {
+                "card_style": "card",
+                "media_ratio": "ratio_3_2",
+                "customize_media_inset": true,
+                "media_inset": 14,
+                "media_corner_radius": "radius_24",
+                "show_rating": false,
+                "color_type": "inherit",
+                "color_scheme": "scheme-1"
+              }
+            }
+          }
+        }
+      },
+      "settings": {
+        "section_width": "page_width",
+        "desktop_alignment": "left",
+        "mobile_alignment": "left",
+        "gap_desktop": 44,
+        "gap_mobile": 24,
+        "color_scheme": "scheme-1",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 56,
+        "padding_bottom_mobile": 56
+      }
     }
   },
   "order": [
     "shatter",
     "why_us",
     "crossed_text",
+    "find_board",
     "slideshow",
     "collection_editorial",
     "tapra_media",
