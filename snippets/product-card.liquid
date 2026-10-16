@@ -5,6 +5,7 @@
 
   @param {product} product - Product to render
   @param {string} [content_layout] - Standard or summary_action content composition
+  @param {string} [add_button_label] - Label for the content purchase button
   @param {number} [title_size] - Title size for summary/action layout
   @param {number} [title_size_mobile] - Mobile title size for summary/action layout
   @param {string} [card_style] - Optional local Standard/Card style; blank inherits Theme Settings
@@ -95,6 +96,7 @@
   assign quick_add_full_width = true
   if settings.product_card_quick_add_full_width == false
     assign quick_add_full_width = false
+    assign quick_add_color_scheme = card_color_scheme
   endif
 
   assign quick_view_enabled = true
@@ -230,6 +232,9 @@
     endif
   endif
   assign quick_add_label = 'products.quick_add' | t
+  if content_layout == 'summary_action' and add_button_label != blank
+    assign quick_add_label = add_button_label
+  endif
   assign quick_add_options_label = 'products.choose_options' | t
   assign quick_view_label = 'products.quick_view' | t
   assign product_card_motion_speed = 'standard'

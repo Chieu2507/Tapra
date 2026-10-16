@@ -2537,6 +2537,7 @@
               "static": true,
               "settings": {
                 "content_layout": "summary_action",
+                "add_button_label": "Add",
                 "title_size": 32,
                 "title_size_mobile": 28,
                 "card_style": "card",

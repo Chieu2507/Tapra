@@ -54,6 +54,7 @@
     rating_content: product_card_rating,
     card_style: block.settings.card_style,
     content_layout: block.settings.content_layout,
+    add_button_label: block.settings.add_button_label,
     title_size: block.settings.title_size,
     title_size_mobile: block.settings.title_size_mobile,
     card_corner_radius: block.settings.card_corner_radius,
@@ -71,6 +72,7 @@
     placeholder_index: placeholder_index,
     card_style: block.settings.card_style,
     content_layout: block.settings.content_layout,
+    add_button_label: block.settings.add_button_label,
     title_size: block.settings.title_size,
     title_size_mobile: block.settings.title_size_mobile,
     card_corner_radius: block.settings.card_corner_radius,
@@ -129,6 +131,13 @@
         }
       ],
       "default": "standard"
+    },
+    {
+      "type": "text",
+      "id": "add_button_label",
+      "label": "Add button label",
+      "default": "Add",
+      "visible_if": "{{ block.settings.content_layout == 'summary_action' }}"
     },
     {
       "type": "range",
