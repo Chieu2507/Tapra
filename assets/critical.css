@@ -1895,6 +1895,7 @@ legend {
 .product-card__media .image > img {
   height: 100%;
   object-fit: cover;
+  border-radius: 0;
 }
 
 .product-card__media .product-card__image > img {
