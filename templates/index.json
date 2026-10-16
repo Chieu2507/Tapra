@@ -2540,7 +2540,7 @@
                 "card_corner_radius": "radius_24",
                 "media_ratio": "ratio_3_2",
                 "customize_media_inset": true,
-                "media_inset": 8,
+                "media_inset": 14,
                 "media_corner_radius": "radius_16",
                 "show_rating": false,
                 "color_type": "color_scheme",
