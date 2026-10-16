@@ -1,0 +1,60 @@
+.shatter-full-bleed.container { width: 100%; max-width: none; }
+.shatter {
+  --shatter-art-size: min(64cqh, 52cqw);
+  --shatter-edge: max(2.4cqw, var(--page-margin-current, 16px));
+  position: relative; isolation: isolate; container-type: size;
+  height: var(--shatter-height, 100svh); min-height: var(--shatter-min-height, 600px);
+  overflow: hidden; background: var(--background-color); color: var(--heading-color);
+  touch-action: pan-y;
+}
+.shatter--ambient { background: radial-gradient(120% 90% at 50% 100%, color-mix(in srgb, var(--accent-color, var(--heading-color)) 24%, var(--background-color)) 0%, var(--background-color) 70%); }
+.shatter [hidden] { display: none !important; }
+.shatter__canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; visibility: hidden; }
+.shatter__canvas--back { z-index: 1; }
+.shatter.is-canvas .shatter__canvas { visibility: visible; }
+.shatter__slides, .shatter__slide { position: absolute; inset: 0; }
+.shatter__slide:not(:first-child) { display: none; }
+.shatter.is-ready .shatter__slide { display: block; }
+.shatter__slide[hidden] { display: none; }
+.shatter__fallback { position: absolute; width: var(--shatter-art-size); aspect-ratio: 1; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.shatter__fallback > *, .shatter__fallback picture { display: block; width: 100%; height: 100%; }
+.shatter__fallback :is(img, svg) { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+.shatter.is-canvas .shatter__fallback { opacity: 0; }
+.shatter__heading { margin: 0; font-family: var(--font-heading-family); font-style: var(--font-heading-style); font-weight: var(--font-heading-weight); color: var(--heading-color); pointer-events: none; }
+.shatter__heading.heading-custom { font-size: var(--heading-block-custom-size); }
+.shatter__heading--fluid { font-size: clamp(var(--shatter-fluid-min, 44px), 8.4cqw, var(--shatter-fluid-max, 168px)); line-height: 1.15; letter-spacing: 0; }
+.shatter__heading > span { position: absolute; z-index: 4; white-space: pre-line; max-width: calc(100% - var(--shatter-edge) * 2); overflow-wrap: anywhere; text-shadow: 0 2px 28px color-mix(in srgb, var(--background-color) 45%, transparent); }
+.shatter__top { top: 19%; left: var(--shatter-edge); }
+.shatter__bottom { right: var(--shatter-edge); bottom: 17%; text-align: right; }
+.shatter__glass { background: color-mix(in srgb, var(--background-color) 60%, transparent); border: 1px solid color-mix(in srgb, var(--heading-color) 20%, transparent); backdrop-filter: blur(10px) saturate(1.3); -webkit-backdrop-filter: blur(10px) saturate(1.3); }
+.shatter__status { position: absolute; z-index: 5; left: var(--shatter-edge); bottom: 34px; width: 198px; border-radius: var(--radius-16, 16px); padding: 11px 12px; font-size: var(--font-body-xs, 12px); line-height: 1.5; }
+.shatter__status small { font-size: inherit; letter-spacing: .06em; margin-left: 5px; opacity: .7; }
+.shatter__status p { margin: 0; opacity: .8; }
+.shatter__status-bar { height: 2px; background: color-mix(in srgb, currentColor 18%, transparent); margin: 7px 0 9px; }
+.shatter__status-bar i { display: block; height: 100%; width: 70%; background: currentColor; }
+.shatter__progress { position: absolute; z-index: 5; left: 50%; bottom: 48px; transform: translateX(-50%); width: min(340px, calc(100% - 32px)); height: 4px; border-radius: var(--radius-pill, 999px); overflow: hidden; background: color-mix(in srgb, currentColor 18%, transparent); }
+.shatter__progress i { display: block; height: 100%; background: currentColor; transform-origin: left; transform: scaleX(0); }
+.shatter__controls { position: absolute; z-index: 5; right: var(--shatter-edge); bottom: 30px; display: none; align-items: center; gap: 2px; padding: 4px; border-radius: var(--radius-pill, 999px); }
+.shatter.is-ready .shatter__controls { display: flex; }
+.shatter__pagination { display: flex; gap: 2px; }
+.shatter__controls button { display: inline-flex; justify-content: center; align-items: center; min-width: 44px; min-height: 44px; padding: 4px 10px; border: 0; background: transparent; color: inherit; border-radius: var(--radius-pill, 999px); font: inherit; font-size: var(--font-body-xs, 12px); cursor: pointer; }
+.shatter__controls button:is([aria-current='true'], [aria-pressed='true']) { background: var(--heading-color); color: var(--background-color); }
+.shatter__controls button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.shatter__cursor { position: absolute; inset: 0 auto auto 0; z-index: 6; pointer-events: none; opacity: 0; transition: opacity .2s; }
+.shatter__cursor i { position: absolute; left: -18px; top: -18px; width: 36px; height: 36px; border-radius: 50%; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); background: color-mix(in srgb, currentColor 6%, transparent); transition: transform .25s, background .25s; }
+.shatter__cursor span { position: absolute; right: 30px; top: -11px; white-space: nowrap; padding: 5px 10px; font-size: var(--font-body-xs, 12px); border-radius: var(--radius-pill, 999px); background: var(--heading-color); color: var(--background-color); }
+.shatter.is-holding .shatter__cursor i { transform: scale(1.6); background: color-mix(in srgb, currentColor 16%, transparent); }
+.shatter__empty { position: absolute; inset: 45% 20px auto; text-align: center; }
+.shatter:not(.is-canvas) .shatter__status, .shatter:not(.is-ready) .shatter__progress { display: none; }
+@media (max-width: 1149.98px) { .shatter__progress { bottom: 100px; } }
+@media (max-width: 767.98px) {
+  .shatter { height: var(--shatter-mobile-height, var(--shatter-height, 100svh)); }
+  .shatter__top { top: 16%; }
+  .shatter__bottom { bottom: 24%; }
+  .shatter__status { display: none; }
+  .shatter__controls { left: 50%; right: auto; transform: translateX(-50%); bottom: 22px; max-width: calc(100% - 16px); border-radius: var(--radius-24, 24px); flex-wrap: wrap; justify-content: center; width: max-content; }
+  .shatter__pagination { max-width: 100%; overflow-x: auto; }
+  .shatter__progress { bottom: 88px; }
+}
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .shatter__cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { .shatter__heading > span { transition: none !important; transform: none !important; opacity: 1 !important; } }
