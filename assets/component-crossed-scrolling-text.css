@@ -6,3 +6,7 @@
 .crossed-scrolling__ribbon--front { z-index: 2; }
 .crossed-scrolling[data-crossed-pause='true']:is(:hover, :focus-within) .elara-marquee__track { animation-play-state: paused; }
 @media (max-width: 767.98px) { .crossed-scrolling__stage { height: var(--crossed-height-mobile, var(--crossed-height, 340px)); } }
+@media (prefers-reduced-motion: reduce) {
+  .crossed-scrolling__stage { height: auto; display: grid; gap: 16px; padding-block: 24px; }
+  .crossed-scrolling__ribbon { position: relative; top: auto; left: auto; width: 100%; transform: none; }
+}
