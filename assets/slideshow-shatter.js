@@ -64,7 +64,7 @@
       });
       this.intersection.observe(root);
       this.prepare(0).then(art => {
-        if (this.abort.signal.aborted) return;
+        if (this.abort.signal.aborted || this.intent) return;
         this.art = art;
         this.resize();
         this.slides.forEach((_, i) => { if (i) this.prepare(i); });
@@ -223,6 +223,9 @@
       this.listen(document, 'visibilitychange', () => { this.release(); this.synchronize(); });
       this.listen(this.motion, 'change', () => { this.toggleAssembly = false; this.setHold(false); this.release(); this.settle(); this.updateControls(); this.resize(); });
       this.listen(this.mobile, 'change', () => {
+        this.release();
+        this.settle();
+        this.loading = false;
         const intent = this.intent = (this.intent || 0) + 1;
         this.prepare(this.index).then(art => {
           if (this.abort.signal.aborted || intent !== this.intent) return;
