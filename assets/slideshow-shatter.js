@@ -30,13 +30,19 @@
       this.visible = false;
       this.holding = false;
       this.toggleAssembly = false;
-      this.interval = clamp(Number(root.dataset.interval) || 8, 4, 20) * 1000;
+      this.interval = clamp(Number(root.dataset.interval) || 6, 3, 10) * 1000;
       this.interaction = root.dataset.interaction === 'true';
       this.pagination = root.querySelector('[data-shatter-pagination]');
       this.buttons = this.slides.map((slide, index) => {
         const button = document.createElement('button');
         button.type = 'button';
-        button.textContent = String(index + 1);
+        const paginationType = root.dataset.paginationType || 'numbers';
+        if (paginationType === 'bullets') {
+          button.innerHTML = '<span class="shatter__dot" aria-hidden="true"></span>';
+          if (root.dataset.bulletStyle === 'circular') button.innerHTML += '<svg viewBox="0 0 36 36" aria-hidden="true"><circle class="shatter__ring-track" cx="18" cy="18" r="16" pathLength="100"/><circle class="shatter__ring-fill" cx="18" cy="18" r="16" pathLength="100"/></svg>';
+        } else if (paginationType === 'progress_bar') {
+          button.innerHTML = '<span class="shatter__segment-track" aria-hidden="true"><i></i></span>';
+        } else button.textContent = String(index + 1);
         button.setAttribute('aria-label', `${index + 1} / ${this.slides.length}`);
         slide.setAttribute('role', 'group');
         slide.setAttribute('aria-roledescription', 'slide');
@@ -122,10 +128,18 @@
         slide.inert = i !== index;
       });
       this.updatePagination(index);
+      const slide = this.slides[index];
+      if (slide?.dataset && this.root.style) {
+        this.root.style.setProperty('--shatter-desktop-aspect', slide.dataset.aspect || '1.5');
+        this.root.style.setProperty('--shatter-mobile-aspect', slide.dataset.mobileAspect || slide.dataset.aspect || '1.5');
+      }
     }
     updatePagination(index) {
       this.requestedIndex = index;
-      this.buttons.forEach((button, i) => button.setAttribute('aria-current', String(i === index)));
+      this.buttons.forEach((button, i) => {
+        button.setAttribute('aria-current', String(i === index));
+        button.setAttribute('data-complete', String(i < index));
+      });
       const button = this.buttons[index];
       if (!this.pagination || !button?.getBoundingClientRect) return;
       const box = button.getBoundingClientRect();
@@ -148,7 +162,7 @@
       if (intent !== this.intent || this.abort.signal.aborted) return;
       this.loading = false;
       this.idle = 0;
-      if (manual) this.root.querySelector('[data-shatter-announcement]').textContent = this.slides[index].querySelector('.shatter__heading').textContent;
+      if (manual) this.root.querySelector('[data-shatter-announcement]').textContent = this.slides[index].querySelector('.shatter__headings').textContent;
       if (immediate || this.motion.matches || !this.visible || !this.art || !art) {
         this.transition = null;
         this.art = art;
@@ -164,12 +178,12 @@
       this.synchronize();
     }
     clearText() {
-      this.root.querySelectorAll('.shatter__heading > span').forEach(el => {
+      this.root.querySelectorAll('.shatter__headings > .heading-block').forEach(el => {
         el.style.transition = ''; el.style.opacity = ''; el.style.transform = '';
       });
     }
     textExit() {
-      this.slides[this.index].querySelectorAll('.shatter__heading > span').forEach((el, i) => {
+      this.slides[this.index].querySelectorAll('.shatter__headings > .heading-block').forEach((el, i) => {
         el.style.transition = 'opacity 650ms ease-in, transform 650ms ease-in';
         el.style.opacity = '0';
         el.style.transform = `translateY(${i ? 30 : -30}px)`;
@@ -184,7 +198,7 @@
       this.show(transition.index);
       this.build();
       this.pieces.forEach(p => { p.x = p.sx; p.y = p.sy; p.a = p.sa; });
-      const spans = this.slides[this.index].querySelectorAll('.shatter__heading > span');
+      const spans = this.slides[this.index].querySelectorAll('.shatter__headings > .heading-block');
       spans.forEach((el, i) => {
         el.style.transition = 'none'; el.style.opacity = '0';
         el.style.transform = `translateY(${i ? -30 : 30}px)`;
@@ -224,6 +238,9 @@
         if (e.key === 'Escape') { this.toggleAssembly = false; this.setHold(false); }
       });
       const content = e => !e.target.closest('button, a, input, select, textarea, [data-shatter-control]');
+      this.listen(this.root, 'pointerenter', e => {
+        if (e.pointerType === 'mouse' && this.root.dataset.pauseOnHover === 'true') this.pauses.add('hover');
+      });
       this.listen(this.root, 'pointermove', e => {
         const r = this.root.getBoundingClientRect();
         if (e.pointerType === 'mouse') {
@@ -243,6 +260,7 @@
       this.listen(window, 'pointercancel', () => this.release());
       this.listen(window, 'blur', () => this.release());
       this.listen(this.root, 'pointerleave', () => {
+        this.pauses.delete('hover');
         this.pointer = { x: -999, y: -999 }; this.cursor.style.opacity = '0'; this.release();
       });
       this.listen(this.root, 'click', e => {
@@ -268,7 +286,7 @@
     updateControls() {
       this.pauseButton.hidden = this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.motion.matches;
       if (this.assembleButton) this.assembleButton.hidden = this.motion.matches;
-      this.progress.parentElement.hidden = this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
+      this.progress.parentElement.hidden = (this.root.dataset.paginationType === 'progress_bar' && !this.pagination.hidden) || this.motion.matches || this.root.dataset.autoplay !== 'true' || this.slides.length < 2 || this.root.dataset.showProgress !== 'true';
       const paused = this.pauses.has('manual');
       this.pauseButton.setAttribute('aria-pressed', String(paused));
       const label = paused ? this.pauseButton.dataset.playLabel : this.pauseButton.dataset.pauseLabel;
@@ -371,7 +389,9 @@
         this.idle += dt;
         if (this.idle >= this.interval) this.go(this.index + 1);
       }
-      this.progress.style.transform = `scaleX(${Math.min(this.idle / this.interval, 1)})`;
+      const progress = Math.min(this.idle / this.interval, 1);
+      this.progress.style.transform = `scaleX(${progress})`;
+      this.root.style.setProperty('--shatter-progress', progress.toFixed(4));
       if (this.art && this.ctx && this.ctxBack) {
         try { this.draw(now, f, alpha); }
         catch { this.art = null; this.root.classList.remove('is-canvas'); }
