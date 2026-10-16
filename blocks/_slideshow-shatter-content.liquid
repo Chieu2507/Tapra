@@ -1,0 +1,172 @@
+{% doc %}
+  Positioned content group for Shatter. Accepts native Heading, Text, Eyebrow
+  and Button children. The owning Slide supplies the shared content inset.
+{% enddoc %}
+{% liquid
+  assign position = block.settings.position | default: 'top_left' | split: '_'
+  assign mobile_position = position
+  if block.settings.customize_mobile_position
+    assign mobile_position = block.settings.position_mobile | default: block.settings.position | default: 'top_left' | split: '_'
+  endif
+%}
+<div class="shatter__content" data-shatter-content style="--shatter-content-x:{{ position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y:{{ position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align:{{ position.last }};--shatter-content-x-mobile:{{ mobile_position.last | replace: 'left', 'start' | replace: 'right', 'end' }};--shatter-content-y-mobile:{{ mobile_position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};--shatter-content-align-mobile:{{ mobile_position.last }};--shatter-content-gap:{{ block.settings.gap_desktop | default: 12 }}px;--shatter-content-gap-mobile:{{ block.settings.gap_mobile | default: 12 }}px" {{ block.shopify_attributes }}>
+  {% content_for 'blocks' %}
+</div>
+{% schema %}
+{
+  "name": "Content",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Position"
+    },
+    {
+      "type": "select",
+      "id": "position",
+      "label": "Position",
+      "options": [
+        {
+          "value": "top_left",
+          "label": "Top left"
+        },
+        {
+          "value": "top_center",
+          "label": "Top center"
+        },
+        {
+          "value": "top_right",
+          "label": "Top right"
+        },
+        {
+          "value": "center_left",
+          "label": "Center left"
+        },
+        {
+          "value": "center_center",
+          "label": "Center center"
+        },
+        {
+          "value": "center_right",
+          "label": "Center right"
+        },
+        {
+          "value": "bottom_left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom_center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom_right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top_left"
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_position",
+      "label": "Customize for mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "position_mobile",
+      "label": "Position (mobile)",
+      "options": [
+        {
+          "value": "top_left",
+          "label": "Top left"
+        },
+        {
+          "value": "top_center",
+          "label": "Top center"
+        },
+        {
+          "value": "top_right",
+          "label": "Top right"
+        },
+        {
+          "value": "center_left",
+          "label": "Center left"
+        },
+        {
+          "value": "center_center",
+          "label": "Center center"
+        },
+        {
+          "value": "center_right",
+          "label": "Center right"
+        },
+        {
+          "value": "bottom_left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom_center",
+          "label": "Bottom center"
+        },
+        {
+          "value": "bottom_right",
+          "label": "Bottom right"
+        }
+      ],
+      "default": "top_left",
+      "visible_if": "{{ block.settings.customize_mobile_position }}"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Gap",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Gap (mobile)",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "heading"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "eyebrow"
+    },
+    {
+      "type": "button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content",
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "text": "<p>Heading</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

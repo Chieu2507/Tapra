@@ -1698,33 +1698,53 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-1.webp",
             "image_alt": "Tapra keyboard artwork 1",
-            "heading_1_position": "top_left",
-            "heading_2_position": "bottom_right",
             "content_padding_top": 136,
             "content_padding_bottom": 122,
             "content_padding_top_mobile": 136,
             "content_padding_bottom_mobile": 200
           },
           "blocks": {
-            "heading-1": {
-              "type": "heading",
+            "content-1": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>Small keys.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "h1"
-              }
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small keys.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "h1"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             },
-            "heading-2": {
-              "type": "heading",
+            "content-2": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>More room<br>to type.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "div"
-              }
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>More room<br>to type.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "div"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             }
           }
         },
@@ -1733,33 +1753,53 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-2.webp",
             "image_alt": "Tapra keyboard artwork 2",
-            "heading_1_position": "top_left",
-            "heading_2_position": "bottom_right",
             "content_padding_top": 136,
             "content_padding_bottom": 122,
             "content_padding_top_mobile": 136,
             "content_padding_bottom_mobile": 200
           },
           "blocks": {
-            "heading-1": {
-              "type": "heading",
+            "content-1": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>Compact.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "h1"
-              }
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Compact.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "h1"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             },
-            "heading-2": {
-              "type": "heading",
+            "content-2": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>Built<br>your way.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "div"
-              }
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Built<br>your way.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "div"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             }
           }
         },
@@ -1768,33 +1808,53 @@
           "settings": {
             "image": "shopify://shop_images/tapra-shatter-slide-3.webp",
             "image_alt": "Tapra keyboard artwork 3",
-            "heading_1_position": "top_left",
-            "heading_2_position": "bottom_right",
             "content_padding_top": 136,
             "content_padding_bottom": 122,
             "content_padding_top_mobile": 136,
             "content_padding_bottom_mobile": 200
           },
           "blocks": {
-            "heading-1": {
-              "type": "heading",
+            "content-1": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>Swap it.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "h1"
-              }
+                "position": "top_left"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Swap it.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "h1"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             },
-            "heading-2": {
-              "type": "heading",
+            "content-2": {
+              "type": "_slideshow-shatter-content",
               "static": true,
               "settings": {
-                "text": "<p>Find your<br>feel.</p>",
-                "heading_size": "display",
-                "custom_heading_size": 72,
-                "html_tag": "div"
-              }
+                "position": "bottom_right"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Find your<br>feel.</p>",
+                    "heading_size": "display",
+                    "custom_heading_size": 72,
+                    "html_tag": "div"
+                  }
+                }
+              },
+              "block_order": [
+                "heading"
+              ]
             }
           }
         }

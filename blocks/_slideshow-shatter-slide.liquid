@@ -1,6 +1,6 @@
 {% doc %}
-  Slide media and layout for Slideshow: Shatter. Heading children own their text,
-  typography and semantics; the Slide owns desktop/mobile placement and padding.
+  Slide media and layout for Slideshow: Shatter. Two Content slots own their placement and child composition; the Slide owns
+  media and shared content padding.
 {% enddoc %}
 {% liquid
   assign loading = 'lazy'
@@ -12,23 +12,6 @@
   assign image_alt = block.settings.image_alt | default: block.settings.image.alt
 %}
 {% capture slide_style %}
-  {% for number in (1..2) %}
-    {% capture desktop_key %}heading_{{ number }}_position{% endcapture %}
-    {% capture mobile_key %}heading_{{ number }}_position_mobile{% endcapture %}
-    {% assign fallback_position = 'top_left' %}
-    {% if number == 2 %}{% assign fallback_position = 'bottom_right' %}{% endif %}
-    {% assign position_value = block.settings[desktop_key] | default: fallback_position %}
-    {% assign position = position_value | split: '_' %}
-    --shatter-heading-{{ number }}-x:{{ position.last | replace: 'left', 'start' | replace: 'right', 'end' }};
-    --shatter-heading-{{ number }}-y:{{ position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};
-    --shatter-heading-{{ number }}-align:{{ position.last }};
-    {% if block.settings.customize_mobile_positions %}
-      {% assign mobile_position = block.settings[mobile_key] | default: position_value | split: '_' %}
-      --shatter-heading-{{ number }}-x-mobile:{{ mobile_position.last | replace: 'left', 'start' | replace: 'right', 'end' }};
-      --shatter-heading-{{ number }}-y-mobile:{{ mobile_position.first | replace: 'top', 'start' | replace: 'bottom', 'end' }};
-      --shatter-heading-{{ number }}-align-mobile:{{ mobile_position.last }};
-    {% endif %}
-  {% endfor %}
   {% if block.settings.content_padding_top != 70 %}--shatter-content-top:{{ block.settings.content_padding_top | default: 70 }}px;{% endif %}
   {% if block.settings.content_padding_bottom != 70 %}--shatter-content-bottom:{{ block.settings.content_padding_bottom | default: 70 }}px;{% endif %}
   {% if block.settings.content_padding_top_mobile != 50 %}--shatter-content-top-mobile:{{ block.settings.content_padding_top_mobile | default: 50 }}px;{% endif %}
@@ -37,8 +20,8 @@
 <div class="shatter__slide" data-shatter-slide data-block-id="{{ block.id }}" data-aspect="{{ block.settings.image.aspect_ratio | default: 1.5 }}" data-mobile-aspect="{{ block.settings.mobile_image.aspect_ratio | default: block.settings.image.aspect_ratio | default: 1.5 }}" data-focus="{{ block.settings.image.presentation.focal_point | default: '50% 50%' }}" data-mobile-focus="{{ block.settings.mobile_image.presentation.focal_point | default: block.settings.image.presentation.focal_point | default: '50% 50%' }}" style="{{ slide_style | strip }}" {{ block.shopify_attributes }}>
   <div class="shatter__fallback" data-shatter-artwork>{% render 'image', image: block.settings.image, mobile_image: block.settings.mobile_image, alt: image_alt, width: 1600, widths: '400, 600, 900, 1200, 1600', sizes: '52vw', loading: loading, fetchpriority: priority, auto_sizes: false, placeholder: 'lifestyle-1' %}</div>
   <div class="shatter__headings">
-    <div class="shatter__heading-slot shatter__heading-slot--1">{% content_for 'block', type: 'heading', id: 'heading-1' %}</div>
-    <div class="shatter__heading-slot shatter__heading-slot--2">{% content_for 'block', type: 'heading', id: 'heading-2' %}</div>
+    {% content_for 'block', type: '_slideshow-shatter-content', id: 'content-1' %}
+    {% content_for 'block', type: '_slideshow-shatter-content', id: 'content-2' %}
   </div>
 </div>
 {% schema %}
@@ -64,194 +47,6 @@
       "type": "text",
       "id": "image_alt",
       "label": "Image description"
-    },
-    {
-      "type": "header",
-      "content": "Heading positions"
-    },
-    {
-      "type": "select",
-      "id": "heading_1_position",
-      "label": "Heading 1 position",
-      "options": [
-        {
-          "value": "top_left",
-          "label": "Top left"
-        },
-        {
-          "value": "top_center",
-          "label": "Top center"
-        },
-        {
-          "value": "top_right",
-          "label": "Top right"
-        },
-        {
-          "value": "center_left",
-          "label": "Center left"
-        },
-        {
-          "value": "center_center",
-          "label": "Center center"
-        },
-        {
-          "value": "center_right",
-          "label": "Center right"
-        },
-        {
-          "value": "bottom_left",
-          "label": "Bottom left"
-        },
-        {
-          "value": "bottom_center",
-          "label": "Bottom center"
-        },
-        {
-          "value": "bottom_right",
-          "label": "Bottom right"
-        }
-      ],
-      "default": "top_left"
-    },
-    {
-      "type": "select",
-      "id": "heading_2_position",
-      "label": "Heading 2 position",
-      "options": [
-        {
-          "value": "top_left",
-          "label": "Top left"
-        },
-        {
-          "value": "top_center",
-          "label": "Top center"
-        },
-        {
-          "value": "top_right",
-          "label": "Top right"
-        },
-        {
-          "value": "center_left",
-          "label": "Center left"
-        },
-        {
-          "value": "center_center",
-          "label": "Center center"
-        },
-        {
-          "value": "center_right",
-          "label": "Center right"
-        },
-        {
-          "value": "bottom_left",
-          "label": "Bottom left"
-        },
-        {
-          "value": "bottom_center",
-          "label": "Bottom center"
-        },
-        {
-          "value": "bottom_right",
-          "label": "Bottom right"
-        }
-      ],
-      "default": "bottom_right"
-    },
-    {
-      "type": "checkbox",
-      "id": "customize_mobile_positions",
-      "label": "Customize for mobile",
-      "default": false
-    },
-    {
-      "type": "select",
-      "id": "heading_1_position_mobile",
-      "label": "Heading 1 position (mobile)",
-      "options": [
-        {
-          "value": "top_left",
-          "label": "Top left"
-        },
-        {
-          "value": "top_center",
-          "label": "Top center"
-        },
-        {
-          "value": "top_right",
-          "label": "Top right"
-        },
-        {
-          "value": "center_left",
-          "label": "Center left"
-        },
-        {
-          "value": "center_center",
-          "label": "Center center"
-        },
-        {
-          "value": "center_right",
-          "label": "Center right"
-        },
-        {
-          "value": "bottom_left",
-          "label": "Bottom left"
-        },
-        {
-          "value": "bottom_center",
-          "label": "Bottom center"
-        },
-        {
-          "value": "bottom_right",
-          "label": "Bottom right"
-        }
-      ],
-      "default": "top_left",
-      "visible_if": "{{ block.settings.customize_mobile_positions }}"
-    },
-    {
-      "type": "select",
-      "id": "heading_2_position_mobile",
-      "label": "Heading 2 position (mobile)",
-      "options": [
-        {
-          "value": "top_left",
-          "label": "Top left"
-        },
-        {
-          "value": "top_center",
-          "label": "Top center"
-        },
-        {
-          "value": "top_right",
-          "label": "Top right"
-        },
-        {
-          "value": "center_left",
-          "label": "Center left"
-        },
-        {
-          "value": "center_center",
-          "label": "Center center"
-        },
-        {
-          "value": "center_right",
-          "label": "Center right"
-        },
-        {
-          "value": "bottom_left",
-          "label": "Bottom left"
-        },
-        {
-          "value": "bottom_center",
-          "label": "Bottom center"
-        },
-        {
-          "value": "bottom_right",
-          "label": "Bottom right"
-        }
-      ],
-      "default": "bottom_right",
-      "visible_if": "{{ block.settings.customize_mobile_positions }}"
     },
     {
       "type": "header",
@@ -303,26 +98,43 @@
       "name": "Slide",
       "blocks": [
         {
-          "type": "heading",
+          "type": "_slideshow-shatter-content",
+          "static": true,
           "settings": {
-            "text": "<p>Small keys.</p>",
-            "heading_size": "display",
-            "html_tag": "h1"
+            "position": "top_left"
           },
-          "id": "heading-1",
-          "static": true
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Small keys.</p>",
+                "heading_size": "display",
+                "html_tag": "h1"
+              }
+            }
+          ],
+          "id": "content-1"
         },
         {
-          "type": "heading",
+          "type": "_slideshow-shatter-content",
+          "static": true,
           "settings": {
-            "text": "<p>More room<br>to type.</p>",
-            "heading_size": "display",
-            "html_tag": "div"
+            "position": "bottom_right"
           },
-          "id": "heading-2",
-          "static": true
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>More room<br>to type.</p>",
+                "heading_size": "display",
+                "html_tag": "div"
+              }
+            }
+          ],
+          "id": "content-2"
         }
-      ]
+      ],
+      "settings": {}
     }
   ]
 }
