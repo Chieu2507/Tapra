@@ -1,5 +1,5 @@
 .scrolling-story{position:relative;isolation:isolate;overflow:clip}
-.scrolling-story--surface:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 20%,rgb(191 227 255 / .16),transparent 55%),radial-gradient(ellipse at 5% 65%,rgb(191 227 255 / .08),transparent 55%),repeating-linear-gradient(125deg,transparent 0 180px,rgb(191 227 255 / .025) 220px,transparent 300px)}
+.scrolling-story--surface:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 20%,color-mix(in srgb,var(--accent-color) 16%,transparent),transparent 55%),radial-gradient(ellipse at 5% 65%,color-mix(in srgb,var(--accent-color) 8%,transparent),transparent 55%),repeating-linear-gradient(125deg,transparent 0 180px,color-mix(in srgb,var(--accent-color) 2.5%,transparent) 220px,transparent 300px)}
 .scrolling-story--full-bleed{padding-inline:0}
 .scrolling-story__header{margin-bottom:64px}
 .scrolling-story__steps{display:block}
