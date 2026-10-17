@@ -35,10 +35,11 @@ editorial-testimonials[data-editorial-layout=true]>.carousel-block__container{gr
 
 /* Animate the native active slide and newly rendered adjacent content together. */
 @media(prefers-reduced-motion:no-preference){
- editorial-testimonials[data-transition=fade] .swiper-slide-active .testimonial-editorial-review__photo{animation:testimonial-photo-enter 600ms cubic-bezier(.22,1,.36,1) both}
  editorial-testimonials[data-transition=fade] .swiper-slide-active .testimonial-editorial-review__copy{animation:testimonial-copy-enter 600ms cubic-bezier(.22,1,.36,1) both}
- .testimonial-editorial__preview>img{animation:testimonial-photo-enter 600ms cubic-bezier(.22,1,.36,1) both}
  .testimonial-editorial__preview>span{animation:testimonial-copy-enter 600ms cubic-bezier(.22,1,.36,1) both}
 }
 @keyframes testimonial-photo-enter{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
 @keyframes testimonial-copy-enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.testimonial-editorial__outgoing{pointer-events:none!important;position:absolute;z-index:0;animation:none!important}
+.testimonial-editorial__avatar.testimonial-editorial__outgoing{left:24px;top:24px;margin:0}

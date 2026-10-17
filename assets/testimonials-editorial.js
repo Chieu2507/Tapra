@@ -99,7 +99,23 @@ if (!customElements.get('editorial-testimonials')) {
         summary.textContent = slide.dataset.previewText;
         children.push(summary);
       }
-      button.replaceChildren(...children);
+      const commit = () => {
+        // Ignore image loads superseded by a more recent navigation.
+        if (button.previewSignature !== signature) return;
+        const currentImage = button.querySelector?.('img:not(.testimonial-editorial__outgoing)');
+        const outgoing = currentImage?.cloneNode(true);
+        button.replaceChildren(...children);
+        if (!outgoing || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+        outgoing.classList.add('testimonial-editorial__outgoing');
+        outgoing.setAttribute('aria-hidden', 'true');
+        button.append(outgoing);
+        const fade = outgoing.animate([{opacity:1},{opacity:0}], {duration:600,easing:'ease-in-out'});
+        fade.finished.then(() => outgoing.remove(), () => outgoing.remove());
+      };
+      // Keep the current image visible until its replacement is decoded.
+      const image = children.find(child => child.tagName === 'IMG');
+      if (image?.decode) image.decode().catch(() => {}).then(commit);
+      else commit();
     }
     restoreControls() {
       this.controls?.forEach(({node,parent,next}) => {
