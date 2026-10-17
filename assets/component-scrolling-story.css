@@ -21,7 +21,7 @@
  .scrolling-story__step{grid-template-columns:minmax(0,1fr)}
  .scrolling-story__steps[data-ready]{grid-template-columns:minmax(0,1fr)}
  [data-ready] .scrolling-story__media{grid-column:1;top:64px;max-width:min(260px,75vw);justify-self:center;z-index:2}
- [data-ready] .scrolling-story__copy{grid-column:1;padding-top:380px;padding-bottom:64px;min-height:max(var(--story-step-height),680px);max-width:100%;scroll-margin-top:64px}
+ [data-ready] .scrolling-story__copy{grid-column:1;padding-top:460px;padding-bottom:64px;min-height:max(var(--story-step-height),760px);max-width:100%;scroll-margin-top:64px}
  .scrolling-story__indicators{display:none}
 }
 @media(prefers-reduced-motion:reduce){.scrolling-story__indicator:before{transition:none}}
