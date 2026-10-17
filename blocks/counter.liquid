@@ -1,0 +1,139 @@
+{% doc %}
+  Counter with an accessible final value and optional entrance count animation.
+  Inherits alignment and color from its parent Group. No-JS and reduced motion show the final value.
+{% enddoc %}
+{% liquid
+  assign value = block.settings.value | default: 0 | plus: 0
+  assign decimals = block.settings.decimals | default: 0
+  assign display_value = value | round: decimals
+%}
+{% render 'component-stylesheet', filename: 'component-by-the-numbers.css', section_index: section.index %}
+<script src="{{ 'counter.js' | asset_url }}" defer></script>
+<animated-counter class="counter" data-value="{{ value }}" data-decimals="{{ decimals }}" data-grouping="{{ block.settings.grouping }}" data-animate="{{ block.settings.animate }}" data-duration="{{ block.settings.duration }}" style="--counter-size:{{ block.settings.number_size | default: 120 }}px;--counter-size-mobile:{{ block.settings.number_size_mobile | default: 90 }}px;--counter-gap:{{ block.settings.gap | default: 12 }}px;{% if block.settings.number_color != blank %}--counter-color:{{ block.settings.number_color }};{% endif %}{% if block.settings.label_color != blank %}--counter-label-color:{{ block.settings.label_color }};{% endif %}" {{ block.shopify_attributes }}>
+  <span class="visually-hidden">{{ block.settings.prefix | escape }}{{ display_value }}{{ block.settings.suffix | escape }}</span>
+  <span class="counter__number" aria-hidden="true">{{ block.settings.prefix | escape }}<span data-counter-value>{{ display_value }}</span>{{ block.settings.suffix | escape }}</span>
+  {% if block.settings.label != blank %}<span class="counter__label body-sm">{{ block.settings.label | escape }}</span>{% endif %}
+</animated-counter>
+{% schema %}
+{
+  "name": "Counter",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "number",
+      "id": "value",
+      "label": "Number",
+      "default": 50
+    },
+    {
+      "type": "text",
+      "id": "prefix",
+      "label": "Prefix"
+    },
+    {
+      "type": "text",
+      "id": "suffix",
+      "label": "Suffix"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "hours of typing per switch"
+    },
+    {
+      "type": "range",
+      "id": "decimals",
+      "label": "Decimal places",
+      "min": 0,
+      "max": 3,
+      "step": 1,
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "grouping",
+      "label": "Thousands separator",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Size"
+    },
+    {
+      "type": "range",
+      "id": "number_size",
+      "label": "Number size",
+      "min": 40,
+      "max": 240,
+      "step": 2,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "number_size_mobile",
+      "label": "Number size (mobile)",
+      "min": 40,
+      "max": 140,
+      "step": 2,
+      "unit": "px",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Label gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Color"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label"
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Animate when visible",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "duration",
+      "label": "Duration",
+      "min": 200,
+      "max": 5000,
+      "step": 100,
+      "unit": "ms",
+      "default": 1400,
+      "visible_if": "{{ block.settings.animate }}"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Counter"
+    }
+  ]
+}
+{% endschema %}
