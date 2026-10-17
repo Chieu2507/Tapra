@@ -20,7 +20,7 @@
     <div class="shop-setup__list" id="SetupItems-{{ section.id }}-{{ block.id }}" data-setup-list><div class="shop-setup__list-inner">{{ children }}</div></div>
     {% capture toggle_attributes %}data-setup-toggle hidden aria-controls="SetupItems-{{ section.id }}-{{ block.id }}" aria-expanded="true" data-show-label="{{ 'shop_setup.show_items' | t | escape }}" data-hide-label="{{ 'shop_setup.hide_items' | t | escape }}"{% endcapture %}
     {% assign hide_items_label = 'shop_setup.hide_items' | t %}
-    {% render 'theme-button', label: hide_items_label, variant: 'secondary', icon: 'chevron_up', class: 'shop-setup__toggle', attributes: toggle_attributes %}
+    {% render 'theme-button', label: hide_items_label, variant: 'secondary', icon: 'chevron-down', class: 'shop-setup__toggle', attributes: toggle_attributes %}
   </div>
   {{ content | replace: 'class="product-callout__content ', 'class="shop-setup__caption product-callout__content ' }}
 </shop-setup>
