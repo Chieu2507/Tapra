@@ -25,6 +25,7 @@
       const format = new Intl.NumberFormat(document.documentElement.lang || 'en', {
         minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: this.dataset.grouping === 'true'
       });
+      this.finalText = format.format(this.target);
       const started = performance.now();
       const frame = now => {
         const progress = Math.min(1, Math.max(0, (now - started) / duration));
