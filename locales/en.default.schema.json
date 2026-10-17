@@ -1773,5 +1773,26 @@
     "accessibility": "Accessibility",
     "media_width_label": "Width",
     "distance_from_top": "Distance from top"
+  },
+  "shop_setup": {
+    "name": "Shop the setup",
+    "item_name_block": "Setup item",
+    "header_gap": "Desktop header gap",
+    "header_gap_mobile": "Mobile header gap",
+    "panel_width": "Item list width",
+    "panel_inset": "Content inset",
+    "items": "Item list",
+    "show_items": "Show item list",
+    "allow_collapse": "Allow collapse",
+    "start_collapsed": "Start collapsed",
+    "hotspots": "Hotspots",
+    "show_hotspots": "Show hotspots",
+    "pulse": "Pulse animation",
+    "panel_scheme": "Item list color scheme",
+    "panel_opacity": "Item list opacity",
+    "source": "Source",
+    "custom": "Custom",
+    "item_name": "Item name",
+    "detail": "Detail"
   }
 }

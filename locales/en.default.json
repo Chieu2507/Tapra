@@ -435,5 +435,6 @@
     "play": "Play",
     "empty": "Add a slide to get started.",
     "slide_label": "Slide {{ number }} of {{ count }}"
-  }
+  },
+  "shop_setup": {"show_items":"Show items","hide_items":"Hide items"}
 }
