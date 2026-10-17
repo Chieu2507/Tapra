@@ -69,7 +69,8 @@ if (!customElements.get('editorial-testimonials')) {
       if (!slide) return;
       const author = slide.querySelector('[data-testimonial-author]');
       const name = author?.querySelector('.heading-block')?.textContent.trim() || '';
-      const detail = author?.querySelector('.text-block')?.textContent.trim() || '';
+      const authorDetail = author?.querySelector('.text-block')?.textContent.trim() || '';
+      const detail = authorDetail.split('·').pop().trim();
       const source = slide.querySelector('[data-testimonial-photo] img');
       const label = (index === 0 ? this.previous : this.next)?.getAttribute('aria-label') || '';
       button.setAttribute('aria-label', name ? `${label}: ${name}` : label);

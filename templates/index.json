@@ -3686,8 +3686,8 @@
                   "static": true,
                   "settings": {
                     "direction": "vertical",
-                    "gap_desktop": 8,
-                    "gap_mobile": 8,
+                    "gap_desktop": 16,
+                    "gap_mobile": 12,
                     "width": "fill",
                     "height": "fit"
                   },
@@ -3701,12 +3701,11 @@
                       }
                     },
                     "item_2": {
-                      "type": "text",
+                      "type": "heading",
                       "settings": {
                         "text": "<p>“Quietest board I have ever owned. I type all day and my hands finally feel relaxed.”</p>",
-                        "text_size": "xxl",
-                        "customize_letter_spacing": true,
-                        "letter_spacing": 0,
+                        "heading_size": "md",
+                        "html_tag": "div",
                         "width": "fill"
                       }
                     }
@@ -3797,8 +3796,8 @@
                   "static": true,
                   "settings": {
                     "direction": "vertical",
-                    "gap_desktop": 8,
-                    "gap_mobile": 8,
+                    "gap_desktop": 16,
+                    "gap_mobile": 12,
                     "width": "fill",
                     "height": "fit"
                   },
@@ -3812,12 +3811,11 @@
                       }
                     },
                     "item_2": {
-                      "type": "text",
+                      "type": "heading",
                       "settings": {
                         "text": "<p>“Setup took ten minutes and swapping the switches was easy. It feels far more expensive than it is.”</p>",
-                        "text_size": "xxl",
-                        "customize_letter_spacing": true,
-                        "letter_spacing": 0,
+                        "heading_size": "md",
+                        "html_tag": "div",
                         "width": "fill"
                       }
                     }
@@ -3908,8 +3906,8 @@
                   "static": true,
                   "settings": {
                     "direction": "vertical",
-                    "gap_desktop": 8,
-                    "gap_mobile": 8,
+                    "gap_desktop": 16,
+                    "gap_mobile": 12,
                     "width": "fill",
                     "height": "fit"
                   },
@@ -3923,12 +3921,11 @@
                       }
                     },
                     "item_2": {
-                      "type": "text",
+                      "type": "heading",
                       "settings": {
                         "text": "<p>“Small, light and beautiful on my desk. Switching between my laptop and tablet just works.”</p>",
-                        "text_size": "xxl",
-                        "customize_letter_spacing": true,
-                        "letter_spacing": 0,
+                        "heading_size": "md",
+                        "html_tag": "div",
                         "width": "fill"
                       }
                     }
@@ -4019,8 +4016,8 @@
                   "static": true,
                   "settings": {
                     "direction": "vertical",
-                    "gap_desktop": 8,
-                    "gap_mobile": 8,
+                    "gap_desktop": 16,
+                    "gap_mobile": 12,
                     "width": "fill",
                     "height": "fit"
                   },
@@ -4034,12 +4031,11 @@
                       }
                     },
                     "item_2": {
-                      "type": "text",
+                      "type": "heading",
                       "settings": {
                         "text": "<p>“Great build quality. The sound out of the box is clean and deep, with no rattle at all.”</p>",
-                        "text_size": "xxl",
-                        "customize_letter_spacing": true,
-                        "letter_spacing": 0,
+                        "heading_size": "md",
+                        "html_tag": "div",
                         "width": "fill"
                       }
                     }
@@ -4130,8 +4126,8 @@
                   "static": true,
                   "settings": {
                     "direction": "vertical",
-                    "gap_desktop": 8,
-                    "gap_mobile": 8,
+                    "gap_desktop": 16,
+                    "gap_mobile": 12,
                     "width": "fill",
                     "height": "fit"
                   },
@@ -4145,12 +4141,11 @@
                       }
                     },
                     "item_2": {
-                      "type": "text",
+                      "type": "heading",
                       "settings": {
                         "text": "<p>“Lovely keycaps and fast shipping. I would love a few more color options, but I use it every day.”</p>",
-                        "text_size": "xxl",
-                        "customize_letter_spacing": true,
-                        "letter_spacing": 0,
+                        "heading_size": "md",
+                        "html_tag": "div",
                         "width": "fill"
                       }
                     }
