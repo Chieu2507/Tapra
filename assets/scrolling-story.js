@@ -20,7 +20,7 @@ if (!customElements.get('scrolling-story')) {
           const button = document.createElement('button');
           button.type = 'button';
           button.className = 'scrolling-story__indicator';
-          button.setAttribute('aria-label', step.querySelector('h2,h3,h4')?.textContent.trim() || String(i + 1));
+          button.setAttribute('aria-label', step.dataset.storyLabel?.trim() || step.querySelector('h2,h3,h4')?.textContent.trim() || String(i + 1));
           button.addEventListener('click', () => {
             this.copies[i].scrollIntoView({block: 'center', behavior: this.reduced.matches ? 'instant' : 'smooth'});
           }, options);

@@ -1768,6 +1768,8 @@
     "sticky_top": "Desktop sticky offset",
     "sticky_top_mobile": "Mobile sticky offset",
     "animate": "Animate media transitions",
-    "surface_light": "Light surface effect"
+    "surface_light": "Light surface effect",
+    "step_label": "Label",
+    "step_label_info": "Used in the editor and step navigation. Edit the visible heading in the Content Group."
   }
 }

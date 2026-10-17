@@ -2950,7 +2950,9 @@
         },
         "item_2": {
           "type": "_scrolling-story-step",
-          "settings": {},
+          "settings": {
+            "title": "Keycaps"
+          },
           "blocks": {
             "content": {
               "type": "group",
@@ -2961,7 +2963,7 @@
                 "gap_mobile": 12,
                 "width": "fill",
                 "limit_width": true,
-                "max_width": 340,
+                "max_width": 440,
                 "height": "fit",
                 "width_mobile": "fill"
               },
@@ -3016,7 +3018,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
+                "width": "custom",
+                "width_custom": 80,
+                "width_mobile": "custom",
+                "width_custom_mobile": 80,
                 "appearance_type": "scheme",
                 "color_scheme": "scheme-3",
                 "corner_radius": "radius_24",
@@ -3087,7 +3092,9 @@
         },
         "item_3": {
           "type": "_scrolling-story-step",
-          "settings": {},
+          "settings": {
+            "title": "Keyboards"
+          },
           "blocks": {
             "content": {
               "type": "group",
@@ -3098,7 +3105,7 @@
                 "gap_mobile": 12,
                 "width": "fill",
                 "limit_width": true,
-                "max_width": 340,
+                "max_width": 440,
                 "height": "fit",
                 "width_mobile": "fill"
               },
@@ -3153,7 +3160,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
+                "width": "custom",
+                "width_custom": 80,
+                "width_mobile": "custom",
+                "width_custom_mobile": 80,
                 "appearance_type": "scheme",
                 "color_scheme": "scheme-3",
                 "corner_radius": "radius_24",
@@ -3224,7 +3234,9 @@
         },
         "item_4": {
           "type": "_scrolling-story-step",
-          "settings": {},
+          "settings": {
+            "title": "Switches"
+          },
           "blocks": {
             "content": {
               "type": "group",
@@ -3235,7 +3247,7 @@
                 "gap_mobile": 12,
                 "width": "fill",
                 "limit_width": true,
-                "max_width": 340,
+                "max_width": 440,
                 "height": "fit",
                 "width_mobile": "fill"
               },
@@ -3302,7 +3314,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
+                "width": "custom",
+                "width_custom": 80,
+                "width_mobile": "custom",
+                "width_custom_mobile": 80,
                 "appearance_type": "scheme",
                 "color_scheme": "scheme-3",
                 "corner_radius": "radius_24",
@@ -3378,12 +3393,19 @@
         "item_4"
       ],
       "settings": {
+        "media_width": 400,
+        "media_width_mobile": 300,
+        "header_gap": 88,
+        "header_gap_mobile": 48,
+        "sticky_top": 112,
+        "sticky_top_mobile": 80,
+        "show_pagination_mobile": true,
         "color_scheme": "scheme-3",
         "padding_top": 110,
         "padding_bottom": 120,
         "customize_mobile_padding": true,
-        "padding_top_mobile": 70,
-        "padding_bottom_mobile": 70
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
       }
     }
   },

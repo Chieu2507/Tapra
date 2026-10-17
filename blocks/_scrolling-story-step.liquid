@@ -2,7 +2,7 @@
   One authored story step. Content and Media use native Group/leaf blocks.
   The section owns scroll layout and synchronizes the Media slot.
 {% enddoc %}
-<div class="scrolling-story__step" data-story-step {{ block.shopify_attributes }}>
+<div class="scrolling-story__step" data-story-step data-story-label="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
   <div class="scrolling-story__copy" data-story-copy>{% content_for 'block', type: 'group', id: 'content' %}</div>
   <div class="scrolling-story__media" data-story-media>{% content_for 'block', type: 'group', id: 'media' %}</div>
 </div>
@@ -11,6 +11,13 @@
   "name": "t:scrolling_story.step_name",
   "tag": null,
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:scrolling_story.step_label",
+      "default": "Story step",
+      "info": "t:scrolling_story.step_label_info"
+    },
     {
       "type": "paragraph",
       "content": "t:scrolling_story.step_info"
@@ -138,7 +145,10 @@
           "id": "media",
           "static": true
         }
-      ]
+      ],
+      "settings": {
+        "title": "Story step"
+      }
     }
   ]
 }
