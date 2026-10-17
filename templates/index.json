@@ -2547,6 +2547,7 @@
                 "media_inset": 14,
                 "media_corner_radius": "radius_16",
                 "show_rating": false,
+                "pointer_light": true,
                 "color_type": "color_scheme",
                 "color_scheme": "scheme-2"
               }

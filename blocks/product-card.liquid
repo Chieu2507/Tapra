@@ -22,6 +22,10 @@
 {% enddoc %}
 
 {% liquid
+  assign product_card_surface_class = ''
+  if block.settings.pointer_light
+    assign product_card_surface_class = 'surface-light'
+  endif
   assign product_card_media_inset = nil
   if block.settings.customize_media_inset
     assign product_card_media_inset = block.settings.media_inset | default: 0 | at_least: 0 | at_most: 32
@@ -50,6 +54,7 @@
 
 {% if card_product != blank %}
   {% render 'product-card',
+    class: product_card_surface_class,
     product: card_product,
     rating_content: product_card_rating,
     card_style: block.settings.card_style,
@@ -67,6 +72,7 @@
   %}
 {% elsif placeholder %}
   {% render 'product-card',
+    class: product_card_surface_class,
     product: blank,
     placeholder: true,
     placeholder_index: placeholder_index,
@@ -355,6 +361,12 @@
     {
       "type": "header",
       "content": "t:general.appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "pointer_light",
+      "label": "t:labels.surface_light",
+      "default": false
     },
     {
       "type": "select",
