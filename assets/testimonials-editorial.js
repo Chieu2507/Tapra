@@ -62,11 +62,31 @@ if (!customElements.get('editorial-testimonials')) {
           this.sync();
         });
       };
+      // Keep the native controls and public Swiper state; route moved controls through
+      // their owning carousel so responsive reparenting cannot leave stale bindings.
+      this.addEventListener('click', event => {
+        const control = event.target.closest('[data-carousel-fraction-previous],[data-carousel-fraction-next]');
+        if (!control || !this.contains(control) || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        this.navigate(control.hasAttribute('data-carousel-fraction-next') ? 1 : -1);
+      }, {...options,capture:true});
       this.mobile.addEventListener('change', this.requestSync, options);
       this.observer = new MutationObserver(this.requestSync);
       this.observer.observe(this.viewport, {attributes:true,attributeFilter:['data-swiper-ready']});
       this.observer.observe(this.wrapper, {childList:true,subtree:true,characterData:true});
       this.requestSync();
+    }
+    navigate(direction) {
+      const swiper = this.swiper || getSwiperCarousel(this.viewport);
+      if (!swiper || swiper.destroyed) return;
+      const count = Array.from(this.wrapper.children).filter(slide => slide.matches('[data-testimonial-editorial-review]') && !slide.matches('[data-carousel-loop-clone],.swiper-slide-clone,.swiper-slide-duplicate')).length;
+      if (count < 2) return;
+      const current = swiper.params.loop ? swiper.realIndex : swiper.activeIndex;
+      const requested = current + direction;
+      const target = swiper.params.loop ? ((requested % count) + count) % count : Math.max(0, Math.min(count - 1, requested));
+      if (swiper.params.loop && typeof swiper.slideToLoop === 'function') swiper.slideToLoop(target, swiper.params.speed);
+      else swiper.slideTo(target, swiper.params.speed);
     }
     renderPreview(button, slide, index) {
       button.hidden = !slide;
