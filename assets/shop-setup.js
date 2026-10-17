@@ -70,6 +70,7 @@ if (!customElements.get('shop-setup')) {
       });
     }
     setCollapsed(collapsed) {
+      const restoreFocus = collapsed && this.list.contains(document.activeElement);
       this.panel.classList.toggle('is-collapsed', collapsed);
       this.list.inert = collapsed;
       this.list.setAttribute('aria-hidden', String(collapsed));
@@ -80,7 +81,7 @@ if (!customElements.get('shop-setup')) {
         const text = Array.from(label.childNodes).find(node => node.nodeType === 3 && node.textContent.trim());
         if (text) text.textContent = collapsed ? this.toggle.dataset.showLabel : this.toggle.dataset.hideLabel;
       }
-      if (collapsed && this.list.contains(document.activeElement)) this.toggle.focus({preventScroll: true});
+      if (restoreFocus) this.toggle.focus({preventScroll: true});
     }
     positionDots() {
       if (!this.image?.naturalWidth || !this.layer) return;
