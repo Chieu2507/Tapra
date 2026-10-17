@@ -2959,8 +2959,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
-                "height": "fit"
+                "width": "custom",
+                "max_width": 340,
+                "height": "fit",
+                "width_mobile": "fill"
               },
               "blocks": {
                 "item_1": {
@@ -3093,8 +3095,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
-                "height": "fit"
+                "width": "custom",
+                "max_width": 340,
+                "height": "fit",
+                "width_mobile": "fill"
               },
               "blocks": {
                 "item_1": {
@@ -3227,8 +3231,10 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill",
-                "height": "fit"
+                "width": "custom",
+                "max_width": 340,
+                "height": "fit",
+                "width_mobile": "fill"
               },
               "blocks": {
                 "item_1": {
