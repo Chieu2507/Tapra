@@ -74,6 +74,9 @@ if (!customElements.get('editorial-testimonials')) {
       const source = slide.querySelector('[data-testimonial-photo] img');
       const label = (index === 0 ? this.previous : this.next)?.getAttribute('aria-label') || '';
       button.setAttribute('aria-label', name ? `${label}: ${name}` : label);
+      const signature = JSON.stringify([name, detail, source?.currentSrc || source?.src, slide.dataset.previewText]);
+      if (button.previewSignature === signature) return;
+      button.previewSignature = signature;
       // Recreate only decorative previews; authored blocks and editor IDs remain untouched.
       const children = [];
       if (source) {
