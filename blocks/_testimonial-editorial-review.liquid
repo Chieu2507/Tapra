@@ -1,0 +1,158 @@
+{% doc %}
+  Editorial review composed of native Photo, Quote, Divider and Author slots.
+  Owns only media/copy layout and optional adjacent-preview summary.
+{% enddoc %}
+<div class="testimonial-editorial-review swiper-slide" data-testimonial-editorial-review data-preview-text="{{ block.settings.preview_text | escape }}" style="--review-image-width:{{ block.settings.image_width }}%;--review-gap:{{ block.settings.gap_desktop }}px;--review-gap-mobile:{{ block.settings.gap_mobile }}px;" {{ block.shopify_attributes }}>
+  <div class="testimonial-editorial-review__photo" data-testimonial-photo>{% content_for 'block', type: 'image', id: 'photo' %}</div>
+  <div class="testimonial-editorial-review__copy">
+    <div data-testimonial-quote>{% content_for 'block', type: 'group', id: 'quote' %}</div>
+    <div class="testimonial-editorial-review__footer">
+      {% content_for 'block', type: 'divider', id: 'divider' %}
+      <div data-testimonial-author>{% content_for 'block', type: 'group', id: 'author' %}</div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "t:testimonials_editorial.review_name",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "preview_text",
+      "label": "t:testimonials_editorial.preview_text"
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "t:testimonials_editorial.image_width",
+      "min": 30,
+      "max": 60,
+      "step": 1,
+      "unit": "%",
+      "default": 47
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "t:labels.desktop_gap",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "t:labels.mobile_gap",
+      "min": 0,
+      "max": 64,
+      "step": 2,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:testimonials_editorial.review_name",
+      "blocks": [
+        {
+          "type": "image",
+          "id": "photo",
+          "static": true,
+          "name": "Photo",
+          "settings": {
+            "image": "shopify://shop_images/tapra-review-1.webp",
+            "width_desktop": "fill",
+            "width_mobile": "fill",
+            "image_ratio_desktop": "square",
+            "image_ratio_mobile": "square",
+            "corner_radius": "radius_24"
+          }
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "height": "fit",
+            "gap_desktop": 8,
+            "gap_mobile": 8
+          },
+          "blocks": [
+            {
+              "type": "testimonial-rating",
+              "settings": {
+                "rating": 5,
+                "star_gap": 4
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>\u201cQuietest board I have ever owned. I type all day and my hands finally feel relaxed.\u201d</p>",
+                "text_size": "xxl",
+                "width": "fill",
+                "customize_letter_spacing": true,
+                "letter_spacing": 0
+              }
+            }
+          ],
+          "id": "quote",
+          "static": true,
+          "name": "Quote"
+        },
+        {
+          "type": "divider",
+          "id": "divider",
+          "static": true,
+          "name": "Divider",
+          "settings": {
+            "style": "solid",
+            "thickness": "thin",
+            "width": "full",
+            "desktop_spacing": 0,
+            "mobile_spacing": 0
+          }
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "height": "fit",
+            "gap_desktop": 2,
+            "gap_mobile": 2,
+            "padding_top": 20,
+            "padding_right": 64
+          },
+          "blocks": [
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Nina Harper</p>",
+                "heading_size": "custom",
+                "custom_heading_size": 20,
+                "html_tag": "h3"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Verified buyer \u00b7 Tapra 75 Pro</p>",
+                "text_size": "sm",
+                "text_color": "#5E6A7D",
+                "width": "fill"
+              }
+            }
+          ],
+          "id": "author",
+          "static": true,
+          "name": "Author"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

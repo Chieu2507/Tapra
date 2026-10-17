@@ -1789,5 +1789,19 @@
     "standard": "Standard",
     "content_link": "Content link",
     "panel_blur": "Panel blur"
+  },
+  "testimonials_editorial": {
+    "presentation": "Presentation",
+    "standard": "Standard",
+    "editorial": "Editorial",
+    "preset_name": "Testimonials: Editorial",
+    "adjacent_previews": "Show adjacent reviews",
+    "preview_gap": "Preview gap",
+    "transition": "Transition",
+    "slide": "Slide",
+    "fade": "Fade",
+    "review_name": "Review",
+    "preview_text": "Preview text",
+    "image_width": "Image width"
   }
 }

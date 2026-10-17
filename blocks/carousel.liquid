@@ -196,6 +196,10 @@
   assign carousel_padding_top_mobile = block.settings.padding_top_mobile | default: 0 | plus: 0
   assign carousel_padding_bottom_mobile = block.settings.padding_bottom_mobile | default: 0 | plus: 0
   assign carousel_customize_mobile_padding = block.settings.customize_mobile_padding
+  assign carousel_tag = 'div'
+  if section.settings.presentation == 'editorial'
+    assign carousel_tag = 'editorial-testimonials'
+  endif
   assign carousel_id = 'Carousel-' | append: block.id
   assign carousel_delay = carousel_speed | times: 1000
   assign carousel_previous_label = 'collection_tabs.previous' | t
@@ -258,10 +262,11 @@
   {% if block.settings.image_text_card_content_color != blank %}--image-text-card-content-color: {{ block.settings.image_text_card_content_color | escape }};{% endif %}
 {% endcapture %}
 
-<div
+<{{ carousel_tag }}
   class="carousel-block carousel-block--width-{{ carousel_width_mode }} carousel-block--card-icon-{{ image_text_card_toggle_icon }}"
   style="{{ carousel_style | strip }}"
   data-carousel-block
+  {% if carousel_tag == 'editorial-testimonials' %}data-transition="{{ section.settings.transition_style }}" data-adjacent-previews="{{ section.settings.adjacent_previews }}" data-preview-gap="{{ section.settings.preview_gap }}"{% endif %}
   data-image-text-card-heading-tag="{{ image_text_card_heading_tag }}"
   data-swiper-columns-desktop="{{ carousel_columns_desktop }}"
   data-swiper-columns-mobile="{{ carousel_columns_mobile }}"
@@ -320,7 +325,7 @@
       </div>
     {% endif %}
   </div>
-</div>
+</{{ carousel_tag }}>
 
 {% stylesheet %}
   .carousel-block { width: var(--carousel-width, 100%); min-width: 0; padding-block: var(--carousel-padding-top) var(--carousel-padding-bottom); }
@@ -369,6 +374,9 @@
   "blocks": [
     {
       "type": "testimonial-item"
+    },
+    {
+      "type": "_testimonial-editorial-review"
     },
     {
       "type": "slide"
