@@ -54,7 +54,7 @@
       "type": "url",
       "id": "content_link",
       "label": "t:shop_setup.content_link",
-      "visible_if": "{{ block.settings.use_content }}"
+      "visible_if": "{{ section.settings.presentation == 'setup' and block.settings.use_content }}"
     },
     {
       "type": "range",

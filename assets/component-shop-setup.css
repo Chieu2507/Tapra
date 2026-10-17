@@ -49,3 +49,5 @@
 
 .shop-setup__item{counter-increment:setup-item}
 .shop-setup__number:empty:before{content:counter(setup-item)}
+
+.shop-setup__dot:after{content:"";position:absolute;inset:-6px;border-radius:inherit}
