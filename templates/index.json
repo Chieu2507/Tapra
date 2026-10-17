@@ -2959,7 +2959,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill"
+                "width": "fill",
+                "height": "fit"
               },
               "blocks": {
                 "item_1": {
@@ -2972,7 +2973,8 @@
                   "type": "heading",
                   "settings": {
                     "text": "<p>Keycaps</p>",
-                    "heading_size": "md",
+                    "heading_size": "custom",
+                    "custom_heading_size": 36,
                     "html_tag": "h3"
                   }
                 },
@@ -2992,7 +2994,8 @@
                     "button_link": "",
                     "button_style": "tertiary",
                     "show_icon": true,
-                    "icon": "arrow"
+                    "icon": "arrow_right",
+                    "color_scheme": "scheme-5"
                   }
                 }
               },
@@ -3050,7 +3053,8 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Keycaps</p>",
-                        "heading_size": "sm",
+                        "heading_size": "custom",
+                        "custom_heading_size": 28,
                         "html_tag": "h4"
                       }
                     },
@@ -3089,7 +3093,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill"
+                "width": "fill",
+                "height": "fit"
               },
               "blocks": {
                 "item_1": {
@@ -3102,7 +3107,8 @@
                   "type": "heading",
                   "settings": {
                     "text": "<p>Keyboards</p>",
-                    "heading_size": "md",
+                    "heading_size": "custom",
+                    "custom_heading_size": 36,
                     "html_tag": "h3"
                   }
                 },
@@ -3122,7 +3128,8 @@
                     "button_link": "/collections/keyboards-tapra",
                     "button_style": "tertiary",
                     "show_icon": true,
-                    "icon": "arrow"
+                    "icon": "arrow_right",
+                    "color_scheme": "scheme-5"
                   }
                 }
               },
@@ -3180,7 +3187,8 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Keyboards</p>",
-                        "heading_size": "sm",
+                        "heading_size": "custom",
+                        "custom_heading_size": 28,
                         "html_tag": "h4"
                       }
                     },
@@ -3219,7 +3227,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "fill"
+                "width": "fill",
+                "height": "fit"
               },
               "blocks": {
                 "item_1": {
@@ -3232,7 +3241,8 @@
                   "type": "heading",
                   "settings": {
                     "text": "<p>Switches</p>",
-                    "heading_size": "md",
+                    "heading_size": "custom",
+                    "custom_heading_size": 36,
                     "html_tag": "h3"
                   }
                 },
@@ -3252,7 +3262,8 @@
                     "button_link": "",
                     "button_style": "tertiary",
                     "show_icon": true,
-                    "icon": "arrow"
+                    "icon": "arrow_right",
+                    "color_scheme": "scheme-5"
                   }
                 },
                 "item_5": {
@@ -3262,7 +3273,8 @@
                     "button_link": "/collections",
                     "button_style": "tertiary",
                     "show_icon": true,
-                    "icon": "arrow"
+                    "icon": "arrow_right",
+                    "color_scheme": "scheme-5"
                   }
                 }
               },
@@ -3321,7 +3333,8 @@
                       "type": "heading",
                       "settings": {
                         "text": "<p>Switches</p>",
-                        "heading_size": "sm",
+                        "heading_size": "custom",
+                        "custom_heading_size": 28,
                         "html_tag": "h4"
                       }
                     },
