@@ -10,6 +10,20 @@
     entries.forEach(entry => { const item = items.get(entry.target); if (item) item.visible = entry.isIntersecting; });
     wake();
   }, { rootMargin: '200px' });
+  const surfaceTone = element => {
+    // Resolve the visible solid surface rather than inheriting the text/accent color.
+    for (let node = element; node; node = node.parentElement) {
+      const color = getComputedStyle(node).backgroundColor;
+      const channels = color.match(/^rgba?\(([^)]+)\)$/)?.[1].match(/[\d.]+/g)?.map(Number);
+      if (!channels || (channels.length > 3 && channels[3] < .95)) continue;
+      const [r,g,b] = channels.slice(0,3).map(value => {
+        const channel = value / 255;
+        return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4;
+      });
+      return .2126*r + .7152*g + .0722*b < .025 ? '#000' : '#fff';
+    }
+    return '#fff';
+  };
   const scan = () => {
     scanFrame = 0;
     if (!running) return;
@@ -18,6 +32,7 @@
       if (!element.isConnected || !element.matches(selector)) { observer.unobserve(element); element.style.setProperty('--surface-light-opacity', '0'); items.delete(element); }
     });
     document.querySelectorAll(selector).forEach(element => {
+      if (element.classList.contains('surface-light')) element.style.setProperty('--surface-light-tone', surfaceTone(element));
       if (items.has(element)) return;
       items.set(element, { element, reach: element.classList.contains('button-light') ? 100 : 170, x: 0, y: 0, intensity: 0, tightness: 0, visible: false });
       observer.observe(element);

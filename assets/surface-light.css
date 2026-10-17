@@ -18,8 +18,8 @@ html[data-surface-light-enabled] .surface-light {
   --surface-light-glow-radius: 230px;
   --surface-light-edge-radius: 150px;
   --surface-light-strength: .18;
-  --surface-light-edge: color-mix(in srgb, var(--heading-color, #cde6ff) 75%, var(--accent-color, #8cb9ff));
-  --surface-light-glow: color-mix(in srgb, var(--accent-color, #8cb9ff) calc(var(--surface-light-strength) * 100%), transparent);
+  --surface-light-edge: var(--surface-light-tone, #fff);
+  --surface-light-glow: color-mix(in srgb, var(--surface-light-tone, #fff) calc(var(--surface-light-strength) * 100%), transparent);
   isolation: isolate;
 }
 html[data-surface-light-enabled] .surface-light::before,
