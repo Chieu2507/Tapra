@@ -12,7 +12,7 @@ if (!customElements.get('editorial-testimonials')) {
       this.previous = this.querySelector('[data-carousel-fraction-previous]');
       this.next = this.querySelector('[data-carousel-fraction-next]');
       this.controls = [this.previous, this.next].filter(Boolean).map(node => ({node,parent:node.parentNode,next:node.nextSibling}));
-      this.mobile = matchMedia('(max-width:767px)');
+      this.mobile = matchMedia('(max-width:1149px)');
       this.style.setProperty('--editorial-preview-gap', `${Number(this.dataset.previewGap) || 32}px`);
       this.sides = ['previous', 'next'].map(direction => {
         const side = document.createElement('div');
