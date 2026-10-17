@@ -38,6 +38,14 @@ if (!customElements.get('shop-setup')) {
         const index = this.items.findIndex(item => item.dataset.itemId === target.dataset.itemId);
         this.activate(index);
       }, options));
+      ['pointerout', 'focusout'].forEach(type => this.addEventListener(type, event => {
+        const target = event.target.closest('[data-setup-item],[data-setup-dot]');
+        if (!target || !this.contains(target)) return;
+        const next = event.relatedTarget?.closest?.('[data-setup-item],[data-setup-dot]');
+        if (next?.dataset.itemId === target.dataset.itemId) return;
+        if (type === 'pointerout' && target.contains(document.activeElement)) return;
+        this.activate(-1);
+      }, options));
       this.addEventListener('keydown', event => {
         if (event.key === 'Escape' && !this.toggle.hidden) this.setCollapsed(true);
       }, options);
