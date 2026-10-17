@@ -33,9 +33,11 @@ if (!customElements.get('editorial-testimonials')) {
           this.unbind();
           this.swiper = swiper;
           this.loopPreventsSliding = swiper.params.loopPreventsSliding;
+          this.preventInteractionOnTransition = swiper.params.preventInteractionOnTransition;
           // Fade can miss its virtual transition end when the responsive layout changes.
           // Keep native controls responsive, including rapid inputs, for this presentation.
           swiper.params.loopPreventsSliding = false;
+          swiper.params.preventInteractionOnTransition = false;
           this.swiper.on('slideChange update slidesUpdated', this.requestSync);
         }
         const slides = Array.from(this.wrapper.children).filter(slide => slide.matches('[data-testimonial-editorial-review]') && !slide.matches('[data-carousel-loop-clone],.swiper-slide-clone,.swiper-slide-duplicate'));
@@ -131,7 +133,10 @@ if (!customElements.get('editorial-testimonials')) {
     unbind() {
       if (this.swiper && !this.swiper.destroyed) {
         this.swiper.off('slideChange update slidesUpdated', this.requestSync);
-        if (this.swiper.params) this.swiper.params.loopPreventsSliding = this.loopPreventsSliding;
+        if (this.swiper.params) {
+          this.swiper.params.loopPreventsSliding = this.loopPreventsSliding;
+          this.swiper.params.preventInteractionOnTransition = this.preventInteractionOnTransition;
+        }
       }
       this.swiper = null;
     }
