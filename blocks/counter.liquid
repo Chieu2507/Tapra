@@ -9,7 +9,7 @@
 %}
 {% render 'component-stylesheet', filename: 'component-by-the-numbers.css', section_index: section.index %}
 <script src="{{ 'counter.js' | asset_url }}" defer></script>
-<animated-counter class="counter" data-value="{{ value }}" data-decimals="{{ decimals }}" data-grouping="{{ block.settings.grouping }}" data-animate="{{ block.settings.animate }}" data-duration="{{ block.settings.duration }}" style="--counter-size:{{ block.settings.number_size | default: 120 }}px;--counter-size-mobile:{{ block.settings.number_size_mobile | default: 90 }}px;--counter-gap:{{ block.settings.gap | default: 12 }}px;{% if block.settings.number_color != blank %}--counter-color:{{ block.settings.number_color }};{% endif %}{% if block.settings.label_color != blank %}--counter-label-color:{{ block.settings.label_color }};{% endif %}" {{ block.shopify_attributes }}>
+<animated-counter class="counter" data-value="{{ value }}" data-decimals="{{ decimals }}" data-grouping="{{ block.settings.grouping }}" data-animate="{{ block.settings.animate }}" data-duration="{{ block.settings.duration }}" style="--counter-weight:{{ block.settings.number_weight | default: '400' }};--counter-size:{{ block.settings.number_size | default: 120 }}px;--counter-size-mobile:{{ block.settings.number_size_mobile | default: 90 }}px;--counter-gap:{{ block.settings.gap | default: 12 }}px;{% if block.settings.number_color != blank %}--counter-color:{{ block.settings.number_color }};{% endif %}{% if block.settings.label_color != blank %}--counter-label-color:{{ block.settings.label_color }};{% endif %}" {{ block.shopify_attributes }}>
   <span class="visually-hidden">{{ block.settings.prefix | escape }}{{ display_value }}{{ block.settings.suffix | escape }}</span>
   <span class="counter__number" aria-hidden="true">{{ block.settings.prefix | escape }}<span data-counter-value>{{ display_value }}</span>{{ block.settings.suffix | escape }}</span>
   {% if block.settings.label != blank %}<span class="counter__label body-sm">{{ block.settings.label | escape }}</span>{% endif %}
@@ -83,6 +83,30 @@
       "step": 2,
       "unit": "px",
       "default": 90
+    },
+    {
+      "type": "select",
+      "id": "number_weight",
+      "label": "Number weight",
+      "options": [
+        {
+          "value": "400",
+          "label": "Regular"
+        },
+        {
+          "value": "500",
+          "label": "Medium"
+        },
+        {
+          "value": "600",
+          "label": "Semibold"
+        },
+        {
+          "value": "700",
+          "label": "Bold"
+        }
+      ],
+      "default": "400"
     },
     {
       "type": "range",
