@@ -17,9 +17,11 @@ html[data-surface-light-enabled] .surface-light {
   --surface-light-opacity: 0;
   --surface-light-glow-radius: 230px;
   --surface-light-edge-radius: 150px;
-  --surface-light-strength: .18;
-  --surface-light-edge: var(--surface-light-tone, #fff);
-  --surface-light-glow: color-mix(in srgb, var(--surface-light-tone, #fff) calc(var(--surface-light-strength) * 100%), transparent);
+  --surface-light-strength: .9;
+  --surface-light-bloom-color: 255 255 255;
+  --surface-light-middle: .3;
+  --surface-light-edge: rgb(5 13 36 / .5);
+  --surface-light-glow: rgb(var(--surface-light-bloom-color) / var(--surface-light-strength));
   isolation: isolate;
 }
 html[data-surface-light-enabled] .surface-light::before,
@@ -33,7 +35,7 @@ html[data-surface-light-enabled] .surface-light::after {
 }
 html[data-surface-light-enabled] .surface-light::before {
   z-index: -1;
-  background: radial-gradient(circle var(--surface-light-glow-radius) at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), color-mix(in srgb, var(--surface-light-glow) 28%, transparent) 45%, transparent 72%);
+  background: radial-gradient(circle var(--surface-light-glow-radius) at var(--surface-light-x) var(--surface-light-y), var(--surface-light-glow), rgb(var(--surface-light-bloom-color) / var(--surface-light-middle)) 45%, transparent 72%);
 }
 html[data-surface-light-enabled] .surface-light::after {
   z-index: 2;
@@ -43,7 +45,16 @@ html[data-surface-light-enabled] .surface-light::after {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
 }
-html[data-surface-light-enabled] .surface-light--header {
+html[data-surface-light-enabled] .surface-light[data-surface-light-variant=dark] {
+  --surface-light-bloom-color: 191 227 255;
+  --surface-light-strength: .2;
+  --surface-light-middle: .06;
+  --surface-light-edge: rgb(191 227 255 / .85);
+}
+html[data-surface-light-enabled] .surface-light.surface-light--header {
+  --surface-light-bloom-color: 191 227 255;
+  --surface-light-middle: calc(var(--surface-light-strength) * .28);
+  --surface-light-edge: rgb(191 227 255 / .95);
   --surface-light-glow-radius: 190px;
   --surface-light-edge-radius: 140px;
   --surface-light-strength: .36;

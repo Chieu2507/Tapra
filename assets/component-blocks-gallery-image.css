@@ -55,3 +55,12 @@ html[data-surface-light-enabled] .gallery-image--post.surface-light::before {
 .gallery-image--post:is(:hover, :focus-within) .gallery-image__likes { color: var(--gallery-post-like-color); background: var(--gallery-post-like-background); }
 @media (max-width: 767.98px) { .gallery-image__profile { font-size: var(--gallery-tag-font-size-mobile, var(--gallery-tag-font-size, var(--font-body-sm))); } }
 @media (prefers-reduced-motion: reduce) { .gallery-image__likes { transition: none; } }
+
+/* The reference screens a separate bloom onto the photo as well as the card edge. */
+html[data-surface-light-enabled] .gallery-image--post.surface-light .gallery-image__visual::after {
+ content:"";position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;
+ opacity:var(--surface-light-opacity);border-radius:inherit;
+ background:radial-gradient(circle 240px at calc(var(--surface-light-x) - var(--gallery-post-padding)) calc(var(--surface-light-y) - var(--gallery-post-padding)),rgb(191 227 255 / .5),rgb(191 227 255 / .14) 50%,transparent 75%);
+}
+html:not([data-surface-light-enabled]) .gallery-image--post .gallery-image__visual::after{content:none}
+@media(hover:none),(prefers-reduced-motion:reduce){html[data-surface-light-enabled] .gallery-image--post.surface-light .gallery-image__visual::after{content:none}}

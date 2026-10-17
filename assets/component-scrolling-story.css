@@ -25,3 +25,6 @@
  .scrolling-story__steps[data-pagination-mobile="true"]>.scrolling-story__indicators{display:grid;grid-column:1;justify-self:end;margin-left:0;top:calc(var(--story-top-mobile,64px) + var(--story-measured-media-height,380px)/2 - var(--story-count)*20px)}
 }
 @media(prefers-reduced-motion:reduce){.scrolling-story__indicator:before{transition:none}}
+
+/* A media card owns its light above its opaque image, matching the reference. */
+html[data-surface-light-enabled] .scrolling-story__media .group.surface-light::before{z-index:1;mix-blend-mode:screen}
