@@ -87,6 +87,17 @@
       "unit": "px"
     },
     {
+      "type": "range",
+      "id": "step_height",
+      "label": "t:scrolling_story.step_height",
+      "min": 50,
+      "max": 120,
+      "step": 5,
+      "default": 80,
+      "unit": "vh",
+      "info": "t:scrolling_story.step_height_info"
+    },
+    {
       "type": "header",
       "content": "t:scrolling_story.media"
     },
@@ -109,7 +120,7 @@
     {
       "type": "range",
       "id": "media_width",
-      "label": "t:scrolling_story.media_width_label",
+      "label": "t:labels.width",
       "min": 280,
       "max": 520,
       "step": 10,
@@ -131,7 +142,7 @@
     {
       "type": "range",
       "id": "media_width_mobile",
-      "label": "t:scrolling_story.media_width_label",
+      "label": "t:labels.width",
       "min": 160,
       "max": 400,
       "step": 4,
@@ -169,17 +180,6 @@
         }
       ],
       "default": "flip"
-    },
-    {
-      "type": "range",
-      "id": "step_height",
-      "label": "t:scrolling_story.step_height",
-      "min": 50,
-      "max": 120,
-      "step": 5,
-      "default": 80,
-      "unit": "vh",
-      "info": "t:scrolling_story.step_height_info"
     },
     {
       "type": "header",
