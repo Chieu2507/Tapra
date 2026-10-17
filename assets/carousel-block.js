@@ -570,12 +570,14 @@ const initialize = (root) => {
   const manualLoop = manualLoopRequested && loop ? createManualLoop(viewport) : null;
   const paginationModules = pagination && !manualLoop ? [Pagination] : [];
   const modules = fade ? [EffectFade, ...paginationModules] : paginationModules;
+  const editorial = root.tagName === 'EDITORIAL-TESTIMONIALS';
   const options = {
-    loop: loop && !manualLoop,
+    loop: loop && !manualLoop && !editorial,
+    rewind: editorial && loop,
     initialSlide: manualLoop?.initialSlide || 0,
     effect: fade ? 'fade' : 'slide',
     ...(fade ? { fadeEffect: { crossFade: true } } : {}),
-    preventInteractionOnTransition: true,
+    preventInteractionOnTransition: !editorial,
     speed: prefersReducedMotion() ? 0 : 600,
     slidesPerView: number(root.dataset.swiperColumnsMobile, 1) + (mobilePreview ? 0.2 : 0),
     spaceBetween: number(root.dataset.swiperGapMobile, 12),
@@ -594,7 +596,7 @@ const initialize = (root) => {
       scope: root,
       previous: fractionControls ? '[data-carousel-fraction-previous]' : '[data-carousel-previous]',
       next: fractionControls ? '[data-carousel-fraction-next]' : '[data-carousel-next]',
-      loop: Boolean(manualLoop)
+      loop: Boolean(manualLoop) || (editorial && loop)
     },
     ...(modules.length ? { modules } : {}),
     ...(pagination && !manualLoop ? { pagination: { el: pagination, type: paginationType, clickable: paginationType === 'bullets' } } : {})

@@ -32,14 +32,6 @@ if (!customElements.get('editorial-testimonials')) {
         if (this.swiper !== swiper) {
           this.unbind();
           this.swiper = swiper;
-          this.loopPreventsSliding = swiper.params.loopPreventsSliding;
-          this.preventInteractionOnTransition = swiper.params.preventInteractionOnTransition;
-          // Fade can miss its virtual transition end when the responsive layout changes.
-          // Keep native controls responsive, including rapid inputs, for this presentation.
-          swiper.params.loopPreventsSliding = false;
-          swiper.params.preventInteractionOnTransition = false;
-          this.originalInteraction = {loopPreventsSliding:swiper.originalParams.loopPreventsSliding, preventInteractionOnTransition:swiper.originalParams.preventInteractionOnTransition};
-          Object.assign(swiper.originalParams, {loopPreventsSliding:false,preventInteractionOnTransition:false});
           this.swiper.on('slideChange update slidesUpdated', this.requestSync);
         }
         const slides = Array.from(this.wrapper.children).filter(slide => slide.matches('[data-testimonial-editorial-review]') && !slide.matches('[data-carousel-loop-clone],.swiper-slide-clone,.swiper-slide-duplicate'));
@@ -55,7 +47,7 @@ if (!customElements.get('editorial-testimonials')) {
           side.hidden = !layout;
           if (!layout) return;
           let target = active + (index === 0 ? -1 : 1);
-          if (swiper.params.loop) target = ((target % slides.length) + slides.length) % slides.length;
+          if (swiper.params.loop || swiper.params.rewind) target = ((target % slides.length) + slides.length) % slides.length;
           this.renderPreview(side.querySelector('button.testimonial-editorial__preview'), slides[target], index);
         });
       };
@@ -66,31 +58,11 @@ if (!customElements.get('editorial-testimonials')) {
           this.sync();
         });
       };
-      // Keep the native controls and public Swiper state; route moved controls through
-      // their owning carousel so responsive reparenting cannot leave stale bindings.
-      this.addEventListener('click', event => {
-        const control = event.target.closest('[data-carousel-fraction-previous],[data-carousel-fraction-next]');
-        if (!control || !this.contains(control) || control.disabled || control.getAttribute('aria-disabled') === 'true') return;
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        this.navigate(control.hasAttribute('data-carousel-fraction-next') ? 1 : -1);
-      }, {...options,capture:true});
       this.mobile.addEventListener('change', this.requestSync, options);
       this.observer = new MutationObserver(this.requestSync);
       this.observer.observe(this.viewport, {attributes:true,attributeFilter:['data-swiper-ready']});
       this.observer.observe(this.wrapper, {childList:true,subtree:true,characterData:true});
       this.requestSync();
-    }
-    navigate(direction) {
-      const swiper = this.swiper || getSwiperCarousel(this.viewport);
-      if (!swiper || swiper.destroyed) return;
-      const count = Array.from(this.wrapper.children).filter(slide => slide.matches('[data-testimonial-editorial-review]') && !slide.matches('[data-carousel-loop-clone],.swiper-slide-clone,.swiper-slide-duplicate')).length;
-      if (count < 2) return;
-      const current = swiper.params.loop ? swiper.realIndex : swiper.activeIndex;
-      const requested = current + direction;
-      const target = swiper.params.loop ? ((requested % count) + count) % count : Math.max(0, Math.min(count - 1, requested));
-      if (swiper.params.loop && typeof swiper.slideToLoop === 'function') swiper.slideToLoop(target, swiper.params.speed);
-      else swiper.slideTo(target, swiper.params.speed);
     }
     renderPreview(button, slide, index) {
       button.hidden = !slide;
@@ -135,11 +107,7 @@ if (!customElements.get('editorial-testimonials')) {
     unbind() {
       if (this.swiper && !this.swiper.destroyed) {
         this.swiper.off('slideChange update slidesUpdated', this.requestSync);
-        if (this.swiper.params) {
-          this.swiper.params.loopPreventsSliding = this.loopPreventsSliding;
-          this.swiper.params.preventInteractionOnTransition = this.preventInteractionOnTransition;
-          if (this.originalInteraction) Object.assign(this.swiper.originalParams, this.originalInteraction);
-        }
+
       }
       this.swiper = null;
     }
