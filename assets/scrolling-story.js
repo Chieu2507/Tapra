@@ -81,7 +81,8 @@ if (!customElements.get('scrolling-story')) {
     go(index) {
       this.target = index;
       if (this.current === index || this.animation) return;
-      if (this.reduced.matches || this.dataset.animate !== 'true' || !this.media[0].animate || this.contains(document.activeElement)) {
+      if (this.media[this.current].contains(document.activeElement)) return;
+      if (this.reduced.matches || this.dataset.animate !== 'true' || !this.media[0].animate) {
         // Preserve focus when a merchant or keyboard user is inside a media slot.
         if (!this.media[this.current].contains(document.activeElement)) this.show(index);
         return;
