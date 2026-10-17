@@ -1750,12 +1750,8 @@
   "scrolling_story": {
     "name": "Scrolling story",
     "step_name": "Story step",
-    "layout_info": "Content and Media are native Groups inside each Story step. Edit their size, alignment, spacing and child blocks there.",
-    "step_info": "Edit the first Group for story content and the second Group for media. Width, alignment, gap, padding and appearance belong to those Groups.",
-    "scrolling": "Scroll behavior",
     "pagination": "Pagination",
-    "step_height_info": "Minimum space per step, as a percentage of the viewport height. Long content expands naturally.",
-    "column_gap_info": "Space between the story content and media columns on desktop.",
+    "step_height_info": "Space to scroll through each step.",
     "show_pagination": "Show pagination",
     "show_pagination_mobile": "Show on mobile",
     "aria_label": "Accessible label",
@@ -1764,12 +1760,18 @@
     "column_gap": "Column gap",
     "header_gap": "Desktop header gap",
     "header_gap_mobile": "Mobile header gap",
-    "step_height": "Minimum step height",
+    "step_height": "Step spacing",
     "sticky_top": "Desktop sticky offset",
     "sticky_top_mobile": "Mobile sticky offset",
-    "animate": "Animate media transitions",
     "surface_light": "Light surface effect",
-    "step_label": "Label",
-    "step_label_info": "Used in the editor and step navigation. Edit the visible heading in the Content Group."
+    "step_label": "Step name",
+    "media": "Media",
+    "animation": "Animation",
+    "transition": "Transition",
+    "none": "None",
+    "flip": "Flip",
+    "accessibility": "Accessibility",
+    "media_width_label": "Width",
+    "distance_from_top": "Distance from top"
   }
 }

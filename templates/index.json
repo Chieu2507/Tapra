@@ -2887,6 +2887,7 @@
       "blocks": {
         "header": {
           "type": "group",
+          "name": "Header",
           "static": true,
           "settings": {
             "direction": "vertical",
@@ -2956,6 +2957,7 @@
           "blocks": {
             "content": {
               "type": "group",
+              "name": "Content",
               "static": true,
               "settings": {
                 "direction": "vertical",
@@ -3013,6 +3015,7 @@
             },
             "media": {
               "type": "group",
+              "name": "Media",
               "static": true,
               "settings": {
                 "direction": "vertical",
@@ -3095,6 +3098,7 @@
           "blocks": {
             "content": {
               "type": "group",
+              "name": "Content",
               "static": true,
               "settings": {
                 "direction": "vertical",
@@ -3152,6 +3156,7 @@
             },
             "media": {
               "type": "group",
+              "name": "Media",
               "static": true,
               "settings": {
                 "direction": "vertical",
@@ -3234,6 +3239,7 @@
           "blocks": {
             "content": {
               "type": "group",
+              "name": "Content",
               "static": true,
               "settings": {
                 "direction": "vertical",
@@ -3303,6 +3309,7 @@
             },
             "media": {
               "type": "group",
+              "name": "Media",
               "static": true,
               "settings": {
                 "direction": "vertical",

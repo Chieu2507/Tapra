@@ -9,7 +9,7 @@
 <div class="section-spacing scrolling-story color-scheme section-color-scope {{ section.settings.color_scheme }}{% if section.settings.surface_light %} scrolling-story--surface{% endif %}" style="--section-padding-top:{{ section.settings.padding_top }}px;--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}--story-header-gap:{{ section.settings.header_gap }}px;--story-header-gap-mobile:{{ section.settings.header_gap_mobile }}px;--story-media-width-mobile:{{ section.settings.media_width_mobile }}px;--story-top-mobile:{{ section.settings.sticky_top_mobile }}px;--story-media-width:{{ section.settings.media_width }}px;--story-gap:{{ section.settings.column_gap }}px;--story-step-height:{{ section.settings.step_height }}svh;--story-top:{{ section.settings.sticky_top }}px;">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} scrolling-story--full-bleed{% endif %}">
     <div class="scrolling-story__header">{% content_for 'block', type: 'group', id: 'header' %}</div>
-    <scrolling-story class="scrolling-story__steps" data-animate="{{ section.settings.animate }}" data-pagination="{{ section.settings.show_pagination }}" data-pagination-mobile="{{ section.settings.show_pagination_mobile }}" role="region" aria-label="{{ section.settings.aria_label | escape }}">
+    <scrolling-story class="scrolling-story__steps" data-animate="{% if section.settings.transition == 'flip' %}true{% else %}false{% endif %}" data-pagination="{{ section.settings.show_pagination }}" data-pagination-mobile="{{ section.settings.show_pagination_mobile }}" role="region" aria-label="{{ section.settings.aria_label | escape }}">
       {% content_for 'blocks' %}
     </scrolling-story>
   </div>
@@ -57,30 +57,6 @@
       "default": "page_width"
     },
     {
-      "type": "paragraph",
-      "content": "t:scrolling_story.layout_info"
-    },
-    {
-      "type": "range",
-      "id": "media_width",
-      "label": "t:scrolling_story.media_width",
-      "min": 280,
-      "max": 520,
-      "step": 10,
-      "default": 340,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "media_width_mobile",
-      "label": "t:scrolling_story.media_width_mobile",
-      "min": 160,
-      "max": 400,
-      "step": 4,
-      "default": 260,
-      "unit": "px"
-    },
-    {
       "type": "range",
       "id": "column_gap",
       "label": "t:scrolling_story.column_gap",
@@ -88,8 +64,7 @@
       "max": 120,
       "step": 4,
       "default": 48,
-      "unit": "px",
-      "info": "t:scrolling_story.column_gap_info"
+      "unit": "px"
     },
     {
       "type": "range",
@@ -113,7 +88,87 @@
     },
     {
       "type": "header",
-      "content": "t:scrolling_story.scrolling"
+      "content": "t:scrolling_story.media"
+    },
+    {
+      "type": "select",
+      "id": "media_device",
+      "label": "t:labels.device",
+      "options": [
+        {
+          "value": "desktop",
+          "label": "t:options.device.desktop"
+        },
+        {
+          "value": "mobile",
+          "label": "t:options.device.mobile"
+        }
+      ],
+      "default": "desktop"
+    },
+    {
+      "type": "range",
+      "id": "media_width",
+      "label": "t:scrolling_story.media_width_label",
+      "min": 280,
+      "max": 520,
+      "step": 10,
+      "default": 340,
+      "unit": "px",
+      "visible_if": "{{ section.settings.media_device == 'desktop' }}"
+    },
+    {
+      "type": "range",
+      "id": "sticky_top",
+      "label": "t:scrolling_story.distance_from_top",
+      "min": 40,
+      "max": 180,
+      "step": 2,
+      "default": 100,
+      "unit": "px",
+      "visible_if": "{{ section.settings.media_device == 'desktop' }}"
+    },
+    {
+      "type": "range",
+      "id": "media_width_mobile",
+      "label": "t:scrolling_story.media_width_label",
+      "min": 160,
+      "max": 400,
+      "step": 4,
+      "default": 260,
+      "unit": "px",
+      "visible_if": "{{ section.settings.media_device == 'mobile' }}"
+    },
+    {
+      "type": "range",
+      "id": "sticky_top_mobile",
+      "label": "t:scrolling_story.distance_from_top",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 64,
+      "unit": "px",
+      "visible_if": "{{ section.settings.media_device == 'mobile' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:scrolling_story.animation"
+    },
+    {
+      "type": "select",
+      "id": "transition",
+      "label": "t:scrolling_story.transition",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:scrolling_story.none"
+        },
+        {
+          "value": "flip",
+          "label": "t:scrolling_story.flip"
+        }
+      ],
+      "default": "flip"
     },
     {
       "type": "range",
@@ -125,32 +180,6 @@
       "default": 80,
       "unit": "vh",
       "info": "t:scrolling_story.step_height_info"
-    },
-    {
-      "type": "range",
-      "id": "sticky_top",
-      "label": "t:scrolling_story.sticky_top",
-      "min": 40,
-      "max": 180,
-      "step": 2,
-      "default": 100,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "sticky_top_mobile",
-      "label": "t:scrolling_story.sticky_top_mobile",
-      "min": 0,
-      "max": 160,
-      "step": 2,
-      "default": 64,
-      "unit": "px"
-    },
-    {
-      "type": "checkbox",
-      "id": "animate",
-      "label": "t:scrolling_story.animate",
-      "default": true
     },
     {
       "type": "header",
@@ -168,12 +197,6 @@
       "label": "t:scrolling_story.show_pagination_mobile",
       "default": false,
       "visible_if": "{{ section.settings.show_pagination }}"
-    },
-    {
-      "type": "text",
-      "id": "aria_label",
-      "label": "t:scrolling_story.aria_label",
-      "default": "Scrolling story"
     },
     {
       "type": "header",
@@ -242,6 +265,16 @@
       "unit": "px",
       "visible_if": "{{ section.settings.customize_mobile_padding }}",
       "default": 64
+    },
+    {
+      "type": "header",
+      "content": "t:scrolling_story.accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "t:scrolling_story.aria_label",
+      "default": "Scrolling story"
     }
   ],
   "presets": [
@@ -253,7 +286,8 @@
         "padding_bottom": 120,
         "customize_mobile_padding": true,
         "padding_top_mobile": 70,
-        "padding_bottom_mobile": 70
+        "padding_bottom_mobile": 70,
+        "transition": "flip"
       },
       "blocks": [
         {
@@ -310,7 +344,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "name": "Header"
         },
         {
           "type": "_scrolling-story-step",
@@ -365,7 +400,8 @@
                 }
               ],
               "id": "content",
-              "static": true
+              "static": true,
+              "name": "Content"
             },
             {
               "type": "group",
@@ -431,7 +467,8 @@
                 }
               ],
               "id": "media",
-              "static": true
+              "static": true,
+              "name": "Media"
             }
           ],
           "settings": {
@@ -491,7 +528,8 @@
                 }
               ],
               "id": "content",
-              "static": true
+              "static": true,
+              "name": "Content"
             },
             {
               "type": "group",
@@ -557,7 +595,8 @@
                 }
               ],
               "id": "media",
-              "static": true
+              "static": true,
+              "name": "Media"
             }
           ],
           "settings": {
@@ -628,7 +667,8 @@
                 }
               ],
               "id": "content",
-              "static": true
+              "static": true,
+              "name": "Content"
             },
             {
               "type": "group",
@@ -694,7 +734,8 @@
                 }
               ],
               "id": "media",
-              "static": true
+              "static": true,
+              "name": "Media"
             }
           ],
           "settings": {
