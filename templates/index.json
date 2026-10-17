@@ -3466,6 +3466,7 @@
           "name": "Setup",
           "static": true,
           "settings": {
+            "editor_title": "Shop the setup",
             "image": "shopify://shop_images/tapra-setup-reference.webp",
             "corner_radius": "radius_32",
             "show_overlay": true,
@@ -3492,7 +3493,16 @@
             "content_padding_desktop": 18,
             "content_padding_mobile": 18,
             "hotspot_icon_style": "plus",
-            "hotspot_color_scheme": "scheme-1"
+            "hotspot_color_scheme": "scheme-1",
+            "setup_show_items": true,
+            "setup_allow_collapse": true,
+            "setup_start_collapsed": false,
+            "setup_width": 320,
+            "setup_inset": 20,
+            "setup_opacity": 55,
+            "setup_blur": 14,
+            "setup_show_hotspots": true,
+            "setup_pulse": true
           },
           "blocks": {
             "item_1": {
@@ -3561,8 +3571,671 @@
         }
       },
       "settings": {
+        "presentation": "setup",
         "section_width": "page_width",
         "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      }
+    },
+    "typist_reviews": {
+      "type": "testimonial-carousel",
+      "blocks": {
+        "item_1": {
+          "type": "header",
+          "name": "Header",
+          "settings": {
+            "width": "fill",
+            "alignment": "left",
+            "gap_desktop": 16,
+            "gap_mobile": 12
+          },
+          "blocks": {
+            "item_1": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Loved by typists. Built to last.</p>",
+                "color": "#5E6A7D",
+                "show_background": true,
+                "corner_radius": "radius_8",
+                "background_color": "#E6EAF0",
+                "padding_top": 4,
+                "padding_bottom": 4,
+                "padding_left": 12,
+                "padding_right": 12
+              }
+            },
+            "item_2": {
+              "type": "heading",
+              "settings": {
+                "text": "<p>What customers say about Tapra.</p>",
+                "heading_size": "display",
+                "html_tag": "h2"
+              }
+            },
+            "item_3": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Honest reviews from people who type on Tapra every day.</p>",
+                "text_size": "md",
+                "text_color": "#5E6A7D"
+              }
+            }
+          },
+          "block_order": [
+            "item_1",
+            "item_2",
+            "item_3"
+          ]
+        },
+        "item_2": {
+          "type": "carousel",
+          "name": "Reviews",
+          "settings": {
+            "columns_desktop": "1",
+            "columns_mobile": "1",
+            "loop": true,
+            "show_next_slide_preview_on_desktop": false,
+            "show_next_slide_preview_on_mobile": false,
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "width": "fill",
+            "show_navigation_on_desktop": true,
+            "navigation_style": "primary",
+            "navigation_icon": "arrow",
+            "navigation_behavior": "always",
+            "controls_style": "fraction",
+            "controls_alignment": "right",
+            "controls_alignment_mobile": "center",
+            "show_pagination_on_desktop": false,
+            "show_pagination_on_mobile": false,
+            "autoplay": false,
+            "padding_top": 0,
+            "padding_bottom": 0
+          },
+          "blocks": {
+            "item_1": {
+              "type": "_testimonial-editorial-review",
+              "name": "Nina Harper",
+              "settings": {
+                "preview_text": "Quiet keys. Calm hands.",
+                "image_width": 47,
+                "gap_desktop": 32,
+                "gap_mobile": 24
+              },
+              "blocks": {
+                "photo": {
+                  "type": "image",
+                  "name": "Photo",
+                  "static": true,
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-review-1.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_24"
+                  }
+                },
+                "quote": {
+                  "type": "group",
+                  "name": "Quote",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 8,
+                    "gap_mobile": 8,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "testimonial-rating",
+                      "settings": {
+                        "rating": 5,
+                        "star_color": "#0A1530",
+                        "star_gap": 4
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>“Quietest board I have ever owned. I type all day and my hands finally feel relaxed.”</p>",
+                        "text_size": "xxl",
+                        "customize_letter_spacing": true,
+                        "letter_spacing": 0,
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                },
+                "divider": {
+                  "type": "divider",
+                  "name": "Divider",
+                  "static": true,
+                  "settings": {
+                    "style": "solid",
+                    "thickness": "thin",
+                    "width": "full",
+                    "desktop_spacing": 0,
+                    "mobile_spacing": 0
+                  }
+                },
+                "author": {
+                  "type": "group",
+                  "name": "Author",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 2,
+                    "gap_mobile": 2,
+                    "width": "fill",
+                    "height": "fit",
+                    "padding_top": 20,
+                    "padding_right": 64
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Nina Harper</p>",
+                        "heading_size": "custom",
+                        "custom_heading_size": 20,
+                        "html_tag": "h3"
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Verified buyer · Tapra 75 Pro</p>",
+                        "text_size": "sm",
+                        "text_color": "#5E6A7D",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                }
+              }
+            },
+            "item_2": {
+              "type": "_testimonial-editorial-review",
+              "name": "Daniel Cole",
+              "settings": {
+                "preview_text": "Easy to tune.",
+                "image_width": 47,
+                "gap_desktop": 32,
+                "gap_mobile": 24
+              },
+              "blocks": {
+                "photo": {
+                  "type": "image",
+                  "name": "Photo",
+                  "static": true,
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-review-2.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_24"
+                  }
+                },
+                "quote": {
+                  "type": "group",
+                  "name": "Quote",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 8,
+                    "gap_mobile": 8,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "testimonial-rating",
+                      "settings": {
+                        "rating": 5,
+                        "star_color": "#0A1530",
+                        "star_gap": 4
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>“Setup took ten minutes and swapping the switches was easy. It feels far more expensive than it is.”</p>",
+                        "text_size": "xxl",
+                        "customize_letter_spacing": true,
+                        "letter_spacing": 0,
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                },
+                "divider": {
+                  "type": "divider",
+                  "name": "Divider",
+                  "static": true,
+                  "settings": {
+                    "style": "solid",
+                    "thickness": "thin",
+                    "width": "full",
+                    "desktop_spacing": 0,
+                    "mobile_spacing": 0
+                  }
+                },
+                "author": {
+                  "type": "group",
+                  "name": "Author",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 2,
+                    "gap_mobile": 2,
+                    "width": "fill",
+                    "height": "fit",
+                    "padding_top": 20,
+                    "padding_right": 64
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Daniel Cole</p>",
+                        "heading_size": "custom",
+                        "custom_heading_size": 20,
+                        "html_tag": "h3"
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Verified buyer · Tapra TKL</p>",
+                        "text_size": "sm",
+                        "text_color": "#5E6A7D",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                }
+              }
+            },
+            "item_3": {
+              "type": "_testimonial-editorial-review",
+              "name": "Mia Lawson",
+              "settings": {
+                "preview_text": "Small board. Big comfort.",
+                "image_width": 47,
+                "gap_desktop": 32,
+                "gap_mobile": 24
+              },
+              "blocks": {
+                "photo": {
+                  "type": "image",
+                  "name": "Photo",
+                  "static": true,
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-review-3.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_24"
+                  }
+                },
+                "quote": {
+                  "type": "group",
+                  "name": "Quote",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 8,
+                    "gap_mobile": 8,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "testimonial-rating",
+                      "settings": {
+                        "rating": 5,
+                        "star_color": "#0A1530",
+                        "star_gap": 4
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>“Small, light and beautiful on my desk. Switching between my laptop and tablet just works.”</p>",
+                        "text_size": "xxl",
+                        "customize_letter_spacing": true,
+                        "letter_spacing": 0,
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                },
+                "divider": {
+                  "type": "divider",
+                  "name": "Divider",
+                  "static": true,
+                  "settings": {
+                    "style": "solid",
+                    "thickness": "thin",
+                    "width": "full",
+                    "desktop_spacing": 0,
+                    "mobile_spacing": 0
+                  }
+                },
+                "author": {
+                  "type": "group",
+                  "name": "Author",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 2,
+                    "gap_mobile": 2,
+                    "width": "fill",
+                    "height": "fit",
+                    "padding_top": 20,
+                    "padding_right": 64
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Mia Lawson</p>",
+                        "heading_size": "custom",
+                        "custom_heading_size": 20,
+                        "html_tag": "h3"
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Verified buyer · Tapra 65</p>",
+                        "text_size": "sm",
+                        "text_color": "#5E6A7D",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                }
+              }
+            },
+            "item_4": {
+              "type": "_testimonial-editorial-review",
+              "name": "Jordan Avery",
+              "settings": {
+                "preview_text": "Deep, clean sound.",
+                "image_width": 47,
+                "gap_desktop": 32,
+                "gap_mobile": 24
+              },
+              "blocks": {
+                "photo": {
+                  "type": "image",
+                  "name": "Photo",
+                  "static": true,
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-review-4.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_24"
+                  }
+                },
+                "quote": {
+                  "type": "group",
+                  "name": "Quote",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 8,
+                    "gap_mobile": 8,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "testimonial-rating",
+                      "settings": {
+                        "rating": 5,
+                        "star_color": "#0A1530",
+                        "star_gap": 4
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>“Great build quality. The sound out of the box is clean and deep, with no rattle at all.”</p>",
+                        "text_size": "xxl",
+                        "customize_letter_spacing": true,
+                        "letter_spacing": 0,
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                },
+                "divider": {
+                  "type": "divider",
+                  "name": "Divider",
+                  "static": true,
+                  "settings": {
+                    "style": "solid",
+                    "thickness": "thin",
+                    "width": "full",
+                    "desktop_spacing": 0,
+                    "mobile_spacing": 0
+                  }
+                },
+                "author": {
+                  "type": "group",
+                  "name": "Author",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 2,
+                    "gap_mobile": 2,
+                    "width": "fill",
+                    "height": "fit",
+                    "padding_top": 20,
+                    "padding_right": 64
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Jordan Avery</p>",
+                        "heading_size": "custom",
+                        "custom_heading_size": 20,
+                        "html_tag": "h3"
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Verified buyer · Tapra 75 Pro</p>",
+                        "text_size": "sm",
+                        "text_color": "#5E6A7D",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                }
+              }
+            },
+            "item_5": {
+              "type": "_testimonial-editorial-review",
+              "name": "Elena Ross",
+              "settings": {
+                "preview_text": "Fast shipping. Lovely caps.",
+                "image_width": 47,
+                "gap_desktop": 32,
+                "gap_mobile": 24
+              },
+              "blocks": {
+                "photo": {
+                  "type": "image",
+                  "name": "Photo",
+                  "static": true,
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-review-5.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_24"
+                  }
+                },
+                "quote": {
+                  "type": "group",
+                  "name": "Quote",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 8,
+                    "gap_mobile": 8,
+                    "width": "fill",
+                    "height": "fit"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "testimonial-rating",
+                      "settings": {
+                        "rating": 4,
+                        "star_color": "#0A1530",
+                        "star_gap": 4
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>“Lovely keycaps and fast shipping. I would love a few more color options, but I use it every day.”</p>",
+                        "text_size": "xxl",
+                        "customize_letter_spacing": true,
+                        "letter_spacing": 0,
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                },
+                "divider": {
+                  "type": "divider",
+                  "name": "Divider",
+                  "static": true,
+                  "settings": {
+                    "style": "solid",
+                    "thickness": "thin",
+                    "width": "full",
+                    "desktop_spacing": 0,
+                    "mobile_spacing": 0
+                  }
+                },
+                "author": {
+                  "type": "group",
+                  "name": "Author",
+                  "static": true,
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 2,
+                    "gap_mobile": 2,
+                    "width": "fill",
+                    "height": "fit",
+                    "padding_top": 20,
+                    "padding_right": 64
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Elena Ross</p>",
+                        "heading_size": "custom",
+                        "custom_heading_size": 20,
+                        "html_tag": "h3"
+                      }
+                    },
+                    "item_2": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Verified buyer · Tapra 65</p>",
+                        "text_size": "sm",
+                        "text_color": "#5E6A7D",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2"
+                  ]
+                }
+              }
+            }
+          },
+          "block_order": [
+            "item_1",
+            "item_2",
+            "item_3",
+            "item_4",
+            "item_5"
+          ]
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2"
+      ],
+      "settings": {
+        "presentation": "editorial",
+        "adjacent_previews": true,
+        "preview_gap": 32,
+        "transition_style": "fade",
+        "section_width": "page_width",
+        "content_gap": 64,
+        "customize_mobile_gap": true,
+        "content_gap_mobile": 40,
+        "color_scheme": "scheme-1",
         "padding_top": 96,
         "padding_bottom": 96,
         "customize_mobile_padding": true,
@@ -3579,6 +4252,7 @@
     "featured_story",
     "shop_setup",
     "by_the_numbers",
+    "typist_reviews",
     "slideshow",
     "collection_editorial",
     "tapra_media",

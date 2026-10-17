@@ -1,0 +1,34 @@
+.testimonial-editorial-review{display:grid;grid-template-columns:minmax(0,var(--review-image-width,47%)) minmax(0,1fr);gap:var(--review-gap,32px);align-items:stretch;min-width:0}
+.testimonial-editorial-review__photo,.testimonial-editorial-review__copy{min-width:0}
+.testimonial-editorial-review__copy{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.testimonial-editorial-review__footer{min-width:0}
+editorial-testimonials[data-editorial-layout=true]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.23fr) minmax(0,1.38fr) minmax(0,1fr);column-gap:var(--editorial-preview-gap,32px);align-items:stretch}
+editorial-testimonials[data-editorial-layout=true]>.carousel-block__container{grid-column:2 / span 2;grid-row:1;min-width:0}
+.testimonial-editorial__side{display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-width:0;grid-row:1}
+.testimonial-editorial__side[hidden]{display:none}
+.testimonial-editorial__side--previous{grid-column:1}
+.testimonial-editorial__side--next{grid-column:4}
+.testimonial-editorial__preview{position:relative;display:flex;flex-direction:column;align-items:flex-start;width:100%;min-width:0;overflow:hidden;text-align:left;border:0;border-radius:var(--radius-24);font:inherit;color:var(--body-color);cursor:pointer;transition:background-color var(--motion-duration-standard,250ms)}
+.testimonial-editorial__preview[hidden]{display:none}
+.testimonial-editorial__preview--previous{padding:24px;min-height:240px;background:var(--background-bar-color,var(--color-surface))}
+.testimonial-editorial__preview--previous:hover{background:var(--button-primary-hover-background)}
+.testimonial-editorial__avatar{width:56px;height:56px;object-fit:cover;border-radius:var(--radius-pill);margin-bottom:24px}
+.testimonial-editorial__name{display:block;font-size:var(--font-body-xl);font-weight:500;line-height:1.4;overflow-wrap:anywhere}
+.testimonial-editorial__detail{display:block;font-size:var(--font-body-sm);color:var(--text-muted-color);margin-top:2px;overflow-wrap:anywhere}
+.testimonial-editorial__summary{margin-top:22px;font-size:var(--font-body-sm);line-height:1.5;overflow-wrap:anywhere}
+.testimonial-editorial__preview--next{aspect-ratio:326/250;padding:20px;justify-content:flex-end;color:var(--button-primary-text);background:var(--button-primary-background)}
+.testimonial-editorial__preview--next>.testimonial-editorial__cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.testimonial-editorial__preview--next:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgb(5 13 36 / .78));z-index:1;pointer-events:none}
+.testimonial-editorial__preview--next .testimonial-editorial__name,.testimonial-editorial__preview--next .testimonial-editorial__detail{position:relative;z-index:2;color:inherit}
+.testimonial-editorial__side>.carousel-block__fraction-button{flex:none;width:48px;height:48px;min-height:48px;border-radius:var(--radius-pill);background:var(--button-primary-background);color:var(--button-primary-text)}
+.testimonial-editorial__side--previous>.carousel-block__fraction-button{align-self:flex-start}
+.testimonial-editorial__side--next>.carousel-block__fraction-button{align-self:flex-start}
+.testimonial-carousel.testimonial-carousel--editorial .carousel-block__fraction-controls{left:auto;right:0;width:auto;bottom:0;margin-top:0}
+.testimonial-carousel.testimonial-carousel--editorial editorial-testimonials[data-editorial-layout=false] .carousel-block__fraction-controls{position:static;justify-content:flex-end;margin-top:20px}
+@media(max-width:767px){
+ .testimonial-editorial-review{grid-template-columns:minmax(0,1fr);gap:var(--review-gap-mobile,24px)}
+ .testimonial-editorial-review__copy{gap:24px}
+ .testimonial-carousel.testimonial-carousel--editorial .carousel-block__fraction-controls{position:static;width:100%;margin-top:20px;justify-content:space-between}
+ .testimonial-editorial__side{display:none}
+}
+@media(prefers-reduced-motion:reduce){.testimonial-editorial__preview{transition:none}}
