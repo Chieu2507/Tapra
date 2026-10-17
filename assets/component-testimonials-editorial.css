@@ -43,3 +43,7 @@ editorial-testimonials[data-editorial-layout=true]>.carousel-block__container{gr
 
 .testimonial-editorial__outgoing{pointer-events:none!important;position:absolute;z-index:0;animation:none!important}
 .testimonial-editorial__avatar.testimonial-editorial__outgoing{left:24px;top:24px;margin:0}
+
+/* The Editorial fade module needs opacity transitions instead of the base slide transform. */
+editorial-testimonials .swiper-fade .swiper-slide{transition-property:opacity;pointer-events:none}
+editorial-testimonials .swiper-fade .swiper-slide-active{pointer-events:auto}

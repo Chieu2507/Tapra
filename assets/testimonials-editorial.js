@@ -101,7 +101,7 @@ if (!customElements.get('editorial-testimonials')) {
       }
       const commit = () => {
         // Ignore image loads superseded by a more recent navigation.
-        if (button.previewSignature !== signature) return;
+        if (button.previewSignature !== signature || button.isConnected === false) return;
         const currentImage = button.querySelector?.('img:not(.testimonial-editorial__outgoing)');
         const outgoing = currentImage?.cloneNode(true);
         button.replaceChildren(...children);
@@ -138,7 +138,10 @@ if (!customElements.get('editorial-testimonials')) {
       this.frame = null;
       this.unbind();
       this.restoreControls();
-      this.sides?.forEach(side => side.remove());
+      this.sides?.forEach(side => {
+        side.querySelectorAll?.('.testimonial-editorial__outgoing').forEach(image => image.getAnimations().forEach(animation => animation.cancel()));
+        side.remove();
+      });
       this.removeAttribute('data-editorial-layout');
     }
   }
