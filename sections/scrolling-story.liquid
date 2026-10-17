@@ -1,0 +1,610 @@
+{% liquid
+  assign width_class = 'page-width'
+  if section.settings.section_width != 'page_width'
+    assign width_class = 'full-width'
+  endif
+%}
+{% render 'component-stylesheet', filename: 'component-scrolling-story.css', section_index: section.index %}
+<script src="{{ 'scrolling-story.js' | asset_url }}" defer="defer"></script>
+<div class="section-spacing scrolling-story color-scheme section-color-scope {{ section.settings.color_scheme }}{% if section.settings.surface_light %} scrolling-story--surface{% endif %}" style="--section-padding-top:{{ section.settings.padding_top }}px;--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}--story-media-width:{{ section.settings.media_width }}px;--story-gap:{{ section.settings.column_gap }}px;--story-step-height:{{ section.settings.step_height }}svh;--story-top:{{ section.settings.sticky_top }}px;">
+  <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} scrolling-story--full-bleed{% endif %}">
+    <div class="scrolling-story__header">{% content_for 'block', type: 'group', id: 'header' %}</div>
+    <scrolling-story class="scrolling-story__steps" data-animate="{{ section.settings.animate }}" data-pagination="{{ section.settings.show_pagination }}">
+      {% content_for 'blocks' %}
+    </scrolling-story>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Scrolling story",
+  "tag": "section",
+  "class": "section-scrolling-story",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "_scrolling-story-step"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "full_bleed",
+          "label": "Full width (no padding)"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Storytelling"
+    },
+    {
+      "type": "range",
+      "id": "media_width",
+      "label": "Media width",
+      "min": 280,
+      "max": 520,
+      "step": 10,
+      "default": 340,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "column_gap",
+      "label": "Column gap",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "step_height",
+      "label": "Step scroll height",
+      "min": 50,
+      "max": 120,
+      "step": 5,
+      "default": 80,
+      "unit": "vh"
+    },
+    {
+      "type": "range",
+      "id": "sticky_top",
+      "label": "Sticky offset",
+      "min": 40,
+      "max": 180,
+      "step": 2,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "animate",
+      "label": "Animate media transitions",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show step indicators",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "checkbox",
+      "id": "surface_light",
+      "label": "Light surface effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling story",
+      "settings": {
+        "color_scheme": "scheme-3",
+        "padding_top": 110,
+        "padding_bottom": 120,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 70,
+        "padding_bottom_mobile": 70
+      },
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "gap_desktop": 28,
+            "gap_mobile": 24,
+            "appearance_type": "inherit"
+          },
+          "static": true,
+          "id": "header",
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Featured categories</p>"
+              }
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "width": "fill",
+                "height": "fit",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Start with a part.<br>End with your board.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Browse our three most-loved categories, from the keys under your fingers to the switches beneath them.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "_scrolling-story-step",
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12
+              },
+              "blocks": [
+                {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>01</p>"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Keycaps</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Sets in PBT and ABS, from calm pastels to bold themes. Change the look of your board in minutes.</p>",
+                    "text_size": "md",
+                    "width": "fill",
+                    "text_color": "#B7C4D8"
+                  }
+                },
+                {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop keycaps",
+                    "button_style": "tertiary",
+                    "button_link": "",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              ],
+              "id": "content",
+              "static": true
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": [
+                {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-1.webp",
+                    "image_ratio_desktop": "square",
+                    "image_ratio_mobile": "square",
+                    "width_desktop": "fill",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "width": "fill",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12
+                  },
+                  "blocks": [
+                    {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Keycaps</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>48 sets \u00b7 from $34</p>",
+                        "text_size": "md",
+                        "width": "fill",
+                        "text_color": "#B7C4D8"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "id": "media",
+              "static": true
+            }
+          ]
+        },
+        {
+          "type": "_scrolling-story-step",
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12
+              },
+              "blocks": [
+                {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>02</p>"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Keyboards</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Compact kits and ready-built boards, hot-swap and wireless. Find a layout that fits your desk.</p>",
+                    "text_size": "md",
+                    "width": "fill",
+                    "text_color": "#B7C4D8"
+                  }
+                },
+                {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop keyboards",
+                    "button_style": "tertiary",
+                    "button_link": "/collections/keyboards-tapra",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              ],
+              "id": "content",
+              "static": true
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": [
+                {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-2.webp",
+                    "image_ratio_desktop": "square",
+                    "image_ratio_mobile": "square",
+                    "width_desktop": "fill",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "width": "fill",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12
+                  },
+                  "blocks": [
+                    {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Keyboards</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>24 kits \u00b7 from $59</p>",
+                        "text_size": "md",
+                        "width": "fill",
+                        "text_color": "#B7C4D8"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "id": "media",
+              "static": true
+            }
+          ]
+        },
+        {
+          "type": "_scrolling-story-step",
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12
+              },
+              "blocks": [
+                {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>03</p>"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Switches</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Linear, tactile or clicky. Try a tester pack before you commit to a full set.</p>",
+                    "text_size": "md",
+                    "width": "fill",
+                    "text_color": "#B7C4D8"
+                  }
+                },
+                {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop switches",
+                    "button_style": "tertiary",
+                    "button_link": "",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                },
+                {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "View all categories",
+                    "button_style": "tertiary",
+                    "button_link": "/collections",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              ],
+              "id": "content",
+              "static": true
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": [
+                {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-3.webp",
+                    "image_ratio_desktop": "square",
+                    "image_ratio_mobile": "square",
+                    "width_desktop": "fill",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "width": "fill",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12
+                  },
+                  "blocks": [
+                    {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Switches</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>60 types \u00b7 from $12</p>",
+                        "text_size": "md",
+                        "width": "fill",
+                        "text_color": "#B7C4D8"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "id": "media",
+              "static": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

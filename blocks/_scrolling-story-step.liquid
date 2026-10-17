@@ -1,0 +1,133 @@
+{% doc %}
+  One authored story step. Content and Media use native Group/leaf blocks.
+  The section owns scroll layout and synchronizes the Media slot.
+{% enddoc %}
+<div class="scrolling-story__step" data-story-step {{ block.shopify_attributes }}>
+  <div class="scrolling-story__copy" data-story-copy>{% content_for 'block', type: 'group', id: 'content' %}</div>
+  <div class="scrolling-story__media" data-story-media>{% content_for 'block', type: 'group', id: 'media' %}</div>
+</div>
+{% schema %}
+{
+  "name": "Story step",
+  "tag": null,
+  "settings": [],
+  "presets": [
+    {
+      "name": "Story step",
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "gap_desktop": 12,
+            "gap_mobile": 12
+          },
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>01</p>"
+              }
+            },
+            {
+              "type": "heading",
+              "settings": {
+                "text": "<p>Keycaps</p>",
+                "heading_size": "md",
+                "html_tag": "h3"
+              }
+            },
+            {
+              "type": "text",
+              "settings": {
+                "text": "<p>Sets in PBT and ABS, from calm pastels to bold themes. Change the look of your board in minutes.</p>",
+                "text_size": "md",
+                "width": "fill",
+                "text_color": "#B7C4D8"
+              }
+            },
+            {
+              "type": "button",
+              "settings": {
+                "button_label": "Shop keycaps",
+                "button_style": "tertiary",
+                "button_link": "",
+                "show_icon": true,
+                "icon": "arrow"
+              }
+            }
+          ],
+          "id": "content",
+          "static": true
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "gap_desktop": 12,
+            "gap_mobile": 12,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-3",
+            "corner_radius": "radius_24",
+            "padding_top": 20,
+            "padding_bottom": 20,
+            "padding_left": 20,
+            "padding_right": 20
+          },
+          "blocks": [
+            {
+              "type": "image",
+              "settings": {
+                "image": "shopify://shop_images/tapra-story-1.webp",
+                "image_ratio_desktop": "square",
+                "image_ratio_mobile": "square",
+                "width_desktop": "fill",
+                "width_mobile": "fill",
+                "corner_radius": "radius_16"
+              }
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "gap_desktop": 12,
+                "gap_mobile": 12
+              },
+              "blocks": [
+                {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>Category</p>"
+                  }
+                },
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Keycaps</p>",
+                    "heading_size": "sm",
+                    "html_tag": "h4"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>48 sets \u00b7 from $34</p>",
+                    "text_size": "md",
+                    "width": "fill",
+                    "text_color": "#B7C4D8"
+                  }
+                }
+              ]
+            }
+          ],
+          "id": "media",
+          "static": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -2881,6 +2881,488 @@
         "padding_top_mobile": 64,
         "padding_bottom_mobile": 64
       }
+    },
+    "featured_story": {
+      "type": "scrolling-story",
+      "blocks": {
+        "header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "direction": "vertical",
+            "gap_desktop": 28,
+            "gap_mobile": 24,
+            "width": "fill",
+            "appearance_type": "inherit"
+          },
+          "blocks": {
+            "item_1": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>Featured categories</p>"
+              }
+            },
+            "item_2": {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Start with a part.<br>End with your board.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                "item_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Browse our three most-loved categories, from the keys under your fingers to the switches beneath them.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2"
+              ]
+            }
+          },
+          "block_order": [
+            "item_1",
+            "item_2"
+          ]
+        },
+        "item_2": {
+          "type": "_scrolling-story-step",
+          "settings": {},
+          "blocks": {
+            "content": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill"
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>01</p>"
+                  }
+                },
+                "item_2": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Keycaps</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                "item_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Sets in PBT and ABS, from calm pastels to bold themes. Change the look of your board in minutes.</p>",
+                    "text_size": "md",
+                    "text_color": "#B7C4D8",
+                    "width": "fill"
+                  }
+                },
+                "item_4": {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop keycaps",
+                    "button_link": "",
+                    "button_style": "tertiary",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2",
+                "item_3",
+                "item_4"
+              ]
+            },
+            "media": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill",
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-1.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                "item_2": {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12,
+                    "width": "fill"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    "item_2": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Keycaps</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    "item_3": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>48 sets · from $34</p>",
+                        "text_size": "md",
+                        "text_color": "#B7C4D8",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2",
+                    "item_3"
+                  ]
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2"
+              ]
+            }
+          }
+        },
+        "item_3": {
+          "type": "_scrolling-story-step",
+          "settings": {},
+          "blocks": {
+            "content": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill"
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>02</p>"
+                  }
+                },
+                "item_2": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Keyboards</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                "item_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Compact kits and ready-built boards, hot-swap and wireless. Find a layout that fits your desk.</p>",
+                    "text_size": "md",
+                    "text_color": "#B7C4D8",
+                    "width": "fill"
+                  }
+                },
+                "item_4": {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop keyboards",
+                    "button_link": "/collections/keyboards-tapra",
+                    "button_style": "tertiary",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2",
+                "item_3",
+                "item_4"
+              ]
+            },
+            "media": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill",
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-2.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                "item_2": {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12,
+                    "width": "fill"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    "item_2": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Keyboards</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    "item_3": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>24 kits · from $59</p>",
+                        "text_size": "md",
+                        "text_color": "#B7C4D8",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2",
+                    "item_3"
+                  ]
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2"
+              ]
+            }
+          }
+        },
+        "item_4": {
+          "type": "_scrolling-story-step",
+          "settings": {},
+          "blocks": {
+            "content": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill"
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "eyebrow",
+                  "settings": {
+                    "text": "<p>03</p>"
+                  }
+                },
+                "item_2": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Switches</p>",
+                    "heading_size": "md",
+                    "html_tag": "h3"
+                  }
+                },
+                "item_3": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Linear, tactile or clicky. Try a tester pack before you commit to a full set.</p>",
+                    "text_size": "md",
+                    "text_color": "#B7C4D8",
+                    "width": "fill"
+                  }
+                },
+                "item_4": {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "Shop switches",
+                    "button_link": "",
+                    "button_style": "tertiary",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                },
+                "item_5": {
+                  "type": "button",
+                  "settings": {
+                    "button_label": "View all categories",
+                    "button_link": "/collections",
+                    "button_style": "tertiary",
+                    "show_icon": true,
+                    "icon": "arrow"
+                  }
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2",
+                "item_3",
+                "item_4",
+                "item_5"
+              ]
+            },
+            "media": {
+              "type": "group",
+              "static": true,
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 12,
+                "gap_mobile": 12,
+                "width": "fill",
+                "appearance_type": "scheme",
+                "color_scheme": "scheme-3",
+                "corner_radius": "radius_24",
+                "padding_top": 20,
+                "padding_bottom": 20,
+                "padding_left": 20,
+                "padding_right": 20
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "image",
+                  "settings": {
+                    "image": "shopify://shop_images/tapra-story-3.webp",
+                    "image_ratio_desktop": "square",
+                    "width_desktop": "fill",
+                    "image_ratio_mobile": "square",
+                    "width_mobile": "fill",
+                    "corner_radius": "radius_16"
+                  }
+                },
+                "item_2": {
+                  "type": "group",
+                  "settings": {
+                    "direction": "vertical",
+                    "gap_desktop": 12,
+                    "gap_mobile": 12,
+                    "width": "fill"
+                  },
+                  "blocks": {
+                    "item_1": {
+                      "type": "eyebrow",
+                      "settings": {
+                        "text": "<p>Category</p>"
+                      }
+                    },
+                    "item_2": {
+                      "type": "heading",
+                      "settings": {
+                        "text": "<p>Switches</p>",
+                        "heading_size": "sm",
+                        "html_tag": "h4"
+                      }
+                    },
+                    "item_3": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>60 types · from $12</p>",
+                        "text_size": "md",
+                        "text_color": "#B7C4D8",
+                        "width": "fill"
+                      }
+                    }
+                  },
+                  "block_order": [
+                    "item_1",
+                    "item_2",
+                    "item_3"
+                  ]
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2"
+              ]
+            }
+          }
+        }
+      },
+      "block_order": [
+        "item_2",
+        "item_3",
+        "item_4"
+      ],
+      "settings": {
+        "color_scheme": "scheme-3",
+        "padding_top": 110,
+        "padding_bottom": 120,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 70,
+        "padding_bottom_mobile": 70
+      }
     }
   },
   "order": [
@@ -2888,6 +3370,7 @@
     "why_us",
     "crossed_text",
     "find_board",
+    "featured_story",
     "by_the_numbers",
     "slideshow",
     "collection_editorial",
