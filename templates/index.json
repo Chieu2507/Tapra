@@ -3391,12 +3391,183 @@
         "item_4"
       ],
       "settings": {
+        "transition": "flip",
         "color_scheme": "scheme-3",
         "padding_top": 110,
         "padding_bottom": 120,
         "customize_mobile_padding": true,
         "padding_top_mobile": 70,
         "padding_bottom_mobile": 70
+      }
+    },
+    "shop_setup": {
+      "type": "hotspot",
+      "blocks": {
+        "header": {
+          "type": "header",
+          "name": "Header",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "alignment": "left",
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "padding_bottom": 48,
+            "padding_bottom_mobile": 28
+          },
+          "blocks": {
+            "item_1": {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "item_1": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Make space for the<br>desk you want.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                "item_2": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Every piece in this setup is ready to shop. Pick one, or take the whole set.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "item_1",
+                "item_2"
+              ]
+            }
+          },
+          "block_order": [
+            "item_1"
+          ]
+        },
+        "product-callout": {
+          "type": "product-callout",
+          "name": "Setup",
+          "static": true,
+          "settings": {
+            "image": "shopify://shop_images/tapra-setup-reference.webp",
+            "corner_radius": "radius_32",
+            "show_overlay": true,
+            "overlay": "rgba(5,13,36,0.25)",
+            "desktop_height": "adapt",
+            "mobile_height": "adapt",
+            "content_layout": "below",
+            "content_max_width": 340,
+            "preheading": "Shop the setup",
+            "heading": "A setup worth lingering at",
+            "heading_size": "custom",
+            "custom_heading_size": 24,
+            "html_tag": "h3",
+            "text": "",
+            "text_size": "lg",
+            "content_color_scheme": "scheme-3",
+            "text_alignment": "left",
+            "text_position": "bottom_left",
+            "button_label": "Shop the setup",
+            "button_link": "/collections/all",
+            "button_style": "primary",
+            "gap_desktop": 8,
+            "gap_mobile": 8,
+            "content_padding_desktop": 18,
+            "content_padding_mobile": 18,
+            "hotspot_icon_style": "plus",
+            "hotspot_color_scheme": "scheme-1"
+          },
+          "blocks": {
+            "item_1": {
+              "type": "hotspot",
+              "name": "SW Arctic Keycaps",
+              "settings": {
+                "use_content": true,
+                "content_heading": "SW Arctic Keycaps",
+                "content_text": "<p>$82.00 SGD</p>",
+                "vertical_position": 23,
+                "horizontal_position": 50
+              }
+            },
+            "item_2": {
+              "type": "hotspot",
+              "name": "[Instock] QK65v2 Classic Kit",
+              "settings": {
+                "use_content": true,
+                "content_heading": "[Instock] QK65v2 Classic Kit",
+                "content_text": "<p>From $249.00 SGD</p>",
+                "vertical_position": 57,
+                "horizontal_position": 62
+              }
+            },
+            "item_3": {
+              "type": "hotspot",
+              "name": "[Instock] Neo98 Keyboard Kit",
+              "settings": {
+                "use_content": true,
+                "content_heading": "[Instock] Neo98 Keyboard Kit",
+                "content_text": "<p>From $109.00 SGD</p>",
+                "vertical_position": 74,
+                "horizontal_position": 73
+              }
+            },
+            "item_4": {
+              "type": "hotspot",
+              "name": "DMK Yeti Keycaps",
+              "settings": {
+                "use_content": true,
+                "content_heading": "DMK Yeti Keycaps",
+                "content_text": "<p>$75.00 SGD</p>",
+                "vertical_position": 46,
+                "horizontal_position": 30
+              }
+            },
+            "item_5": {
+              "type": "hotspot",
+              "name": "QQ Neko Nami Deskmat",
+              "settings": {
+                "use_content": true,
+                "content_heading": "QQ Neko Nami Deskmat",
+                "content_text": "<p>$30.00 SGD</p>",
+                "vertical_position": 10,
+                "horizontal_position": 94
+              }
+            }
+          },
+          "block_order": [
+            "item_1",
+            "item_2",
+            "item_3",
+            "item_4",
+            "item_5"
+          ]
+        }
+      },
+      "settings": {
+        "section_width": "page_width",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
       }
     }
   },
@@ -3406,6 +3577,7 @@
     "crossed_text",
     "find_board",
     "featured_story",
+    "shop_setup",
     "by_the_numbers",
     "slideshow",
     "collection_editorial",

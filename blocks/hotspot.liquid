@@ -10,7 +10,11 @@
   {% content_for 'block', type: 'hotspot', id: 'hotspot-1' %}
 {% enddoc %}
 
-{% render 'product-callout-hotspot', block: block %}
+{% if section.settings.presentation == 'setup' %}
+  {% render 'product-callout-setup-item', block: block %}
+{% else %}
+  {% render 'product-callout-hotspot', block: block %}
+{% endif %}
 
 {% schema %}
 {
@@ -45,6 +49,12 @@
     {
       "type": "header",
       "content": "t:labels.position"
+    },
+    {
+      "type": "url",
+      "id": "content_link",
+      "label": "t:shop_setup.content_link",
+      "visible_if": "{{ block.settings.use_content }}"
     },
     {
       "type": "range",
