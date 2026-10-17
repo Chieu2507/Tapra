@@ -81,6 +81,7 @@ if (!customElements.get('editorial-testimonials')) {
     }
     navigate(direction) {
       const swiper = this.swiper || getSwiperCarousel(this.viewport);
+      this.dataset.debugNavigation = JSON.stringify({found:!!swiper,destroyed:swiper?.destroyed,animating:swiper?.animating,allowNext:swiper?.allowSlideNext,allowPrev:swiper?.allowSlidePrev,params:swiper?.params && {loop:swiper.params.loop,prevent:swiper.params.preventInteractionOnTransition},real:swiper?.realIndex});
       if (!swiper || swiper.destroyed) return;
       const count = Array.from(this.wrapper.children).filter(slide => slide.matches('[data-testimonial-editorial-review]') && !slide.matches('[data-carousel-loop-clone],.swiper-slide-clone,.swiper-slide-duplicate')).length;
       if (count < 2) return;
