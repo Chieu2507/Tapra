@@ -2567,6 +2567,320 @@
         "padding_top_mobile": 56,
         "padding_bottom_mobile": 56
       }
+    },
+    "by_the_numbers": {
+      "type": "by-the-numbers",
+      "blocks": {
+        "header": {
+          "type": "group",
+          "static": true,
+          "settings": {
+            "direction": "vertical",
+            "gap_desktop": 28,
+            "gap_mobile": 24,
+            "width": "fill",
+            "appearance_type": "inherit"
+          },
+          "blocks": {
+            "eyebrow": {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>By the numbers</p>"
+              }
+            },
+            "intro": {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "width": "fill",
+                "height": "fit"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small details.<br>A bigger picture.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Notice the details behind every board. There is more to a good keyboard than a nice case.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "description"
+              ]
+            }
+          },
+          "block_order": [
+            "eyebrow",
+            "intro"
+          ]
+        },
+        "stat_1": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#F4F7FB",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": {
+            "copy": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "width": "fill",
+                "height": "fit",
+                "appearance_type": "inherit"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Tested more than you'd think.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Every switch type gets real typing time before it ships.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "description"
+              ]
+            },
+            "counter": {
+              "type": "counter",
+              "settings": {
+                "value": 50,
+                "label": "hours of typing per switch",
+                "number_size": 190,
+                "number_size_mobile": 110,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          },
+          "block_order": [
+            "copy",
+            "counter"
+          ]
+        },
+        "stat_2": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": {
+            "copy": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "width": "fill",
+                "height": "fit",
+                "appearance_type": "inherit"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Try before you commit.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>One tester pack lets you feel every switch.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "description"
+              ]
+            },
+            "counter": {
+              "type": "counter",
+              "settings": {
+                "value": 9,
+                "label": "switch types in one tester pack",
+                "number_size": 120,
+                "number_size_mobile": 90,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          },
+          "block_order": [
+            "copy",
+            "counter"
+          ]
+        },
+        "stat_3": {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "width": "fill",
+            "height": "fill",
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": {
+            "copy": {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "width": "fill",
+                "height": "fit",
+                "appearance_type": "inherit"
+              },
+              "blocks": {
+                "heading": {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Shop with confidence.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Return it if it isn't right, no questions asked.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              },
+              "block_order": [
+                "heading",
+                "description"
+              ]
+            },
+            "counter": {
+              "type": "counter",
+              "settings": {
+                "value": 30,
+                "label": "days to return",
+                "number_size": 120,
+                "number_size_mobile": 90,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          },
+          "block_order": [
+            "copy",
+            "counter"
+          ]
+        },
+        "caption": {
+          "type": "text",
+          "static": true,
+          "settings": {
+            "text": "<p>An example of what we test. Your setup, at your own pace.</p>",
+            "text_size": "sm",
+            "text_color": "#B7C4D8",
+            "width": "fill"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3"
+      ],
+      "settings": {
+        "section_width": "page_width",
+        "color_scheme": "scheme-3",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      }
     }
   },
   "order": [
@@ -2574,6 +2888,7 @@
     "why_us",
     "crossed_text",
     "find_board",
+    "by_the_numbers",
     "slideshow",
     "collection_editorial",
     "tapra_media",

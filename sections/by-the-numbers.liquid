@@ -1,0 +1,483 @@
+{% liquid
+  assign width_class = 'page-width'
+  if section.settings.section_width != 'page_width'
+    assign width_class = 'full-width'
+  endif
+%}
+{% render 'component-stylesheet', filename: 'component-by-the-numbers.css', section_index: section.index %}
+<div class="section-spacing by-the-numbers color-scheme section-color-scope {{ section.settings.color_scheme }}" style="--section-padding-top:{{ section.settings.padding_top }}px;--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}--numbers-header-gap:{{ section.settings.header_gap }}px;--numbers-first-ratio:{{ section.settings.first_column_ratio }}fr;--numbers-card-height:{{ section.settings.card_height }}px;--numbers-card-height-mobile:{{ section.settings.card_height_mobile }}px;--numbers-gap:{{ section.settings.card_gap }}px;--numbers-panel-padding:{{ section.settings.panel_padding }}px;--numbers-radius:{% if section.settings.panel_radius == 'square' %}0px{% else %}var(--radius-{{ section.settings.panel_radius | remove: 'radius_' }}){% endif %};">
+  <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} by-the-numbers--full-bleed{% endif %}">
+    <div class="by-the-numbers__header">{% content_for 'block', type: 'group', id: 'header' %}</div>
+    <div class="by-the-numbers__stats color-scheme section-color-scope {{ section.settings.panel_scheme }}">{% content_for 'blocks' %}</div>
+    <div class="by-the-numbers__caption">{% content_for 'block', type: 'text', id: 'caption' %}</div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "By the numbers",
+  "tag": "section",
+  "class": "section-by-the-numbers",
+  "max_blocks": 6,
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
+  "blocks": [
+    {
+      "type": "group"
+    }
+  ],
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:labels.section_width",
+      "options": [
+        {
+          "value": "page_width",
+          "label": "Page width"
+        },
+        {
+          "value": "full_width",
+          "label": "Full width"
+        },
+        {
+          "value": "full_bleed",
+          "label": "Full width (no padding)"
+        }
+      ],
+      "default": "page_width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "label": "Header gap",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "first_column_ratio",
+      "label": "First column width",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "default": 1.9
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card height",
+      "min": 200,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 430
+    },
+    {
+      "type": "range",
+      "id": "card_height_mobile",
+      "label": "Card height (mobile)",
+      "min": 160,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 300
+    },
+    {
+      "type": "range",
+      "id": "card_gap",
+      "label": "Card gap",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "panel_padding",
+      "label": "Panel padding",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "panel_radius",
+      "label": "t:labels.corner_radius",
+      "options": [
+        {
+          "value": "radius_24",
+          "label": "24px"
+        },
+        {
+          "value": "radius_32",
+          "label": "32px"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "radius_32"
+    },
+    {
+      "type": "color_scheme",
+      "id": "panel_scheme",
+      "label": "Panel color scheme",
+      "default": "scheme-2"
+    },
+    {
+      "type": "header",
+      "content": "t:general.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "t:labels.top_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "t:labels.bottom_padding",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "checkbox",
+      "id": "customize_mobile_padding",
+      "label": "t:labels.customize_mobile_padding",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "t:labels.mobile_top_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "t:labels.mobile_bottom_padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "visible_if": "{{ section.settings.customize_mobile_padding }}",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "By the numbers",
+      "settings": {
+        "section_width": "page_width",
+        "color_scheme": "scheme-3",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      },
+      "blocks": [
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "gap_desktop": 28,
+            "gap_mobile": 24,
+            "appearance_type": "inherit"
+          },
+          "static": true,
+          "id": "header",
+          "blocks": [
+            {
+              "type": "eyebrow",
+              "settings": {
+                "text": "<p>By the numbers</p>"
+              }
+            },
+            {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "width": "fill",
+                "height": "fit",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Small details.<br>A bigger picture.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Notice the details behind every board. There is more to a good keyboard than a nice case.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#F4F7FB",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "height": "fit",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "appearance_type": "inherit"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Tested more than you'd think.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Every switch type gets real typing time before it ships.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "counter",
+              "settings": {
+                "value": 50,
+                "label": "hours of typing per switch",
+                "number_size": 190,
+                "number_size_mobile": 110,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "height": "fit",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "appearance_type": "inherit"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Try before you commit.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>One tester pack lets you feel every switch.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "counter",
+              "settings": {
+                "value": 9,
+                "label": "switch types in one tester pack",
+                "number_size": 120,
+                "number_size_mobile": 90,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "settings": {
+            "direction": "vertical",
+            "width": "fill",
+            "height": "fill",
+            "position": "space-between",
+            "gap_desktop": 48,
+            "gap_mobile": 40,
+            "appearance_type": "scheme",
+            "color_scheme": "scheme-2",
+            "background_color": "#E6EAF0",
+            "corner_radius": "radius_24",
+            "padding_top": 30,
+            "padding_bottom": 30,
+            "padding_left": 34,
+            "padding_right": 34,
+            "customize_mobile_padding": true,
+            "padding_top_mobile": 24,
+            "padding_bottom_mobile": 24,
+            "padding_left_mobile": 24,
+            "padding_right_mobile": 24
+          },
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "vertical",
+                "width": "fill",
+                "height": "fit",
+                "gap_desktop": 6,
+                "gap_mobile": 6,
+                "appearance_type": "inherit"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Shop with confidence.</p>",
+                    "heading_size": "xs",
+                    "html_tag": "h3"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Return it if it isn't right, no questions asked.</p>",
+                    "text_size": "md",
+                    "width": "fill"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "counter",
+              "settings": {
+                "value": 30,
+                "label": "days to return",
+                "number_size": 120,
+                "number_size_mobile": 90,
+                "animate": true,
+                "duration": 1400
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "settings": {
+            "text": "<p>An example of what we test. Your setup, at your own pace.</p>",
+            "text_size": "sm",
+            "width": "fill",
+            "text_color": "#B7C4D8"
+          },
+          "static": true,
+          "id": "caption"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
