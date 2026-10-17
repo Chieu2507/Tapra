@@ -11,11 +11,11 @@
     wake();
   }, { rootMargin: '200px' });
   const surfaceVariant = element => {
-    // Resolve the visible solid surface rather than inheriting the text/accent color.
+    // Resolve the surface tint rather than inheriting the text/accent color.
     for (let node = element; node; node = node.parentElement) {
       const color = getComputedStyle(node).backgroundColor;
       const channels = color.match(/^rgba?\(([^)]+)\)$/)?.[1].match(/[\d.]+/g)?.map(Number);
-      if (!channels || (channels.length > 3 && channels[3] < .95)) continue;
+      if (!channels || (channels.length > 3 && channels[3] < .2)) continue;
       const [r,g,b] = channels.slice(0,3).map(value => {
         const channel = value / 255;
         return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4;
