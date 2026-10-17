@@ -4,12 +4,7 @@
 .by-the-numbers__stats { display:grid; grid-template-columns:minmax(0,var(--numbers-first-ratio,1.9fr)) repeat(2,minmax(0,1fr)); gap:var(--numbers-gap,10px); padding:var(--numbers-panel-padding,10px); border-radius:var(--numbers-radius,var(--radius-32)); background:var(--background-color); }
 .by-the-numbers__stats > .group { min-width:0; min-height:var(--numbers-card-height,430px); }
 .by-the-numbers__caption { margin-block-start:16px; }
-.counter { display:flex; flex-direction:column; gap:var(--counter-gap,12px); min-width:0; max-width:100%; text-align:inherit; }
-.counter__number { display:block; font-family:var(--font-heading-family); font-weight:var(--counter-weight,400); font-size:clamp(48px,calc(var(--counter-size,120px) * .72),var(--counter-size,120px)); line-height:1; font-variant-numeric:tabular-nums; letter-spacing:0; color:var(--counter-color,var(--heading-color)); overflow-wrap:anywhere; }
-.counter__label { color:var(--counter-label-color,var(--body-color)); }
-@media(min-width:1150px) { .counter__number { font-size:var(--counter-size,120px); } }
 @media(max-width:767.98px) {
  .by-the-numbers__stats { grid-template-columns:minmax(0,1fr); }
  .by-the-numbers__stats > .group { min-height:var(--numbers-card-height-mobile,300px); }
- .counter__number { font-size:var(--counter-size-mobile,90px); }
 }

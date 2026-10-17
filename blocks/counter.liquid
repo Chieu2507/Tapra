@@ -7,7 +7,7 @@
   assign decimals = block.settings.decimals | default: 0
   assign display_value = value | round: decimals
 %}
-{% render 'component-stylesheet', filename: 'component-by-the-numbers.css', section_index: section.index %}
+{% render 'component-stylesheet', filename: 'component-counter.css', section_index: section.index %}
 <script src="{{ 'counter.js' | asset_url }}" defer></script>
 <animated-counter class="counter" data-value="{{ value }}" data-decimals="{{ decimals }}" data-grouping="{{ block.settings.grouping }}" data-animate="{{ block.settings.animate }}" data-duration="{{ block.settings.duration }}" style="--counter-weight:{{ block.settings.number_weight | default: '400' }};--counter-size:{{ block.settings.number_size | default: 120 }}px;--counter-size-mobile:{{ block.settings.number_size_mobile | default: 90 }}px;--counter-gap:{{ block.settings.gap | default: 12 }}px;{% if block.settings.number_color != blank %}--counter-color:{{ block.settings.number_color }};{% endif %}{% if block.settings.label_color != blank %}--counter-label-color:{{ block.settings.label_color }};{% endif %}" {{ block.shopify_attributes }}>
   <span class="visually-hidden">{{ block.settings.prefix | escape }}{{ display_value }}{{ block.settings.suffix | escape }}</span>

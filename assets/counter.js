@@ -6,7 +6,11 @@
       this.output = this.querySelector('[data-counter-value]');
       this.target = Number(this.dataset.value);
       if (!this.output || !Number.isFinite(this.target)) return;
-      this.finalText = this.output.textContent;
+      const decimals = Math.max(0, Math.min(3, Number(this.dataset.decimals) || 0));
+      this.finalText = new Intl.NumberFormat(document.documentElement.lang || 'en', {
+        minimumFractionDigits: decimals, maximumFractionDigits: decimals, useGrouping: this.dataset.grouping === 'true'
+      }).format(this.target);
+      this.output.textContent = this.finalText;
       this.motion = matchMedia('(prefers-reduced-motion: reduce)');
       this.onMotion = () => { if (this.motion.matches) this.finish(); };
       this.motion.addEventListener('change', this.onMotion);
