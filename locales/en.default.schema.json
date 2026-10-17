@@ -1793,6 +1793,10 @@
     "source": "Source",
     "custom": "Custom",
     "item_name": "Item name",
-    "detail": "Detail"
+    "detail": "Detail",
+    "presentation": "Presentation",
+    "standard": "Standard",
+    "content_link": "Content link",
+    "panel_blur": "Panel blur"
   }
 }

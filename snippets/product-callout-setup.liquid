@@ -1,0 +1,26 @@
+{% doc %}
+  Shop the setup presentation for the existing Product callout block.
+  Uses the parent block's captured media/content and native Hotspot children.
+  @param {block} block - Product callout owner
+  @param {string} media - Shared Product callout media markup
+  @param {string} content - Shared Product callout content markup
+  @param {string} children - Native Hotspot blocks in authored order
+  @param {string} classes - Shared callout presentation classes
+  @param {string} styles - Shared callout settings variables
+  @param {string} hotspot_scheme - Native hotspot color scheme
+{% enddoc %}
+{% render 'component-stylesheet', filename: 'component-shop-setup.css', section_index: section.index %}
+<script src="{{ 'shop-setup.js' | asset_url }}" defer="defer"></script>
+<shop-setup id="ProductCallout-{{ section.id }}-{{ block.id }}" class="{{ classes | replace: 'product-callout--layout-below', 'product-callout--layout-setup' | replace: 'product-callout--layout-split', 'product-callout--layout-setup' }} shop-setup__stage" style="{{ styles }}--setup-radius:var(--product-callout-media-radius);--setup-panel-width:{{ block.settings.setup_width }}px;--setup-inset:{{ block.settings.setup_inset }}px;--setup-opacity:{{ block.settings.setup_opacity }}%;--setup-blur:{{ block.settings.setup_blur }}px;" data-hotspots="{{ block.settings.setup_show_hotspots }}" data-items="{{ block.settings.setup_show_items }}" data-collapse="{{ block.settings.setup_allow_collapse }}" data-collapsed="{{ block.settings.setup_start_collapsed }}" data-pulse="{{ block.settings.setup_pulse }}" {{ block.shopify_attributes }}>
+  <div class="shop-setup__photo">
+    {{ media }}
+    <div class="shop-setup__hotspots color-scheme section-color-scope {{ hotspot_scheme }}" data-setup-hotspots role="group" aria-label="{{ 'accessibility.product_callout_hotspots' | t | escape }}"></div>
+  </div>
+  <div class="shop-setup__panel" data-setup-panel{% unless block.settings.setup_show_items %} hidden{% endunless %}>
+    <div class="shop-setup__list" id="SetupItems-{{ section.id }}-{{ block.id }}" data-setup-list><div class="shop-setup__list-inner">{{ children }}</div></div>
+    {% capture toggle_attributes %}data-setup-toggle hidden aria-controls="SetupItems-{{ section.id }}-{{ block.id }}" aria-expanded="true" data-show-label="{{ 'shop_setup.show_items' | t | escape }}" data-hide-label="{{ 'shop_setup.hide_items' | t | escape }}"{% endcapture %}
+    {% assign hide_items_label = 'shop_setup.hide_items' | t %}
+    {% render 'theme-button', label: hide_items_label, variant: 'tertiary', icon: 'chevron_up', class: 'shop-setup__toggle', attributes: toggle_attributes %}
+  </div>
+  {{ content | replace: 'class="product-callout__content ', 'class="shop-setup__caption product-callout__content ' }}
+</shop-setup>

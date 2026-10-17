@@ -74,7 +74,7 @@ if (!customElements.get('shop-setup')) {
       this.list.inert = collapsed;
       this.list.setAttribute('aria-hidden', String(collapsed));
       this.toggle.setAttribute('aria-expanded', String(!collapsed));
-      const label = this.toggle.querySelector('.btn__label');
+      const label = this.toggle.querySelector('.btn__text');
       // Update only the label text; preserve the native Button icon subtree.
       if (label) {
         const text = Array.from(label.childNodes).find(node => node.nodeType === 3 && node.textContent.trim());
