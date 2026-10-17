@@ -2959,7 +2959,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "custom",
+                "width": "fill",
+                "limit_width": true,
                 "max_width": 340,
                 "height": "fit",
                 "width_mobile": "fill"
@@ -3095,7 +3096,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "custom",
+                "width": "fill",
+                "limit_width": true,
                 "max_width": 340,
                 "height": "fit",
                 "width_mobile": "fill"
@@ -3231,7 +3233,8 @@
                 "direction": "vertical",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "width": "custom",
+                "width": "fill",
+                "limit_width": true,
                 "max_width": 340,
                 "height": "fit",
                 "width_mobile": "fill"

@@ -1,27 +1,27 @@
 .scrolling-story{position:relative;isolation:isolate;overflow:clip}
 .scrolling-story--surface:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 20%,color-mix(in srgb,var(--accent-color) 16%,transparent),transparent 55%),radial-gradient(ellipse at 5% 65%,color-mix(in srgb,var(--accent-color) 8%,transparent),transparent 55%),repeating-linear-gradient(125deg,transparent 0 180px,color-mix(in srgb,var(--accent-color) 2.5%,transparent) 220px,transparent 300px)}
 .scrolling-story--full-bleed{padding-inline:0}
-.scrolling-story__header{margin-bottom:64px}
+.scrolling-story__header{margin-bottom:var(--story-header-gap,64px)}
 .scrolling-story__steps{display:block}
 .scrolling-story__step{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,var(--story-media-width));gap:var(--story-gap);align-items:center;margin-bottom:48px}
-.scrolling-story__copy{min-width:0;width:100%;max-width:340px;justify-self:center}
+.scrolling-story__copy{min-width:0;width:100%;display:flex;align-items:center;justify-content:center;justify-self:center}
 .scrolling-story__media{min-width:0;width:100%;transform-origin:center;backface-visibility:hidden}
-.scrolling-story__media>.group{width:100%}
 .scrolling-story__steps[data-ready]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,var(--story-media-width));column-gap:var(--story-gap);position:relative}
 [data-ready]>.scrolling-story__step{display:contents}
 [data-ready] .scrolling-story__copy{grid-column:1;grid-row:var(--story-row);min-height:var(--story-step-height);display:flex;align-items:center;padding-block:48px;scroll-margin-top:var(--story-top)}
 [data-ready] .scrolling-story__media{grid-column:2;grid-row:1 / span var(--story-count);position:sticky;top:var(--story-top);align-self:start;opacity:0;visibility:hidden;pointer-events:none}
 [data-ready] .scrolling-story__media[data-active]{opacity:1;visibility:visible;pointer-events:auto}
-.scrolling-story__indicators{position:sticky;top:calc(var(--story-top) + 180px);grid-column:2;grid-row:1 / span var(--story-count);width:40px;margin-left:-44px;align-self:start;display:grid;z-index:2}
+.scrolling-story__indicators{position:sticky;top:calc(var(--story-top) + var(--story-measured-media-height,451px)/2 - var(--story-count)*20px);grid-column:2;grid-row:1 / span var(--story-count);width:40px;margin-left:-44px;align-self:start;display:grid;z-index:2}
 .scrolling-story__indicator{border:0;background:transparent;color:inherit;width:40px;height:40px;display:grid;place-items:center;cursor:pointer;padding:0}
 .scrolling-story__indicator:before{content:"";width:5px;height:5px;border-radius:5px;background:currentColor;opacity:.4;transition:height .3s,opacity .3s}
 .scrolling-story__indicator[aria-current=true]:before{height:28px;opacity:1}
 @media(max-width:767px){
- .scrolling-story__header{margin-bottom:32px}
+ .scrolling-story__header{margin-bottom:var(--story-header-gap-mobile,32px)}
  .scrolling-story__step{grid-template-columns:minmax(0,1fr)}
  .scrolling-story__steps[data-ready]{grid-template-columns:minmax(0,1fr)}
- [data-ready] .scrolling-story__media{grid-column:1;top:64px;max-width:min(260px,75vw);justify-self:center;z-index:2}
- [data-ready] .scrolling-story__copy{grid-column:1;padding-top:460px;padding-bottom:64px;min-height:max(var(--story-step-height),760px);max-width:100%;scroll-margin-top:64px}
+ [data-ready] .scrolling-story__media{grid-column:1;top:var(--story-top-mobile,64px);max-width:min(var(--story-media-width-mobile,260px),100%);justify-self:center;z-index:2}
+ [data-ready] .scrolling-story__copy{grid-column:1;padding-top:calc(var(--story-measured-media-height,380px) + var(--story-top-mobile,64px) + 16px);padding-bottom:64px;min-height:var(--story-step-height);max-width:100%;scroll-margin-top:var(--story-top-mobile,64px)}
  .scrolling-story__indicators{display:none}
+ .scrolling-story__steps[data-pagination-mobile="true"]>.scrolling-story__indicators{display:grid;grid-column:1;justify-self:end;margin-left:0;top:calc(var(--story-top-mobile,64px) + var(--story-measured-media-height,380px)/2 - var(--story-count)*20px)}
 }
 @media(prefers-reduced-motion:reduce){.scrolling-story__indicator:before{transition:none}}

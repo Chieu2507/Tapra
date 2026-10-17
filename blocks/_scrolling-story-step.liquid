@@ -8,12 +8,17 @@
 </div>
 {% schema %}
 {
-  "name": "Story step",
+  "name": "t:scrolling_story.step_name",
   "tag": null,
-  "settings": [],
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:scrolling_story.step_info"
+    }
+  ],
   "presets": [
     {
-      "name": "Story step",
+      "name": "t:scrolling_story.step_name",
       "blocks": [
         {
           "type": "group",
@@ -22,7 +27,10 @@
             "width": "fill",
             "gap_desktop": 12,
             "gap_mobile": 12,
-            "height": "fit"
+            "height": "fit",
+            "max_width": 340,
+            "width_mobile": "fill",
+            "limit_width": true
           },
           "blocks": [
             {

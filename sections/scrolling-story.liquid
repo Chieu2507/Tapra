@@ -6,17 +6,17 @@
 %}
 {% render 'component-stylesheet', filename: 'component-scrolling-story.css', section_index: section.index %}
 <script src="{{ 'scrolling-story.js' | asset_url }}" defer="defer"></script>
-<div class="section-spacing scrolling-story color-scheme section-color-scope {{ section.settings.color_scheme }}{% if section.settings.surface_light %} scrolling-story--surface{% endif %}" style="--section-padding-top:{{ section.settings.padding_top }}px;--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}--story-media-width:{{ section.settings.media_width }}px;--story-gap:{{ section.settings.column_gap }}px;--story-step-height:{{ section.settings.step_height }}svh;--story-top:{{ section.settings.sticky_top }}px;">
+<div class="section-spacing scrolling-story color-scheme section-color-scope {{ section.settings.color_scheme }}{% if section.settings.surface_light %} scrolling-story--surface{% endif %}" style="--section-padding-top:{{ section.settings.padding_top }}px;--section-padding-bottom:{{ section.settings.padding_bottom }}px;{% if section.settings.customize_mobile_padding %}--section-padding-top-mobile:{{ section.settings.padding_top_mobile }}px;--section-padding-bottom-mobile:{{ section.settings.padding_bottom_mobile }}px;{% endif %}--story-header-gap:{{ section.settings.header_gap }}px;--story-header-gap-mobile:{{ section.settings.header_gap_mobile }}px;--story-media-width-mobile:{{ section.settings.media_width_mobile }}px;--story-top-mobile:{{ section.settings.sticky_top_mobile }}px;--story-media-width:{{ section.settings.media_width }}px;--story-gap:{{ section.settings.column_gap }}px;--story-step-height:{{ section.settings.step_height }}svh;--story-top:{{ section.settings.sticky_top }}px;">
   <div class="container {{ width_class }}{% if section.settings.section_width == 'full_bleed' %} scrolling-story--full-bleed{% endif %}">
     <div class="scrolling-story__header">{% content_for 'block', type: 'group', id: 'header' %}</div>
-    <scrolling-story class="scrolling-story__steps" data-animate="{{ section.settings.animate }}" data-pagination="{{ section.settings.show_pagination }}">
+    <scrolling-story class="scrolling-story__steps" data-animate="{{ section.settings.animate }}" data-pagination="{{ section.settings.show_pagination }}" data-pagination-mobile="{{ section.settings.show_pagination_mobile }}" role="region" aria-label="{{ section.settings.aria_label | escape }}">
       {% content_for 'blocks' %}
     </scrolling-story>
   </div>
 </div>
 {% schema %}
 {
-  "name": "Scrolling story",
+  "name": "t:scrolling_story.name",
   "tag": "section",
   "class": "section-scrolling-story",
   "max_blocks": 6,
@@ -32,6 +32,10 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "t:general.layout"
+    },
     {
       "type": "select",
       "id": "section_width",
@@ -53,19 +57,13 @@
       "default": "page_width"
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:labels.color_scheme",
-      "default": "scheme-3"
-    },
-    {
-      "type": "header",
-      "content": "Storytelling"
+      "type": "paragraph",
+      "content": "t:scrolling_story.layout_info"
     },
     {
       "type": "range",
       "id": "media_width",
-      "label": "Media width",
+      "label": "t:scrolling_story.media_width",
       "min": 280,
       "max": 520,
       "step": 10,
@@ -74,28 +72,64 @@
     },
     {
       "type": "range",
-      "id": "column_gap",
-      "label": "Column gap",
-      "min": 24,
-      "max": 120,
+      "id": "media_width_mobile",
+      "label": "t:scrolling_story.media_width_mobile",
+      "min": 160,
+      "max": 400,
       "step": 4,
-      "default": 48,
+      "default": 260,
       "unit": "px"
     },
     {
       "type": "range",
+      "id": "column_gap",
+      "label": "t:scrolling_story.column_gap",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 48,
+      "unit": "px",
+      "info": "t:scrolling_story.column_gap_info"
+    },
+    {
+      "type": "range",
+      "id": "header_gap",
+      "label": "t:scrolling_story.header_gap",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "header_gap_mobile",
+      "label": "t:scrolling_story.header_gap_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:scrolling_story.scrolling"
+    },
+    {
+      "type": "range",
       "id": "step_height",
-      "label": "Step scroll height",
+      "label": "t:scrolling_story.step_height",
       "min": 50,
       "max": 120,
       "step": 5,
       "default": 80,
-      "unit": "vh"
+      "unit": "vh",
+      "info": "t:scrolling_story.step_height_info"
     },
     {
       "type": "range",
       "id": "sticky_top",
-      "label": "Sticky offset",
+      "label": "t:scrolling_story.sticky_top",
       "min": 40,
       "max": 180,
       "step": 2,
@@ -103,25 +137,58 @@
       "unit": "px"
     },
     {
-      "type": "checkbox",
-      "id": "animate",
-      "label": "Animate media transitions",
-      "default": true
+      "type": "range",
+      "id": "sticky_top_mobile",
+      "label": "t:scrolling_story.sticky_top_mobile",
+      "min": 0,
+      "max": 160,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
     },
     {
       "type": "checkbox",
-      "id": "show_pagination",
-      "label": "Show step indicators",
+      "id": "animate",
+      "label": "t:scrolling_story.animate",
       "default": true
     },
     {
       "type": "header",
-      "content": "Appearance"
+      "content": "t:scrolling_story.pagination"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "t:scrolling_story.show_pagination",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination_mobile",
+      "label": "t:scrolling_story.show_pagination_mobile",
+      "default": false,
+      "visible_if": "{{ section.settings.show_pagination }}"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "t:scrolling_story.aria_label",
+      "default": "Scrolling story"
+    },
+    {
+      "type": "header",
+      "content": "t:general.appearance"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:labels.color_scheme",
+      "default": "scheme-3"
     },
     {
       "type": "checkbox",
       "id": "surface_light",
-      "label": "Light surface effect",
+      "label": "t:scrolling_story.surface_light",
       "default": true
     },
     {
@@ -179,7 +246,7 @@
   ],
   "presets": [
     {
-      "name": "Scrolling story",
+      "name": "t:scrolling_story.name",
       "settings": {
         "color_scheme": "scheme-3",
         "padding_top": 110,
@@ -255,7 +322,10 @@
                 "width": "fill",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "height": "fit"
+                "height": "fit",
+                "max_width": 340,
+                "width_mobile": "fill",
+                "limit_width": true
               },
               "blocks": [
                 {
@@ -375,7 +445,10 @@
                 "width": "fill",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "height": "fit"
+                "height": "fit",
+                "max_width": 340,
+                "width_mobile": "fill",
+                "limit_width": true
               },
               "blocks": [
                 {
@@ -495,7 +568,10 @@
                 "width": "fill",
                 "gap_desktop": 12,
                 "gap_mobile": 12,
-                "height": "fit"
+                "height": "fit",
+                "max_width": 340,
+                "width_mobile": "fill",
+                "limit_width": true
               },
               "blocks": [
                 {

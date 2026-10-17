@@ -29,6 +29,15 @@ if (!customElements.get('scrolling-story')) {
         });
         this.append(this.indicators);
       }
+      this.measureMedia = () => {
+        const height = Math.max(...this.media.map(media => media.offsetHeight || 0));
+        if (height > 0) this.style.setProperty('--story-measured-media-height', `${height}px`);
+      };
+      if (typeof ResizeObserver !== 'undefined') {
+        this.mediaObserver = new ResizeObserver(this.measureMedia);
+        this.media.forEach(media => this.mediaObserver.observe(media));
+      }
+      this.measureMedia();
       this.show(0);
       this.setAttribute('data-ready', '');
       this.request = () => {
@@ -119,6 +128,8 @@ if (!customElements.get('scrolling-story')) {
       cancelAnimationFrame(this.frame);
       this.frame = null;
       this.cancelMotion();
+      this.mediaObserver?.disconnect();
+      this.mediaObserver = null;
       this.indicators?.remove();
       this.buttons = null;
       this.removeAttribute('data-ready');
