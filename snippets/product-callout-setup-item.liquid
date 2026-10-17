@@ -26,12 +26,17 @@
   {% assign item_title = item_title | default: fallback_title %}
   <div class="shop-setup__item" data-setup-item data-item-id="{{ block.id }}" style="--setup-x:{{ block.settings.horizontal_position }};--setup-y:{{ block.settings.vertical_position }};--setup-x-mobile:{% if block.settings.customize_mobile_position %}{{ block.settings.mobile_horizontal_position }}{% else %}{{ block.settings.horizontal_position }}{% endif %};--setup-y-mobile:{% if block.settings.customize_mobile_position %}{{ block.settings.mobile_vertical_position }}{% else %}{{ block.settings.vertical_position }}{% endif %};" {{ block.shopify_attributes }}>
     <button type="button" class="shop-setup__dot" data-setup-dot data-item-id="{{ block.id }}" hidden aria-label="{{ item_title | escape }}" aria-pressed="false"><span aria-hidden="true"></span><span class="shop-setup__tooltip" aria-hidden="true">{{ item_title | escape }}</span></button>
-    {% if item_url != blank %}<a href="{{ item_url | escape }}"{% else %}<button type="button"{% endif %} class="shop-setup__row" data-setup-row>
+    {% capture row_content %}
       <span class="shop-setup__number" aria-hidden="true"></span>
       <span class="shop-setup__item-copy"><span class="shop-setup__item-title body-text body-sm">{{ item_title | escape }}</span>
         {% if block.settings.use_content %}{% if block.settings.content_text != blank %}<span class="shop-setup__item-detail body-text body-xs">{{ block.settings.content_text | strip_html | escape }}</span>{% endif %}{% elsif item_product != blank %}<span class="shop-setup__item-detail body-text body-xs">{{ item_product.price | money }}</span>{% endif %}
       </span>
       <span class="shop-setup__arrow" aria-hidden="true">{% render 'icon', icon: 'arrow_right', width: 18 %}</span>
-    {% if item_url != blank %}</a>{% else %}</button>{% endif %}
+    {% endcapture %}
+    {% if item_url != blank %}
+      <a href="{{ item_url | escape }}" class="shop-setup__row" data-setup-row>{{ row_content }}</a>
+    {% else %}
+      <button type="button" class="shop-setup__row" data-setup-row>{{ row_content }}</button>
+    {% endif %}
   </div>
 {% endif %}
