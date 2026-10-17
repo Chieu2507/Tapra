@@ -13,7 +13,7 @@ if (!customElements.get('scrolling-story')) {
       const options = {signal: this.abort.signal};
       this.style.setProperty('--story-count', this.steps.length);
       this.steps.forEach((step, i) => step.style.setProperty('--story-row', i + 1));
-      if (this.dataset.pagination === 'true') {
+      if (this.dataset.pagination === 'true' && this.steps.length > 1) {
         this.indicators = document.createElement('div');
         this.indicators.className = 'scrolling-story__indicators';
         this.buttons = this.steps.map((step, i) => {

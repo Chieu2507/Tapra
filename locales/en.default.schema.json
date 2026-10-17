@@ -495,12 +495,12 @@
     "display_sale_badge": "Display sale status",
     "display_sold_out_badge": "Display sold-out status",
     "display_manual_badges": "Display configured badges",
-    "badge_label_1": "Badge label · rule 1",
-    "badge_collections_1": "Matching collections · rule 1",
-    "badge_label_2": "Badge label · rule 2",
-    "badge_collections_2": "Matching collections · rule 2",
-    "badge_label_3": "Badge label · rule 3",
-    "badge_collections_3": "Matching collections · rule 3",
+    "badge_label_1": "Badge label \u00b7 rule 1",
+    "badge_collections_1": "Matching collections \u00b7 rule 1",
+    "badge_label_2": "Badge label \u00b7 rule 2",
+    "badge_collections_2": "Matching collections \u00b7 rule 2",
+    "badge_label_3": "Badge label \u00b7 rule 3",
+    "badge_collections_3": "Matching collections \u00b7 rule 3",
     "enable_custom_badges": "Enable custom tag badges",
     "show_vendor": "Show vendor",
     "show_type": "Show type",
@@ -1105,8 +1105,8 @@
       "large": "Gallery-led"
     },
     "product_media_layout": {
-      "left_thumbnails": "Thumbnail rail — left",
-      "bottom_thumbnails": "Thumbnail rail — below",
+      "left_thumbnails": "Thumbnail rail \u2014 left",
+      "bottom_thumbnails": "Thumbnail rail \u2014 below",
       "carousel_thumbnails": "Carousel with overlay thumbnails",
       "grid": "Gallery grid",
       "stacked": "Single-column stack",
@@ -1559,7 +1559,7 @@
   "info": {
     "drawer_mobile_width": "Auto uses a floating panel. Full fills the mobile screen. Applies to drawers, including menu, cart and Compact search. Classic search stays below the header.",
     "compact_search_type": "Used when Header style is Compact. Desktop type applies to Classic headers.",
-    "media_offset_theme_settings": "Use the media inset from Theme settings → Product cards. Turn off to remove the media inset in this section.",
+    "media_offset_theme_settings": "Use the media inset from Theme settings \u2192 Product cards. Turn off to remove the media inset in this section.",
     "blog_meta_badge_placement": "Badge on image places a direct Meta child at the selected corner of a stacked Blog card. Nested Meta and horizontal cards keep badges in the content.",
     "collection_filter_search_discovery": "Customize filters with the [Search & Discovery app](https://admin.shopify.com/store/spinel-theme/apps/search-and-discovery).",
     "hotspot_gallery_sticky_header": "Keeps the header in view while scrolling through the gallery on tablet and desktop.",
@@ -1582,7 +1582,7 @@
     "localization_manage_languages": "[Manage languages](https://admin.shopify.com/settings/languages)",
     "payment_icons": "Payment icons will appear once you set up payment methods.",
     "email_signup_subscription_preferences": "Customer selections will be saved in the \"Notes\" section of the customer profile.",
-    "heading_html_tag": "Choose the HTML tag that matches this content's role. Reserve H1–H6 for the document outline and use Paragraph for supporting copy.",
+    "heading_html_tag": "Choose the HTML tag that matches this content's role. Reserve H1\u2013H6 for the document outline and use Paragraph for supporting copy.",
     "heading_text_color": "Clear the color to inherit the heading color from the active scheme.",
     "countdown_timezone": "The expiration date is calculated based on your store's primary timezone.",
     "countdown_end_time_format": "Use the format YYYY-MM-DD HH:MM (24-hour format). Example: 2025-12-25 18:00",
@@ -1615,7 +1615,7 @@
     "product_media_variant_filter": "Gallery filtering follows [theme settings](/editor?context=theme&category=variant%20pickers).",
     "autoplay_video_muted": "Videos are muted when autoplay is enabled.",
     "back_in_stock_alert": "Collect customer emails to notify them when a product is back in stock.",
-    "back_in_stock_alert_manual_notifications": "Note: Email notifications will not be sent automatically when the product becomes available — you will need to send them yourself.",
+    "back_in_stock_alert_manual_notifications": "Note: Email notifications will not be sent automatically when the product becomes available \u2014 you will need to send them yourself.",
     "hero_media_aspect_ratio": "Used for Adapt height in Stack layout.",
     "show_image_text_card_settings": "These controls apply only to Image text card items. Slide headings and text are configured in their own blocks.",
     "inventory_urgent_threshold": "Shows Hurry up below this quantity. Capped at the low-stock threshold. Set to 0 to disable.",
@@ -1746,9 +1746,7 @@
     "icon_gap": "Icon gap",
     "background_gradient": "Background gradient"
   },
-  "collection_editorial": {
-    "name": "Collection list:Editorial"
-  },
+  "collection_editorial": {"name": "Collection list:Editorial"},
   "scrolling_story": {
     "name": "Scrolling story",
     "step_name": "Story step",
