@@ -1,5 +1,6 @@
 {% capture children %}{% content_for 'blocks' %}{% endcapture %}
-{% render 'group-content', block: block, section: section, children: children %}
+{% assign group_surface_class = '' %}{% if block.settings.pointer_light %}{% assign group_surface_class = 'surface-light' %}{% endif %}
+{% render 'group-content', block: block, section: section, children: children, extra_class: group_surface_class %}
 
 {% schema %}
 {
@@ -397,6 +398,12 @@
       "id": "background_image",
       "label": "t:labels.background_image",
       "visible_if": "{{ block.settings.appearance_type == 'scheme' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "pointer_light",
+      "label": "t:labels.surface_light",
+      "default": false
     },
     {
       "type": "header",
