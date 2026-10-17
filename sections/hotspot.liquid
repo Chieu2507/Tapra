@@ -166,6 +166,22 @@
     },
     {
       "type": "select",
+      "id": "presentation",
+      "label": "t:shop_setup.presentation",
+      "options": [
+        {
+          "value": "standard",
+          "label": "t:shop_setup.standard"
+        },
+        {
+          "value": "setup",
+          "label": "t:shop_setup.name"
+        }
+      ],
+      "default": "standard"
+    },
+    {
+      "type": "select",
       "id": "section_width",
       "label": "t:labels.section_width",
       "options": [
@@ -186,7 +202,8 @@
     },
     {
       "type": "header",
-      "content": "t:general.product_card"
+      "content": "t:general.product_card",
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "select",
@@ -202,7 +219,8 @@
           "label": "Compact"
         }
       ],
-      "default": "standard"
+      "default": "standard",
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "select",
@@ -219,19 +237,21 @@
         }
       ],
       "default": "side",
-      "visible_if": "{{ section.settings.product_card_layout == 'compact' }}"
+      "visible_if": "{{ section.settings.presentation != 'setup' and section.settings.product_card_layout == 'compact' }}"
     },
     {
       "type": "checkbox",
       "id": "show_product_type",
       "label": "t:labels.show_product_type",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "checkbox",
       "id": "show_product_image",
       "label": "t:labels.show_product_image",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "range",
@@ -242,19 +262,21 @@
       "step": 4,
       "default": 64,
       "unit": "px",
-      "visible_if": "{{ section.settings.product_card_layout == 'compact' and section.settings.show_product_image }}"
+      "visible_if": "{{ section.settings.presentation != 'setup' and section.settings.product_card_layout == 'compact' and section.settings.show_product_image }}"
     },
     {
       "type": "checkbox",
       "id": "show_price",
       "label": "t:labels.show_price",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "text",
       "id": "product_link_label",
       "label": "t:labels.product_link_label",
-      "default": "View product"
+      "default": "View product",
+      "visible_if": "{{ section.settings.presentation != 'setup' }}"
     },
     {
       "type": "header",
@@ -463,6 +485,175 @@
               }
             }
           ]
+        }
+      ]
+    },
+    {
+      "name": "t:shop_setup.name",
+      "category": "t:general.banners",
+      "settings": {
+        "section_width": "page_width",
+        "presentation": "setup",
+        "color_scheme": "scheme-2",
+        "padding_top": 96,
+        "padding_bottom": 96,
+        "customize_mobile_padding": true,
+        "padding_top_mobile": 64,
+        "padding_bottom_mobile": 64
+      },
+      "blocks": [
+        {
+          "type": "header",
+          "id": "header",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "alignment": "left",
+            "gap_desktop": 0,
+            "gap_mobile": 0,
+            "padding_bottom": 48,
+            "padding_bottom_mobile": 28
+          },
+          "blocks": [
+            {
+              "type": "group",
+              "settings": {
+                "direction": "horizontal",
+                "width": "fill",
+                "height": "fit",
+                "position_horizontal": "bottom",
+                "horizontal_alignment": "space-between",
+                "gap_desktop": 32,
+                "gap_mobile": 20,
+                "customize_mobile_alignment": true,
+                "alignment_mobile": "left"
+              },
+              "blocks": [
+                {
+                  "type": "heading",
+                  "settings": {
+                    "text": "<p>Make space for the<br>desk you want.</p>",
+                    "heading_size": "xl",
+                    "html_tag": "h2",
+                    "width": "fit"
+                  }
+                },
+                {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Every piece in this setup is ready to shop. Pick one, or take the whole set.</p>",
+                    "text_size": "md",
+                    "width": "custom",
+                    "max_width": 340,
+                    "customize_mobile_size": true,
+                    "width_mobile": "fill"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "Header"
+        },
+        {
+          "type": "product-callout",
+          "id": "product-callout",
+          "static": true,
+          "settings": {
+            "overlay": "rgba(5,13,36,0.25)",
+            "desktop_height": "adapt",
+            "mobile_height": "adapt",
+            "content_color_scheme": "scheme-3",
+            "hotspot_color_scheme": "scheme-1",
+            "heading": "A setup worth lingering at",
+            "heading_size": "custom",
+            "html_tag": "h3",
+            "text": "",
+            "text_size": "lg",
+            "button_label": "Shop the setup",
+            "button_style": "primary",
+            "text_alignment": "left",
+            "text_position": "bottom_left",
+            "gap_desktop": 8,
+            "gap_mobile": 8,
+            "hotspot_icon_style": "plus",
+            "image": "shopify://shop_images/tapra-setup-reference.webp",
+            "corner_radius": "radius_32",
+            "preheading": "Shop the setup",
+            "custom_heading_size": 24,
+            "button_link": "/collections/all",
+            "content_max_width": 340,
+            "content_padding_desktop": 18,
+            "content_padding_mobile": 18,
+            "show_overlay": true,
+            "content_layout": "below",
+            "setup_show_items": true,
+            "setup_allow_collapse": true,
+            "setup_start_collapsed": false,
+            "setup_width": 320,
+            "setup_inset": 20,
+            "setup_opacity": 55,
+            "setup_blur": 14,
+            "setup_show_hotspots": true,
+            "setup_pulse": true
+          },
+          "blocks": [
+            {
+              "type": "hotspot",
+              "name": "SW Arctic Keycaps",
+              "settings": {
+                "use_content": true,
+                "content_heading": "SW Arctic Keycaps",
+                "content_text": "<p>$82.00 SGD</p>",
+                "horizontal_position": 50,
+                "vertical_position": 23
+              }
+            },
+            {
+              "type": "hotspot",
+              "name": "[Instock] QK65v2 Classic Kit",
+              "settings": {
+                "use_content": true,
+                "content_heading": "[Instock] QK65v2 Classic Kit",
+                "content_text": "<p>From $249.00 SGD</p>",
+                "horizontal_position": 62,
+                "vertical_position": 57
+              }
+            },
+            {
+              "type": "hotspot",
+              "name": "[Instock] Neo98 Keyboard Kit",
+              "settings": {
+                "use_content": true,
+                "content_heading": "[Instock] Neo98 Keyboard Kit",
+                "content_text": "<p>From $109.00 SGD</p>",
+                "horizontal_position": 73,
+                "vertical_position": 74
+              }
+            },
+            {
+              "type": "hotspot",
+              "name": "DMK Yeti Keycaps",
+              "settings": {
+                "use_content": true,
+                "content_heading": "DMK Yeti Keycaps",
+                "content_text": "<p>$75.00 SGD</p>",
+                "horizontal_position": 30,
+                "vertical_position": 46
+              }
+            },
+            {
+              "type": "hotspot",
+              "name": "QQ Neko Nami Deskmat",
+              "settings": {
+                "use_content": true,
+                "content_heading": "QQ Neko Nami Deskmat",
+                "content_text": "<p>$30.00 SGD</p>",
+                "horizontal_position": 94,
+                "vertical_position": 10
+              }
+            }
+          ],
+          "name": "Setup"
         }
       ]
     }
